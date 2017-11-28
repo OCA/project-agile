@@ -1,2 +1,4 @@
 # -*- coding: utf-8 -*-
-from . import project_scrum_test_task
+# Copyright <2017> <Tenovar Ltd>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
