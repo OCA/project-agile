@@ -208,13 +208,17 @@ class ProjectScrumUs(models.Model):
     color = fields.Integer(related='project_id.color')
     description = fields.Html(string='Description',)
     actor_ids = fields.Many2many(comodel_name='project.scrum.actors', string='Actor')
-    project_id = fields.Many2one(comodel_name='project.project', string='Project', ondelete='set null',index=True,
-        select=True, track_visibility='onchange', change_default=True)
-    sprint_ids = fields.Many2many(comodel_name='project.scrum.sprint', string='Sprint', store=True)
+    project_id = fields.Many2one(comodel_name='project.project', string='Project', 
+                                 ondelete='set null',index=True,
+                                 select=True, track_visibility='onchange', change_default=True)
+    sprint_ids = fields.Many2many(comodel_name='project.scrum.sprint', 
+                                  string='Sprint', store=True)
     task_ids = fields.One2many(comodel_name='project.task', inverse_name='us_id')
-    task_test_ids = fields.One2many(comodel_name='project.scrum.test', inverse_name='user_story_id_test')
+    task_test_ids = fields.One2many(comodel_name='project.scrum.test', 
+                                    inverse_name='user_story_id_test')
     task_count = fields.Integer(compute='_task_count', store=True)
-    test_ids = fields.One2many(comodel_name='project.scrum.test', inverse_name='user_story_id_test')
+    test_ids = fields.One2many(comodel_name='project.scrum.test', 
+                               inverse_name='user_story_id_test')
     test_count = fields.Integer(compute='_test_count', store=True)
     sequence = fields.Integer('Sequence')
     company_id = fields.Many2one(related='project_id.analytic_account_id.company_id')
@@ -222,7 +226,8 @@ class ProjectScrumUs(models.Model):
     value = fields.Selection('_get_value_field', string='Value')
     risk = fields.Selection('_get_risk_field', string='Risk')
     kano = fields.Selection('_get_kano_field', string='Kano')
-    reference = fields.Char('Number', select=True, readonly=True, copy=False,default='/')
+    reference = fields.Char('Number', select=True, readonly=True, 
+                            copy=False,default='/')
     kanban_state = fields.Selection([('normal', 'Mark as impeded'),
                                     ('blocked', 'Mark as waiting'), 
                                     ('done', 'Mark item as defined and ready for implementation')],
@@ -251,7 +256,8 @@ class ProjectScrumUs(models.Model):
             return context['default_project_id']
         if isinstance(context.get('default_project_id'), basestring):
             project_name = context['default_project_id']
-            project_ids = self.pool.get('project.project').name_search(cr, uid, name=project_name, context=context)
+            project_ids = self.pool.get('project.project').name_search(cr, uid, 
+                                                                       name=project_name, context=context)
             if len(project_ids) == 1:
                 return project_ids[0][0]
         return None
