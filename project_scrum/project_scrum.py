@@ -257,7 +257,7 @@ class ProjectScrumUs(models.Model):
         if isinstance(context.get('default_project_id'), basestring):
             project_name = context['default_project_id']
             project_ids = self.pool.get('project.project').name_search(cr, uid, 
-                                                                       name=project_name, context=context)
+                name=project_name, context=context)
             if len(project_ids) == 1:
                 return project_ids[0][0]
         return None
@@ -491,7 +491,9 @@ class ProjectScrumTest(models.Model):
     user_story_id_test = fields.Many2one(comodel_name="project.scrum.us", string="User Story")
     description_test = fields.Html(string='Description')
     sequence_test = fields.Integer(string='Sequence', select=True)
-    stats_test = fields.Selection([('draft', 'Draft'), ('in progress', 'In Progress'), ('cancel', 'Cancelled')], string='State', required=False)
+    stats_test = fields.Selection([('draft', 'Draft'),
+                                   ('in progress', 'In Progress'),
+                                   ('cancel', 'Cancelled')], string='State', required=False)
     company_id = fields.Many2one(related='project_id.analytic_account_id.company_id')
     color = fields.Integer(related='project_id.color')
     
@@ -502,7 +504,8 @@ class ProjectScrumTest(models.Model):
             return context['default_project_id']
         if isinstance(context.get('default_project_id'), basestring):
             project_name = context['default_project_id']
-            project_ids = self.pool.get('project.project').name_search(cr, uid, name=project_name, context=context)
+            project_ids = self.pool.get('project.project').name_search(cr, uid, 
+                name=project_name, context=context)
             if len(project_ids) == 1:
                 return project_ids[0][0]
         return None
