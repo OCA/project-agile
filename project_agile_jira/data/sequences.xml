@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <data noupdate="1">
+        <record id="project_agile_jira_job_sequence" model="ir.sequence">
+            <field name="name">Jira Request Job</field>
+            <field name="code">project.agile.jira.request.job</field>
+            <field name="prefix">Jira Job No.</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>

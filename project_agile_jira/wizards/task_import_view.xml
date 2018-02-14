@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="project_agile_jira_task_import_wizard_action" model="ir.actions.act_window">
+        <field name="name">Task Import Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.agile.jira.task.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="project_agile_jira_import_wizard_form" model="ir.ui.view">
+        <field name="name">Task Import Wizard</field>
+        <field name="model">project.agile.jira.task.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Agile Board Importer">
+                <sheet>
+                    <group string="Project">
+                        <field name="project_id" nolabel="1"/>
+                    </group>
+                    <group string="Mapper">
+                        <field name="issue_type_mapper_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="issue_type" />
+                                <field name="task_type_id" required="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button string="Import" name="button_import" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

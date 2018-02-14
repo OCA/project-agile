@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <data noupdate="1">
+
+        <!-- Project Task Link Relation -->
+
+        <record id="project_task_link_relation_blocks" model="project.task.link.relation">
+            <field name="name">blocks</field>
+            <field name="inverse_name">is blocked by</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="project_task_link_relation_is_blocked_by" model="project.task.link.relation">
+            <field name="name">is blocked by</field>
+            <field name="inverse_name">blocks</field>
+            <field name="sequence">2</field>
+        </record>
+        <record id="project_task_link_relation_clones" model="project.task.link.relation">
+            <field name="name">clones</field>
+            <field name="inverse_name">is cloned by</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="project_task_link_relation_is_cloned_by" model="project.task.link.relation">
+            <field name="name">is cloned by</field>
+            <field name="inverse_name">clones</field>
+            <field name="sequence">4</field>
+        </record>
+        <record id="project_task_link_relation_duplicates" model="project.task.link.relation">
+            <field name="name">duplicates</field>
+            <field name="inverse_name">is duplicated by</field>
+            <field name="sequence">5</field>
+        </record>
+        <record id="project_task_link_relation_is_duplicated_by" model="project.task.link.relation">
+            <field name="name">is duplicated by</field>
+            <field name="inverse_name">duplicates</field>
+            <field name="sequence">6</field>
+        </record>
+        <record id="project_task_link_relation_causes" model="project.task.link.relation">
+            <field name="name">causes</field>
+            <field name="inverse_name">is caused by</field>
+            <field name="sequence">7</field>
+        </record>
+        <record id="project_task_link_relation_is_caused_by" model="project.task.link.relation">
+            <field name="name">is caused by</field>
+            <field name="inverse_name">causes</field>
+            <field name="sequence">8</field>
+        </record>
+        <record id="project_task_link_relation_relates_to" model="project.task.link.relation">
+            <field name="name">relates to</field>
+            <field name="inverse_name">relates to</field>
+            <field name="sequence">9</field>
+        </record>
+
+
+        <!-- List of common priorities -->
+        <record id="project_task_priority_blocker" model="project.task.priority">
+            <field name="name">Blocker</field>
+            <field name="description">Block development and/or testing work,production could not run.</field>
+            <field name="agile_icon">block-helper</field>
+            <field name="agile_icon_color">#b71c1c</field>
+            <field name="icon" type="base64" file="project_agile/static/img/priority-blocker.png"/>
+        </record>
+
+        <record id="project_task_priority_critical" model="project.task.priority">
+            <field name="name">Critical</field>
+            <field name="description">Crashed, loss of data,severe memory leak.</field>
+            <field name="agile_icon">arrow-up-bold</field>
+            <field name="agile_icon_color">#b71c1c</field>
+            <field name="icon" type="base64" file="project_agile/static/img/priority-critical.png"/>
+        </record>
+
+        <record id="project_task_priority_major" model="project.task.priority">
+            <field name="name">Major</field>
+            <field name="description">Major loss of function.</field>
+            <field name="agile_icon">chevron-double-up</field>
+            <field name="agile_icon_color">#b71c1c</field>
+            <field name="icon" type="base64" file="project_agile/static/img/priority-major.png"/>
+        </record>
+
+        <record id="project_task_priority_minor" model="project.task.priority">
+            <field name="name">Minor</field>
+            <field name="description">Minor loss of function or other problem where easy workaround is present.</field>
+            <field name="agile_icon">chevron-double-down</field>
+            <field name="agile_icon_color">#2e7d32</field>
+            <field name="icon" type="base64" file="project_agile/static/img/priority-minor.png"/>
+        </record>
+
+        <record id="project_task_priority_trivial" model="project.task.priority">
+            <field name="name">Trivial</field>
+            <field name="description">Cosmetic problem like misspelt words or misaligned text</field>
+            <field name="agile_icon">arrow-down-bold</field>
+            <field name="agile_icon_color">#A9A9A9</field>
+            <field name="icon" type="base64" file="project_agile/static/img/priority-trivial.png"/>
+        </record>
+
+        <!-- List of MoSCoW priorities -->
+        <record id="project_task_moscow_priority_must_have" model="project.task.priority">
+            <field name="name">Must have</field>
+            <field name="description">
+                <![CDATA[
+<strong>‘Must Haves‘</strong> are features that must be included before the product can be launched.
+It is good to have clarity on this before a project begins, as this is the minimum scope for the product to be useful.
+                ]]>
+            </field>
+            <field name="agile_icon">custom-moscow-must</field>
+            <field name="agile_icon_color">#b71c1c</field>
+            <field name="icon" type="base64" file="project_agile/static/img/priority-must-have.png"/>
+        </record>
+
+        <record id="project_task_moscow_priority_should_have" model="project.task.priority">
+            <field name="name">Should have</field>
+            <field name="description">
+                <![CDATA[
+<strong>‘Should Haves‘</strong> are features that are not critical to launch, but are considered to be important and of a high value to the user.
+                ]]>
+            </field>
+            <field name="agile_icon">custom-moscow-should</field>
+            <field name="agile_icon_color">#e65100</field>
+            <field name="icon" type="base64" file="project_agile/static/img/priority-should-have.png"/>
+        </record>
+
+        <record id="project_task_moscow_priority_could_have" model="project.task.priority">
+            <field name="name">Could have</field>
+            <field name="description">
+                <![CDATA[
+<strong>‘Could Haves‘</strong> are features that are nice to have and could potentially be included without incurring too much effort or cost.
+These will be the first features to be removed from scope if the project’s timescales are later at risk.
+                ]]>
+            </field>
+            <!--<field name="order" eval="8"/>-->
+            <field name="agile_icon">custom-moscow-could</field>
+            <field name="agile_icon_color">#ffab00</field>
+            <field name="icon" type="base64" file="project_agile/static/img/priority-could-have.png"/>
+        </record>
+
+        <record id="project_task_moscow_priority_wont_have" model="project.task.priority">
+            <field name="name">Won't have (but Would like in future)</field>
+            <field name="description">
+                <![CDATA[
+<strong>‘Won’t Haves‘</strong> are features that have been reqeusted but are explicitly excluded from scope for the planned duration, and may be included in a future phase of development.
+                ]]>
+            </field>
+            <field name="agile_icon">custom-moscow-would</field>
+            <field name="agile_icon_color">#689f38</field>
+            <field name="icon" type="base64" file="project_agile/static/img/priority-would-have.png"/>
+        </record>
+
+
+        <!-- List of common resolutions -->
+        <record id="project_task_resolution_done" model="project.task.resolution">
+            <field name="name">Done</field>
+            <field name="description">Work on this item has been finished.</field>
+        </record>
+
+        <record id="project_task_resolution_duplicate" model="project.task.resolution">
+            <field name="name">Duplicate</field>
+            <field name="description">This issue is a duplicate of another issue in the system.</field>
+        </record>
+
+        <record id="project_task_resolution_wont_do" model="project.task.resolution">
+            <field name="name">Won't Do</field>
+            <field name="description">Work on this issue will not be accepted.</field>
+        </record>
+
+
+        <!-- Project Task Type (a.k.a. Stage) -->
+         <record id="project_task_stage_todo" model="project.task.type">
+            <field name="name">ToDo</field>
+            <field name="description">This stage means that the task is waiting on TODO list to be picked up for work.</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="project_task_stage_done" model="project.task.type">
+            <field name="name">Done</field>
+            <field name="description">This stage means that the task has been completed.</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="project_task_stage_waiting_approval" model="project.task.type">
+            <field name="name">Waiting Approval</field>
+            <field name="description">This stage means that the task is waiting for a "green light" to be worked on.</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="project_task_stage_rejected" model="project.task.type">
+            <field name="name">Rejected</field>
+            <field name="description">This stage means that the task has been rejected.</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="project_task_stage_init" model="project.task.type">
+            <field name="name">Init</field>
+            <field name="description">This stage means that the task is under construction. It should be ignored until reporter says otherwise.</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="project_task_stage_actionable" model="project.task.type">
+            <field name="name">Actionable</field>
+            <field name="description">This stage means that the task definition has been completed and that it's ready for review by project manager.</field>
+            <field name="sequence" eval="2"/>
+        </record>
+
+        <record id="project_task_stage_accepted" model="project.task.type">
+            <field name="name">Accepted</field>
+            <field name="description">This stage means that the task has been accepted by the project manager</field>
+            <field name="sequence" eval="3"/>
+        </record>
+
+        <record id="project_task_stage_open" model="project.task.type">
+            <field name="name">Open</field>
+            <field name="description">This stage means that it can be worked on this task.</field>
+            <field name="sequence" eval="4"/>
+        </record>
+
+        <record id="project_task_stage_close" model="project.task.type">
+            <field name="name">Closed</field>
+            <field name="description">This stage means that this task is closed.</field>
+            <field name="sequence" eval="55"/>
+        </record>
+
+        <record id="project_task_stage_reopened" model="project.task.type">
+            <field name="name">Reopened</field>
+            <field name="description">This means that the task has been reopened for some reason.</field>
+            <field name="sequence" eval="6"/>
+        </record>
+
+        <record id="project_task_stage_in_progress" model="project.task.type">
+            <field name="name">In Progress</field>
+            <field name="description">This stage means that on this task is been actively worked on.</field>
+            <field name="sequence" eval="7"/>
+        </record>
+
+        <record id="project_task_stage_blocked" model="project.task.type">
+            <field name="name">Blocked</field>
+            <field name="description">This means that on this task could not be worked anymore due the missing information or similar.</field>
+            <field name="sequence" eval="8"/>
+        </record>
+
+        <record id="project_task_stage_code_review" model="project.task.type">
+            <field name="name">Code Review</field>
+            <field name="description">This means that on this task requires code review.</field>
+            <field name="sequence" eval="9"/>
+        </record>
+
+        <record id="project_task_stage_integration" model="project.task.type">
+            <field name="name">Integration</field>
+            <field name="description">This means that on this task requires integration testing (i.e. Unit Testing).</field>
+            <field name="sequence" eval="10"/>
+        </record>
+
+        <record id="project_task_stage_qa" model="project.task.type">
+            <field name="name">QA</field>
+            <field name="description">This means that this task is ready for QA</field>
+            <field name="sequence" eval="11"/>
+        </record>
+
+        <record id="project_task_stage_in_progress_qa" model="project.task.type">
+            <field name="name">In Progress QA</field>
+            <field name="description">This means that QA is working on this task.</field>
+            <field name="sequence" eval="12"/>
+        </record>
+
+        <record id="project_task_stage_deployment_uat" model="project.task.type">
+            <field name="name">Deployment UAT</field>
+            <field name="description">This means that the task is ready to be deployed on UAT.</field>
+            <field name="sequence" eval="13"/>
+        </record>
+
+        <record id="project_task_stage_uat_qa" model="project.task.type">
+            <field name="name">UAT QA</field>
+            <field name="description">This means that the task is ready to be tested on UAT.</field>
+            <field name="sequence" eval="14"/>
+        </record>
+
+        <record id="project_task_stage_in_progress_uat_qa" model="project.task.type">
+            <field name="name">In Progress UAT QA</field>
+            <field name="description">This means that QA is testing this task on UAT environment.</field>
+            <field name="sequence" eval="15"/>
+        </record>
+
+        <record id="project_task_stage_resolved" model="project.task.type">
+            <field name="name">Resolved</field>
+            <field name="description">This stage means that a task has been successfully test on UAT.</field>
+            <field name="sequence" eval="16"/>
+        </record>
+
+        <record id="project_task_stage_deployment" model="project.task.type">
+            <field name="name">Deployment</field>
+            <field name="description">This stage means that a task is ready to be deployed to production.</field>
+            <field name="sequence" eval="17"/>
+        </record>
+
+        <record id="project_task_stage_qa_production" model="project.task.type">
+            <field name="name">QA Production</field>
+            <field name="description">This stage means that a ticket has been deployed to production and it's waiting to be verified on production if possible..</field>
+            <field name="sequence" eval="18"/>
+        </record>
+
+
+        <!-- Project Task Type 2 (a.k.a. Type) -->
+        <record id="project_task_type_task" model="project.task.type2">
+            <field name="name">Task</field>
+            <field name="description">A task that needs to be done.</field>
+            <field name="agile_icon">checkbox-marked-circle</field>
+            <field name="agile_icon_color">#039be5</field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-task.png"/>
+            <field name="allow_sub_tasks" eval="True"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+
+        <record id="project_task_type_subtask" model="project.task.type2">
+            <field name="name">Sub Task</field>
+            <field name="description">A subtask that needs to be done..</field>
+            <field name="agile_icon">checkbox-multiple-marked-circle-outline</field>
+            <field name="agile_icon_color">#039be5</field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-task.png"/>
+            <field name="is_subtask" eval="True"/>
+            <field name="allow_sub_tasks" eval="False"/>
+            <field name="allow_story_points" eval="False"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+
+         <record id="project_task_type_task" model="project.task.type2">
+            <field name="type_ids" eval="[
+                (6, 0, [
+                    ref('project_task_type_subtask')
+                ])]"
+            />
+         </record>
+
+
+        <record id="project_task_type_new_feature" model="project.task.type2">
+            <field name="name">New Feature</field>
+            <field name="description">A new feature of the product, which has yet to be developed.</field>
+            <field name="agile_icon">bookmark-plus</field>
+            <field name="agile_icon_color">#2e7d32</field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-new-feature.png"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+
+        <record id="project_task_type_improvement" model="project.task.type2">
+            <field name="name">Improvement</field>
+            <field name="description">An improvement or enhancement to an existing feature or task.</field>
+            <field name="agile_icon">arrow-up-bold-circle</field>
+            <field name="agile_icon_color">#2e7d32</field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-improvement.png"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+
+        <record id="project_task_type_bug" model="project.task.type2">
+            <field name="name">Bug</field>
+            <field name="description">A problem which impairs or prevents the functions of the product.</field>
+            <field name="agile_icon">bug</field>
+            <field name="agile_icon_color">#d50000</field>
+            <field name="allow_story_points" eval="False"/>
+            <field name="icon" type="base64" file="project_agile/static/img/type-bug.png"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+
+        <record id="project_task_type_story_item" model="project.task.type2">
+             <field name="name">User Story Item</field>
+             <field name="description">
+                <![CDATA[
+                An user story item is meant to be used by agile team to specify how will they implement user story.
+                ]]>
+             </field>
+             <field name="agile_icon">checkbox-marked-circle</field>
+             <field name="agile_icon_color">#1dad1d</field>
+             <field name="allow_story_points" eval="False"/>
+             <field name="is_subtasl" eval="False"/>
+             <field name="allow_sub_tasks" eval="False"/>
+             <field name="default_priority_id" ref="project_task_priority_major"/>
+             <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+             />
+        </record>
+
+
+        <record id="project_task_type_story" model="project.task.type2">
+            <field name="name">User Story</field>
+            <field name="description">
+                <![CDATA[
+                An Agile user story is meant to be short, usually fitting on a sticky note or note card.
+                The user stories should be written by the business in the language of the customer so that it is clear
+                to both the business and the development team what the customer wants and why he wants it.
+                The development team's job is to take care of how to develop the code that will satisfy the requirements of the user story.
+                In best-case scenarios, developers collaborate closely with the business owners to clarify the details as the code gets developed.
+                ]]>
+            </field>
+            <field name="agile_icon">bookmark</field>
+            <field name="agile_icon_color">#2e7d32</field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-user-story.png"/>
+            <field name="allow_sub_tasks" eval="True"/>
+            <field name="type_ids" eval="[
+                (6, 0, [
+                    ref('project_task_type_story_item')
+                ])]"
+            />
+            <field name="default_priority_id" ref="project_task_moscow_priority_could_have"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_moscow_priority_must_have'),
+                    ref('project_task_moscow_priority_should_have'),
+                    ref('project_task_moscow_priority_could_have'),
+                    ref('project_task_moscow_priority_wont_have'),
+                ])]"
+            />
+        </record>
+
+        <record id="project_task_type_spike" model="project.task.type2">
+            <field name="name">Spike</field>
+            <field name="description">
+                <![CDATA[
+                A story or task aimed at answering a question or gathering information, rather than at producing shippable product.
+                ]]>
+            </field>
+            <field name="agile_icon">pin</field>
+            <field name="agile_icon_color">#2e7d32</field>
+            <field name="allow_sub_tasks" eval="False"/>
+            <field name="allow_story_points" eval="False"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+
+
+
+        <record id="project_task_type_epic" model="project.task.type2">
+            <field name="name">Epic</field>
+            <field name="description">
+                <![CDATA[
+                    An Agile epic is essentially a large user story that can be broken down into a number of smaller user stories.
+                ]]>
+            </field>
+            <field name="agile_icon">bookmark</field>
+            <field name="agile_icon_color">#944ce4</field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-epic.png"/>
+            <field name="allow_sub_tasks" eval="True"/>
+            <field name="type_ids" eval="[
+                (6, 0, [
+                    ref('project_task_type_task'),
+                    ref('project_task_type_story')
+                ])]"
+            />
+            <field name="default_priority_id" ref="project_task_moscow_priority_could_have"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_moscow_priority_must_have'),
+                    ref('project_task_moscow_priority_should_have'),
+                    ref('project_task_moscow_priority_could_have'),
+                    ref('project_task_moscow_priority_wont_have'),
+                ])]"
+            />
+        </record>
+
+         <record id="project_task_type_epic" model="project.task.type2">
+            <field name="type_ids" eval="[
+                (6, 0, [
+                    ref('project_task_type_epic'),
+                    ref('project_task_type_story'),
+                    ref('project_task_type_task'),
+                ])]"
+            />
+         </record>
+
+        <record id="project_task_type_change" model="project.task.type2">
+            <field name="name">Change</field>
+            <field name="description">Change Management ITIL Improvement</field>
+            <field name="agile_icon"></field>
+            <field name="agile_icon_color"></field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-change.png"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+
+        <record id="project_task_type_access" model="project.task.type2">
+            <field name="name">Access</field>
+            <field name="description">Errors access / Can't access / Password Change.</field>
+            <field name="agile_icon"></field>
+            <field name="agile_icon_color"></field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-access.png"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+
+        <record id="project_task_type_fault" model="project.task.type2">
+            <field name="name">Fault</field>
+            <field name="description">System Error Fault Problem</field>
+            <field name="agile_icon"></field>
+            <field name="agile_icon_color"></field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-fault.png"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+
+        <record id="project_task_type_purchase" model="project.task.type2">
+            <field name="name">Purchase</field>
+            <field name="description">Track items that need to be bought.</field>
+            <field name="agile_icon"></field>
+            <field name="agile_icon_color"></field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-purchase.png"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+
+        <record id="project_task_type_it_help" model="project.task.type2">
+            <field name="name">IT Help</field>
+            <field name="description">IT help Issue</field>
+            <field name="agile_icon"></field>
+            <field name="agile_icon_color"></field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-it-help.png"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
+        </record>
+    </data>
+</odoo>

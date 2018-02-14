@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <template id="portal_my_task" name="My Task" inherit_id="project.portal_my_task">
+        <xpath expr="//div[contains(@class, 'panel-heading')]//h4" position="after">
+            <span class="btn-group pull-right wkf-transitions" role="group">
+                <t t-foreach="transitions" t-as="tr">
+                    <button type="button" t-att-data="tr['id']" t-att-task="task.id" t-attf-class="pull-right btn btn-sm task-transition-button btn-default">
+                        <span t-esc="tr['name']"/>
+                    </button>
+                </t>
+            </span>
+        </xpath>
+    </template>
+</odoo>

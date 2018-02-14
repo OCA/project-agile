@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="agile_board_import_wizard_action" model="ir.actions.act_window">
+        <field name="name">Agile Board Import Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.agile.board.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="agile_board_import_wizard_form" model="ir.ui.view">
+        <field name="name">Agile Board Import Wizard</field>
+        <field name="model">project.agile.board.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Agile Board Importer">
+                <sheet>
+                    <group>
+                        <field name="data" />
+                    </group>
+                    <footer>
+                        <button string="_Import" name="button_import" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

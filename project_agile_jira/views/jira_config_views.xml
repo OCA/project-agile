@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="view_project_agile_jira_config_form" model="ir.ui.view">
+        <field name="name">project.agile.jira.config.form</field>
+        <field name="model">project.agile.jira.config</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="synchronize_projects" icon="fa-download" string="Synchronize Projects"/>
+                        <button class="oe_stat_button" type="action" name="%(project_agile_jira_task_import_wizard_action)d" icon="fa-tasks" string="Synchronize Tasks"/>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" string="Name" class="oe_edit_only"/>
+                        <h1><field name="name" required="1" nolabel="1"/></h1>
+                        <label for="location" string="Location" class="oe_edit_only"/>
+                        <field name="location"/>
+                    </div>
+                    <group>
+                        <field name="username" />
+                        <field name="password" password="True"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Requests" name="requests">
+                            <field name="request_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_project_agile_jira_config_tree" model="ir.ui.view">
+        <field name="name">project.agile.jira.config.tree</field>
+        <field name="model">project.agile.jira.config</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="location" />
+                <field name="username" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_project_agile_jira_config" model="ir.actions.act_window">
+        <field name="name">Jira</field>
+        <field name="res_model">project.agile.jira.config</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_project_agile_jira_config_tree"/>
+        <field name="context">{}</field>
+        <field name="help">Config</field>
+    </record>
+
+    <menuitem id="project_agile_jira_config_menu" parent="project_agile.project_services_menu"
+              action="action_project_agile_jira_config"/>
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+
+    <template id="portal_my_task_key" inherit_id="project.portal_my_task" name="portal_my_task_key">
+        <xpath expr="//span[@t-field='task.name']/.." position="replace">
+            <h4>
+                <t t-call='portal.record_pager'/>
+                <span t-field="task.key"/> <span t-field="task.name"/>
+                <span t-field="task.stage_id.name" class="pull-right label label-info" title="Current stage of this task"/>
+                <a class="btn btn-info" t-att-href="'/web#return_label=Website&amp;model=project.task&amp;id=%s&amp;view_type=form' % (task.id)" groups="project.group_project_user">Edit Task</a>
+            </h4>
+        </xpath>
+    </template>
+
+    <template id="portal_my_tasks_task_key" inherit_id="project.portal_my_tasks" name="portal_my_tasks_task_key">
+        <xpath expr="//span[@t-field='task.name']" position="before">
+            <span t-field="task.key"/>
+        </xpath>
+    </template>
+
+</odoo>

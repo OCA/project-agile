@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="project.agile.page.dashboard">
+        <div id="middle-content">
+            <div class="view-wrapper">
+                <div id="subheader-wrapper"></div>
+                <div class="row">
+                    <div class="col s12 l6">
+                        <div class="list with-shadow">
+                            <div class="list-header">
+                                <div class="list-title">
+                                    <p class="list-title">Projects</p>
+                                </div>
+                            </div>
+
+                            <div id="project-list" class="collection"></div>
+                        </div>
+                    </div>
+                    <div class="col s12 l6">
+                        <div id="assigned-to-me"/>
+                        <div id="activity-stream"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="project.agile.dashboard.assigned_to_me">
+       <div class="list with-shadow">
+          <div class="list-header">
+             <div class="list-title">
+                <p class="list-title">Assigned to me</p>
+                <p class="list-count"></p>
+             </div>
+             <div class="context-menu">
+                <div class="estimates" style="display:none;">
+                   <span class="estimate todo blue darken-4">0</span>
+                   <span class="estimate in_progress amber darken-3">0</span>
+                   <span class="estimate done green darken-3">0</span>
+                </div>
+             </div>
+          </div>
+           <div class="list-preloader">
+               <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-red-only">
+                          <div class="circle-clipper left">
+                                <div class="circle"></div>
+                          </div><div class="gap-patch">
+                                <div class="circle"></div>
+                          </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                          </div>
+                    </div>
+              </div>
+           </div>
+       </div>
+    </t>
+    <t t-name="project.agile.dashboard.project-list.empty">
+       <div>Your team does not have any projects assigned. You can create/assign project in odoo project management module.</div>
+    </t>
+</templates>
+
+
+
+                    

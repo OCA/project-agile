@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="project.agile.layout.header">
+        <!-- START HEADER -->
+        <header id="header" class="page-topbar">
+            <!-- start header nav-->
+            <div class="navbar-fixed">
+                <nav class="agile-main-color">
+                    <div class="nav-wrapper">
+                        <ul class="nav-left">
+                            <a class="nav-logo darken-1">
+                                <img src="/project_agile/static/img/odoo_agile.svg" alt="odoo"/>
+                            </a>
+                        </ul>
+                        <div class="nav-middle hide-on-med-and-down">
+
+                        </div>
+                        <div class="nav-search">
+                            <div style="display:none">
+                                <i class="mdi mdi-magnify hide-on-med-and-down"></i>
+                                <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Filter tasks"/>
+                            </div>
+                        </div>
+                        <ul class="nav-right">
+                            <li class="search-button hide-on-large-only">
+                                <a class="waves-effect waves-block waves-light">
+                                    <i class="mdi mdi-magnify"/>
+                                </a>
+                            </li>
+
+                            <!--<li>-->
+                                <!--<a class="waves-effect waves-block waves-light notification-button"-->
+                                   <!--data-activates="notifications-dropdown">-->
+                                    <!--<i class="mdi mdi-bell">-->
+                                        <!--<span class="notification-count">5</span>-->
+                                    <!--</i>-->
+                                <!--</a>-->
+                            <!--</li>-->
+
+                            <li>
+                                <a class="waves-effect waves-block waves-light user-button"
+                                   data-activates="user-dropdown" style="display:none">
+                                    <span class="user-name hide-on-med-and-down" >
+                                    </span>
+                                    <span class="hide-on-med-and-down">(<span class="team-name"></span>)</span>
+                                    <i class="mdi mdi-account-multiple hide-on-large-only"/>
+                                    <span class="caret hide-on-med-and-down">▼</span>
+                                </a>
+                            </li>
+
+                            <!-- Please leave element bellow as is. This is a hack for materizalizecss -->
+                            <!-- This won't work if you remove this element. -->
+                            <!-- This is what you get when you use beta library :) -->
+                            <!-- We'll change this ASAP -->
+                            <li style="max-width:0;">
+                                <a class="waves-effect waves-block waves-light user-button"
+                                   data-activates="user-dropdown" style="display:none;max-width:0;max-height:0">
+                                    <span class="user-name hide-on-med-and-down" >
+                                    </span>
+                                    <span class="hide-on-med-and-down">(<span class="team-name"></span>)</span>
+                                    <i class="mdi mdi-account-multiple hide-on-large-only"/>
+                                    <span class="caret hide-on-med-and-down">▼</span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <!-- notifications-dropdown -->
+                        <ul id="user-dropdown" class="header-dropdown dropdown-content">
+
+                            <!--<li class="divider"></li>-->
+                            <li>
+                                <a class="team-dropdown-button" data-activates="team-dropdown">
+                                    <i class="mdi mdi-account-multiple"></i>
+                                    <span>Change team</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/web" class="back-to-odoo">
+                                    <i class="mdi mdi-home"></i>
+                                    Back to Odoo
+                                </a>
+                            </li>
+                            <!--<li>-->
+                                <!--<a href="/web/session/logout">-->
+                                    <!--<i class="mdi mdi-logout"></i>-->
+                                    <!--Logout-->
+                                <!--</a>-->
+                            <!--</li>-->
+                        </ul>
+                        <ul id="team-dropdown" class="dropdown-content">
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+            <!-- end header nav-->
+        </header>
+        <!-- END HEADER -->
+    </t>
+
+    <t t-name="project.agile.menu.menuitem.horisontal">
+        <li t-attf-id="{{widget.id}}">
+            <a class="waves-effect waves-block waves-light translation-button">
+                <t t-esc="widget.name"/>
+            </a>
+        </li>
+    </t>
+</templates>
+
+
+
+                    

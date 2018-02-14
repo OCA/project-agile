@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<project-workflow description="&lt;p&gt;Default Workflow.&lt;/p&gt;" name="Default Workflow" default-state="ToDo">
+  <states>
+    <state description="This stage means that the task is waiting on TODO list to be picked up for work." name="ToDo" sequence="1" type="todo" xpos="223" ypos="158"/>
+    <state description="This stage means that on this task is been actively worked on." name="In Progress" sequence="1" type="in_progress" xpos="516" ypos="155"/>
+    <state description="This stage means that the task has been completed." name="Done" sequence="3" type="done" xpos="379" ypos="322"/>
+  </states>
+  <transitions>
+    <transition confirmation="True" description="&lt;p&gt;Start working on this task.&lt;/p&gt;" dst="In Progress" name="Start Progress" src="ToDo"/>
+    <transition confirmation="True" description="&lt;p&gt;Stop working on this task.&lt;/p&gt;" dst="ToDo" name="Stop Progress" src="In Progress"/>
+    <transition confirmation="True" description="&lt;p&gt;Work on this task has been finished.&lt;/p&gt;" dst="Done" name="Finish Work" src="In Progress"/>
+    <transition confirmation="True" description="&lt;p&gt;Start working on this task again.&lt;/p&gt;" dst="In Progress" name="Start Progress" src="Done"/>
+    <transition confirmation="True" description="&lt;p&gt;Reopen this task.&lt;/p&gt;" dst="ToDo" name="Reopen" src="Done"/>
+    <transition confirmation="True" description="&lt;p&gt;Put the task directly to done.&lt;/p&gt;" dst="Done" name="Done" src="ToDo"/>
+  </transitions>
+</project-workflow>

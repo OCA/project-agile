@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="project.agile.view.task">
+        <div id="task-view">
+            <!-- Floating Action Button -->
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large" data-position="left" data-delay="50">
+                    <i class="mdi mdi-plus" />
+                </a>
+                <ul>
+                    <li class="edit-item">
+                        <a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="Edit">
+                            <i class="mdi mdi-pencil"/>
+                        </a>
+                    </li>
+                    <li class="assign-to-me">
+                        <a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="Assign To Me">
+                            <i class="mdi mdi-account-check"/>
+                        </a>
+                    </li>
+                    <li class="add-sub-item">
+                        <a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="Add Sub Item">
+                            <i class="mdi mdi-subdirectory-arrow-right"/>
+                        </a>
+                    </li>
+                    <li class="work-log">
+                        <a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="Log Work">
+                            <i class="mdi mdi-worker"/>
+                        </a>
+                    </li>
+                    <li class="add-link">
+                        <a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="Add Link">
+                            <i class="mdi mdi-link"/>
+                        </a>
+                    </li>
+                    <li class="add-comment">
+                        <a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="Add Comment">
+                            <i class="mdi mdi-comment-account"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Floating Action Button -->
+        </div>
+    </t>
+    <t t-name="project.agile.view.task_widget">
+        <div>
+            <div class="row">
+                <div class="col s12 m7 l8">
+                    <ul class="collapsible" data-group-name="details" data-collapsible="accordion">
+                        <li class="active">
+                            <div class="collapsible-header active"><i class="mdi mdi-details" /> Details</div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="col s12 l6">
+                                        <mytable class="left-header">
+                                            <mytr data-field-name="type_id">
+                                                <mytd class="field_label">Type</mytd>
+                                                <mytd data-field="type_id">
+                                                    <span class="field_icon"><i t-attf-class="mdi mdi-{{widget._model.type_agile_icon}} mdi-20px mdi-middle tooltipped" data-position="bottom" data-delay="50" t-attf-data-tooltip="{{widget._model.type_id[1]}}" t-attf-style="{{widget.type_agile_icon_color &amp;&amp; widget._model.type_agile_icon.startsWith('custom-') ? 'background-color:' + widget._model.type_agile_icon_color: 'color:' + widget._model.type_agile_icon_color}}"/></span>
+                                                    <span class="field_value"><t t-esc="widget._model.type_id[1]"/></span>
+                                                </mytd>
+                                            </mytr>
+                                            <mytr data-field-name="priority_id">
+                                                <mytd class="field_label">Priority</mytd>
+                                                <mytd data-field="priority_id">
+                                                    <span class="field_icon"><i t-attf-class="mdi mdi-{{widget._model.priority_agile_icon}} mdi-20px mdi-middle tooltipped" data-position="bottom" data-delay="50" t-attf-data-tooltip="{{widget._model.priority_id[1]}}" t-attf-style="{{widget._model.priority_agile_icon_color &amp;&amp; widget._model.priority_agile_icon.startsWith('custom-') ? 'background-color:' + widget._model.priority_agile_icon_color: 'color:' + widget._model.priority_agile_icon_color}}"/></span>
+                                                    <span class="field_value"><t t-esc="widget._model.priority_id[1]"/></span>
+                                                </mytd>
+                                            </mytr>
+                                            <mytr data-field-name="story_points">
+                                                <mytd class="field_label">Estimate</mytd>
+                                                <mytd data-field="story_points">
+                                                    <span class="field_value"><t t-esc="widget._model.story_points"/></span>
+                                                </mytd>
+                                            </mytr>
+                                            <mytr data-field-name="planned_hours">
+                                                <mytd class="field_label">Initially Planned Hours</mytd>
+                                                <mytd data-field="planned_hours">
+                                                    <span class="field_value"><t t-esc="widget.helpers.time.format(widget._model.planned_hours)"/></span>
+                                                </mytd>
+                                            </mytr>
+                                            <mytr data-field-name="effective_hours">
+                                                <mytd class="field_label">Logged hours</mytd>
+                                                <mytd data-field="effective_hours">
+                                                    <span class="field_value"><t t-esc="widget.helpers.time.format(widget._model.effective_hours)"/></span>
+                                                </mytd>
+                                            </mytr>
+                                            <responsive class="s m" data-id="stage"/>
+                                            <responsive class="s m" data-id="resolution"/>
+                                            <responsive class="s m" data-id="tags"/>
+                                        </mytable>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <mytable class="left-header">
+                                            <responsive class="l" data-id="stage"/>
+                                            <mytr class="responsive" data-field-name="stage_id" data-responsive-id="stage">
+                                                <mytd class="field_label">Stage</mytd>
+                                                <mytd data-field-name="type_id">
+                                                    <span t-attf-class="state filled wkf-state-{{widget._model.wkf_state_type}}"><t t-esc="widget._model.stage_id[1]"/></span>
+                                                </mytd>
+                                            </mytr>
+                                            <responsive class="l" data-id="resolution"/>
+                                            <mytr class="responsive" data-field-name="resolution_id" data-responsive-id="resolution">
+                                                <mytd class="field_label">Resolution</mytd>
+                                                <mytd data-field="resolution_id">
+                                                    <span class="field_value"><t t-esc="widget._model.resolution_id ? widget._model.resolution_id[1] : ''"/></span>
+                                                </mytd>
+                                            </mytr>
+                                            <responsive class="l" data-id="tags"/>
+                                            <mytr class="responsive" data-field-name="tag_ids" data-responsive-id="tags" style="display:none;">
+                                                <mytd class="field_label">Tags</mytd>
+                                                <mytd data-field="tag_ids"/>
+                                            </mytr>
+                                        </mytable>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!--DOM duplicate start: only show on small-->
+                    <responsive data-id="group-people" class="s"/>
+                    <ul class="collapsible responsive" data-group-name="people" data-responsive-id="group-people" data-collapsible="accordion">
+                        <li class="active">
+                            <div class="collapsible-header active"><i class="mdi mdi-account-multiple"/> People</div>
+                            <div class="collapsible-body">
+                                <table class="left-header">
+                                    <!--<tr data-field-name="team_id">-->
+                                        <!--<td class="field_label">Committed team</td>-->
+                                        <!--<td data-field="team_id">-->
+                                            <!--<span class="field_value"><t t-esc="widget._model.team_id[1]"/></span>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <tr data-field-name="user_id" class="assigned-to">
+                                        <td class="field_label">Assigned to</td>
+                                        <td data-field="user_id">
+                                            <span class="field_value"><t t-esc="widget._model.user_id[1]"/></span>
+                                        </td>
+                                    </tr>
+                                    <tr data-field-name="create_uid">
+                                        <td class="field_label">Reporeted by</td>
+                                        <td data-field="create_uid">
+                                            <span class="field_value"><t t-esc="widget._model.create_uid[1]"/></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                    <responsive data-id="group-dates" class="s"/>
+                    <ul class="collapsible responsive" data-group-name="dates" data-responsive-id="group-dates" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header active"><i class="mdi mdi-calendar"/> Dates</div>
+                            <div class="collapsible-body">
+                              <table class="left-header">
+                                    <tr data-field-name="write_date">
+                                        <td class="field_label">Created</td>
+                                        <td data-field="create_date">
+                                            <span class="field_value"><t t-esc="widget._model.create_date"/></span>
+                                        </td>
+
+                                    </tr>
+                                    <tr data-field-name="write_date">
+                                        <td class="field_label">Updated</td>
+                                        <td data-field="write_date">
+                                            <span class="field_value"><t t-esc="widget._model.write_date"/></span>
+                                        </td>
+
+                                    </tr>
+                                    <tr data-field-name="date_deadline" t-if="widget._model.date_deadline">
+                                        <td class="field_label">Deadline</td>
+                                        <td data-field="date_deadline">
+                                            <span class="field_value"><t t-esc="widget._model.date_deadline"/></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                    <!--DOM duplicate end: only show on small-->
+
+                    <ul class="collapsible" data-group-name="description" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header active"><i class="mdi mdi-note-text"/> Description</div>
+                            <div id="task-description" class="collapsible-body">
+                                <div class="materialnote"><t t-if="widget._model.description" t-raw="widget._model.description"/></div>
+                                <a class="btn-flat waves-effect btn-edit">edit</a>
+                                <a class="btn-flat waves-effect btn-discard">discard</a>
+                                <a class="btn-flat waves-effect btn-save">save</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="collapsible" data-group-name="attachments" data-collapsible="accordion">
+                        <li class="attachments">
+                            <div class="collapsible-header active"><i class="mdi mdi-attachment"/> Attachments</div>
+                            <div class="collapsible-body"/>
+                        </li>
+                    </ul>
+                    <ul class="collapsible" data-group-name="task_links" data-collapsible="accordion">
+                        <li class="links" style="display:none;">
+                            <div class="collapsible-header active"><i class="mdi mdi-link"/> Task links</div>
+                            <div class="collapsible-body"/>
+                          </li>
+                    </ul>
+                    <ul class="collapsible" data-group-name="subtasks" data-collapsible="accordion">
+                        <li class="subtasks">
+                            <div class="collapsible-header active"><i class="mdi mdi-subdirectory-arrow-right"/> Sub-Tasks</div>
+                            <div class="collapsible-body"/>
+                        </li>
+                    </ul>
+                    <ul class="collapsible" data-group-name="timesheets" data-collapsible="accordion">
+                        <li class="timesheets">
+                            <div class="collapsible-header active"><i class="mdi mdi-worker"/> Worklogs</div>
+                            <div class="collapsible-body"/>
+                        </li>
+                    </ul>
+                    <ul class="collapsible" data-group-name="comments" data-collapsible="accordion">
+                        <li class="comments">
+                            <div class="collapsible-header active"><i class="mdi mdi-comment-account"/> Comments</div>
+                            <div class="collapsible-body"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col s12 m5 l4">
+                    <responsive data-id="group-people" class="m l"/>
+                    <responsive data-id="group-dates" class="m l"/>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="project.agile.view.task.title">
+        <div class="title-wrapper">
+            <div class="title-left">
+                <img class="circle" t-attf-src="{{widget.project_image}}" />
+            </div>
+            <div class="title-right">
+                <div class="main-title">
+                    <t t-esc="widget._model.project_id[1]"/><span t-if="widget._model.parent_key" class="parent-key"> / <a class="task-key" t-attf-task-id="{{widget._model.parent_id[0]}}" target="_blank"><t t-esc="widget._model.parent_key"/></a></span> / <a class="task-key" t-attf-task-id="{{widget._model.id}}" target="_blank"><t t-esc="widget._model.key"/></a>
+                </div>
+                <div class="subtitle">
+                    <span><t t-esc="widget._model.name"/></span>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

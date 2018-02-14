@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="view_project_agile_analytic_line_tree" model="ir.ui.view">
+        <field name="name">project.agile.analytic.line.view.tree</field>
+        <field name="model">project.agile.analytic.line.view</field>
+        <field name="arch" type="xml">
+            <tree string="Task Analytic Entries">
+                <field name="project_id"/>
+                <field name="type_id"/>
+                <field name="task_id"/>
+                <field name="stage_id"/>
+                <field name="user_id"/>
+                <field name="duration" sum="Duration (Hrs)"/>
+                <field name="start_date" invisible="1"/>
+                <field name="end_date" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="project_agile_analytic_line_action">
+        <field name="context">
+            {
+            'search_default_group_type_id': 1,
+            'search_default_group_task_id': 1,
+            'search_default_group_stage_id': 1,
+            }
+        </field>
+        <field name="domain">[('project_id','=', active_id)]</field>
+        <field name="name">Duration</field>
+        <field name="res_model">project.agile.analytic.line.view</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="view_id" ref="view_project_agile_analytic_line_tree"/>
+        <field name="view_type">form</field>
+        <field name="help" type="html">
+          <p>
+            No activity yet on this task.
+          </p>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="project_agile_task_analytic_line_action">
+        <field name="context">{'search_default_group_stage_id': 1}</field>
+        <field name="domain">[('task_id','=', active_id)]</field>
+        <field name="name">Duration</field>
+        <field name="res_model">project.agile.analytic.line.view</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="view_id" ref="view_project_agile_analytic_line_tree"/>
+        <field name="view_type">form</field>
+        <field name="help" type="html">
+          <p>
+            No activity yet on this task.
+          </p>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="project_agile_analytic_line_action_entries">
+        <field name="name">Analytic Entries</field>
+        <field name="res_model">project.agile.analytic.line.view</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="view_id" ref="view_project_agile_analytic_line_tree"/>
+        <field name="view_type">form</field>
+        <field name="help" type="html">
+          <p>
+            No activity yet.
+          </p>
+        </field>
+    </record>
+
+
+    <record id="view_project_agile_analytic_line_form" model="ir.ui.view">
+        <field name="name">project.agile.analytic.line.view.form</field>
+        <field name="model">project.agile.analytic.line.view</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="Analytic Entry" create="false" edit="false">
+                <sheet string="Analytic Entry">
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="task_id" domain="[('project_id', '=', project_id)]"/>
+                            <field name="type_id"/>
+                            <field name="stage_id"/>
+                            <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Duration">
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="duration"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_project_agile_analytic_line_filter" model="ir.ui.view">
+        <field name="name">project.agile.analytic.line.view.select</field>
+        <field name="model">project.agile.analytic.line.view</field>
+        <field name="arch" type="xml">
+            <search string="Search Analytic Lines">
+                <field name="project_id"/>
+                <field name="type_id"/>
+                <field name="task_id"/>
+                <field name="stage_id"/>
+                <field name="user_id"/>
+                <group string="Group By..." expand="0" name="groupby">
+                    <filter string="Project" context="{'group_by':'project_id'}" name="group_project_id"/>
+                    <filter string="Type" context="{'group_by':'type_id'}" name="group_type_id"/>
+                    <filter string="Task" context="{'group_by':'task_id'}" name="group_task_id"/>
+                    <filter string="Stage" context="{'group_by':'stage_id'}" name="group_stage_id"/>
+                    <filter string="Assignee" context="{'group_by':'user_id'}" name="group_user_id"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_project_agile_analytic_line_graph" model="ir.ui.view">
+        <field name="name">project.agile.analytic.line.view.graph</field>
+        <field name="model">project.agile.analytic.line.view</field>
+        <field name="arch" type="xml">
+            <graph string="Analytic Entries">
+                <field name="project_id" type="row"/>
+                <field name="type_id" type="row"/>
+                <field name="stage_id" type="row"/>
+                <field name="task_id" type="row"/>
+                <field name="user_id" type="col"/>
+                <field name="duration" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="view_project_agile_analytic_line_pivot" model="ir.ui.view">
+        <field name="name">project.agile.analytic.line.view.pivot</field>
+        <field name="model">project.agile.analytic.line.view</field>
+        <field name="arch" type="xml">
+            <pivot string="Analytic Entries" >
+                <field name="project_id" type="row"/>
+                <field name="type_id" type="row"/>
+                <field name="stage_id" type="row"/>
+                <field name="task_id" type="row"/>
+                <field name="user_id" type="col"/>
+                <field name="duration" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <menuitem
+        name="Analytic Entries"
+        parent="project.menu_project_report"
+        action="project_agile_analytic_line_action_entries"
+        id="menu_task_analytic_lines_tree"
+        sequence="35"
+        groups="project.group_project_manager"
+    />
+
+
+    <record id="view_task_form2_analytics" model="ir.ui.view">
+        <field name="name">view_task_form2_analytics</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <div name="button_box">
+                <field name="analytic_enabled" invisible="1"/>
+                <button name="%(project_agile_task_analytic_line_action)d" type="action" groups="project.group_project_manager"
+                        class="oe_stat_button" icon="fa-line-chart"
+                        attrs="{'invisible': [('analytic_enabled', '!=', True)]}">
+                    <field name="analytic_line_count" widget="statinfo" />
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <!--Add field to project form-->
+    <record id="edit_project_analytics" model="ir.ui.view">
+        <field name="name">edit.project.analytics</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <div name="button_box">
+                <field name="analytic_enabled" invisible="1"/>
+                <button name="%(project_agile_analytic_line_action)d" type="action" groups="project.group_project_manager"
+                        class="oe_stat_button" icon="fa-line-chart"
+                        attrs="{'invisible': [('analytic_enabled', '!=', True)]}">
+                        <field string="Analytics" name="analytic_line_count" widget="statinfo" />
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

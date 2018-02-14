@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_project_analytic_line_user,project.agile.analytic.line,model_project_agile_analytic_line,project.group_project_user,1,0,0,0
+access_project_analytic_line_manager,project.agile.analytic.line,model_project_agile_analytic_line,project.group_project_manager,1,1,1,1
+
+access_project_analytic_line_view_user,project.agile.analytic.line.view,model_project_agile_analytic_line_view,project.group_project_user,1,0,0,0
+access_project_analytic_line_view_manager,project.agile.analytic.line.view,model_project_agile_analytic_line_view,project.group_project_manager,1,0,0,0

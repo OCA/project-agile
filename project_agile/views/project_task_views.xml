@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <!--
+        ===============================
+            Project Task Type2 Views
+        ===============================
+    -->
+
+    <!-- Project Task Type2 Tree View -->
+    <record id="project_task_type2_tree" model="ir.ui.view">
+        <field name="name">project_task_type2_tree</field>
+        <field name="model">project.task.type2</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="allow_sub_tasks"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Project Task Type2 From View -->
+    <record id="project_task_type2_form" model="ir.ui.view">
+        <field name="name">project_task_type2_form</field>
+        <field name="model">project.task.type2</field>
+        <field name="arch" type="xml">
+            <form string="Task Type">
+                <sheet>
+                    <field name="icon" widget='image' class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" required="1"/></h1>
+                    </div>
+
+                    <group name="configuration">
+                        <field name="agile_icon"/>
+                        <field name="agile_icon_color"/>
+                        <field name="allow_sub_tasks"/>
+                        <field name="allow_story_points"/>
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <field name="description" />
+                        </page>
+                        <page name="priorities" string="Task Priorities">
+                            <group>
+                                <field name="default_priority_id" context="{'selected_priority_ids': priority_ids}"/>
+                            </group>
+                            <group string="Task Priorities">
+                                <field name="priority_ids" nolabel="1">
+                                    <tree string="Priorities">
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page name="sub_types" string="Sub Types"
+                              attrs="{'invisible': [('allow_sub_tasks', '=', False)]}">
+                            <group string="Sub Types">
+                                <field name="type_ids" nolabel="1">
+                                    <tree string="Sub Types">
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page name="project_types" string="Project Types">
+                            <field name="project_type_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Project Task Type2 Search View -->
+    <record id="view_task_type2_search_form" model="ir.ui.view">
+        <field name="name">project.task.type2.search.form</field>
+        <field name="model">project.task.type2</field>
+        <field name="arch" type="xml">
+           <search string="Task Types">
+                <field name="name" string="Types"/>
+                <field name="project_type_ids"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Project Task Type2 Action -->
+    <record id="open_task_type2_form" model="ir.actions.act_window">
+        <field name="name">Task Types</field>
+        <field name="res_model">project.task.type2</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="project_task_type2_tree"/>
+        <field name="search_view_id" ref="view_task_type2_search_form"/>
+    </record>
+
+     <!--
+        ===============================
+            Project Task Priority Views
+        ===============================
+    -->
+
+    <!-- Project Task Priority Tree View -->
+     <record id="project_task_priority_tree" model="ir.ui.view">
+        <field name="name">project_task_priority_tree</field>
+        <field name="model">project.task.priority</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Project Task Priority Form View -->
+     <record id="project_task_priority_form" model="ir.ui.view">
+        <field name="name">project_task_priority_form</field>
+        <field name="model">project.task.priority</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <field name="icon" widget='image' class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" required="1"/></h1>
+                    </div>
+                    <group name="configuration">
+                        <field name="agile_icon"/>
+                        <field name="agile_icon_color"/>
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <field name="description" placeholder="Priority Description"/>
+                        </page>
+                        <page name="task_types" string="Task Types">
+                            <field name="type_ids" nolabel="1">
+                                <tree string="Task Types">
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Project Task Priority Search View -->
+    <record id="open_task_priority_form" model="ir.actions.act_window">
+        <field name="name">Task Priorities</field>
+        <field name="res_model">project.task.priority</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+     <!--
+        ===================================
+            Project Task Resolution Views
+        ===================================
+    -->
+
+    <!-- Project Task Resolution Tree View -->
+    <record id="project_task_resolution_tree" model="ir.ui.view">
+        <field name="name">project_task_resolution_tree</field>
+        <field name="model">project.task.resolution</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Project Task Resolution Form View -->
+    <record id="project_task_resolution_form" model="ir.ui.view">
+        <field name="name">project_task_resolution_form</field>
+        <field name="model">project.task.resolution</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" required="1"/></h1>
+                    </div>
+                    <field name="description" placeholder="Resolution Description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Project Task Resolution Action -->
+    <record id="open_task_resolution_form" model="ir.actions.act_window">
+        <field name="name">Task Resolutions</field>
+        <field name="res_model">project.task.resolution</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--
+        ===============================
+            Project Task Link Views
+        ===============================
+    -->
+
+    <!-- Project Task Link Tree View -->
+    <record id="project_task_link_tree_view" model="ir.ui.view">
+        <field name="name">project_task_link_tree_view</field>
+        <field name="model">project.task.link</field>
+        <field name="arch" type="xml">
+            <tree string="Project Task Links">
+                <field name="relation_name"/>
+                <field name="related_task_id" required="1"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+   <!--
+        ===============================
+            Project Task Views
+        ===============================
+    -->
+
+
+    <!-- Project Task Tree View -->
+    <record id="view_task_tree2" model="ir.ui.view">
+        <field name="name">view.task.tree2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="type_id"  />
+                <field name="allow_story_points" invisible="1"/>
+            </field>
+
+            <field name="stage_id" position="after">
+                <field name="priority_id"/>
+                 <field name="resolution_id"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Project Task Form View -->
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">view.task.form2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header/field[@name='stage_id']" position="before">
+                 <button name="%(launch_task_link_wizard)d"
+                         string="Add new link"
+                         type="action"
+                         context="{'default_task_left_id': id,'source_task_id': id}"/>
+            </xpath>
+
+            <button name="toggle_active" position="before">
+                <button  class="oe_stat_button" name="attachment_tree_view"  type="object" icon="fa-files-o">
+                        <field string="Documents" name="doc_count" widget="statinfo"/>
+                </button>
+                <button name="open_in_agile" string="View in Agile" type="object" class="oe_stat_button"
+                        icon="fa-puzzle-piece"
+                        attrs="{'invisible':[('agile_enabled','!=', True)]}"
+                />
+            </button>
+
+            <xpath expr="//header" position="inside">
+                <button name="%(launch_sub_task_wizard)d"
+                        string="Add Sub-Task"
+                        type="action"
+                        attrs="{'invisible': [('allow_sub_tasks', '=', False)]}"
+                        context="{'default_project_id': project_id, 'default_task_id': id, 'default_user_id': uid}"/>
+
+                <button name="%(agile_project_task_worklog_action)d"
+                        string="Add Worklog"
+                        type="action"
+                        context="{'default_task_id': id, 'default_user_id': uid}"
+                />
+            </xpath>
+
+            <field name="parent_id" position="replace"/>
+            <field name="child_ids" position="replace"/>
+
+
+            <field name="project_id" position="after">
+                <field name="parent_id" domain="[('project_id', '=', project_id)]" string="Parent"/>
+                <field name="allow_sub_tasks" readonly="1" invisible="1"/>
+                <field name="task_count" invisible="1"/>
+                <field name="agile_enabled" invisible="1"/>
+
+                <field name="type_id"
+                       domain="[('project_type_ids', '=', project_type_id)]"
+                       context="{'parent_task_id': parent_id}"/>
+
+                <field name="priority_id" domain="[('type_ids', '=', type_id)]"/>
+
+                <field name="type_ids" invisible="1" readonly="1"/>
+                <field name="is_user_story" invisible="1"/>
+                <field name="project_type_id" invisible="1"/>
+            </field>
+
+             <field name="project_id" position="attributes">
+                 <attribute name="attrs">{'readonly': [('parent_id', '!=', False)]}</attribute>
+             </field>
+
+            <field name="priority" position="replace"/>
+
+
+            <field name="user_id" position="replace"/>
+
+            <field name="date_deadline" position="before">
+                <field name="create_uid" readonly="1" string="Reported by"/>
+                <field name="user_id" context="{'filter_by_team_id': team_id}"/>
+                <field name="resolution_id" attrs="{'invisible': [('resolution_id', '=', False)]}"/>
+            </field>
+
+            <field name="planned_hours" position="after">
+                <field name="story_points"/>
+            </field>
+
+            <field name="partner_id" position="after">
+                <field name="team_id"/>
+                <field name="create_date" readonly="1" string="Created"/>
+                <field name="write_date" readonly="1" string="Updated"/>
+            </field>
+
+            <field name="tag_ids" position="replace"/>
+            <field name="project_id" position="before">
+                <field name="tag_ids" widget="many2many_tags"/>
+            </field>
+
+            <page name="description_page" position="after">
+                <page name="sub_tasks_page" string="Sub-Tasks" attrs="{'invisible': [('task_count', '=', 0)]}">
+                    <field name="child_ids" readonly="1">
+                        <tree string="Sub-Tasks">
+                            <field name="key"/>
+                            <field name="name"/>
+                            <field name="user_id"/>
+                            <field name="priority_id"/>
+                            <button name="open_sub_task" string="View Sub-Task" type="object" icon="fa-external-link"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="links_page" string="Links" attrs="{'invisible': [('link_count', '=', 0)]}">
+                    <field name="link_count" invisible="1"/>
+                    <field name="link_ids" context="{'task_id':id}" options="{'reload_on_button': true}">
+                        <tree>
+                            <field name="relation_name"/>
+                            <field name="name"/>
+                            <field name="comment"/>
+                            <button name="open_task_link" string="View Linked Task" type="object"
+                                    icon="fa-external-link"/>
+                            <button name="delete_task_link" string="Delete" type="object"
+                                    context="{'foo': 'blah'}" icon="fa-trash-o" ></button>
+                        </tree>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <field name="relation_name"/>
+                                    <field name="related_task_id"/>
+                                    <field name="comment"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </page>
+
+        </field>
+    </record>
+
+    <!-- Project Task Kanban View -->
+    <record id="view_task_kanban" model="ir.ui.view">
+        <field name="name">project.task.kanban</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+
+            <kanban position="attributes">
+                <attribute name="group_create">false</attribute>
+                <attribute name="quick_create">false</attribute>
+                <attribute name="group_edit">false</attribute>
+                <attribute name="group_delete">false</attribute>
+            </kanban>
+
+            <field name="color" position="after">
+                <field name="type_id"/>
+                <field name="priority_id"/>
+                <field name="resolution_id"/>
+                <field name="url"/>
+            </field>
+
+            <field name="priority" position="replace"/>
+            <xpath expr="//div[@class='o_kanban_record_bottom']//field[@name='priority']" position="replace"/>
+
+            <xpath expr="//div[@class='oe_kanban_bottom_left']">
+                <div class="pull-left" t-if="record.type_id.value">
+                    <img t-att-src="kanban_image('project.task.type2', 'icon', record.type_id.raw_value)"
+                         t-att-title="record.type_id.value"
+                         width="16"
+                         height="16"
+                         class="oe_kanban_avatar pull-left"/>
+                </div>
+
+                <div class="pull-left" t-if="record.priority_id.value">
+                    <img t-att-src="kanban_image('project.task.priority', 'icon', record.priority_id.raw_value)"
+                         t-att-title="record.priority_id.value"
+                         width="16"
+                         height="16"
+                         class="oe_kanban_avatar pull-left"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Project Task Search View -->
+    <record id="view_task_search_form" model="ir.ui.view">
+        <field name="name">view.task.search.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="type_id"/>
+                <field name="priority_id"/>
+                <field name="resolution_id"/>
+            </field>
+
+            <filter name="project" position="after">
+                <filter string="Type" name="type" context="{'group_by':'type_id'}"/>
+                <filter string="Priority" name="priority" context="{'group_by':'priority_id'}"/>
+                <filter string="Resolution" name="resolution" context="{'group_by':'resolution_id'}"/>
+            </filter>
+
+             <filter name="unassigned" position="after">
+                <filter string="Exclude Sub-Tasks" name="sub-tasks" domain="[('parent_id', '!=', False)]"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="view_project_agile_jira_request_form" model="ir.ui.view">
+        <field name="name">project.agile.jira.request.form</field>
+        <field name="model">project.agile.jira.request</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+
+                    <button class="oe_stat_button"
+                                 type="object"
+                                 name="requeue_request"
+                                 icon="fa-refresh"
+                                 string="Requeue job"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Name" class="oe_edit_only"/>
+                        <h1><field name="name" required="1" nolabel="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="job_type"/>
+                            <field name="attempt"/>
+                        </group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="config_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Logs" name="logs">
+                            <field name="log_ids" nolabel="1">
+                                <form>
+                                    <sheet>
+                                        <div class="oe_title">
+                                            <label for="log_type" string="Type"/>
+                                            <h1><field name="log_type" required="1" nolabel="1"/></h1>
+                                        </div>
+                                        <group>
+                                            <field name="attempt" />
+                                        </group>
+                                        <group string="Message">
+                                            <field name="message" />
+                                        </group>
+                                        <group string="Stack Trace">
+                                            <field name="stack_trace" />
+                                        </group>
+                                    </sheet>
+                                </form>
+                                <tree>
+                                    <field name="log_type" />
+                                    <field name="attempt" />
+                                    <field name="message" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Arguments" name="logs">
+                            <group>
+                                <field name="args"/>
+                                <field name="kwargs"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_project_agile_jira_request_tree" model="ir.ui.view">
+        <field name="name">project.agile.jira.request.tree</field>
+        <field name="model">project.agile.jira.request</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree default_order="id desc" colors="red:state=='error';green:state=='processed'">
+                <field name="name" />
+                <field name="job_type" />
+                <field name="project_id" />
+                <field name="attempt" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+</odoo>
