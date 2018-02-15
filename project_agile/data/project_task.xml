@@ -301,26 +301,7 @@ These will be the first features to be removed from scope if the project’s tim
 
 
         <!-- Project Task Type 2 (a.k.a. Type) -->
-        <record id="project_task_type_task" model="project.task.type2">
-            <field name="name">Task</field>
-            <field name="description">A task that needs to be done.</field>
-            <field name="agile_icon">checkbox-marked-circle</field>
-            <field name="agile_icon_color">#039be5</field>
-            <field name="icon" type="base64" file="project_agile/static/img/type-task.png"/>
-            <field name="allow_sub_tasks" eval="True"/>
-            <field name="default_priority_id" ref="project_task_priority_minor"/>
-            <field name="priority_ids" eval="[
-                (6, 0, [
-                    ref('project_task_priority_blocker'),
-                    ref('project_task_priority_critical'),
-                    ref('project_task_priority_major'),
-                    ref('project_task_priority_minor'),
-                    ref('project_task_priority_trivial'),
-                ])]"
-            />
-        </record>
-
-        <record id="project_task_type_subtask" model="project.task.type2">
+         <record id="project_task_type_subtask" model="project.task.type2">
             <field name="name">Sub Task</field>
             <field name="description">A subtask that needs to be done..</field>
             <field name="agile_icon">checkbox-multiple-marked-circle-outline</field>
@@ -341,14 +322,29 @@ These will be the first features to be removed from scope if the project’s tim
             />
         </record>
 
-         <record id="project_task_type_task" model="project.task.type2">
+        <record id="project_task_type_task" model="project.task.type2">
+            <field name="name">Task</field>
+            <field name="description">A task that needs to be done.</field>
+            <field name="agile_icon">checkbox-marked-circle</field>
+            <field name="agile_icon_color">#039be5</field>
+            <field name="icon" type="base64" file="project_agile/static/img/type-task.png"/>
+            <field name="allow_sub_tasks" eval="True"/>
+            <field name="default_priority_id" ref="project_task_priority_minor"/>
+            <field name="priority_ids" eval="[
+                (6, 0, [
+                    ref('project_task_priority_blocker'),
+                    ref('project_task_priority_critical'),
+                    ref('project_task_priority_major'),
+                    ref('project_task_priority_minor'),
+                    ref('project_task_priority_trivial'),
+                ])]"
+            />
             <field name="type_ids" eval="[
                 (6, 0, [
                     ref('project_task_type_subtask')
                 ])]"
             />
-         </record>
-
+        </record>
 
         <record id="project_task_type_new_feature" model="project.task.type2">
             <field name="name">New Feature</field>
@@ -483,8 +479,6 @@ These will be the first features to be removed from scope if the project’s tim
                 ])]"
             />
         </record>
-
-
 
         <record id="project_task_type_epic" model="project.task.type2">
             <field name="name">Epic</field>

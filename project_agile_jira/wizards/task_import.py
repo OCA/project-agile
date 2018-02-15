@@ -13,7 +13,6 @@ except (ImportError, IOError) as err:
     _logger.debug(err)
 
 
-
 class TaskImport(models.TransientModel):
     _name = "project.agile.jira.task.import.wizard"
 
