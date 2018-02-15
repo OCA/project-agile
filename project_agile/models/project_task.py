@@ -587,20 +587,20 @@ class Task(models.Model):
     @api.multi
     @api.depends('type_id')
     def _compute_is_story(self):
-        story_type = self.env.ref(
+        ptts = self.env.ref(
             'project_agile.project_task_type_story', raise_if_not_found=False
         )
         for record in self:
-            record.is_user_story = record.type_id.id == story_type.id
+            record.is_user_story = ptts and record.type_id.id == ptts.id
 
     @api.multi
     @api.depends('type_id')
     def _compute_is_epic(self):
-        epic_type = self.env.ref(
+        ptte = self.env.ref(
             'project_agile.project_task_type_epic', raise_if_not_found=False
         )
         for record in self:
-            record.is_epic = record.type_id.id == epic_type.id
+            record.is_epic = ptte and record.type_id.id == ptte.id
 
     @api.multi
     @api.depends('parent_id', 'parent_id.epic_id')

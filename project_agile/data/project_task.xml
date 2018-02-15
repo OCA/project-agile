@@ -514,16 +514,6 @@ These will be the first features to be removed from scope if the project’s tim
             />
         </record>
 
-         <record id="project_task_type_epic" model="project.task.type2">
-            <field name="type_ids" eval="[
-                (6, 0, [
-                    ref('project_task_type_epic'),
-                    ref('project_task_type_story'),
-                    ref('project_task_type_task'),
-                ])]"
-            />
-         </record>
-
         <record id="project_task_type_change" model="project.task.type2">
             <field name="name">Change</field>
             <field name="description">Change Management ITIL Improvement</field>

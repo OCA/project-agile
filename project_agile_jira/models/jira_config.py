@@ -1,9 +1,16 @@
 # Copyright 2017 - 2018 Modoolar <info@modoolar.com>
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
-import jira
+import logging
 
 from odoo import models, fields, api
+
+_logger = logging.getLogger(__name__)
+
+try:
+    import jira
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 
 class JiraConfig(models.Model):

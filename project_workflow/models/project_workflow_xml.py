@@ -71,7 +71,7 @@ class XmlWorkflowReader(models.AbstractModel):
     def get_rng_file_path(self):
         return os.path.join('project_workflow', 'rng', 'workflow.rng')
 
-    def read(self, stream):
+    def wkf_read(self, stream):
         """
         Reads workflow from the given xml string
         :param stream: The stream providing xml data
