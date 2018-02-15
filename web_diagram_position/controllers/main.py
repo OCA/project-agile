@@ -4,6 +4,7 @@
 import odoo
 import odoo.http as http
 from odoo.tools.safe_eval import safe_eval
+from odoo.tools import ustr
 from odoo.addons.web_diagram.controllers.main import DiagramView
 
 
@@ -119,11 +120,12 @@ class MyDiagramView(DiagramView):
                 n['options'][node_fields_string[i]] = act[fld]
 
         _id, name = http.request.env[model].browse([id]).name_get()[0]
-        ret = dict(nodes=nodes,
-                    conn=connectors,
-                    display_name=name,
-                    parent_field=graphs['node_parent_field']
-                   )
+        ret = dict(
+            nodes=nodes,
+            conn=connectors,
+            display_name=name,
+            parent_field=graphs['node_parent_field']
+        )
 
         # End of original method
 
@@ -162,7 +164,8 @@ class MyDiagramView(DiagramView):
         return http.request.env[node].browse(id)['name']
 
     def eval_node_shape(self, shape, node, default_shape='rectangle'):
-        if not shape: return default_shape
+        if not shape:
+            return default_shape
         for shape_spec in shape.split(';'):
             if shape_spec:
                 shape_type, shape_state = shape_spec.split(':')
@@ -171,7 +174,8 @@ class MyDiagramView(DiagramView):
         return default_shape
 
     def eval_node_color(self, bgcolor, node, default_color='white'):
-        if not bgcolor: return default_color
+        if not bgcolor:
+            return default_color
         for color_spec in bgcolor.split(';'):
             if color_spec:
                 color, color_state = color_spec.split(':')
@@ -179,14 +183,13 @@ class MyDiagramView(DiagramView):
                     return color
         return default_color
 
-    def eval_connector_label(self, label, connector):
-        if not label: return ''
+    def eval_connector_label(self, label, conn):
+        if not label:
+            return ''
         label_string = ''
         for lbl in odoo.tools.safe_eval(label):
-            if odoo.tools.ustr(lbl) in connector and \
-                    odoo.tools.ustr(connector[lbl]) == 'False':
+            if ustr(lbl) in conn and ustr(conn[lbl]) == 'False':
                 label_string += ' '
             else:
-                label_string = label_string + " " + \
-                               odoo.tools.ustr(connector[lbl])
+                label_string = label_string + " " + ustr(conn[lbl])
         return label_string

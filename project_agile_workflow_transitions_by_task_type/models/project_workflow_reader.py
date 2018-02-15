@@ -21,7 +21,8 @@ class XmlWorkflowReader(models.AbstractModel):
     def read_transition_task_types(self, element):
         """
         Reads workflow security groups data out of the given xml element.
-        :param element: The xml element which holds information about project workflow transitions.
+        :param element: The xml element which holds information
+        about project workflow transitions.
         :return: Returns the workflow transitions.
         """
         groups = []
@@ -41,7 +42,8 @@ class XmlWorkflowReader(models.AbstractModel):
         root.insert(0, self.rng_define_task_types())
 
         transition = root.xpath(
-            "//rng:define[@name='transition']//rng:element[@name='transition']",
+            "//rng:define[@name='transition']"
+            "//rng:element[@name='transition']",
             namespaces=self._rng_namespace_map
         )[0]
 

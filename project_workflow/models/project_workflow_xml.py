@@ -27,7 +27,8 @@ class XmlWorkflowReader(models.AbstractModel):
     def validate_schema(self, xml):
         """
         Validates given ``xml`` against RelaxedNG validation schema.
-        In case xml is invalid and ~openerp.exceptions.ValidationError is raised.
+        In case xml is invalid and ~openerp.exceptions.ValidationError
+        is raised.
         :param xml: Xml string to be validated against RelaxedNG schema
         :return: Void
         """
@@ -59,8 +60,9 @@ class XmlWorkflowReader(models.AbstractModel):
 
     def extend_rng(self, rng_etree):
         """
-        This method is a hook from where you can modify rng schema in cases where you have extend workflow
-        from another module and you want to support import/export functionality for your extensions.
+        This method is a hook from where you can modify rng schema in cases
+        where you have extend workflow from another module and you want to
+        support import/export functionality for your extensions.
         :param rng_etree: The tng tree which needs to be extended.
         :return: Returns extended rng tree.
         """
@@ -89,8 +91,9 @@ class XmlWorkflowReader(models.AbstractModel):
     def validate_workflow(self, workflow):
         """
         This method validates the logic of the given workflow object.
-        It will check if all source and destinations states referenced in the transition element can be found
-        within defined workflow states states.
+        It will check if all source and destinations states referenced
+        in the transition element can be found within defined workflow
+        states.
         :param workflow: The
         :return:
         """
@@ -129,7 +132,8 @@ class XmlWorkflowReader(models.AbstractModel):
     def read_workflow(self, element):
         """
         Reads workflow data out of the given xml element.
-        :param element: The xml element which holds information about project workflow.
+        :param element: The xml element which holds information
+        about project workflow.
         :return: Returns workflow dictionary.
         """
         return {
@@ -143,7 +147,8 @@ class XmlWorkflowReader(models.AbstractModel):
     def read_states(self, element):
         """
         Reads workflow states data out of the given xml element.
-        :param element: The xml element which holds information about project workflow states
+        :param element: The xml element which holds information
+        about project workflow states
         :return: Returns the list of the workflow states
         """
         states = []
@@ -154,7 +159,8 @@ class XmlWorkflowReader(models.AbstractModel):
     def read_state(self, element):
         """
         Reads workflow state data out of the given xml element.
-        :param element: The xml element which holds information about project workflow state
+        :param element: The xml element which holds information
+        about project workflow state
         :return: Returns workflow state dictionary
         """
         return {
@@ -172,7 +178,8 @@ class XmlWorkflowReader(models.AbstractModel):
     def read_transitions(self, element):
         """
         Reads workflow transitions data out of the given xml element.
-        :param element: The xml element which holds information about project workflow transitions.
+        :param element: The xml element which holds information about
+        project workflow transitions.
         :return: Returns the list of the workflow transitions.
         """
         transitions = []
@@ -182,8 +189,10 @@ class XmlWorkflowReader(models.AbstractModel):
 
     def read_transition(self, element):
         """
-        Reads ``project.workflow.transition`` data out of the given xml element.
-        :param element: The xml element which holds information about project workflow transition.
+        Reads ``project.workflow.transition`` data
+        out of the given xml element.
+        :param element: The xml element which holds information
+        about project workflow transition.
         :return: Returns workflow transition dictionary.
         """
         return {
@@ -201,7 +210,8 @@ class XmlWorkflowReader(models.AbstractModel):
         Reads attribute of type ``string`` from the given xml element.
         :param element: The xml element from which the attribute value is read.
         :param attribute_name: The name of the xml attribute.
-        :param default_value: The default value in case the attribute is not present within xml element.
+        :param default_value: The default value in case
+        the attribute is not present within xml element.
         :return: Returns attribute value of type ``string``
         """
         return self.read_attribute(element, attribute_name, default_value)
@@ -211,7 +221,8 @@ class XmlWorkflowReader(models.AbstractModel):
         Reads attribute of type ``integer`` from the given xml element.
         :param element: The xml element from which the attribute value is read.
         :param attribute_name: The name of the xml attribute.
-        :param default_value: The default value in case the attribute is not present within xml element.
+        :param default_value: The default value in case
+        the attribute is not present within xml element.
         :return: Returns attribute value of type ``integer``.
         """
         return int(self.read_attribute(element, attribute_name, default_value))
@@ -221,7 +232,8 @@ class XmlWorkflowReader(models.AbstractModel):
         Reads attribute of type ``boolean`` from the given xml element.
         :param element: The xml element from which the attribute value is read.
         :param attribute_name: The name of the xml attribute.
-        :param default_value: The default value in case the attribute is not present within xml element.
+        :param default_value: The default value in case
+        the attribute is not present within xml element.
         :return: Returns attribute value of type ``boolean``.
         """
         return bool(self.read_attribute(
@@ -233,7 +245,8 @@ class XmlWorkflowReader(models.AbstractModel):
         Reads attribute value of the given ``name`` from the given xml element.
         :param element: The xml element from which attribute.
         :param name: The name of the attribute.
-        :param default_value: The default value in case the attribute is not present within xml element.
+        :param default_value: The default value in case
+        the attribute is not present within xml element.
         :return: Returns attribute value or the default value.
         """
         return element.attrib.get(name, default_value)
@@ -245,11 +258,14 @@ DEFAULT_ENCODING = 'utf-8'
 class XmlWorkflowWriter(models.AbstractModel):
     _name = 'project.workflow.xml.writer'
 
-    def write(self, workflow, stream, encoding=DEFAULT_ENCODING):
+    def wkf_write(self, workflow, stream, encoding=DEFAULT_ENCODING):
         """
-        Converts given ``workflow`` object to the xml and then writes it down to the given ``stream`` object.
-        :param workflow: The ``project.workflow`` browse object to be written down to the given stream object.
-        :param stream: This object represent any data stream object but it must have write method.
+        Converts given ``workflow`` object to the xml and then
+        writes it down to the given ``stream`` object.
+        :param workflow: The ``project.workflow`` browse object
+        to be written down to the given stream object.
+        :param stream: This object represent any data stream object
+         but it must have write method.
         :return:
         """
         str = self.to_string(workflow, encoding)
@@ -260,8 +276,10 @@ class XmlWorkflowWriter(models.AbstractModel):
     def to_string(self, workflow, encoding=DEFAULT_ENCODING):
         """
         Gets xml string representation of the given ``workflow`` object.
-        :param workflow: The ``project.workflow`` browse object to be converted to the xml string.
-        :return: Returns xml string representation of the give ``workflow`` object.
+        :param workflow: The ``project.workflow`` browse object
+        to be converted to the xml string.
+        :return: Returns xml string representation
+        of the give ``workflow`` object.
         """
         return etree.tostring(
             self._build_xml(workflow, element_tree=True),
@@ -273,7 +291,8 @@ class XmlWorkflowWriter(models.AbstractModel):
         """
         Builds xml out of given ``workflow`` object.
         :param workflow: The ``project.workflow`` browse object.
-        :param element_tree: Boolean indicating whteter to wrap root element into ``ElementTree`` or not.
+        :param element_tree: Boolean indicating whteter to wrap
+        root element into ``ElementTree`` or not.
         :return: Returns workflow xml as a root element or as an element tree.
         """
         root = self.create_workflow_element(workflow)
@@ -322,7 +341,8 @@ class XmlWorkflowWriter(models.AbstractModel):
     def prepare_states_attributes(self, workflow):
         """
         This method prepares attribute values for a ``states`` element.
-        At the moment this method does nothing but it's added here for possible future usage.
+        At the moment this method does nothing but it's added here
+        for possible future usage.
         :param workflow: The ``project.workflow`` browse object.
         :return: Returns dictionary with attribute values.
         """
@@ -371,7 +391,8 @@ class XmlWorkflowWriter(models.AbstractModel):
     def prepare_transitions_attributes(self, workflow):
         """
         This method prepares attribute values for a ``transitions`` element.
-        At the moment this method does nothing but it's added here for possible future usage.
+        At the moment this method does nothing but it's added here
+        for possible future usage.
         :param workflow: The ``project.workflow`` browse object.
         :return: Returns dictionary with attribute values.
         """

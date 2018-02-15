@@ -184,7 +184,8 @@ class Workflow(models.Model):
             return False
 
         state = get_state(stage_id)
-        if not state: return []
+        if not state:
+            return []
 
         transitions = []
         if state.is_global:
@@ -443,8 +444,8 @@ class WorkflowState(models.Model):
     @api.multi
     def _compute_is_default(self):
         for record in self:
-            record.is_default = record.workflow_id.default_state_id.id == \
-                                record.id
+            default_state = record.workflow_id.default_state_id
+            record.is_default = default_state.id == record.id
 
     @api.multi
     def _inverse_is_default(self):

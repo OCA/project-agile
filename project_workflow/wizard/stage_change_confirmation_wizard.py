@@ -8,28 +8,28 @@ class StageChangeConfirmationWizard(models.TransientModel):
     _name = 'wkf.project.task.confirmation'
 
     user_id = fields.Many2one(
-            comodel_name='res.users',
-            string='Assignee',
-            required=True,
-            default=lambda s: s.env.user.id,
+        comodel_name='res.users',
+        string='Assignee',
+        required=True,
+        default=lambda s: s.env.user.id,
     )
 
     stage_id = fields.Many2one(
-            comodel_name='project.task.type',
-            string='New Stage',
-            readonly=True,
+        comodel_name='project.task.type',
+        string='New Stage',
+        readonly=True,
     )
 
     message = fields.Html(
-            string='Action Message',
-            required=True,
+        string='Action Message',
+        required=True,
     )
 
     task_id = fields.Many2one(
-            comodel_name='project.task',
-            string='Task',
-            required=True,
-            ondelete="cascade",
+        comodel_name='project.task',
+        string='Task',
+        required=True,
+        ondelete="cascade",
     )
 
     @api.multi

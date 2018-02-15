@@ -107,7 +107,8 @@ class ProjectProject(models.Model):
     def _prepare_sequence_data(self, init=True):
         """
         This method prepares data for create/update_sequence methods
-        :param init: Set to False in case you don't want to set initial values for number_increment and number_next_actual
+        :param init: Set to False in case you don't want to set initial values
+        for number_increment and number_next_actual
         """
         values = {
             'name': "%s %s" % (
@@ -129,7 +130,8 @@ class ProjectProject(models.Model):
         return self.sudo().task_key_sequence_id.next_by_id()
 
     def generate_project_key(self, text):
-        if not text: return ''
+        if not text:
+            return ''
 
         data = text.split(' ')
         if len(data) == 1:
@@ -151,9 +153,9 @@ class ProjectProject(models.Model):
         UPDATE project_task
         SET key = x.key
         FROM (
-          SELECT t.id, p.key || '-' || split_part(t.key, '-', 2) AS key 
-          FROM project_task t 
-          INNER JOIN project_project p ON t.project_id = p.id 
+          SELECT t.id, p.key || '-' || split_part(t.key, '-', 2) AS key
+          FROM project_task t
+          INNER JOIN project_project p ON t.project_id = p.id
           WHERE t.project_id = %s
         ) AS x
         WHERE project_task.id = x.id;
@@ -165,8 +167,10 @@ class ProjectProject(models.Model):
     @api.model
     def _set_default_project_key(self):
         """
-        This method will be called from the post_init hook in order to set default values on project.project and
-        project.task, so we leave those tables nice and clean after module installation.
+        This method will be called from the post_init hook in order to set
+        default values on project.project and
+        project.task, so we leave those tables nice and clean after module
+        installation.
         :return:
         """
         for project in self.with_context(active_test=False).search([

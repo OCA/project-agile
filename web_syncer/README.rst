@@ -13,7 +13,7 @@ Usage
 
 To use this module functionality you need to:
 
-1. Inherit ``web.syncer`` model at the backend side
+- Inherit ``web.syncer`` model at the backend side
 
 
 .. code-block:: python
@@ -22,7 +22,7 @@ To use this module functionality you need to:
          _name = 'project.task'
          _inherit = ['web.syncer', 'project.task']
 
-2. Instantiate web.syncer and subscribe to the notifications for your model
+- Instantiate web.syncer and subscribe to the notifications for your model
 
 .. code-block:: javascript
 

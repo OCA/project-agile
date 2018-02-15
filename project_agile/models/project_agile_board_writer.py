@@ -11,12 +11,16 @@ class XmlAgileBoardWriter(models.AbstractModel):
     _name = 'project.agile.board.xml.writer'
     _description = 'Xml agile board xml writer'
 
-    def write(self, board, stream, encoding=DEFAULT_ENCODING):
+    def board_write(self, board, stream, encoding=DEFAULT_ENCODING):
         """
-        Converts given ``board`` object to the xml and then writes it down to the given ``stream`` object.
-        :param board: The ``project.agile.board`` browse object to be written down to the given stream object.
-        :param stream: This object represent any data stream object but it must have write method.
-        :param encoding: Target encoding for xml string. If not provided default encoding will be ``utf-8``.
+        Converts given ``board`` object to the xml and then
+        writes it down to the given ``stream`` object.
+        :param board: The ``project.agile.board`` browse object
+        to be written down to the given stream object.
+        :param stream: This object represent any data stream object
+        but it must have write method.
+        :param encoding: Target encoding for xml string.
+        If not provided default encoding will be ``utf-8``.
         """
         tree = self._build_xml(board, element_tree=True)
         tree.write(
@@ -26,8 +30,10 @@ class XmlAgileBoardWriter(models.AbstractModel):
     def to_string(self, board):
         """
         Gets xml string representation of the given ``workflow`` object.
-        :param workflow: The ``project.workflow`` browse object to be converted to the xml string.
-        :return: Returns xml string representation of the give ``workflow`` object.
+        :param workflow: The ``project.workflow`` browse object
+        to be converted to the xml string.
+        :return: Returns xml string representation
+        of the give ``workflow`` object.
         """
         return etree.tostring(
             self._get_xml(board),
@@ -38,7 +44,8 @@ class XmlAgileBoardWriter(models.AbstractModel):
         """
         Builds xml out of given ``workflow`` object.
         :param workflow: The ``project.workflow`` browse object.
-        :param element_tree: Boolean indicating whteter to wrap root element into ``ElementTree`` or not.
+        :param element_tree: Boolean indicating whether to wrap
+        root element into ``ElementTree`` or not.
         :return: Returns workflow xml as a root element or as an element tree.
         """
         root = self.create_board_element(board)
@@ -91,7 +98,8 @@ class XmlAgileBoardWriter(models.AbstractModel):
     def prepare_columns_attributes(self, board):
         """
         This method prepares attribute values for a ``states`` element.
-        At the moment this method does nothing but it's added here for possible future usage.
+        At the moment this method does nothing but it's added
+        here for possible future usage.
         :param workflow: The ``project.workflow`` browse object.
         :return: Returns dictionary with attribute values.
         """
@@ -134,7 +142,8 @@ class XmlAgileBoardWriter(models.AbstractModel):
     def prepare_statuses_attributes(self, column):
         """
         This method prepares attribute values for a ``statuses`` element.
-        At the moment this method does nothing but it's added here for possible future usage.
+        At the moment this method does nothing but it's added here
+        for possible future usage.
         :param workflow: The ``project.workflow`` browse object.
         :return: Returns dictionary with attribute values.
         """
@@ -153,7 +162,6 @@ class XmlAgileBoardWriter(models.AbstractModel):
     def prepare_status_attributes(self, status):
         """
         This method prepares attribute values for a transition element.
-        :param transition: The ``project.workflow.transition`` browse object.
         :return: Returns dictionary with attribute values.
         """
         values = {

@@ -63,7 +63,8 @@ class Users(models.Model):
     def fix_team_id(self):
         for record in self:
             if record.team_id not in record.team_ids:
-                team_id = len(record.team_ids) > 0 and \
-                          record.team_ids[0].id or False
+                team_id = False
+                if len(record.team_ids) > 0:
+                    team_id = record.team_ids[0].id
                 record.sudo().team_id = team_id
         self.env["ir.rule"].invalidate_cache()

@@ -10,12 +10,6 @@
     "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": ["bus"],
-    "description": """
-    Web Syncer
-    ==========
-    This module provides generic interface for receiving create, update and
-    delete notifications on web client side.
-    """,
     "data": [
         "views/web_syncer.xml",
     ],

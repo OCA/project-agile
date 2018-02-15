@@ -69,9 +69,8 @@ class Project(models.Model):
             project_type = self.env['project.type'].browse(type_id)
 
         workflow_id = False
-        if project_type:
-            workflow_id = project_type.workflow_id and \
-                          project_type.workflow_id.id
+        if project_type and project_type.workflow_id:
+            workflow_id = project_type.workflow_id.id
         return workflow_id
 
     @api.model
@@ -298,7 +297,8 @@ class Project(models.Model):
         return self.env['project.workflow.publisher']
 
     def _fix_type_ids(self, vals):
-        if 'type_ids' not in vals: return
+        if 'type_ids' not in vals:
+            return
 
         type_ids = vals.get('type_ids', [])
 
@@ -356,7 +356,8 @@ class Project(models.Model):
             action['view_mode'] = 'tree, form, calendar, pivot, graph'
             views = []
             for view in action.get('views'):
-                if view[1] == 'kanban': continue
+                if view[1] == 'kanban':
+                    continue
                 views.append(view)
             action['views'] = views
 
@@ -384,7 +385,8 @@ class Project(models.Model):
             action['view_mode'] = 'tree, form, calendar, pivot, graph'
             views = []
             for view in action.get('views'):
-                if view[1] == 'kanban': continue
+                if view[1] == 'kanban':
+                    continue
                 views.append(view)
             action['views'] = views
 
@@ -409,7 +411,8 @@ class Project(models.Model):
             action['view_mode'] = 'tree, form, calendar, pivot, graph'
             views = []
             for view in action.get('views'):
-                if view[1] == 'kanban': continue
+                if view[1] == 'kanban':
+                    continue
                 views.append(view)
             action['views'] = views
 

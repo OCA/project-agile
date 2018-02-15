@@ -398,7 +398,7 @@
                 <field name="url"/>
             </field>
 
-            <field name="priority" position="replace"/>
+            <!--<field name="priority" position="replace"/>-->
             <xpath expr="//div[@class='o_kanban_record_bottom']//field[@name='priority']" position="replace"/>
 
             <xpath expr="//div[@class='oe_kanban_bottom_left']">

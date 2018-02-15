@@ -19,12 +19,12 @@ class JiraConfig(models.Model):
         required=True,
         help="Url to jira application"
     )
-    
+
     username = fields.Char(
         string="Username",
         help="Webservice user"
     )
-    
+
     password = fields.Char(
         string="Password",
         help="Webservice password"

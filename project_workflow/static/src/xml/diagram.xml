@@ -5,8 +5,7 @@
 -->
 <template>
 <t t-name="ProjectWorkflow.buttons">
-
-	<div >
+    <div >
         <button t-if="!widget.is_readonly()" type="button" class="btn btn-primary btn-sm o_diagram_edit">
             Rename
         </button>

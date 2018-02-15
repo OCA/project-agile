@@ -81,7 +81,7 @@ class ProjectAnalyticLineView(models.Model):
                  l.end_date,
                  l.company_id,
                  COALESCE(EXTRACT(
-                  epoch FROM COALESCE(l.end_date, now() at time zone 'utc') - 
+                  epoch FROM COALESCE(l.end_date, now() at time zone 'utc') -
                   l.start_date)/3600, 0.0::double precision
                  ) AS duration
           FROM project_agile_analytic_line l;

@@ -18,21 +18,14 @@ odoo.define('web_widget_image_url.FieldImageURL', function (require) {
 
         _render: function () {
             var self = this;
-            var url = this.value ?  this.value : this.placeholder;
+            var url = this.value ? this.value : this.placeholder;
 
-            var $img = $(QWeb.render("FieldImageURL-img", { widget: this, url: url }));
+            var $img = $(QWeb.render("FieldImageURL-img", {widget: this, url: url}));
             this.$el.empty().append($img);
             $img.on('error', function() {
-                // self.on_clear();
                 $img.attr('src', self.placeholder);
                 self.do_warn(_t("Image"), _t("Could not display the selected image."));
             });
-
-            // this.$el.empty().append($('<img>/', {
-            //     src: "/web/image/" + this.value.data.id + "?unique=1",
-            //     title: this.value.data.display_name
-            //}));
-
         }
     });
 

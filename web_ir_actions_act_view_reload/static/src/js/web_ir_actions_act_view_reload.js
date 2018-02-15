@@ -7,9 +7,9 @@ odoo.define('web_ir_actions_act_view_reload.ir_actions_act_view_reload', functio
 
     ActionManager.include({
         ir_actions_act_view_reload: function (action, options) {
-	        this.inner_widget.active_view.controller.reload();
-	        return $.when();
-	    },
+            this.inner_widget.active_view.controller.reload();
+            return $.when();
+        },
     });
 
 });

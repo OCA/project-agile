@@ -8,7 +8,7 @@ require('web_diagram.DiagramRenderer').include({
     _get_style: function(){
         var style = this._super();
 
-        if (this.getParent().modelName == 'project.workflow') {
+        if (this.getParent().modelName === 'project.workflow') {
             style.yellow = "#f6c342";
             style.green = "#14892c";
             style.blue = "#4a6785";

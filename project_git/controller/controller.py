@@ -187,10 +187,8 @@ class GitController(http.Controller):
         return self.reponse_ok()
 
     def compile_task_key_pattern(self, context):
-        return re.compile(
-                context.repository.project_id.key + " ?-? ?[0-9]+",
-                re.IGNORECASE
-            )
+        pattern = context.repository.project_id.key + " ?-? ?[0-9]+"
+        return re.compile(pattern, re.IGNORECASE)
 
     def git_push(self, context):
         try:

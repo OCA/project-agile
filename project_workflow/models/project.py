@@ -187,29 +187,29 @@ class Task(models.Model):
                 )
                 if stage_id not in transitions:
                     raise exceptions.ValidationError(_(
-                            "Transition to this state is not supported "
-                            "from the current task state!\n"
-                            "Please refer to the project workflow '%s' to "
-                            "see all possible transitions from "
-                            "the current state or you could view task in "
-                            "form view and see possible transitions"
-                            "from there."
-                        ) % task.workflow_id.name
-                    )
+                        "Transition to this state is not supported "
+                        "from the current task state!\n"
+                        "Please refer to the project workflow '%s' to "
+                        "see all possible transitions from "
+                        "the current state or you could view task in "
+                        "form view and see possible transitions"
+                        "from there."
+                    ) % task.workflow_id.name)
 
         return super(Task, self).write(vals)
 
-    def stage_find(self, section_id, domain=[], order='sequence'):
+    def stage_find(self, section_id, domain=None, order='sequence'):
         if self.project_id and self.project_id.workflow_id:
             if not self.project_id.workflow_id.default_state_id:
                 raise exceptions.ValidationError(_(
-                        "Project workflow '%s' has no default state."
-                        "Please configure the workflow, so that we know what "
-                        "default stage should be"
-                    ) % self.project_id.workflow_id.name
-                )
+                    "Project workflow '%s' has no default state."
+                    "Please configure the workflow, so that we know what "
+                    "default stage should be"
+                ) % self.project_id.workflow_id.name)
             return self.project_id.workflow_id.default_state_id.stage_id.id
         else:
+            if not domain:
+                domain = []
             return super(Task, self).stage_find(section_id, domain, order)
 
     @api.multi

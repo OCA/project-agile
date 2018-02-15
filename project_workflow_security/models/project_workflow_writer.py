@@ -21,7 +21,8 @@ class XmlWorkflowWriter(models.AbstractModel):
     def prepare_security_groups_attributes(self, transition):
         """
         This method prepares attribute values for a ``transitions`` element.
-        At the moment this method does nothing but it's added here for possible future usage.
+        At the moment this method does nothing but it's added here
+        for possible future usage.
         :param transition: The ``project.workflow`` browse object.
         :return: Returns dictionary with attribute values.
         """

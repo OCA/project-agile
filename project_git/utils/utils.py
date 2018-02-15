@@ -17,7 +17,8 @@ def urljoin(base_url, *args):
 def get_image_type(self):
     base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
     for record in self:
-        if not record.type: continue
+        if not record.type:
+            continue
         record.image_type = "{}/project_git_{}/static/src/img/{}.png".format(
             base_url, record.type, record.type
         )

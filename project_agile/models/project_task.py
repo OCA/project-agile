@@ -86,11 +86,11 @@ class ProjectTaskLink(models.Model):
 
     @api.multi
     def _compute_display_name(self):
-        task_id = self.env.context.get('task_id', -1)
         for record in self:
-            other_task = task_id == record.task_right_id.id and \
-                         record.task_left_id or \
-                         record.task_right_id
+
+            other_task = record.task_right_id
+            if record.task_right_id:
+                other_task = record.task_left_id
 
             record.name = "[%s] %s" % (other_task.key, other_task.name)
 
@@ -99,19 +99,22 @@ class ProjectTaskLink(models.Model):
         task_id = self.env.context.get('task_id', -1)
         for record in self:
             relation = record.relation_id
-            record.relation_name = task_id == record.task_right_id.id and \
-                                   relation.inverse_name or \
-                                   relation.name
+
+            rel_name = record.relation_id.name
+            if task_id == record.task_right_id.id:
+                rel_name = relation.inverse_name
+
+            record.relation_name = rel_name
 
     @api.multi
     def _compute_related_task_id(self):
         task_id = self.env.context.get('task_id', -1)
         for record in self:
-            other_task = task_id == record.task_right_id.id and \
-                         record.task_left_id or \
-                         record.task_right_id
+            other_task = record.task_right_id
+            if task_id == record.task_right_id.id:
+                other_task = record.task_left_id
+
             record.related_task_id = other_task
-        return
 
     @api.multi
     def delete_task_link(self):
@@ -122,9 +125,9 @@ class ProjectTaskLink(models.Model):
     def open_task_link(self):
         self.ensure_one()
 
-        other_task = self.related_task_id.id == self.task_right_id.id and\
-                     self.task_left_id or \
-                     self.task_right_id
+        other_task = self.task_right_id
+        if self.related_task_id.id == self.task_right_id.id:
+            other_task = self.task_left_id
 
         return {
             'name': "Related task",
@@ -215,10 +218,9 @@ class TaskType(models.Model):
             project_ids = self.env.context.get('board_project_ids', [])
             if project_ids:
                 args.append([
-                    'id', 'in', self.env['project.project']
-                        .browse(project_ids[0][2])
-                        .mapped('type_id.task_type_ids')
-                        .fetch_all()
+                    'id', 'in', self.env['project.project'].browse(
+                        project_ids[0][2]
+                    ).mapped('type_id.task_type_ids').fetch_all()
                 ])
 
         return super(TaskType, self).name_search(
@@ -229,11 +231,12 @@ class TaskType(models.Model):
     def fetch_all(self):
         task_type_ids = []
 
-        def collect_task_types(task_type):
-            if task_type.id in task_type_ids: return
+        def collect_task_types(tt):
+            if tt.id in task_type_ids:
+                return
 
-            task_type_ids.append(task_type.id)
-            for subtype in task_type.type_ids:
+            task_type_ids.append(tt.id)
+            for subtype in tt.type_ids:
                 collect_task_types(subtype)
 
         for task_type in self:
@@ -306,10 +309,6 @@ class Task(models.Model):
     )
 
     planned_hours = fields.Float(
-        agile=True
-    )
-
-    date_deadline = fields.Float(
         agile=True
     )
 
@@ -648,7 +647,7 @@ class Task(models.Model):
         url = "/agile/web#page=board&project=%s&&view=task&task=%s"
         for task in self:
             if task.project_id.agile_enabled:
-                task.url =  url % (task.project_id.id, task.id)
+                task.url = url % (task.project_id.id, task.id)
 
     @api.multi
     def _compute_doc_count(self):
@@ -658,10 +657,10 @@ class Task(models.Model):
             ['res_id', 'res_model']
         )
 
-        mapped_data = dict(
-            [(m['res_id'], m['res_id_count'])
-             for m in attachment_data]
-        )
+        mapped_data = dict([
+            (m['res_id'], m['res_id_count'])
+            for m in attachment_data
+        ])
 
         for record in self:
             record.doc_count = mapped_data.get(record.id, 0)
@@ -700,8 +699,9 @@ class Task(models.Model):
 
     @api.onchange('type_id')
     def _onchange_type_id(self):
-        self.priority_id = self.type_id and self.type_id.default_priority_id \
-                           and self.type_id.default_priority_id.id or False
+        self.priority_id = False
+        if self.type_id and self.type_id.default_priority_id:
+            self.priority_id = self.type_id.default_priority_id.id
 
     @api.model
     @api.returns('self', lambda value: value.id)
@@ -841,8 +841,10 @@ class Task(models.Model):
         }
 
     def task_portal_check_mandatory_fields(self, values):
-        return values['name'] and values['type_id'] and \
-               values['priority_id'] and values['project_id']
+        for fname in ['name', 'type_id', 'priority_id', 'project_id']:
+            if not values[fname]:
+                return False
+        return True
 
     @api.multi
     def update_task_portal(self, values):

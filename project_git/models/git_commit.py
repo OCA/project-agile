@@ -90,7 +90,7 @@ class GitCommit(models.Model):
 
     image_type = fields.Char(
         string="Type",
-        compute="_calculate_image_type"
+        compute="_compute_image_type"
     )
 
     avatar = fields.Char(
@@ -111,7 +111,7 @@ class GitCommit(models.Model):
 
     @api.multi
     @api.depends("type")
-    def _calculate_image_type(self):
+    def _compute_image_type(self):
         get_image_type(self)
 
     @api.multi

@@ -23,7 +23,7 @@ class PublisherResult(object):
     @property
     def is_published(self):
         return self.status == PublisherResult.WORKFLOW_PUBLISHED
-    
+
     @property
     def has_conflicts(self):
         return self.status == PublisherResult.WORKFLOW_CONFLICTS
@@ -92,10 +92,12 @@ class ProjectWorkflowPublisher(models.AbstractModel):
                     states.add(state.stage_id.id)
                 return states
             else:
-                self.env.cr.execute("""
-                    SELECT distinct(stage_id) 
-                    FROM project_task 
-                    WHERE project_id IN %s""", (tuple([obj.id]),)
+                self.env.cr.execute(
+                    """
+                    SELECT distinct(stage_id)
+                    FROM project_task
+                    WHERE project_id IN %s
+                    """, (tuple([obj.id]),)
                 )
                 return set([x[0] for x in self.env.cr.fetchall()])
 
@@ -135,11 +137,11 @@ class ProjectWorkflowPublisher(models.AbstractModel):
 
         if 'stages' in mappings:
             for mapping in mappings['stages']:
-                tasks = self.env['project.task'].with_context(publish=True)\
-                    .search([
-                        ('project_id', 'in', project_ids),
-                        ('stage_id', '=', mapping['from'])
-                ])
+                tasks = self.env['project.task'].with_context(
+                    publish=True
+                ).search([
+                    ('project_id', 'in', project_ids),
+                    ('stage_id', '=', mapping['from'])])
                 tasks.write({'stage_id': mapping['to']})
         return True
 
@@ -177,8 +179,9 @@ class ProjectWorkflowPublisher(models.AbstractModel):
             if new.description != old.description:
                 data['description'] = new.description
 
-            data['default_state_id'] = new.default_state_id and \
-                                       new.default_state_id.id or False
+            data['default_state_id'] = False
+            if new.default_state_id:
+                data['default_state_id'] = new.default_state_id.id
 
             if data:
                 old.write(data)

@@ -138,10 +138,9 @@ class Sprint(models.Model):
     def _compute_length_days(self):
         for rec in self:
             if rec.start_date and rec.end_date:
-                rec.sprint_length_days = (
-                        fields.Date.from_string(rec.end_date) -
-                        fields.Date.from_string(rec.start_date)
-                ).days
+                end_date = fields.Date.from_string(rec.end_date)
+                start_date = fields.Date.from_string(rec.start_date)
+                rec.sprint_length_days = (end_date - start_date).days
             else:
                 rec.sprint_length_days = 0
 

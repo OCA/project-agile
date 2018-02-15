@@ -8,7 +8,8 @@ from odoo.addons.project_agile.controllers.main import AgileController
 
 class ScrumController(AgileController):
     @http.route([
-        '/agile/web/data/sprint/<model("project.agile.scrum.sprint"):sprint>/start'
+        '/agile/web/data/sprint'
+        '/<model("project.agile.scrum.sprint"):sprint>/start'
     ], type='json', auth='user')
     def sprint_start(self, sprint, start_date, end_date):
         sprint.write({
@@ -24,7 +25,8 @@ class ScrumController(AgileController):
         }
 
     @http.route([
-        '/agile/web/data/sprint/<model("project.agile.scrum.sprint"):sprint>/stop',
+        '/agile/web/data/sprint'
+        '/<model("project.agile.scrum.sprint"):sprint>/stop',
         ], type='json', auth='user')
     def sprint_stop(self, sprint):
         # Mark sprint as done
@@ -123,7 +125,9 @@ class ScrumController(AgileController):
 
             task_users = tasks_in_board.mapped("user_id")
             for task_user in task_users:
-                board_data['users'][task_user.id] = self.prepare_user(task_user)
+                board_data['users'][task_user.id] = self.prepare_user(
+                    task_user
+                )
 
             board_data['ids'] = tasks_in_board.ids
         return board_data

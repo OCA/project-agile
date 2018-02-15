@@ -26,7 +26,8 @@ class AgileController(http.Controller):
         return new_message.with_context(agile=True).message_format()
 
     @http.route([
-        '/agile/web/data/task/<model("project.task"):task>/update_comment/<model("mail.message"):message>'
+        '/agile/web/data/task/<model("project.task"):task>/update_comment/'
+        '<model("mail.message"):message>'
     ], type='json', auth='user')
     def edit_comment(self, task, message, comment):
         message.write(comment)
@@ -47,7 +48,8 @@ class AgileController(http.Controller):
         return request.render('project_agile.index', qcontext=context)
 
     @http.route([
-        '/agile/web/data/task/<model("project.task"):task>/confirm_stage_change'
+        '/agile/web/data/task/<model("project.task"):task>'
+        '/confirm_stage_change'
     ], type='json', auth='user')
     def confirm_task_stage_change(self, task, values, message=None):
         msg = task._confirm_stage_change(values, message)
@@ -60,7 +62,8 @@ class AgileController(http.Controller):
         return [self.prepare_task_link(link) for link in task.link_ids]
 
     @http.route([
-        '/agile/web/data/project/<model("project.project"):project>/task_types_and_priorities',
+        '/agile/web/data/project/<model("project.project"):project>'
+        '/task_types_and_priorities',
     ], type='json', auth='user')
     def task_types_and_priorities(self, project):
         result = {
@@ -70,7 +73,8 @@ class AgileController(http.Controller):
 
         # Recursively prepare all project types and subtypes
         def collect_task_types(type):
-            if type.id in result['types']: return
+            if type.id in result['types']:
+                return
 
             result['types'][type.id] = self.prepare_task_type(type)
             for subtype in type.type_ids:
@@ -302,11 +306,11 @@ class AgileController(http.Controller):
     @http.route('/agile/security', type='json', auth='user')
     def security(self):
         request.cr.execute("""
-        SELECT m.model, 
-              bool_or(a.perm_create) c, 
-              bool_or(a.perm_read) r, 
-              bool_or(a.perm_write) u, 
-              bool_or(a.perm_unlink) d 
+        SELECT m.model,
+              bool_or(a.perm_create) c,
+              bool_or(a.perm_read) r,
+              bool_or(a.perm_write) u,
+              bool_or(a.perm_unlink) d
         FROM ir_model_access a
         JOIN ir_model m ON (m.id = a.model_id)
         WHERE a.active AND

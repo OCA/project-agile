@@ -9,22 +9,22 @@ class AddLinkWizard(models.TransientModel):
     _description = "Project Task Add Link Wizard"
 
     comment = fields.Char(
-            string="Comment"
+        string="Comment"
     )
 
     task_left_id = fields.Many2one(
-            comodel_name="project.task",
-            string="Task on the left"
+        comodel_name="project.task",
+        string="Task on the left"
     )
 
     task_right_id = fields.Many2one(
-            comodel_name="project.task",
-            string="Task on the right"
+        comodel_name="project.task",
+        string="Task on the right"
     )
 
     relation_id = fields.Many2one(
-            comodel_name="project.task.link.relation",
-            string="Relation"
+        comodel_name="project.task.link.relation",
+        string="Relation"
     )
 
     @api.multi

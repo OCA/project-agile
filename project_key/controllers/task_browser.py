@@ -15,9 +15,8 @@ class TaskBrowser(http.Controller):
         tasks = Task.search([('key', '=ilike', key)])
         task_action = env.ref('project.action_view_task')
 
-        url = "/web#id=%s&view_type=form&model=project.task&action=%s" %\
-                   (tasks and tasks.id or -1, task_action.id)
-        return url
+        url = "/web#id=%s&view_type=form&model=project.task&action=%s"
+        return url % (tasks and tasks.id or -1, task_action.id)
 
     def get_project_url(self, key):
         env = request.env()
@@ -27,10 +26,9 @@ class TaskBrowser(http.Controller):
         if not projects.exists():
             return False
 
+        url = "/web#id=%s&view_type=form&model=project.project&action=%s"
         project_action = env.ref('project.open_view_project_all_config')
-        url = "/web#id=%s&view_type=form&model=project.project&action=%s" % \
-              (projects and projects.id or -1, project_action.id)
-        return url
+        return url % (projects and projects.id or -1, project_action.id)
 
     @http.route([
         '/browse/<string:key>',

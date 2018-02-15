@@ -12,7 +12,7 @@ require('web.dom_ready');
 
 var task_transition_buttons = $('.task-transition-button');
 
-if(!task_transition_buttons .length) {
+if(!task_transition_buttons.length) {
     return $.Deferred().reject("DOM doesn't contain project_portal_workflow elements");
 }
 
@@ -22,8 +22,8 @@ task_transition_buttons.on('click',function(e){
     rpc.query({
             model: 'project.task',
             method: 'write',
-            args: [[parseInt(e.currentTarget.getAttribute('task'))],{
-                stage_id: parseInt(e.currentTarget.getAttribute('data')),
+            args: [[parseInt(e.currentTarget.getAttribute('task'), 10)],{
+                stage_id: parseInt(e.currentTarget.getAttribute('data'), 10),
             },],
         })
         .fail(function() {

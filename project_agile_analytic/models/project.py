@@ -33,9 +33,11 @@ class Project(models.Model):
     @api.depends("type_id")
     def _compute_analytic_enabled(self):
         for record in self:
-            analytic_types = record.get_analytic_types()
-            record.analytic_enabled = record.agile_enabled and \
-                                      record.agile_method in analytic_types
+            analytic_enabled = False
+            if record.agile_enabled:
+                analytic_types = record.get_analytic_types()
+                analytic_enabled = record.agile_method in analytic_types
+            record.analytic_enabled = analytic_enabled
 
     def get_analytic_types(self):
         return []

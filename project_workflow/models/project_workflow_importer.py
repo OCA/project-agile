@@ -35,7 +35,7 @@ class WorkflowImporter(models.AbstractModel):
                 _("Importer can not run without provided data reader!")
             )
 
-        workflow = reader.read(stream)
+        workflow = reader.wkf_read(stream)
         return self._import_workflow(workflow)
 
     def _import_workflow(self, workflow):

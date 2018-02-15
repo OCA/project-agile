@@ -40,7 +40,7 @@ class WorkflowImportWizard(models.TransientModel):
         exporter = self.get_workflow_exporter()
 
         stream = io.StringIO()
-        exporter.write(self.workflow_id, stream, "utf-8")
+        exporter.wkf_write(self.workflow_id, stream, "utf-8")
         xml_string = stream.getvalue()
         stream.close()
 

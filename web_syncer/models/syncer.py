@@ -37,7 +37,8 @@ class Base(models.AbstractModel):
     def _setup_base(cls):
         super(Base, cls)._setup_base()
 
-        if not cls._implements_syncer: return
+        if not cls._implements_syncer:
+            return
 
         for field_name in cls._fields:
             field = cls._fields[field_name]
@@ -45,7 +46,7 @@ class Base(models.AbstractModel):
                 cls._register_syncer_related_field(field)
 
             elif field.type in ['one2many', 'many2many']:
-                    cls._register_x2m_field(field)
+                cls._register_x2m_field(field)
 
     def _register_x2m_field(cls, field):
         model = {
@@ -65,9 +66,8 @@ class Base(models.AbstractModel):
             comodel = cls.env[field.comodel_name]
 
             def field_filter(field_name):
-                field = comodel._fields[field_name]
-                return field.type == 'many2many' and \
-                       field.comodel_name == cls._name
+                f = comodel._fields[field_name]
+                return f.type == 'many2many' and f.comodel_name == cls._name
 
             # If there is no other side or there is more than one
             # then we can't process notifications
@@ -147,11 +147,11 @@ class Base(models.AbstractModel):
         return super(Base, self).unlink()
 
     def process_x2m_notifications(self, vals):
-        if not self._syncer_satellites: return
+        if not self._syncer_satellites:
+            return
 
-        def is_fake_one2many(field_name):
-            return self._fields[field_name].type == 'integer' and \
-                   field_name == 'res_id'
+        def is_fake_one2many(fn):
+            return self._fields[fn].type == 'integer' and fn == 'res_id'
 
         def is_fake_one2many_for_model(model, rec):
             for field_name in ['res_model', 'model']:
@@ -175,7 +175,8 @@ class Base(models.AbstractModel):
                             record = self.env[model].browse(rec[inverse_name])
                         else:
                             record = rec[inverse_name]
-                        if not record: continue
+                        if not record:
+                            continue
                         self.push_indirect_notification(model, record.id, {
                             'method': 'write',
                             'record_name': record.name_get()[0][1],
@@ -193,26 +194,32 @@ class Base(models.AbstractModel):
 
     def process_x2m_notifications_before_write(self, vals):
         for x2m_field in self._syncer_satellites:
-            if x2m_field['type'] != 'one2many': continue
+            if x2m_field['type'] != 'one2many':
+                continue
 
             processed = {}
             for inverse_name in x2m_field['inverse_name']:
-                if inverse_name not in vals: continue
+                if inverse_name not in vals:
+                    continue
 
                 record_id = vals[inverse_name]
-                if not record_id: continue
+                if not record_id:
+                    continue
 
                 model = x2m_field['model']
                 field_name = x2m_field['field_name']
 
-                if not isinstance(record_id, (int)):
+                if not isinstance(record_id, int):
                     record = record_id
                 else:
-                    record = self.env[model].with_context(prefetch_fields=[field_name]).browse(record_id)
+                    record = self.env[model].with_context(
+                        prefetch_fields=[field_name]
+                    ).browse(record_id)
 
                 for rec in self:
                     original = rec[inverse_name]
-                    if not original: continue
+                    if not original:
+                        continue
 
                     # Parent has changed and we need to notify previous parent
                     if original.id != record.id:
@@ -240,12 +247,14 @@ class Base(models.AbstractModel):
         self.push_record_notification("unlink", {}, entire=False)
 
         for x2m_field in self._syncer_satellites:
-            if x2m_field['type'] != 'one2many': continue
+            if x2m_field['type'] != 'one2many':
+                continue
             processed = {}
 
             for inverse_name in x2m_field['inverse_name']:
                 record = self[inverse_name]
-                if not record: continue
+                if not record:
+                    continue
                 model = x2m_field['model']
                 ids = record[x2m_field['field_name']].ids
                 key = (record.id, model)
@@ -279,11 +288,9 @@ class Base(models.AbstractModel):
         self.push_notification(res_model, res_id, False, True, message)
 
     def push_notification(self, res_model, res_id, entire, indirect, message):
-        message.update(dict(
-            indirect=indirect,
-            entire=entire,
-            user_id=self.prepare_user()
-        ))
+        message.update(
+            dict(indirect=indirect, entire=entire, user_id=self.prepare_user())
+        )
         self.env.syncer.push([
             self.generate_channel_name(res_model),
             self.prepare_sync_message(message, res_model, res_id)

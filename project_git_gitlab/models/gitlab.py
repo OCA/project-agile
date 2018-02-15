@@ -72,10 +72,9 @@ class GitPayloadParser(models.AbstractModel):
 
     def _map_gitlab_action_type(self, raw_payload):
 
-        def is_delete_event(event, payload):
-            return event == 'push' and \
-                   (raw_payload['after'].isdigit() and
-                    not int(raw_payload['after']))
+        def is_delete_event(evt):
+            after = raw_payload['after']
+            return evt == 'push' and (after.isdigit() and not int(after))
 
         event = raw_payload['object_kind']
 
@@ -83,7 +82,7 @@ class GitPayloadParser(models.AbstractModel):
             return False
 
         # In case of a push we need to check if we have a delete event
-        if is_delete_event(event, raw_payload):
+        if is_delete_event(event):
             event = 'delete'
 
         return event
@@ -194,7 +193,7 @@ class GitPayloadParser(models.AbstractModel):
         raw_payload = context.raw_payload
 
         utils = re.search(
-            "(https?://.+/)(\w+)/.+",
+            r"(https?://.+/)(\w+)/.+",
             raw_payload["repository"]["git_http_url"]
         )
 

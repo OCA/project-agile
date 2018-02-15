@@ -27,7 +27,8 @@ class XmlAgileBoardReader(models.AbstractModel):
     def validate_schema(self, xml):
         """
         Validates given ``xml`` against RelaxedNG validation schema.
-        In case xml is invalid and ~openerp.exceptions.ValidationError is raised.
+        In case xml is invalid and ~openerp.exceptions.ValidationError
+        is raised.
         :param xml: Xml string to be validated against RelaxedNG schema
         :return: Void
         """
@@ -61,8 +62,9 @@ class XmlAgileBoardReader(models.AbstractModel):
 
     def extend_rng(self, rng_etree):
         """
-        This method is a hook from where you can modify rng schema in cases where you have extended agile board
-        from another module and you want to support import/export functionality for your extensions.
+        This method is a hook from where you can modify rng schema in cases
+        where you have extended agile boarD from another module and you want
+        to support import/export functionality for your extensions.
         :param rng_etree: The tng tree which needs to be extended.
         :return: Returns extended rng tree.
         """
@@ -71,7 +73,7 @@ class XmlAgileBoardReader(models.AbstractModel):
     def get_rng_file_path(self):
         return os.path.join('project_agile', 'rng', 'board.rng')
 
-    def read(self, stream):
+    def board_read(self, stream):
         """
         Reads workflow from the given xml string
         :param stream: The stream providing xml data
@@ -145,7 +147,8 @@ class XmlAgileBoardReader(models.AbstractModel):
     def read_board(self, element):
         """
         Reads workflow data out of the given xml element.
-        :param element: The xml element which holds information about project workflow.
+        :param element: The xml element which holds information
+         about project workflow.
         :return: Returns workflow dictionary.
         """
         return {
@@ -160,7 +163,8 @@ class XmlAgileBoardReader(models.AbstractModel):
     def read_columns(self, element):
         """
         Reads workflow states data out of the given xml element.
-        :param element: The xml element which holds information about project workflow states
+        :param element: The xml element which holds information about
+        project workflow states
         :return: Returns the list of the workflow states
         """
         columns = []
@@ -171,7 +175,8 @@ class XmlAgileBoardReader(models.AbstractModel):
     def read_column(self, element):
         """
         Reads workflow state data out of the given xml element.
-        :param element: The xml element which holds information about project workflow state
+        :param element: The xml element which holds information
+        about project workflow state
         :return: Returns workflow state dictionary
         """
         return {
@@ -183,7 +188,8 @@ class XmlAgileBoardReader(models.AbstractModel):
     def read_column_statuses(self, element):
         """
         Reads workflow transitions data out of the given xml element.
-        :param element: The xml element which holds information about project workflow transitions.
+        :param element: The xml element which holds information about
+        project workflow transitions.
         :return: Returns the list of the workflow transitions.
         """
         stauses = []
@@ -193,8 +199,10 @@ class XmlAgileBoardReader(models.AbstractModel):
 
     def read_status(self, element):
         """
-        Reads ``project.workflow.transition`` data out of the given xml element.
-        :param element: The xml element which holds information about project workflow transition.
+        Reads ``project.workflow.transition`` data out of
+        the given xml element.
+        :param element: The xml element which holds information
+        about project workflow transition.
         :return: Returns workflow transition dictionary.
         """
         return {
@@ -207,7 +215,8 @@ class XmlAgileBoardReader(models.AbstractModel):
         Reads attribute of type ``string`` from the given xml element.
         :param element: The xml element from which the attribute value is read.
         :param attribute_name: The name of the xml attribute.
-        :param default_value: The default value in case the attribute is not present within xml element.
+        :param default_value: The default value in case
+        the attribute is not present within xml element.
         :return: Returns attribute value of type ``string``
         """
         return self.read_attribute(element, attribute_name, default_value)
@@ -217,7 +226,8 @@ class XmlAgileBoardReader(models.AbstractModel):
         Reads attribute of type ``integer`` from the given xml element.
         :param element: The xml element from which the attribute value is read.
         :param attribute_name: The name of the xml attribute.
-        :param default_value: The default value in case the attribute is not present within xml element.
+        :param default_value: The default value in case
+        the attribute is not present within xml element.
         :return: Returns attribute value of type ``integer``.
         """
         return int(self.read_attribute(element, attribute_name, default_value))
@@ -227,7 +237,8 @@ class XmlAgileBoardReader(models.AbstractModel):
         Reads attribute of type ``integer`` from the given xml element.
         :param element: The xml element from which the attribute value is read.
         :param attribute_name: The name of the xml attribute.
-        :param default_value: The default value in case the attribute is not present within xml element.
+        :param default_value: The default value in case
+        the attribute is not present within xml element.
         :return: Returns attribute value of type ``integer``.
         """
         return float(self.read_attribute(
@@ -239,7 +250,8 @@ class XmlAgileBoardReader(models.AbstractModel):
         Reads attribute of type ``boolean`` from the given xml element.
         :param element: The xml element from which the attribute value is read.
         :param attribute_name: The name of the xml attribute.
-        :param default_value: The default value in case the attribute is not present within xml element.
+        :param default_value: The default value in case
+        the attribute is not present within xml element.
         :return: Returns attribute value of type ``boolean``.
         """
         return bool(self.read_attribute(
@@ -251,7 +263,8 @@ class XmlAgileBoardReader(models.AbstractModel):
         Reads attribute value of the given ``name`` from the given xml element.
         :param element: The xml element from which attribute.
         :param name: The name of the attribute.
-        :param default_value: The default value in case the attribute is not present within xml element.
+        :param default_value: The default value in case
+        the attribute is not present within xml element.
         :return: Returns attribute value or the default value.
         """
         return element.attrib.get(name, default_value)

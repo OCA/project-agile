@@ -36,7 +36,7 @@ class BoardExportWizard(models.TransientModel):
         exporter = self.get_board_xml_writer()
 
         stream = io.BytesIO()
-        exporter.write(self.board_id, stream)
+        exporter.board_write(self.board_id, stream)
         xml_string = stream.getvalue()
         stream.close()
 

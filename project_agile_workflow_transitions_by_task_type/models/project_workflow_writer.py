@@ -21,7 +21,8 @@ class XmlWorkflowWriter(models.AbstractModel):
     def prepare_transition_task_types_attributes(self, transition):
         """
         This method prepares attribute values for a ``transitions`` element.
-        At the moment this method does nothing but it's added here for possible future usage.
+        At the moment this method does nothing but it's added here
+        for possible future usage.
         :param transition: The ``project.workflow`` browse object.
         :return: Returns dictionary with attribute values.
         """
@@ -40,7 +41,6 @@ class XmlWorkflowWriter(models.AbstractModel):
     def prepare_transition_task_type_attributes(self, task_type):
         """
         This method prepares attribute values for a transition element.
-        :param group: The ``project.workflow.transition`` browse object.
         :return: Returns dictionary with attribute values.
         """
         values = {

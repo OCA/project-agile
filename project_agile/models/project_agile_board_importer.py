@@ -14,7 +14,7 @@ class AgileBoardImporter(models.AbstractModel):
         :param stream: The stream of data to be imported.
         :return: Returns
         """
-        board = reader.read(stream)
+        board = reader.board_read(stream)
         return self._import_board(board)
 
     def _import_board(self, board):
@@ -47,7 +47,8 @@ class AgileBoardImporter(models.AbstractModel):
         Prepares ``project.workflow`` data.
         :param workflow: The workflow to be mapped to the odoo workflow
         :param state_ids: The list of already odoo mapped states.
-        :return: Returns dictionary with workflow data ready to be saved within odoo database.
+        :return: Returns dictionary with workflow data ready to be saved
+        within odoo database.
         """
         return {
             'name': board['name'],
@@ -61,20 +62,20 @@ class AgileBoardImporter(models.AbstractModel):
     def prepare_column(self, workflow, wkf_states, column):
         """
         Prepares ``project.workflow.state`` dictionary for saving.
-        :param state: Parsed state dictionary.
         :return: Returns prepared ``project.workflow.state`` values.
         """
         return {
             'name': column['name'],
             'order': column['order'],
-            'status_ids': [(0, 0, self.prepare_status(workflow, wkf_states, status)) for status in column['statuses']]
+            'status_ids': [
+                (0, 0, self.prepare_status(workflow, wkf_states, status))
+                for status in column['statuses']
+            ]
         }
 
     def prepare_status(self, workflow, wkf_states, status):
         """
         Prepares ``project.workflow.transition`` dictionary for saving.
-        :param transition: Parsed transition dictionary.
-        :param states: Dictionary of state browse objects.
         :return: Returns prepared ``project.workflow.transition`` values.
         """
         return {
