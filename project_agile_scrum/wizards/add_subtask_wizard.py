@@ -10,8 +10,9 @@ class AddSubTaskWizard(models.TransientModel):
         sub_task_values = super(AddSubTaskWizard, self)._populate_sub_task()
         story_type = self.env.ref("project_agile.project_task_type_story")
         if self.task_id.type_id.id == story_type.id:
+            sprint_id = self.task_id.sprint_id
             sub_task_values.update({
-                'sprint_id': self.task_id.sprint_id and self.task_id.sprint_id.id or False
+                'sprint_id': sprint_id and sprint_id.id or False
             })
 
         return sub_task_values

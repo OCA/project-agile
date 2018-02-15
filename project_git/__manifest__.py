@@ -3,11 +3,11 @@
 
 {
     "name": "Project Git",
-    "summary": "This module enables you to integrate your projects with git based services",
+    "summary": "Integrates your projects with git based services",
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": [
         "project_key",

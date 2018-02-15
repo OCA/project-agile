@@ -7,13 +7,7 @@
     <t t-name="project.agile.page.board">
         <div id="middle-content">
             <widget class="aside-left"></widget>
-
-            <!-- //////////////////////////////////////////////////////////////////////////// -->
             <widget class="view_manager"></widget>
         </div>
     </t>
 </templates>
-
-
-
-                    

@@ -1,7 +1,7 @@
 # Copyright 2017 - 2018 Modoolar <info@modoolar.com>
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, tools, _
 
 
 class ScrumTeam(models.Model):
@@ -69,25 +69,33 @@ class ScrumTeam(models.Model):
     @api.depends('sprint_ids', 'sprint_ids.state')
     def _compute_active_sprint(self):
         for rec in self:
-            rec.active_sprint_id = rec.sprint_ids.filtered(lambda r: r.state == 'active').id or False
+            rec.active_sprint_id = rec.sprint_ids.filtered(
+                lambda r: r.state == 'active'
+            ).id or False
 
     @api.multi
     @api.depends("sprint_ids", "sprint_ids.state")
     def _compute_active_sprint_count(self):
         for record in self:
-            record.active_sprint_count = len(record.sprint_ids.filtered(lambda r: r.state == 'active'))
+            record.active_sprint_count = len(record.sprint_ids.filtered(
+                lambda r: r.state == 'active'
+            ))
 
     @api.multi
     @api.depends("sprint_ids", "sprint_ids.state")
     def _compute_future_sprint_count(self):
         for record in self:
-            record.future_sprint_count = len(record.sprint_ids.filtered(lambda r: r.state == 'draft'))
+            record.future_sprint_count = len(record.sprint_ids.filtered(
+                lambda r: r.state == 'draft'
+            ))
 
     @api.multi
     @api.depends("sprint_ids", "sprint_ids.state")
     def _compute_completed_sprint_count(self):
         for record in self:
-            record.completed_sprint_count = len(record.sprint_ids.filtered(lambda r: r.state == 'completed'))
+            record.completed_sprint_count = len(record.sprint_ids.filtered(
+                lambda r: r.state == 'completed'
+            ))
 
     @api.multi
     def open_active_sprint(self):
@@ -98,7 +106,7 @@ class ScrumTeam(models.Model):
         self.ensure_one()
         action = self.env.ref_action("project_agile_scrum.open_agile_sprint")
         action['name'] = _("Future Sprints")
-        ctx = eval(action.get('context', "{}"))
+        ctx = tools.safe_eval(action.get('context', "{}"))
         ctx['search_default_draft'] = 1
         ctx['search_default_team_id'] = [self.id]
         ctx['default_team_id'] = self.id
@@ -108,9 +116,11 @@ class ScrumTeam(models.Model):
     @api.multi
     def open_completed_sprints(self):
         self.ensure_one()
-        action = self.env.ref_action(self, "project_agile_scrum.open_agile_sprint")
+        action = self.env.ref_action(
+            self, "project_agile_scrum.open_agile_sprint"
+        )
         action['name'] = _("Completed Sprints")
-        ctx = eval(action.get('context', "{}"))
+        ctx = tools.safe_eval(action.get('context', "{}"))
         ctx['search_default_completed'] = 1
         ctx['search_default_team_id'] = [self.id]
         ctx['default_team_id'] = self.id

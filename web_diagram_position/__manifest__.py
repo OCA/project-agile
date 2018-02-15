@@ -3,11 +3,11 @@
 
 {
     "name": "Web Diagram Position",
-    "summary": "This module provides a way to save position of diagram elements",
+    "summary": "This module saves position of diagram elements",
     "category": "Web",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": [
         "web"

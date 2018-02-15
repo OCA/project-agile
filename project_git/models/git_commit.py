@@ -130,9 +130,11 @@ class GitCommit(models.Model):
     def open_tasks(self):
         self.ensure_one()
 
-        action = self.env['ir.actions.act_window'].for_xml_id('project', 'act_project_project_2_project_task_all')
-        action['display_name'] = action['name'] = _("Commit tasks")
+        action = self.env['ir.actions.act_window'].for_xml_id(
+            'project', 'act_project_project_2_project_task_all'
+        )
 
+        action['display_name'] = action['name'] = _("Commit tasks")
         action['context'] = {
             'group_by': 'stage_id',
             'default_project_id': self.repository_id.project_id.id,

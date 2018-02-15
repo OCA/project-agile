@@ -46,7 +46,11 @@ class WorkflowImportWizard(models.TransientModel):
 
         file_name = "%s.xml" % self.workflow_id.name
 
-        self.write({'data': base64.b64encode(xml_string.encode("utf-8")), 'file_name': file_name, 'state': 'end'})
+        self.write({
+            'data': base64.b64encode(xml_string.encode("utf-8")),
+            'file_name': file_name,
+            'state': 'end'
+        })
 
         action = self.env['ir.actions.act_window'].for_xml_id(
             'project_workflow', 'project_workflow_export_wizard_action'

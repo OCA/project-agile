@@ -7,7 +7,7 @@ License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
     <template id="assets_frontend" inherit_id="website.assets_frontend" name="Project portal task edit frontend assets">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/project_agile/static/portal/src/js/portal_extensions.js"></script>
+            <script type="text/javascript" src="/project_agile/static/src/js/portal/portal_extensions.js"></script>
         </xpath>
     </template>
 

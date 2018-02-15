@@ -1,7 +1,7 @@
 # Copyright 2017 - 2018 Modoolar <info@modoolar.com>
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
-from odoo import models, fields, api, exceptions
+from odoo import models, fields, api, exceptions, _
 from odoo.tools import safe_eval
 
 
@@ -31,7 +31,8 @@ class Workflow(models.Model):
     default_state_id = fields.Many2one(
         comodel_name='project.workflow.state',
         string="Default state",
-        help="Stage from this state will be chosen by default if not specified when creating task.",
+        help="Stage from this state will be set by default if not specified "
+             "when creating task.",
     )
 
     transition_ids = fields.One2many(
@@ -93,7 +94,8 @@ class Workflow(models.Model):
             record.stage_ids = [x.stage_id.id for x in record.state_ids]
 
     _sql_constraints = [
-        ('unique_workflow_name', 'UNIQUE(original_id, name)', 'Project workflow with this name already exists!')
+        ('unique_workflow_name', 'UNIQUE(original_id, name)',
+         'Project workflow with this name already exists!')
     ]
 
     @api.depends('edit_ids')
@@ -115,10 +117,9 @@ class Workflow(models.Model):
             for state in new.state_ids:
                 if state.stage_id.id == self.default_state_id.stage_id.id:
                     return state
-
-        new_update = {}
-        new_update['default_state_id'] = get_new_default_state().id
-
+        new_update = {
+            'default_state_id': get_new_default_state().id
+        }
         for transition in new.transition_ids:
             src_id = states[transition.src_id.stage_id.id].id
             dst_id = states[transition.dst_id.stage_id.id].id
@@ -137,17 +138,19 @@ class Workflow(models.Model):
         for workflow in self:
             if len(workflow.project_ids) != 0:
                 projects = [p.name for p in workflow.project_ids]
-                raise exceptions.ValidationError(
-                    "You are not allowed do delete this workflow because it is being used by the following projects: %s"
-                    % projects
+                raise exceptions.ValidationError(_(
+                    "You are not allowed do delete this workflow because it is"
+                    " being used by the following projects: %s"
+                    ) % projects
                 )
         return super(Workflow, self).unlink()
 
     @api.multi
     def is_live(self):
         """
-        Gets a value indicating whether this workflow has been published or not.
-        :return: Returns a value indicating whether this workflow has been published or not.
+        Gets a value indicating whether this workflow has been published or not
+        :return: Returns a value indicating whether this workflow has been
+        published or not.
         """
         self.ensure_one()
         return self.state == 'live'
@@ -155,8 +158,9 @@ class Workflow(models.Model):
     @api.multi
     def is_draft(self):
         """
-        Gets a value indicating whether this workflow has been published or not.
-        :return: Returns a value indicating whether this workflow has been published or not.
+        Gets a value indicating whether this workflow has been published or not
+        :return: Returns a value indicating whether this workflow has been
+        published or not.
         """
         self.ensure_one()
         return self.state == 'draft'
@@ -188,9 +192,15 @@ class Workflow(models.Model):
                 transitions.append(self._populate_state_for_widget(transition))
 
         else:
-            transitions = [self._populate_state_for_widget(x) for x in self.get_available_transitions(task, state)]
+            transitions = [
+                self._populate_state_for_widget(x)
+                for x in self.get_available_transitions(task, state)
+            ]
 
-        global_states = self.state_ids.filtered(lambda r: r.is_global == True and r.stage_id.id != stage_id)
+        global_states = self.state_ids.filtered(
+            lambda r: r.is_global and r.stage_id.id != stage_id
+        )
+
         for state in global_states:
             transitions.append({
                 'name': state.name,
@@ -223,7 +233,9 @@ class Workflow(models.Model):
     @api.multi
     def export_workflow(self):
         self.ensure_one()
-        wizard = self.env['project.workflow.export.wizard'].create({'workflow_id': self.id})
+        wizard = self.env['project.workflow.export.wizard'].create(
+            {'workflow_id': self.id}
+        )
         return wizard.button_export()
 
     @api.multi
@@ -237,7 +249,7 @@ class Workflow(models.Model):
         if self.is_live():
             if len(self.edit_ids) == 0:
                 edit = self.copy({
-                    'name': "Draft Version of '%s'" % (self.name,),
+                    'name': _("Draft Version of '%s'") % self.name,
                     'state': 'draft',
                     'default_state_id': self.default_state_id.id,
                     'original_id': self.id
@@ -269,9 +281,10 @@ class Workflow(models.Model):
             result = publisher.publish(self.original_id, self)
 
             if result.has_conflicts:
+                from_diagram = self.env.context.get('diagram', False)
                 action = result.action
                 action_context = safe_eval(action.get('context', '{}'))
-                action_context['default_from_diagram'] = self.env.context.get('diagram', False)
+                action_context['default_from_diagram'] = from_diagram
                 action['context'] = action_context
                 return action
 
@@ -281,9 +294,10 @@ class Workflow(models.Model):
     def get_workflow_publisher(self):
         return self.env['project.workflow.publisher']
 
-    # TODO: This is a workaround!
-    # TODO: This should be checked once we upgrade to a newer version of Odoo.
-    # TODO: because it does not make sense for context not to be allowed on tree view buttons.
+    # This is a workaround!
+    # This should be checked once we upgrade to a newer version of Odoo.
+    # because it does not make sense for context not to be allowed on
+    # tree view buttons.
     @api.multi
     def discard_working_copy_from_tree(self):
         self.ensure_one()
@@ -367,7 +381,6 @@ class WorkflowState(models.Model):
         string="Is default",
         compute="_compute_is_default",
         inverse="_inverse_is_default",
-        help="Stage from this state will be chosen by default if not specified when creating task.",
     )
 
     is_global = fields.Boolean(
@@ -422,13 +435,16 @@ class WorkflowState(models.Model):
     )
 
     _sql_constraints = [
-        ('unique_state_stage', 'UNIQUE(workflow_id,stage_id)', 'This state already exists!')
+        ('unique_state_stage', 'UNIQUE(workflow_id,stage_id)',
+         'This state already exists!'
+         )
     ]
 
     @api.multi
     def _compute_is_default(self):
         for record in self:
-            record.is_default = record.workflow_id.default_state_id.id == record.id
+            record.is_default = record.workflow_id.default_state_id.id == \
+                                record.id
 
     @api.multi
     def _inverse_is_default(self):
@@ -443,7 +459,9 @@ class WorkflowState(models.Model):
             args = args or []
             args.append(('id', 'in', [x[1] for x in state_ids]))
 
-        return super(WorkflowState, self).name_search(name, args, operator, limit)
+        return super(WorkflowState, self).name_search(
+            name, args, operator, limit
+        )
 
 
 class WorkflowTransition(models.Model):
@@ -488,5 +506,6 @@ class WorkflowTransition(models.Model):
     )
 
     _sql_constraints = [
-        ('unique_src_dst', 'UNIQUE(workflow_id,src_id,dst_id)', 'This transition already exists!'),
+        ('unique_src_dst', 'UNIQUE(workflow_id,src_id,dst_id)',
+         'This transition already exists!'),
     ]

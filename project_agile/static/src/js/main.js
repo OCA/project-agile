@@ -9,4 +9,3 @@ odoo.define('project_agile.main', function (require) {
     core.action_registry.add('project_agile', AgileLayout.AgileLayout);
 
 });
-

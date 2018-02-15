@@ -72,20 +72,35 @@ class AgileTeam(models.Model):
     )
 
     # image: all image fields are base64 encoded and PIL-supported
-    image = fields.Binary("Image", attachment=True,
-                          help="This field holds the image used as image for the agile team, limited to 1024x1024px.")
-    image_medium = fields.Binary("Medium-sized image",
-                                 compute='_compute_images', inverse='_inverse_image_medium', store=True,
-                                 attachment=True,
-                                 help="Medium-sized image of the agile team. It is automatically " \
-                                      "resized as a 128x128px image, with aspect ratio preserved, " \
-                                      "only when the image exceeds one of those sizes. Use this field in form views or some kanban views.")
-    image_small = fields.Binary("Small-sized image",
-                                compute='_compute_images', inverse='_inverse_image_small', store=True,
-                                attachment=True,
-                                help="Small-sized image of the agile team. It is automatically " \
-                                     "resized as a 64x64px image, with aspect ratio preserved. " \
-                                     "Use this field anywhere a small image is required.")
+    image = fields.Binary(
+        "Image",
+        attachment=True,
+        help="This field holds the image used as image for the agile team, "
+             "limited to 1024x1024px."
+    )
+
+    image_medium = fields.Binary(
+        "Medium-sized image",
+        compute='_compute_images',
+        inverse='_inverse_image_medium',
+        store=True,
+        attachment=True,
+        help="Medium-sized image of the agile team. It is automatically "
+             "resized as a 128x128px image, with aspect ratio preserved, "
+             "only when the image exceeds one of those sizes. "
+             "Use this field in form views or some kanban views."
+    )
+
+    image_small = fields.Binary(
+        "Small-sized image",
+        compute='_compute_images',
+        inverse='_inverse_image_small',
+        store=True,
+        attachment=True,
+        help="Small-sized image of the agile team. It is automatically "
+             "resized as a 64x64px image, with aspect ratio preserved. "
+             "Use this field anywhere a small image is required."
+    )
 
     @api.multi
     @api.depends("project_ids")
@@ -96,12 +111,16 @@ class AgileTeam(models.Model):
     @api.multi
     def _compute_report_ids(self):
         for rec in self:
-            rec.report_ids = self.env['project.agile.team.report'].search([('type', '=', rec.type)]).ids or []
+            rec.report_ids = self.env['project.agile.team.report'].search([
+                ('type', '=', rec.type)
+            ]).ids or []
 
     @api.depends('image')
     def _compute_images(self):
         for rec in self:
-            rec.image_medium = tools.image_resize_image_medium(rec.image, avoid_if_small=True)
+            rec.image_medium = tools.image_resize_image_medium(
+                rec.image, avoid_if_small=True
+            )
             rec.image_small = tools.image_resize_image_small(rec.image)
 
     def _inverse_image_medium(self):
@@ -121,9 +140,13 @@ class AgileTeam(models.Model):
     @api.multi
     def write(self, vals):
         if 'member_ids' in vals:
-            removed_members = self.member_ids.filtered(lambda x: x.id not in vals['member_ids'][0][2])
-            # added_ids = filter(lambda x: x not in self.member_ids.ids, vals['member_ids'][0][2])
-            added_ids = [x for x in vals['member_ids'][0][2] if x not in self.member_ids.ids]
+            removed_members = self.member_ids.filtered(
+                lambda x: x.id not in vals['member_ids'][0][2]
+            )
+            added_ids = [
+                x for x in vals['member_ids'][0][2]
+                if x not in self.member_ids.ids
+            ]
 
         res = super(AgileTeam, self).write(vals)
 
@@ -138,6 +161,10 @@ class AgileTeam(models.Model):
     def all_users_from_my_team(self):
         users = []
         for member in self.my_team_members():
-            user = {'id': member.id, 'name': member.name, '__last_update': member.write_date}
+            user = {
+                'id': member.id,
+                'name': member.name,
+                '__last_update': member.write_date
+            }
             users.append(user)
         return users

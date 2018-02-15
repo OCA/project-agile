@@ -9,7 +9,9 @@ class Base(models.AbstractModel):
 
     @api.model
     def _format_values(self, record, vals, update_related_fields=False):
-        res = super(Base, self)._format_values(record, vals, update_related_fields)
+        res = super(Base, self)\
+            ._format_values(record, vals, update_related_fields)
+
         for fn in list(res.keys()):
             if not record._fields[fn]._attrs.get('agile', False):
                 del res[fn]
@@ -62,10 +64,12 @@ class AgileSystemCodeItem(models.AbstractModel):
         agile=True,
     )
 
-    def unlink(self, cr, uid, ids, context=None):
-        for item in self.browse(cr, uid, ids, context=context):
+    @api.multi
+    def unlink(self):
+        for item in self:
             if item.system:
-                raise exceptions.ValidationError(
-                    _("%s '%s' is a system record!\nYou are not allowed to delete system record!" %
-                      (self._description or self._name, item.name_get()[0][1]))
-                )
+                raise exceptions.ValidationError(_(
+                    "%s '%s' is a system record!\n"
+                    "You are not allowed to delete system record!"
+                ) % (self._description or self._name, item.name_get()[0][1]))
+        return super(AgileSystemCodeItem, self).unlink()

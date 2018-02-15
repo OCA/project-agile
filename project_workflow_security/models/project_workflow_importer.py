@@ -8,7 +8,9 @@ class WorkflowImporter(models.AbstractModel):
     _inherit = 'project.workflow.importer'
 
     def prepare_transition(self, transition, states):
-        data = super(WorkflowImporter, self).prepare_transition(transition, states)
+        data = super(WorkflowImporter, self).prepare_transition(
+            transition, states
+        )
         data['group_ids'] = [(6, 0, self.prepare_security_groups(transition))]
         return data
 

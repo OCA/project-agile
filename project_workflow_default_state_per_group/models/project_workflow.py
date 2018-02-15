@@ -24,7 +24,9 @@ class Workflow(models.Model):
             states[state.stage_id.id] = state
 
         for def_state in new.default_state_ids:
-            def_state.write({'state_id': states[def_state.state_id.stage_id.id].id})
+            def_state.write({
+                'state_id': states[def_state.state_id.stage_id.id].id
+            })
 
         return new
 
@@ -59,5 +61,6 @@ class WorkflowDefaultStatePerGroup(models.Model):
     )
 
     _sql_constraints = [
-        ('unique_group', 'UNIQUE(group_id, workflow_id)', 'Security group must be unique per workflow!')
+        ('unique_group', 'UNIQUE(group_id, workflow_id)',
+         'Security group must be unique per workflow!')
     ]

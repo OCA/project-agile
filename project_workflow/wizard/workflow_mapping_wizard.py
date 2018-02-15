@@ -45,11 +45,19 @@ class WorkflowMappingWizard(models.TransientModel):
     def button_finish(self):
         self.ensure_one()
 
-        stages = [{'from': x.from_id.stage_id.id, 'to': x.to_id.stage_id.id} for x in self.line_ids]
+        stages = [
+            {'from': x.from_id.stage_id.id, 'to': x.to_id.stage_id.id}
+            for x in self.line_ids
+        ]
         mappings = {'stages': stages}
 
         publisher = self.get_workflow_publisher()
-        publisher.publish(self.from_id, self.to_id, mappings, project_id=self.project_id, switch=self.switch)
+        publisher.publish(
+            self.from_id,
+            self.to_id, mappings,
+            project_id=self.project_id,
+            switch=self.switch
+        )
 
         multi_action = {
             'type': 'ir.actions.act_multi',
@@ -107,7 +115,8 @@ class WorkflowMappingWizardLine(models.TransientModel):
     )
 
     _sql_constraints = [
-        ('unique_stages', 'UNIQUE(wizard_id, from_id, to_id)', 'From and To stages must be unique!')
+        ('unique_stages', 'UNIQUE(wizard_id, from_id, to_id)',
+         'From and To stages must be unique!')
     ]
 
 

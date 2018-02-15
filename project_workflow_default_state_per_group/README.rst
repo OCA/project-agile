@@ -6,7 +6,7 @@
 Project Workflow Security
 =========================
 
-This module extends ``project_workflow`` in order to provide allowed security groups for workflow transitions.
+This module extends project workflow and provides default task states per security group.
 
 
 Usage

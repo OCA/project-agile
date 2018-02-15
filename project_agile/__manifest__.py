@@ -2,13 +2,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Project Agile",
-    "summary": "This module provides core framework for development of all agile methodologies like kanban, scrum, etc",
+    "summary": "Framework for development of agile methodologies",
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
-
     "depends": [
         "web",
         "project_key",
@@ -40,8 +39,6 @@
         "views/project_workflow.xml",
         "views/project_agile_team_views.xml",
         "views/project_agile_board_views.xml",
-
-        # TODO: Merger this files into one file called ``webclient_templates.xml``
 
         # Web assets
         "views/project_agile_web_assets.xml",

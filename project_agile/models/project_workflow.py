@@ -74,11 +74,3 @@ class Workflow(models.Model):
         values = super(Workflow, self)._populate_state_for_widget(transition)
         values['resolution_id'] = transition.resolution_id.id or False
         return values
-
-
-
-
-
-
-
-

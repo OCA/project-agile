@@ -7,7 +7,9 @@ class Project(models.Model):
     _inherit = 'project.project'
 
     agile_method = fields.Selection(
-        selection_add=[('scrum', 'Scrum')],
+        selection_add=[
+            ('scrum', 'Scrum')
+        ],
         default='scrum',
     )
 
@@ -63,7 +65,9 @@ class Task(models.Model):
         if 'sprint_id' in vals:
             for record in self:
                 if len(record.child_ids) > 0:
-                    record.child_ids.write({'sprint_id': vals['sprint_id'],})
+                    record.child_ids.write({
+                        'sprint_id': vals['sprint_id']
+                    })
         return ret
 
     @api.multi

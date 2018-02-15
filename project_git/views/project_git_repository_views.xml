@@ -93,9 +93,6 @@
                         <div class="oe_kanban_global_click" style="background-color: #ececec;">
                             <div class="o_dropdown_kanban" style="visibility: visible;">
                                 <a name="icon" class="btn" t-attf-href="#{record.url.raw_value}" target="_blank">
-                                    <!--<span t-if="record.type.raw_value === 'bitbucket'" class="fa fa-bitbucket"/>-->
-                                    <!--<span t-if="record.type.raw_value === 'github'" class="fa fa-github"/>-->
-                                    <!--<span t-if="record.type.raw_value === 'gitlab'" class="fa fa-gitlab"/>-->
                                 </a>
                             </div>
                             <div class="o_kanban_tags_section oe_kanban_partner_categories"/>

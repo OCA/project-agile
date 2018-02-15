@@ -3,11 +3,11 @@
 
 {
     "name": "Project GitHub Integration",
-    "summary": "This module enables you to integrate your projects with GitHub",
+    "summary": "Enables you to integrate your projects with GitHub",
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": [
         "project_git"

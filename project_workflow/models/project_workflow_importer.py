@@ -2,7 +2,7 @@
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
 import logging
-from odoo import models
+from odoo import models, exceptions, _
 
 _logger = logging.getLogger(__name__)
 
@@ -31,7 +31,9 @@ class WorkflowImporter(models.AbstractModel):
         :return: Returns
         """
         if reader is None:
-            raise Exception("Importer can not run without provided data reader!")
+            raise exceptions.ValidationError(
+                _("Importer can not run without provided data reader!")
+            )
 
         workflow = reader.read(stream)
         return self._import_workflow(workflow)
@@ -52,15 +54,16 @@ class WorkflowImporter(models.AbstractModel):
 
         # Create new stages and register them
         for state in stages_to_create:
-            #stage_id = all_stages.get(self.get_state_name(state)).id
             stage = self.create_stage(self.prepare_task_stage(state))
             all_stages[stage.name] = stage
 
-        wkf = self.create_workflow(
-            self.prepare_workflow(
-                workflow, [(0, 0, self.prepare_state(state, all_stages[self.get_state_name(state)].id)) for state in workflow['states']]
-            )
-        )
+        state_prep = self.prepare_state
+        state_name = self.get_state_name
+
+        wkf = self.create_workflow(self.prepare_workflow(workflow, [
+            (0, 0, state_prep(state, all_stages[state_name(state)].id))
+            for state in workflow['states']
+        ]))
 
         def get_state(stage_id):
             for state in wkf.state_ids:
@@ -68,13 +71,19 @@ class WorkflowImporter(models.AbstractModel):
                     return state
             return False
 
-        wkf.default_state_id = get_state(all_stages[workflow['default_state']]).id
+        wkf.default_state_id = get_state(
+            all_stages[workflow['default_state']]
+        ).id
 
         states = dict()
         for state in wkf.state_ids:
             states[state.name] = state
 
-        transitions = [(0, 0, self.prepare_transition(t, states)) for t in workflow['transitions']]
+        transitions = [
+            (0, 0, self.prepare_transition(t, states))
+            for t in workflow['transitions']
+        ]
+
         wkf.write({'transition_ids': transitions})
         return wkf
 
@@ -88,9 +97,9 @@ class WorkflowImporter(models.AbstractModel):
         """
         Prepares ``project.workflow`` data.
         :param workflow: The workflow to be mapped to the odoo workflow
-        :param default_state: The workflow default state
         :param state_ids: The list of already odoo mapped states.
-        :return: Returns dictionary with workflow data ready to be saved within odoo database.
+        :return: Returns dictionary with workflow data ready to be saved
+        within odoo database.
         """
         return {
             'name': workflow['name'],
@@ -141,5 +150,3 @@ class WorkflowImporter(models.AbstractModel):
             'dst_id': states[transition['dst']].id,
             'user_confirmation': transition['confirmation'],
         }
-
-

@@ -33,16 +33,20 @@ class Users(models.Model):
             self.invalidate_cache()
             self.env["ir.rule"].invalidate_cache()
 
-
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         if args is None:
             args = []
-        if 'filter_by_team_id' in self.env.context and self.env.context['filter_by_team_id']:
+
+        if 'filter_by_team_id' in self.env.context and \
+                self.env.context.get('filter_by_team_id', False):
             args.append((
                 'team_ids', 'in', [self.env.context['filter_by_team_id']])
             )
-        return super(Users, self).name_search(name, args=args, operator=operator, limit=limit)
+
+        return super(Users, self).name_search(
+            name, args=args, operator=operator, limit=limit
+        )
 
     @api.multi
     def change_team(self, team_id):
@@ -51,11 +55,15 @@ class Users(models.Model):
             self.sudo().team_id = team_id
             self.env["ir.rule"].invalidate_cache()
         else:
-            exceptions.AccessDenied(_("You are allowed only to change current team for yourself"))
+            exceptions.AccessDenied(
+                _("You are allowed only to change current team for yourself")
+            )
 
     @api.multi
     def fix_team_id(self):
         for record in self:
             if record.team_id not in record.team_ids:
-                record.sudo().team_id = record.team_ids[0].id if len(record.team_ids) > 0 else False
+                team_id = len(record.team_ids) > 0 and \
+                          record.team_ids[0].id or False
+                record.sudo().team_id = team_id
         self.env["ir.rule"].invalidate_cache()

@@ -31,8 +31,8 @@ class WorkflowImport(models.TransientModel):
 
         for action in tree.iter('action'):
             transitions[action.attrib["id"]] = {
-                    "name" : action.attrib["name"],
-                    "target" : action.find("results")[0].attrib["status"]
+                    "name": action.attrib["name"],
+                    "target": action.find("results")[0].attrib["status"]
                 }
 
         return {

@@ -31,16 +31,6 @@
                                     <i class="mdi mdi-magnify"/>
                                 </a>
                             </li>
-
-                            <!--<li>-->
-                                <!--<a class="waves-effect waves-block waves-light notification-button"-->
-                                   <!--data-activates="notifications-dropdown">-->
-                                    <!--<i class="mdi mdi-bell">-->
-                                        <!--<span class="notification-count">5</span>-->
-                                    <!--</i>-->
-                                <!--</a>-->
-                            <!--</li>-->
-
                             <li>
                                 <a class="waves-effect waves-block waves-light user-button"
                                    data-activates="user-dropdown" style="display:none">
@@ -85,12 +75,6 @@
                                     Back to Odoo
                                 </a>
                             </li>
-                            <!--<li>-->
-                                <!--<a href="/web/session/logout">-->
-                                    <!--<i class="mdi mdi-logout"></i>-->
-                                    <!--Logout-->
-                                <!--</a>-->
-                            <!--</li>-->
                         </ul>
                         <ul id="team-dropdown" class="dropdown-content">
                         </ul>
@@ -111,7 +95,3 @@
         </li>
     </t>
 </templates>
-
-
-
-                    

@@ -13,4 +13,6 @@ class ProjectWorkflowPublisher(models.AbstractModel):
             old.default_state_ids.unlink()
             new.default_state_ids.write({'workflow_id': old.id})
 
-        return super(ProjectWorkflowPublisher, self)._do_publish(old, new, project_id=project_id, switch=switch)
+        return super(ProjectWorkflowPublisher, self)._do_publish(
+            old, new, project_id=project_id, switch=switch
+        )

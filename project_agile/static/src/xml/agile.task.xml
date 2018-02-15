@@ -106,12 +106,6 @@
                     <div class="collapsible-header active"><i class="mdi mdi-account-multiple"/> People</div>
                     <div class="collapsible-body">
                         <table class="left-header">
-                            <!--<tr data-field-name="team_id">-->
-                                <!--<td class="field_label">Committed team</td>-->
-                                <!--<td data-field="team_id">-->
-                                    <!--<span class="field_value"><t t-esc="widget._model.team_id[1]"/></span>-->
-                                <!--</td>-->
-                            <!--</tr>-->
                             <tr data-field-name="user_id">
                                 <td class="field_label">Assigned to</td>
                                 <td data-field="user_id">

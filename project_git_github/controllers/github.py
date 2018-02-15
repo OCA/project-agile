@@ -5,7 +5,8 @@ import json
 import urllib.parse
 
 from odoo import http, _
-from odoo.addons.project_git.controller.controller import GitController, GitContext
+from odoo.addons.project_git.controller.controller\
+    import GitController, GitContext
 
 import logging
 
@@ -18,7 +19,9 @@ class GitHubContext(GitContext):
 
 
 class GitHubController(GitController):
-    @http.route(['/github/payload/<string:token>'], methods=['post'], type='http', auth='public', csrf=False)
+    @http.route([
+        '/github/payload/<string:token>'
+    ], methods=['post'], type='http', auth='public', csrf=False)
     def process_github(self, token, *args, **kw):
         payload = json.loads(http.request.httprequest.form['payload'])
         return self.process_request(GitHubContext(token, payload))
@@ -35,7 +38,8 @@ class GitHubController(GitController):
 
         if not payload_valid:
             _logger.warning(
-                _("GitHub (delivery='%s'): received for repository (id='%s') which could not be validated!.")
+                _("GitHub (delivery='%s'): received for repository (id='%s') "
+                  "which could not be validated!.")
                 % (context.delivery, context.repository.id)
             )
         return payload_valid

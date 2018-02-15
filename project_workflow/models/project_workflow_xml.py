@@ -38,7 +38,9 @@ class XmlWorkflowReader(models.AbstractModel):
                 error = tools.ustr(error)
                 _logger.error(error)
                 errors.append(error)
-            raise exceptions.ValidationError(_("Workflow File Validation Error: %s" % ",".join(errors)))
+            raise exceptions.ValidationError(
+                _("Workflow File Validation Error: %s" % ",".join(errors))
+            )
 
     def create_validator(self):
         """
@@ -99,9 +101,12 @@ class XmlWorkflowReader(models.AbstractModel):
         # If the count of states in list and dictionary is different
         # then we have a potential problem
         if len(states) != len(workflow['states']):
-            raise exceptions.ValidationError(_("You have defined one or more states with the same name!"))
+            raise exceptions.ValidationError(
+                _("You have defined one or more states with the same name!")
+            )
 
-        # Next we check if all source and destination states can be found in the states dictionary
+        # Next we check if all source and destination states can be found
+        # in the states dictionary
         missing_states = set()
         for transition in workflow['transitions']:
             for state in ['src', 'dst']:
@@ -111,12 +116,15 @@ class XmlWorkflowReader(models.AbstractModel):
 
         # In case we have missing states we simply raise exception
         if len(missing_states) > 0:
-            raise exceptions.ValidationError(
-                _("Following state(s) are referenced in the transitions but can not be found: [%s]"
-                  % ",".join(missing_states)))
+            raise exceptions.ValidationError(_(
+                "Following state(s) are referenced in the transitions but can"
+                " not be found: [%s]"
+            ) % ",".join(missing_states))
 
         if not workflow.get('default_state', False):
-            raise exceptions.ValidationError(_("Workflow default state is missing!"))
+            raise exceptions.ValidationError(
+                _("Workflow default state is missing!")
+            )
 
     def read_workflow(self, element):
         """
@@ -155,8 +163,10 @@ class XmlWorkflowReader(models.AbstractModel):
             'description': self.read_string(element, 'description'),
             'xpos': self.read_integer(element, 'xpos', -1),
             'ypos': self.read_integer(element, 'ypos', -1),
-            'sequence': self.read_integer(element, 'sequence', default_value=1),
-            'kanban_sequence': self.read_integer(element, 'kanban_sequence', default_value=10)
+            'sequence': self.read_integer(
+                element, 'sequence', default_value=1),
+            'kanban_sequence': self.read_integer(
+                element, 'kanban_sequence', default_value=10)
         }
 
     def read_transitions(self, element):
@@ -182,7 +192,8 @@ class XmlWorkflowReader(models.AbstractModel):
             'src': self.read_string(element, 'src'),
             'dst': self.read_string(element, 'dst'),
             'confirmation': self.read_string(element, 'confirmation'),
-            'kanban_color': self.read_string(element, 'kanban-color', default_value='1')
+            'kanban_color': self.read_string(
+                element, 'kanban-color', default_value='1')
         }
 
     def read_string(self, element, attribute_name, default_value=''):
@@ -213,7 +224,9 @@ class XmlWorkflowReader(models.AbstractModel):
         :param default_value: The default value in case the attribute is not present within xml element.
         :return: Returns attribute value of type ``boolean``.
         """
-        return bool(self.read_attribute(element, attribute_name, default_value))
+        return bool(self.read_attribute(
+            element, attribute_name, default_value)
+        )
 
     def read_attribute(self, element, name, default_value=None):
         """
@@ -250,7 +263,11 @@ class XmlWorkflowWriter(models.AbstractModel):
         :param workflow: The ``project.workflow`` browse object to be converted to the xml string.
         :return: Returns xml string representation of the give ``workflow`` object.
         """
-        return etree.tostring(self._build_xml(workflow, element_tree=True), encoding=encoding, pretty_print=True)
+        return etree.tostring(
+            self._build_xml(workflow, element_tree=True),
+            encoding=encoding,
+            pretty_print=True
+        )
 
     def _build_xml(self, workflow, element_tree=False):
         """

@@ -10,14 +10,21 @@ class GitPayloadParser(models.AbstractModel):
         parse_method_name = "parse_%s_header" % context.type
 
         if not hasattr(self, parse_method_name):
-            raise exceptions.ValidationError(_("Unable to find header parsing method for '%s'") % (context.type,))
+            raise exceptions.ValidationError(
+                _("Unable to find header parsing method for '%s'") %
+                context.type
+            )
 
-        return getattr(self, parse_method_name)(context.type, context.raw_payload)
+        return getattr(self, parse_method_name)(
+            context.type, context.raw_payload
+        )
 
     def parse(self, context):
         parse_method_name = "parse_%s_payload" % context.type
 
         if not hasattr(self, parse_method_name):
-            raise exceptions.ValidationError(_("Unable to find parsing method for '%s'") % (context.type, ))
+            raise exceptions.ValidationError(
+                _("Unable to find parsing method for '%s'") % (context.type, )
+            )
 
         return getattr(self, parse_method_name)(context)

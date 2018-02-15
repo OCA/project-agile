@@ -77,7 +77,8 @@ class GitPayloadParser(models.AbstractModel):
     # Payload
     # -------------------------------------------
     def parse_bitbucket_payload(self, context):
-        parse_event_method = getattr(self, "parse_bitbucket_%s" % context.action_type)
+        method_name = "parse_bitbucket_%s" % context.action_type
+        parse_event_method = getattr(self, method_name)
         return parse_event_method(context)
 
     # -------------------------------------------
@@ -104,7 +105,8 @@ class GitPayloadParser(models.AbstractModel):
     def parse_bitbucket_branches(self, context, commits=True):
         branches = []
         for branch in context.raw_payload["push"]["changes"]:
-            branches.append(self.parse_bitbucket_branch(context, branch, commits))
+            branch_data = self.parse_bitbucket_branch(context, branch, commits)
+            branches.append(branch_data)
         return branches
 
     def parse_bitbucket_branch(self, context, branch, commits=True):
@@ -140,13 +142,14 @@ class GitPayloadParser(models.AbstractModel):
     def parse_bitbucket_commit_author(self, context, commit):
         author = commit["author"]
         user = author["user"]
+        email = re.search("%s(.*)%s" % ("<", ">"), author["raw"]).group(1)
         return {
             "name": user["display_name"],
             "username": user["username"].lower(),
             "uuid": user["uuid"][1:-1],
             "avatar": user["links"]["avatar"]["href"],
             "url": user["links"]["html"]["href"],
-            "email": re.search("%s(.*)%s" % ("<", ">"), author["raw"]).group(1),
+            "email": email,
             "type": context.type,
         }
 

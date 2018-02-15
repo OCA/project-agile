@@ -3,14 +3,19 @@
 
 {
     "name": "Web Syncer",
-    "summary": "This module provides generic interface to receive CUD model notifications on web client side",
+    "summary": "Generic CUD model notifications on web client side",
     "category": "Web",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": ["bus"],
-
+    "description": """
+    Web Syncer
+    ==========
+    This module provides generic interface for receiving create, update and
+    delete notifications on web client side.
+    """,
     "data": [
         "views/web_syncer.xml",
     ],

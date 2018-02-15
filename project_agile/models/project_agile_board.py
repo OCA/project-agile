@@ -3,6 +3,7 @@
 
 from odoo import models, fields, api, exceptions, _
 
+
 class Board(models.Model):
     _name = 'project.agile.board'
     _inherit = ['project.agile.mixin.id_search']
@@ -105,7 +106,8 @@ class Board(models.Model):
     @api.multi
     def _compute_report_ids(self):
         for rec in self:
-            rec.project_ids = self.env['project.agile.board.report'].search([('type', '=', rec.type)]).ids or []
+            rec.project_ids = self.env['project.agile.board.report']\
+                                  .search([('type', '=', rec.type)]).ids or []
 
     @api.multi
     def get_mapped_states(self):
@@ -118,7 +120,9 @@ class Board(models.Model):
     @api.multi
     def _compute_unmapped_task_stage_ids(self):
         for record in self:
-            record.unmapped_task_stage_ids = [x.stage_id.id for x in record.unmapped_state_ids]
+            record.unmapped_task_stage_ids = [
+                x.stage_id.id for x in record.unmapped_state_ids
+            ]
 
     @api.multi
     def _compute_unmapped_state_ids(self):
@@ -136,9 +140,10 @@ class Board(models.Model):
     def _constraint_type_projects(self):
         for project in self.project_ids:
             if project.agile_method != self.type:
-                raise exceptions.ValidationError(
-                    _("Agile method on assigned projects does not match selected board type!")
-                )
+                raise exceptions.ValidationError(_(
+                    "Agile method on assigned projects does not match "
+                    "selected board type!"
+                ))
 
     @api.multi
     def create_task_domain(self):
@@ -148,8 +153,18 @@ class Board(models.Model):
     @api.multi
     def task_tree_view(self):
         self.ensure_one()
-        default_filter = [("sprint_id", "=", False), ("type_id", "=", self.env.ref("project_agile.project_task_type_story").id)]
+
+        type_story = self.env.ref("project_agile.project_task_type_story")
+        default_filter = [
+            ("sprint_id", "=", False),
+            ("type_id", "=", type_story.id)
+        ]
+
         domain = self.create_task_domain() + default_filter
+        ctx = {
+            'default_res_model': self._name,
+            'default_res_id': self.id,
+        }
         return {
             'name': 'Tasks',
             'domain': domain,
@@ -162,7 +177,7 @@ class Board(models.Model):
                     Some help, change to appropriate
                 </p>''',
             'limit': 80,
-            'context': "{'default_res_model': '%s','default_res_id': %d}" % (self._name, self.id)
+            'context': ctx,
         }
 
     @api.multi
@@ -179,16 +194,19 @@ class Board(models.Model):
     @api.multi
     def export_board(self):
         self.ensure_one()
-        wizard = self.env['project.agile.board.export.wizard'].create({'board_id': self.id})
+        wizard = self.env['project.agile.board.export.wizard'].create({
+            'board_id': self.id
+        })
         return wizard.button_export()
 
     @api.multi
     def open_in_odoo_agile(self):
         self.ensure_one()
+        url = "/agile/web#page=board&board=%s&view=%s" % (self.id, self.type)
         return {
             'type': 'ir.actions.act_url',
             'target': 'self',
-            'url': "/agile/web#page=board&board=%s&view=%s" % (self.id, self.type)
+            'url': url
         }
 
 
@@ -198,12 +216,29 @@ class Column(models.Model):
     _order = 'order'
 
     name = fields.Char()
-    board_id = fields.Many2one(comodel_name="project.agile.board", string="Board", required=False, ondelete='cascade')
-    status_ids = fields.One2many(comodel_name="project.agile.board.column.status", inverse_name="column_id", string="Statuses", required=True, )
-    order = fields.Float(required=False, )
+    board_id = fields.Many2one(
+        comodel_name="project.agile.board",
+        string="Board",
+        ondelete='cascade'
+    )
 
-    min = fields.Integer("Min", help="The minimum number of issues in this column")
-    max = fields.Integer("Max", help="The maximum number of issues int this column")
+    status_ids = fields.One2many(
+        comodel_name="project.agile.board.column.status",
+        inverse_name="column_id",
+        string="Statuses",
+        required=True
+    )
+
+    order = fields.Float(required=False, )
+    min = fields.Integer(
+        "Min",
+        help="The minimum number of issues in this column"
+    )
+
+    max = fields.Integer(
+        "Max",
+        help="The maximum number of issues int this column"
+    )
 
     min_max_visible = fields.Boolean(
         compute="_compute_min_max_visible"
@@ -212,7 +247,8 @@ class Column(models.Model):
     notification_level = fields.Selection(
         selection=[('warning', 'Warning'), ('error', 'Error')],
         string='Notification Level',
-        help='Level of notification when the maximum number of issues is exceeded!'
+        help="Level of notification when the maximum number of issues is "
+             "exceeded!"
     )
 
     workflow_id = fields.Many2one(
@@ -224,7 +260,8 @@ class Column(models.Model):
     )
 
     _sql_constraints = [
-        ('name_unique', 'UNIQUE(board_id,name)', "The name of the column must be unique per board"),
+        ('name_unique', 'UNIQUE(board_id,name)',
+         "The name of the column must be unique per board"),
     ]
 
     @api.multi
@@ -298,14 +335,17 @@ class ColumnStatus(models.Model):
     )
 
     _sql_constraints = [
-        ('stage_unique', 'UNIQUE(board_id, state_id)', "Column state must be unique per board!"),
+        ('stage_unique', 'UNIQUE(board_id, state_id)',
+         "Column state must be unique per board!"),
     ]
 
     @api.multi
     @api.onchange("workflow_id")
     def calculate_workflow_stage_ids(self):
         for record in self:
-            record.workflow_stage_ids = [x.id for x in self.workflow_id.stage_ids]
+            record.workflow_stage_ids = [
+                x.id for x in self.workflow_id.stage_ids
+            ]
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
@@ -315,4 +355,5 @@ class ColumnStatus(models.Model):
             columns = self.env.context.get('filter_statuses_in_column', [])
             ids = [x[1] for x in columns]
             args.append(('id', 'in', ids))
-        return super(ColumnStatus, self).name_search(name, args=args, operator=operator, limit=limit)
+        return super(ColumnStatus, self)\
+            .name_search(name, args=args, operator=operator, limit=limit)

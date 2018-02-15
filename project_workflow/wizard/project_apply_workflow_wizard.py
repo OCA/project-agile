@@ -29,15 +29,17 @@ class ProjectEditWorkflowEWizard(models.TransientModel):
 
         publisher = self.get_workflow_publisher()
         result = publisher.publish(
-            self.current_workflow_id, self.new_workflow_id, project_id=self.project_id, switch=True
+            self.current_workflow_id,
+            self.new_workflow_id, project_id=self.project_id, switch=True
         )
 
         if result.has_conflicts:
-            return {'type': 'ir.actions.act_multi', 'actions': [{'type': 'ir.actions_act_window_close'}, result.action]}
+            return {
+                'type': 'ir.actions.act_multi',
+                'actions': [{'type': 'ir.actions_act_window_close'},
+                            result.action
+                            ]
+            }
 
     def get_workflow_publisher(self):
         return self.env['project.workflow.publisher']
-
-
-
-

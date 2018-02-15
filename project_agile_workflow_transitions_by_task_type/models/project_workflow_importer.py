@@ -8,8 +8,12 @@ class WorkflowImporter(models.AbstractModel):
     _inherit = 'project.workflow.importer'
 
     def prepare_transition(self, transition, states):
-        data = super(WorkflowImporter, self).prepare_transition(transition, states)
-        data['task_type_ids'] = [(6, 0, self.prepare_transition_task_types(transition))]
+        data = super(WorkflowImporter, self).prepare_transition(
+            transition, states
+        )
+        data['task_type_ids'] = [
+            (6, 0, self.prepare_transition_task_types(transition))
+        ]
         return data
 
     def prepare_transition_task_types(self, transition):

@@ -12,5 +12,9 @@ class WorkflowState(models.Model):
         if args is None:
             args = []
         if 'filter_states' in self.env.context:
-            args.append(('id', 'in', [x[1] for x in self.env.context.get('filter_states', [])]))
-        return super(WorkflowState, self).name_search(name, args=args, operator=operator, limit=limit)
+            args.append(('id', 'in', [
+                x[1] for x in self.env.context.get('filter_states', [])
+            ]))
+        return super(WorkflowState, self).name_search(
+            name, args=args, operator=operator, limit=limit
+        )

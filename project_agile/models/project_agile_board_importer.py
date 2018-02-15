@@ -24,10 +24,16 @@ class AgileBoardImporter(models.AbstractModel):
         :return: Returns instance of the imported project workflow.
         """
 
-        workflow = self.env['project.workflow'].search([('name', '=', board['workflow'])])
+        workflow = self.env['project.workflow'].search([
+            ('name', '=', board['workflow'])
+        ])
         wkf_states = dict([(s.name, s) for s in workflow.state_ids])
 
-        board_data = self.prepare_board(board, workflow, [(0, 0, self.prepare_column(workflow, wkf_states, column)) for column in board['columns']])
+        board_data = self.prepare_board(board, workflow, [
+            (0, 0, self.prepare_column(workflow, wkf_states, column))
+            for column in board['columns']
+        ])
+
         is_default = board_data.pop('is_default', False)
         the_board = self.env['project.agile.board'].create(board_data)
 
@@ -75,5 +81,3 @@ class AgileBoardImporter(models.AbstractModel):
             'state_id': wkf_states[status['wkf_state']].id,
             'order': status['order'],
         }
-
-

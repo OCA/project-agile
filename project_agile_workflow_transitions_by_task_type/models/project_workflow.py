@@ -8,9 +8,17 @@ class Workflow(models.Model):
     _inherit = 'project.workflow'
 
     def get_available_transitions(self, task, state):
-        transitions = super(Workflow, self).get_available_transitions(task, state)
+        transitions = super(Workflow, self).get_available_transitions(
+            task, state
+        )
         task_types = frozenset([task.type_id.id])
-        return [x for x in transitions if not (x.task_type_ids and task_types.isdisjoint(x.task_type_ids.ids))]
+        return [
+            x
+            for x in transitions
+            if not (x.task_type_ids and
+                    task_types.isdisjoint(x.task_type_ids.ids)
+                    )
+        ]
 
 
 class WorkflowTransition(models.Model):

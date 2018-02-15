@@ -42,15 +42,17 @@ class BoardExportWizard(models.TransientModel):
 
         file_name = "%s.xml" % self.board_id.name
 
-        self.write({'data': base64.b64encode(xml_string), 'file_name': file_name, 'state': 'end'})
+        self.write({
+            'data': base64.b64encode(xml_string),
+            'file_name': file_name,
+            'state': 'end'
+        })
 
-        action = self.env.xmlid_to_action("project_agile.project_agile_board_export_wizard_action")
+        action = self.env.ref_action(
+            "project_agile.project_agile_board_export_wizard_action"
+        )
         action['res_id'] = self.id
         return action
 
     def get_board_xml_writer(self):
         return self.env['project.agile.board.xml.writer']
-
-
-
-

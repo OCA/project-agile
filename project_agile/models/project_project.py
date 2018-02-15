@@ -63,13 +63,23 @@ class Project(models.Model):
     @api.model
     def _get_default_workflow_id(self):
         type_id = self._get_default_type_id()
-        project_type = type_id and self.env['project.type'].browse(type_id) or False
-        workflow_id = project_type and project_type.workflow_id and project_type.workflow_id.id or False
+
+        project_type = False
+        if type_id:
+            project_type = self.env['project.type'].browse(type_id)
+
+        workflow_id = False
+        if project_type:
+            workflow_id = project_type.workflow_id and \
+                          project_type.workflow_id.id
         return workflow_id
 
     @api.model
     def _set_default_project_type_id(self):
-        project_type = self.env['project.type'].browse(self._get_default_type_id())
+        project_type = self.env['project.type'].browse(
+            self._get_default_type_id()
+        )
+
         workflow_id = project_type.workflow_id
 
         self.with_context(active_test=False, no_workflow=False) \
@@ -153,20 +163,35 @@ class Project(models.Model):
     )
 
     # image: all image fields are base64 encoded and PIL-supported
-    image = fields.Binary("Image", attachment=True,
-                          help="This field holds the image used as image for the project, limited to 1024x1024px.")
-    image_medium = fields.Binary("Medium-sized image",
-                                 compute='_compute_images', inverse='_inverse_image_medium', store=True,
-                                 attachment=True,
-                                 help="Medium-sized image of the project. It is automatically " \
-                                      "resized as a 128x128px image, with aspect ratio preserved, " \
-                                      "only when the image exceeds one of those sizes. Use this field in form views or some kanban views.")
-    image_small = fields.Binary("Small-sized image",
-                                compute='_compute_images', inverse='_inverse_image_small', store=True,
-                                attachment=True,
-                                help="Small-sized image of the project. It is automatically " \
-                                     "resized as a 64x64px image, with aspect ratio preserved. " \
-                                     "Use this field anywhere a small image is required.")
+    image = fields.Binary(
+        "Image",
+        attachment=True,
+        help="This field holds the image used as image for the project, "
+             "limited to 1024x1024px."
+    )
+
+    image_medium = fields.Binary(
+        "Medium-sized image",
+        compute='_compute_images',
+        inverse='_inverse_image_medium',
+        store=True,
+        attachment=True,
+        help="Medium-sized image of the project. It is automatically "
+             "resized as a 128x128px image, with aspect ratio preserved,"
+             "only when the image exceeds one of those sizes. "
+             "Use this field in form views or some kanban views."
+    )
+
+    image_small = fields.Binary(
+        "Small-sized image",
+        compute='_compute_images',
+        inverse='_inverse_image_small',
+        store=True,
+        attachment=True,
+        help="Small-sized image of the project. It is automatically "
+             "resized as a 64x64px image, with aspect ratio preserved. "
+             "Use this field anywhere a small image is required."
+    )
 
     @api.multi
     def _compute_board_count(self):
@@ -198,7 +223,9 @@ class Project(models.Model):
             o = {"todo": 0, "in_progress": 0, "done": 0}
 
             if record.agile_enabled:
-                for task in self.env["project.task"].search([('project_id', '=', record.id)]):
+                for task in self.env["project.task"].search([
+                    ('project_id', '=', record.id)
+                ]):
                     if task.wkf_state_type:
                         o[task.wkf_state_type] += task.story_points or 0
             for key, value in o.items():
@@ -207,7 +234,9 @@ class Project(models.Model):
     @api.depends('image')
     def _compute_images(self):
         for rec in self:
-            rec.image_medium = tools.image_resize_image_medium(rec.image, avoid_if_small=True)
+            rec.image_medium = tools.image_resize_image_medium(
+                rec.image, avoid_if_small=True
+            )
             rec.image_small = tools.image_resize_image_small(rec.image)
 
     def _inverse_image_medium(self):
@@ -226,7 +255,8 @@ class Project(models.Model):
     @api.onchange('type_id')
     def _onchange_type(self):
         if self.type_id:
-            if self.env.context.get('apply_stages', False) and self.type_id.stage_ids:
+            if self.env.context.get('apply_stages', False) and \
+                    self.type_id.stage_ids:
                 self.type_ids = [x.id for x in self.type_id.stage_ids]
 
             if isinstance(self.id, models.NewId):
@@ -243,7 +273,9 @@ class Project(models.Model):
 
         if new.agile_enabled:
             board = self.env['project.agile.board'].search([
-                ('workflow_id', '=', new.workflow_id.id), ('type', '=', new.agile_method), ('is_default', '=', True)
+                ('workflow_id', '=', new.workflow_id.id),
+                ('type', '=', new.agile_method),
+                ('is_default', '=', True)
             ])
 
             if board:
@@ -251,7 +283,9 @@ class Project(models.Model):
 
         if new.workflow_id:
             publisher = self.get_workflow_publisher()
-            publisher.publish(False, new.workflow_id, project_id=new, switch=True)
+            publisher.publish(
+                False, new.workflow_id, project_id=new, switch=True
+            )
 
         return new
 
@@ -300,9 +334,14 @@ class Project(models.Model):
     @api.multi
     def open_user_stories(self):
         self.ensure_one()
-        action = self.env.ref_action("project.act_project_project_2_project_task_all")
+        action = self.env.ref_action(
+            "project.act_project_project_2_project_task_all"
+        )
 
-        type = self.env.ref('project_agile.project_task_type_story')
+        type = self.env.ref(
+            'project_agile.project_task_type_story'
+        )
+
         action['display_name'] = _("User Stories")
         action['context'] = {
             'group_by': 'stage_id',
@@ -326,7 +365,9 @@ class Project(models.Model):
     @api.multi
     def open_epics(self):
         self.ensure_one()
-        action = self.env.ref_action("project.act_project_project_2_project_task_all")
+        action = self.env.ref_action(
+            "project.act_project_project_2_project_task_all"
+        )
 
         type = self.env.ref('project_agile.project_task_type_epic')
         action['display_name'] = _("Epics")
@@ -353,7 +394,10 @@ class Project(models.Model):
     def open_tasks(self):
         self.ensure_one()
 
-        action = self.env.ref_action("project.act_project_project_2_project_task_all")
+        action = self.env.ref_action(
+            "project.act_project_project_2_project_task_all"
+        )
+
         action['context'] = {
             'group_by': 'stage_id',
             'search_default_project_id': [self.id],
@@ -374,10 +418,11 @@ class Project(models.Model):
     @api.multi
     def open_in_agile(self):
         self.ensure_one()
+        url = "/agile/web#page=board&project=%s&view=%s"
         return {
             'type': 'ir.actions.act_url',
             'target': 'self',
-            'url': "/agile/web#page=board&project=%s&view=%s" % (self.id, self.agile_method)
+            'url': url % (self.id, self.agile_method)
         }
 
 

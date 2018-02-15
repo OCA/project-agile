@@ -8,20 +8,6 @@
         <div id="agile_layout">
             <widget class="header"></widget>
             <widget class="page_manager"></widget>
-            <!--&lt;!&ndash; START FOOTER &ndash;&gt;-->
-            <!--<footer class="page-footer agile-main-color lighten-1">-->
-            <!--<div class="footer-copyright">-->
-            <!--<div class="container">-->
-            <!--<span class="right">Copyright © 2016-->
-            <!--<a class="grey-text text-lighten-4" href="http://netbox.rs"-->
-            <!--target="_blank">NetBox Solutions-->
-            <!--</a>-->
-            <!--All rights reserved.-->
-            <!--</span>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</footer>-->
-            <!--&lt;!&ndash; END FOOTER &ndash;&gt;-->
         </div>
     </t>
     <t t-name="project.agile.layout.fail">
@@ -39,7 +25,3 @@
         </div>
     </t>
 </templates>
-
-
-
-                    

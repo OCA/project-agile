@@ -3,11 +3,11 @@
 
 {
     "name": "Project BitBucket Integration",
-    "summary": "This module enables you to integrate your projects with BitBucket",
+    "summary": "Enables you to integrate your projects with BitBucket",
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": [
         "project_git"

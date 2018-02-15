@@ -8,11 +8,13 @@ from odoo.addons.project_portal.controllers.portal import CustomerPortal
 class CustomerPortal(CustomerPortal):
 
     def portal_my_task_prepare_values(self, task_id=None, **kw):
-        values = super(CustomerPortal, self).portal_my_task_prepare_values(task_id, **kw)
+        values = super(CustomerPortal, self)\
+            .portal_my_task_prepare_values(task_id, **kw)
 
         task = request.env['project.task'].browse(task_id)
 
-        available_transitions = task.project_id.workflow_id.find_transitions(task, task.stage_id.id)
+        available_transitions = task.project_id.workflow_id.find_transitions(
+            task, task.stage_id.id
+        )
         values['transitions'] = available_transitions
-
         return values

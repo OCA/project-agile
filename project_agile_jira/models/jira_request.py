@@ -2,14 +2,16 @@
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
 import logging
-from odoo import models, fields, api
 from contextlib import contextmanager
+
+from odoo import models, fields, api
+
 
 _logger = logging.getLogger(__name__)
 
 REQUEST_STATES = [
-    ("draft","Draft"),
-    ("confirmed","Confirmed"),
+    ("draft", "Draft"),
+    ("confirmed", "Confirmed"),
     ("processing", "Processing"),
     ("processed", "Processed"),
     ("error", "Error"),
@@ -38,7 +40,9 @@ class JiraRequest(models.Model):
         string="Name",
         required=True,
         copy=False,
-        default=lambda self: self.env["ir.sequence"].next_by_code("project.agile.jira.request.job")
+        default=lambda self: self.env["ir.sequence"].next_by_code(
+            "project.agile.jira.request.job"
+        )
     )
 
     attempt = fields.Integer(
@@ -89,14 +93,15 @@ class JiraRequest(models.Model):
             finally:
                 new_cr.close()
 
-    @api.one
+    @api.multi
     def create_task(self, data):
+        self.ensure_one()
         with self.session() as new_cr:
             self.with_env(self.env(cr=new_cr)).env["project.task"].create(data)
 
-
-    @api.one
+    @api.multi
     def write_dict(self, vals):
+        self.ensure_one()
         with self.session() as new_cr:
             self.with_env(self.env(cr=new_cr)).write(vals)
 
@@ -105,9 +110,12 @@ class JiraRequest(models.Model):
         self.ensure_one()
         self.write_dict({"state": "confirmed", "attempt": self.attempt + 1})
 
-    @api.one
+    @api.multi
     def _create_log(self, message, stack_trace=None, log_type="error"):
         """Create requestion log in a separate db connection."""
+
+        self.ensure_one()
+
         vals = {
             "log_type": log_type,
             "attempt": self.attempt,
@@ -116,12 +124,13 @@ class JiraRequest(models.Model):
             "request_id": self.id
         }
         with self.session() as new_cr:
-            self.with_env(self.env(cr=new_cr)).env["project.agile.jira.request.log"].create(vals)
+            new = self.with_env(self.env(cr=new_cr))
+            new.env["project.agile.jira.request.log"].create(vals)
 
 
 LOG_TYPES = [
-    ("warning","Warning"),
-    ("error","Error"),
+    ("warning", "Warning"),
+    ("error", "Error"),
 ]
 
 
@@ -154,5 +163,3 @@ class JiraRequestLog(models.Model):
     stack_trace = fields.Text(
         string="Stack Trace"
     )
-
-

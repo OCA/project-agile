@@ -13,7 +13,6 @@ class MyDiagramView(DiagramView):
     def get_diagram_info(self, id, model, node, connector,
                          src_node, des_node, label, **kw):
 
-        # This is copz of original method. Line that iw changed is commented below.
         visible_node_fields = kw.get('visible_node_fields', [])
         invisible_node_fields = kw.get('invisible_node_fields', [])
         node_fields_string = kw.get('node_fields_string', [])
@@ -65,7 +64,9 @@ class MyDiagramView(DiagramView):
             })
 
         connector_model = http.request.env[connector]
-        data_connectors = connector_model.search([('id', 'in', list_tr)]).read(connector_fields)
+        data_connectors = connector_model.search([
+            ('id', 'in', list_tr)
+        ]).read(connector_fields)
 
         for tr in data_connectors:
             transition_id = str(tr['id'])
@@ -82,10 +83,16 @@ class MyDiagramView(DiagramView):
                 t['options'][connector_fields_string[i]] = tr[fld]
 
         fields = http.request.env['ir.model.fields']
-        field = fields.search([('model', '=', model), ('relation', '=', node), ('ttype', '=', 'one2many')])
+        field = fields.search([
+            ('model', '=', model),
+            ('relation', '=', node),
+            ('ttype', '=', 'one2many')
+        ])
         node_act = http.request.env[node]
         search_acts = node_act.search([(field.relation_field, '=', id)])
-        data_acts = search_acts.read(invisible_node_fields + visible_node_fields)
+        data_acts = search_acts.read(
+            invisible_node_fields + visible_node_fields
+        )
 
         for act in data_acts:
             n = nodes.get(str(act['id']))
@@ -115,7 +122,8 @@ class MyDiagramView(DiagramView):
         ret = dict(nodes=nodes,
                     conn=connectors,
                     display_name=name,
-                    parent_field=graphs['node_parent_field'])
+                    parent_field=graphs['node_parent_field']
+                   )
 
         # End of original method
 
@@ -124,7 +132,8 @@ class MyDiagramView(DiagramView):
 
         if xpos and ypos:
             # Nodes collection contains inconsistent key type
-            # Integers and integer string representations are used as keys: 1, 2, 3, '4', '5', '6'
+            # Integers and integer string representations are used as keys:
+            # [1, 2, 3, '4', '5', '6']
             # We need to fix this before we can continue
 
             nodes = dict()
@@ -133,9 +142,9 @@ class MyDiagramView(DiagramView):
             ret['nodes'] = nodes
 
             model_dao = http.request.env[model]
-            state_dao = http.request.env[node]
 
-            nodes_field = http.request.env['ir.ui.view'].get_graph_nodes_field(model, node)
+            View = http.request.env['ir.ui.view']
+            nodes_field = View.get_graph_nodes_field(model, node)
             state_ids = model_dao.browse(id)[nodes_field]
             for state in state_ids:
                 state_id = state['id']
@@ -146,7 +155,8 @@ class MyDiagramView(DiagramView):
                     )
         return ret
 
-    @odoo.http.route('/web_diagram_position/diagram/update', type='json', auth='user')
+    @odoo.http.route(
+        '/web_diagram_position/diagram/update', type='json', auth='user')
     def update_diagram(self, id, node, xpos, ypos, x, y):
         http.request.env[node].browse(id).write({xpos: x, ypos: y})
         return http.request.env[node].browse(id)['name']
@@ -156,7 +166,7 @@ class MyDiagramView(DiagramView):
         for shape_spec in shape.split(';'):
             if shape_spec:
                 shape_type, shape_state = shape_spec.split(':')
-                if eval(shape_state, {}, node):
+                if safe_eval(shape_state, {}, node):
                     return shape_type
         return default_shape
 
@@ -165,7 +175,7 @@ class MyDiagramView(DiagramView):
         for color_spec in bgcolor.split(';'):
             if color_spec:
                 color, color_state = color_spec.split(':')
-                if eval(color_state, {}, node):
+                if safe_eval(color_state, {}, node):
                     return color
         return default_color
 
@@ -173,8 +183,10 @@ class MyDiagramView(DiagramView):
         if not label: return ''
         label_string = ''
         for lbl in odoo.tools.safe_eval(label):
-            if odoo.tools.ustr(lbl) in connector and odoo.tools.ustr(connector[lbl]) == 'False':
+            if odoo.tools.ustr(lbl) in connector and \
+                    odoo.tools.ustr(connector[lbl]) == 'False':
                 label_string += ' '
             else:
-                label_string = label_string + " " + odoo.tools.ustr(connector[lbl])
+                label_string = label_string + " " + \
+                               odoo.tools.ustr(connector[lbl])
         return label_string

@@ -14,7 +14,8 @@ class ProjectAgileBoard(models.Model):
     kanban_backlog_column_id = fields.Many2one(
         comodel_name="project.agile.board.column",
         string="Backlog Column",
-        help="This column will be used for moving items from backlog to the kanban board.",
+        help="This column will be used for moving items from backlog"
+             " to the kanban board.",
         agile=True,
     )
 
@@ -63,6 +64,7 @@ class ProjectAgileBoardColumn(models.Model):
     _inherit = 'project.agile.board.column'
 
     def _min_max_available_for_types(self):
-        types = super(ProjectAgileBoardColumn, self)._min_max_available_for_types()
+        types = super(ProjectAgileBoardColumn, self)\
+            ._min_max_available_for_types()
         types.append('kanban')
         return types

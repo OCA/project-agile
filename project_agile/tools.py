@@ -5,7 +5,9 @@ from odoo import api
 
 
 def xmlid_to_res_id(self, xml_id, raise_if_not_found=False):
-    return self['ir.model.data'].xmlid_to_res_id(xml_id, raise_if_not_found=raise_if_not_found)
+    return self['ir.model.data'].xmlid_to_res_id(
+        xml_id, raise_if_not_found=raise_if_not_found
+    )
 
 
 def xmlid_to_action(self, xml_id):

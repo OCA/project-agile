@@ -15,10 +15,14 @@ class MailMessageSubtype(models.Model):
 class Message(models.Model):
     _inherit = "mail.message"
 
-    author_last_update = fields.Datetime(related='create_uid.__last_update', agile=True)
+    author_last_update = fields.Datetime(
+        related='create_uid.__last_update',
+        agile=True
+    )
 
     def _message_read_dict_postprocess(self, messages, message_tree):
-        ret = super(Message, self)._message_read_dict_postprocess(messages, message_tree)
+        ret = super(Message, self).\
+            _message_read_dict_postprocess(messages, message_tree)
 
         if self.env.context.get("agile", False):
             for message_dict in messages:

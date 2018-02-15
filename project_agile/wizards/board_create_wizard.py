@@ -55,11 +55,15 @@ class BoardCreateWizard(models.TransientModel):
     def button_apply(self):
         self.ensure_one()
 
-        board = self.env['project.agile.board'].create(self._prepare_agile_board())
+        board = self.env['project.agile.board'].create(
+            self._prepare_agile_board()
+        )
 
         columns = []
         order = 1
-        for type in [('todo', 'To Do'), ('in_progress', 'In Progress'), ('done', 'Done')]:
+        for type in [
+            ('todo', 'To Do'), ('in_progress', 'In Progress'), ('done', 'Done')
+        ]:
             column = self._prepare_agile_board_column(type, order)
             columns.append((0, False, column))
             order += 1
@@ -80,7 +84,8 @@ class BoardCreateWizard(models.TransientModel):
             'name': type[1],
             'order': order,
             'status_ids': [
-                (0, False, self._prepare_agile_board_state(x)) for x in self.workflow_id.state_ids if x.type == type[0]
+                (0, False, self._prepare_agile_board_state(x))
+                for x in self.workflow_id.state_ids if x.type == type[0]
             ],
         }
 

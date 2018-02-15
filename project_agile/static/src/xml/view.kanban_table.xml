@@ -14,143 +14,143 @@
         </div>
     </t>
 
-<t t-name="project.agile.view.kanban_table">
-<!--start container-->
-<div class="slide-viewport">
-    <div class="slide-wrapper">
-        <div id="kanban-table-view" class="slide-part">
-        </div>
-        <!--<div class="splitter" />-->
-        <div id="right-detail-view" class="slide-part"/>
-    </div>
-</div>
-    <!--end container-->
-</t>
-<t t-name="project.agile.view.kanban_table.settings_modal">
-<div id="modal-settings" class="modal modal-fixed-footer">
-    <div class="modal-content">
-        <h4>Settings</h4>
-        <div class="divider"/>
-        <div class="input-field">
-            <select id="board-option-swimlane">
-                <option value="" disabled="true">Swimlanes group by</option>
-                <t t-foreach="swimlanes" t-as="swimlane">
-                    <option t-attf-value="{{swimlane.value}}"><t t-esc="swimlane.text"/></option>
-                </t>
-            </select>
-            <label>Swimlanes group by</label>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a class="modal-action modal-save waves-effect waves-green btn-flat">Save</a>
-        <a class="modal-action modal-close waves-effect btn-flat">Close</a>
-    </div>
-</div>
-</t>
-<t t-name="project.agile.view.kanban_table.empty">
-<!--start container-->
-<div id="kanban-table-view">
-    <div class="empty">
-        <h3 class="title">Kanban table doesn't contain any data.</h3>
-    </div>
-</div>
-    <!--end container-->
-</t>
-<t t-name="project.agile.kanban_table.swimlane">
-<div class="swimlane">
-    <div class="columns"></div>
-</div>
-</t>
-<t t-name="project.agile.kanban_table.swimlane.collapsible">
-<div class="swimlane">
-    <ul class="collapsible collapsible-accordion" data-collapsible="expandable">
-        <li>
-            <div class="collapsible-header active"/>
-            <div class="collapsible-body">
-                <div class="columns"></div>
+    <t t-name="project.agile.view.kanban_table">
+    <!--start container-->
+    <div class="slide-viewport">
+        <div class="slide-wrapper">
+            <div id="kanban-table-view" class="slide-part">
             </div>
-        </li>
-    </ul>
-</div>
-</t>
-<t t-name="project.agile.kanban_table.swimlane.header.simple">
-    <div class="swimlane-header">
-        <t t-esc="headerData.name" /> <span class="count"><t t-esc="pluralizedCount()"/></span>
+            <!--<div class="splitter" />-->
+            <div id="right-detail-view" class="slide-part"/>
+        </div>
     </div>
-</t>
-<t t-name="project.agile.kanban_table.swimlane.header.story">
-    <div class="swimlane-header">
-        <i t-attf-class="mdi mdi-{{task.priority_agile_icon}} mdi-20px mdi-middle tooltipped" data-position="bottom" data-delay="50"
-           t-attf-data-tooltip="{{task.priority_id[1]}}"
-           t-attf-style="{{task.priority_agile_icon_color &amp;&amp; task.priority_agile_icon.startsWith('custom-') ? 'background-color:' + task.priority_agile_icon_color: 'color:' + task.priority_agile_icon_color}}"/>
-        <a class="task-key">
-            <t t-esc="task.key"/>
-        </a>
-        <t t-esc="task.name"/>
-        <span class="count">
-            <t t-esc="count()"/>
-        </span>
-    </div>
-</t>
-<t t-name="project.agile.kanban_table.column">
-    <div class="column" t-attf-data-column-id="{{id}}"></div>
-</t>
-<t t-name="project.agile.kanban_table.card">
-    <div class="card-panel sortable-item parent has-children" draggable="true" t-attf-data-card-id="{{widget.record.id}}">
-    <span class="card-title">
-        <t t-if="widget.menuItems">
-            <i class="mdi mdi-dots-vertical mdi-18px right dropdown-button" data-constrainwidth="false" data-alignment="right" data-gutter="-10"
-               t-attf-data-activates="card-menu-{{widget.record.id}}"/>
-        </t>
-    </span>
-    <t t-if="widget.menuItems">
-        <ul t-attf-id="card-menu-{{widget.record.id}}" class="dropdown-content">
-            <t t-foreach="widget.menuItems" t-as="item">
-                <li t-attf-class="{{item.class}}">
-                    <a>
-                        <t t-if="item.icon"></t>
-                        <i t-attf-class="mdi {{item.icon}}"/>
-                        <t t-esc="item.text"/>
-                    </a>
-                </li>
-            </t>
-        </ul>
+        <!--end container-->
     </t>
-    <div class="card-content"></div>
-    <div class="card-footer">
-        <div class="footer-content"></div>
-        <img t-if="widget.image_url()" class="circle card-footer-image tooltipped" data-position="bottom" data-delay="50"
-             t-attf-data-tooltip="{{widget.image_tooltip()}}" t-attf-src="{{widget.image_url()}}"/>
+    <t t-name="project.agile.view.kanban_table.settings_modal">
+    <div id="modal-settings" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Settings</h4>
+            <div class="divider"/>
+            <div class="input-field">
+                <select id="board-option-swimlane">
+                    <option value="" disabled="true">Swimlanes group by</option>
+                    <t t-foreach="swimlanes" t-as="swimlane">
+                        <option t-attf-value="{{swimlane.value}}"><t t-esc="swimlane.text"/></option>
+                    </t>
+                </select>
+                <label>Swimlanes group by</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-save waves-effect waves-green btn-flat">Save</a>
+            <a class="modal-action modal-close waves-effect btn-flat">Close</a>
+        </div>
     </div>
-</div>
-</t>
-<t t-name="project.agile.kanban_table.card.task.title">
-<div class="custom-card-title">
-    <i t-attf-class="mdi mdi-{{widget.record.type_agile_icon}} mdi-20px mdi-middle tooltipped"
-       data-position="bottom"
-       data-delay="50"
-       t-attf-data-tooltip="{{widget.record.type_id[1]}}"
-       t-attf-style="{{widget.record.type_agile_icon_color &amp;&amp; widget.record.type_agile_icon.startsWith('custom-') ? 'background-color:' + widget.record.type_agile_icon_color: 'color:' + widget.record.type_agile_icon_color}}"/>
-    <span t-if="widget.record.parent_id" class="parent-key">
-        <a class="task-key" t-attf-card-id="{{widget.record.parent_id[0]}}">
-            <t t-esc="widget.record.parent_key"/>
+    </t>
+    <t t-name="project.agile.view.kanban_table.empty">
+    <!--start container-->
+    <div id="kanban-table-view">
+        <div class="empty">
+            <h3 class="title">Kanban table doesn't contain any data.</h3>
+        </div>
+    </div>
+        <!--end container-->
+    </t>
+    <t t-name="project.agile.kanban_table.swimlane">
+    <div class="swimlane">
+        <div class="columns"></div>
+    </div>
+    </t>
+    <t t-name="project.agile.kanban_table.swimlane.collapsible">
+    <div class="swimlane">
+        <ul class="collapsible collapsible-accordion" data-collapsible="expandable">
+            <li>
+                <div class="collapsible-header active"/>
+                <div class="collapsible-body">
+                    <div class="columns"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    </t>
+    <t t-name="project.agile.kanban_table.swimlane.header.simple">
+        <div class="swimlane-header">
+            <t t-esc="headerData.name" /> <span class="count"><t t-esc="pluralizedCount()"/></span>
+        </div>
+    </t>
+    <t t-name="project.agile.kanban_table.swimlane.header.story">
+        <div class="swimlane-header">
+            <i t-attf-class="mdi mdi-{{task.priority_agile_icon}} mdi-20px mdi-middle tooltipped" data-position="bottom" data-delay="50"
+               t-attf-data-tooltip="{{task.priority_id[1]}}"
+               t-attf-style="{{task.priority_agile_icon_color &amp;&amp; task.priority_agile_icon.startsWith('custom-') ? 'background-color:' + task.priority_agile_icon_color: 'color:' + task.priority_agile_icon_color}}"/>
+            <a class="task-key">
+                <t t-esc="task.key"/>
+            </a>
+            <t t-esc="task.name"/>
+            <span class="count">
+                <t t-esc="count()"/>
+            </span>
+        </div>
+    </t>
+    <t t-name="project.agile.kanban_table.column">
+        <div class="column" t-attf-data-column-id="{{id}}"></div>
+    </t>
+    <t t-name="project.agile.kanban_table.card">
+        <div class="card-panel sortable-item parent has-children" draggable="true" t-attf-data-card-id="{{widget.record.id}}">
+        <span class="card-title">
+            <t t-if="widget.menuItems">
+                <i class="mdi mdi-dots-vertical mdi-18px right dropdown-button" data-constrainwidth="false" data-alignment="right" data-gutter="-10"
+                   t-attf-data-activates="card-menu-{{widget.record.id}}"/>
+            </t>
+        </span>
+        <t t-if="widget.menuItems">
+            <ul t-attf-id="card-menu-{{widget.record.id}}" class="dropdown-content">
+                <t t-foreach="widget.menuItems" t-as="item">
+                    <li t-attf-class="{{item.class}}">
+                        <a>
+                            <t t-if="item.icon"></t>
+                            <i t-attf-class="mdi {{item.icon}}"/>
+                            <t t-esc="item.text"/>
+                        </a>
+                    </li>
+                </t>
+            </ul>
+        </t>
+        <div class="card-content"></div>
+        <div class="card-footer">
+            <div class="footer-content"></div>
+            <img t-if="widget.image_url()" class="circle card-footer-image tooltipped" data-position="bottom" data-delay="50"
+                 t-attf-data-tooltip="{{widget.image_tooltip()}}" t-attf-src="{{widget.image_url()}}"/>
+        </div>
+    </div>
+    </t>
+    <t t-name="project.agile.kanban_table.card.task.title">
+    <div class="custom-card-title">
+        <i t-attf-class="mdi mdi-{{widget.record.type_agile_icon}} mdi-20px mdi-middle tooltipped"
+           data-position="bottom"
+           data-delay="50"
+           t-attf-data-tooltip="{{widget.record.type_id[1]}}"
+           t-attf-style="{{widget.record.type_agile_icon_color &amp;&amp; widget.record.type_agile_icon.startsWith('custom-') ? 'background-color:' + widget.record.type_agile_icon_color: 'color:' + widget.record.type_agile_icon_color}}"/>
+        <span t-if="widget.record.parent_id" class="parent-key">
+            <a class="task-key" t-attf-card-id="{{widget.record.parent_id[0]}}">
+                <t t-esc="widget.record.parent_key"/>
+            </a>
+            /
+        </span>
+        <a class="task-key">
+            <t t-esc="widget.record.key"/>
         </a>
-        /
-    </span>
-    <a class="task-key">
-        <t t-esc="widget.record.key"/>
-    </a>
-    <t t-esc="widget.record.name"/>
-</div>
-</t>
-<t t-name="project.agile.kanban_table.card.task.footer">
-<div class="custom-card-footer">
-    <i t-attf-class="mdi mdi-{{widget.record.priority_agile_icon}} mdi-20px mdi-middle tooltipped"
-       data-position="bottom"
-       data-delay="50"
-       t-attf-data-tooltip="{{widget.record.priority_id[1]}}"
-       t-attf-style="{{widget.record.priority_agile_icon_color &amp;&amp; widget.record.priority_agile_icon.startsWith('custom-') ? 'background-color:' + widget.record.priority_agile_icon_color: 'color:' + widget.record.priority_agile_icon_color}}"/>
-    <div t-attf-class="state wkf-state-{{widget.record.wkf_state_type}}"><t t-esc="widget.record.stage_id[1]"/></div>
-</div>
-</t>
-        </templates>
+        <t t-esc="widget.record.name"/>
+    </div>
+    </t>
+    <t t-name="project.agile.kanban_table.card.task.footer">
+    <div class="custom-card-footer">
+        <i t-attf-class="mdi mdi-{{widget.record.priority_agile_icon}} mdi-20px mdi-middle tooltipped"
+           data-position="bottom"
+           data-delay="50"
+           t-attf-data-tooltip="{{widget.record.priority_id[1]}}"
+           t-attf-style="{{widget.record.priority_agile_icon_color &amp;&amp; widget.record.priority_agile_icon.startsWith('custom-') ? 'background-color:' + widget.record.priority_agile_icon_color: 'color:' + widget.record.priority_agile_icon_color}}"/>
+        <div t-attf-class="state wkf-state-{{widget.record.wkf_state_type}}"><t t-esc="widget.record.stage_id[1]"/></div>
+    </div>
+    </t>
+</templates>

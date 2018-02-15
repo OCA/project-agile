@@ -7,7 +7,9 @@ from odoo.addons.project_agile.controllers.main import AgileController
 
 class KanbanController(AgileController):
 
-    @http.route('/agile/web/data/kanban_board/<model("project.agile.board"):board>', type='json', auth='user')
+    @http.route([
+        '/agile/web/data/kanban_board/<model("project.agile.board"):board>'
+    ], type='json', auth='user')
     def kanban_board(self, board, **options):
 
         # check if board exists
@@ -41,17 +43,23 @@ class KanbanController(AgileController):
         board_data['board']['columns'] = {}
         board_data['board']['status'] = {}
         for column in board.column_ids:
-            board_data['board']['columns'][column.id] = self.prepare_column(column)
+            board_data['board']['columns'][column.id] = self.prepare_column(
+                column
+            )
             for status in column.status_ids:
-                board_data['board']['status'][status.id] = self.prepare_status(status, column)
+                board_data['board']['status'][status.id] = \
+                    self.prepare_status(status, column)
                 stages_in_board.add(status.stage_id.id)
 
         for project in board.project_ids:
             if not project_id or project_id and project_id == project.id:
-                board_data['board']['projects'][project.id] = self.prepare_project(project)
+                board_data['board']['projects'][project.id] =\
+                    self.prepare_project(project)
 
         task_filter = self._prepare_kanban_task_filter(board_data, board)
-        tasks_in_board_ids = http.request.env['project.task'].search(task_filter)
+        tasks_in_board_ids = http.request.env['project.task'].search(
+            task_filter
+        )
         board_data['ids'] = tasks_in_board_ids.ids
 
         return board_data

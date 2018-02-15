@@ -67,77 +67,6 @@ odoo.define('project_agile.menu', function (require) {
             this._require_prop("boardType");
         },
         build_widget_list() {
-            //this.add_widget({
-            //    'name': 'menu_item_1',
-            //    'widget': AgileVertivalMenuItem,
-            //    append: "ul#nav-mobile",
-            //    'args': {
-            //        id: "menu_item_1",
-            //        name: "Menu item 1",
-            //        icon: "mdi-action-schedule",
-            //        view: "menu_item_1",
-            //        sequence: 1,
-            //        children: [{
-            //            'name': 'menu_item_1_3',
-            //            'widget': AgileVertivalMenuItem,
-            //            append: "div.collapsible-body ul",
-            //            'args': {
-            //                id: "menu_item_1_3",
-            //                view: "menu_item_1_3",
-            //                name: "Menu item 1.3",
-            //                parent: "menu_item_1",
-            //                sequence: 3,
-            //            }
-            //        }
-            //        ]
-            //    }
-            //});
-            //this.add_widget({
-            //    'name': 'menu_item_1_1',
-            //    'widget': AgileVertivalMenuItem,
-            //    append: "div.collapsible-body ul",
-            //    'args': {
-            //        id: "menu_item_1_1",
-            //        view: "menu_item_1_1",
-            //        name: "Menu item 1.1",
-            //        parent: "menu_item_1",
-            //        sequence: 1,
-            //    }
-            //});
-            //this.add_widget({
-            //    'name': 'menu_item_1_2',
-            //    'widget': AgileVertivalMenuItem,
-            //    append: "div.collapsible-body ul",
-            //    'args': {
-            //        id: "menu_item_1_2",
-            //        view: "menu_item_1_2",
-            //        name: "Menu item 1.2",
-            //        parent: "menu_item_1",
-            //        sequence: 2,
-            //    }
-            //});
-            //this.add_widget({
-            //    'name': 'menu_item_3',
-            //    'widget': AgileVertivalMenuItem,
-            //    append: "ul#nav-mobile",
-            //    'args': {
-            //        id: "menu_item_3",
-            //        view: "menu_item_3",
-            //        name: "Menu item 3",
-            //        sequence: 3,
-            //    }
-            //});
-            //this.add_widget({
-            //    'name': 'menu_item_2',
-            //    'widget': AgileVertivalMenuItem,
-            //    append: "ul#nav-mobile",
-            //    'args': {
-            //        id: "menu_item_2",
-            //        view: "menu_item_2",
-            //        name: "Menu item 2",
-            //        sequence: 2,
-            //    }
-            //});
             this.add_widget({
                 name: 'dashboard',
                 widget: AgileVerticalFromTopMenuItem,
@@ -173,17 +102,6 @@ odoo.define('project_agile.menu', function (require) {
                     sequence: 1,
                 }
             });
-            //this.add_widget({
-            //    'name': 'board',
-            //    'widget': AgileHorizontalMenuItem,
-            //    append: "nav ul.nav-middle",
-            //    'args': {
-            //        id: "board",
-            //        name: "Board",
-            //        view: "board",
-            //        sequence: 2,
-            //    }
-            //});
         }
     });
     var AgileMenuItem = AgileContainerWidget.extend({

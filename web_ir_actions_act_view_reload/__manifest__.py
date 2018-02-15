@@ -3,11 +3,11 @@
 
 {
     "name": "Web Actions View Reload",
-    "summary": "This module provides a way to trigger reload of the current view on ActionManager",
+    "summary": "Enables reload of the current view via ActionManager",
     "category": "Web",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": ["web"],
     "data": [

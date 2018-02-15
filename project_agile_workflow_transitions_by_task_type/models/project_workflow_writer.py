@@ -50,10 +50,15 @@ class XmlWorkflowWriter(models.AbstractModel):
         return values
 
     def create_transition_element(self, parent, transition):
-        transition_element = super(XmlWorkflowWriter, self).create_transition_element(parent, transition)
-        task_types_element = self.create_transition_task_types_element(transition_element, transition)
+        transition_element = super(XmlWorkflowWriter, self)\
+            .create_transition_element(parent, transition)
+        task_types_element = self.create_transition_task_types_element(
+            transition_element, transition
+        )
 
         for task_type in transition.task_type_ids:
-            self.create_transition_task_type_element(task_types_element, task_type)
+            self.create_transition_task_type_element(
+                task_types_element, task_type
+            )
 
         return transition_element

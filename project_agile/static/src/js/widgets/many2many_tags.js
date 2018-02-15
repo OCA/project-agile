@@ -89,44 +89,6 @@ odoo.define('project_agile.widget.many2many_tags', require => {
             this.$el.on('chip.add', this.tagAdded.bind(this));
             this.$el.on('chip.delete', this.tagDeleted.bind(this));
         },
-        // selectSuggestion(positionOffset) {
-        //     if (positionOffset) {
-        //         this.selectionIndex = (this.selectionIndex - 1 + positionOffset + this.suggestions.length) % this.suggestions.length + 1;
-        //     } else {
-        //         this.selectionIndex = 0;
-        //     }
-        //     this.$el.find('li').removeClass("selected");
-        //     this.$el.find(`li:nth-child(${this.selectionIndex})`).addClass("selected");
-        // },
-        // searchSuggestions() {
-        //     let val = this.$("input.name").val();
-        //     data.getDataSet(this.model).name_search(val, this.domain, this.operator, this.limit).then(values => {
-        //         let suggestions = values.map(e => {
-        //             return {
-        //                 id: e[0], name: e[1]
-        //             }
-        //         });
-        //         this.renderSuggestions(suggestions);
-        //     });
-        // },
-        // renderSuggestions(suggestions) {
-        //     if (suggestions) {
-        //         this.suggestions = suggestions;
-        //     }
-        //     let root = this.$(".many2one-content");
-        //     root.empty();
-        //     for (let suggestion of this.suggestions) {
-        //         let suggestionNode = this.renderSuggestion(suggestion);
-        //         suggestionNode.click(this.suggestionClickHandler.bind(this));
-        //         suggestions = root.append(suggestionNode);
-        //     }
-        // },
-        // renderSuggestion(suggestion) {
-        //     return $(`<li data-id="${suggestion.id}"><span>${suggestion.name}</span></li>`);
-        // },
-        // setReadonly(state) {
-        //     this.$("input").attr("readonly", !!state);
-        // }
     });
     return {
         Many2ManyTags

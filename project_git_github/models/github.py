@@ -82,7 +82,8 @@ class GitPayloadParser(models.AbstractModel):
     # Payload
     # -------------------------------------------
     def parse_github_payload(self, context):
-        parse_event_method = getattr(self, "parse_github_%s" % context.action_type)
+        method_name = self, "parse_github_%s" % context.action_type
+        parse_event_method = getattr(method_name)
         return parse_event_method(context)
 
     # -------------------------------------------
@@ -108,8 +109,9 @@ class GitPayloadParser(models.AbstractModel):
     # -------------------------------------------
     def parse_github_branch(self, context, commits=True):
         payload = context.raw_payload
+        name = payload["ref"] and payload["ref"].rsplit('/', 1)[-1] or "None"
         data = {
-            "name": payload["ref"] and payload["ref"].rsplit('/', 1)[-1] or "None",
+            "name": name,
             "url": payload["compare"],
             "type": context.type,
             "repository_id": context.repository.id

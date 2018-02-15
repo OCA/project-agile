@@ -63,8 +63,12 @@ class XmlWorkflowWriter(models.AbstractModel):
         return 'NO_XML_ID'
 
     def create_transition_element(self, parent, transition):
-        transition_element = super(XmlWorkflowWriter, self).create_transition_element(parent, transition)
-        security_groups_element = self.create_security_groups_element(transition_element, transition)
+        transition_element = super(XmlWorkflowWriter, self)\
+            .create_transition_element(parent, transition)
+
+        security_groups_element = self.create_security_groups_element(
+            transition_element, transition
+        )
 
         for group in transition.group_ids:
             self.create_security_group_element(security_groups_element, group)

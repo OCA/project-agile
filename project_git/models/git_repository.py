@@ -14,7 +14,9 @@ class GitRepository(models.Model):
 
     def _default_secret(self):
         alphabet = string.ascii_letters + string.digits
-        secret = ''.join(random.SystemRandom().choice(alphabet) for i in range(30))
+        secret = ''.join(
+            random.SystemRandom().choice(alphabet) for i in range(30)
+        )
         return secret
 
     name = fields.Char(
@@ -130,7 +132,9 @@ class GitRepository(models.Model):
     def _onchange_name_components(self):
         if not self.project_id or self.type:
             return
-        self.name = '%s - %s' % (self.project_id.key, self._get_selection_label(self.type))
+        self.name = '%s - %s' % (
+            self.project_id.key, self._get_selection_label(self.type)
+        )
 
     def _get_selection_label(self, type):
         for item in self._fields['type'].selection:
@@ -141,7 +145,11 @@ class GitRepository(models.Model):
     @api.multi
     @api.depends('odoo_uuid', 'type')
     def _compute_webhook_url(self):
-        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        base_url = self.env['ir.config_parameter']\
+            .sudo()\
+            .get_param('web.base.url')
         for record in self:
             if record.type:
-                record.webhook_url = urljoin(base_url, record.type, 'payload', record.odoo_uuid)
+                record.webhook_url = urljoin(
+                    base_url, record.type, 'payload', record.odoo_uuid
+                )

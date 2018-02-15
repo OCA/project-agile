@@ -11,7 +11,10 @@ class AgileReport(models.AbstractModel):
     description = fields.Html(required=True)
     type = fields.Selection(selection=[], string="Type", required=True)
     image_url = fields.Char(required=True)
-    action_id = fields.Many2one(comodel_name='ir.actions.client', required=True)
+    action_id = fields.Many2one(
+        comodel_name='ir.actions.client',
+        required=True
+    )
 
 
 class AgileTeamReport(models.Model):

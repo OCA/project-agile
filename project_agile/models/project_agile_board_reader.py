@@ -5,6 +5,7 @@ import os
 import logging
 from lxml import etree
 from lxml.builder import ElementMaker
+
 from odoo import models, tools, exceptions, _
 
 _logger = logging.getLogger(__name__)
@@ -33,11 +34,15 @@ class XmlAgileBoardReader(models.AbstractModel):
         validator = self.create_validator()
         if not validator.validate(xml):
             errors = []
+
             for error in validator.error_log:
                 error = tools.ustr(error)
                 _logger.error(error)
                 errors.append(error)
-            raise exceptions.ValidationError(_("Agile Board File Validation Error: %s" % ",".join(errors)))
+
+            raise exceptions.ValidationError(_(
+                "Agile Board File Validation Error: %s"
+            ) % ",".join(errors))
 
     def create_validator(self):
         """
@@ -97,12 +102,14 @@ class XmlAgileBoardReader(models.AbstractModel):
 
         workflow_count = len(workflows)
         if workflow_count == 0:
-            raise exceptions.ValidationError(
-                _("Workflow with name '%s' could not be found in database" % board['workflow']))
+            raise exceptions.ValidationError(_(
+                "Workflow with name '%s' could not be found in database"
+            ) % board['workflow'])
 
         if workflow_count > 1:
-            raise exceptions.ValidationError(
-                _("Found multiple instances of workflow with name '%s' " % board['workflow']))
+            raise exceptions.ValidationError(_(
+                "Found multiple instances of workflow with name '%s' "
+            ) % board['workflow'])
 
         wkf_states = set([state.name for state in workflows.state_ids])
 
@@ -122,13 +129,15 @@ class XmlAgileBoardReader(models.AbstractModel):
         error_messages = []
 
         if multiples:
-            error_messages.append(_("Following states: [%s] are assigned to multiple columns!" % multiples))
+            error_messages.append(_(
+                "Following states: [%s] are assigned to multiple columns!"
+            ) % multiples)
 
         if lost_and_found:
-            error_messages.append(
-                _("Following states [%] are referenced in the board but are not found in the related workflow!"
-                  % lost_and_found)
-            )
+            error_messages.append(_(
+                "Following states [%] are referenced in the board but are not "
+                "found in the related workflow!"
+            ) % lost_and_found)
 
         if error_messages:
             raise exceptions.ValidationError("\n".join(error_messages))
@@ -221,7 +230,9 @@ class XmlAgileBoardReader(models.AbstractModel):
         :param default_value: The default value in case the attribute is not present within xml element.
         :return: Returns attribute value of type ``integer``.
         """
-        return float(self.read_attribute(element, attribute_name, default_value))
+        return float(self.read_attribute(
+            element, attribute_name, default_value
+        ))
 
     def read_boolean(self, element, attribute_name, default_value=False):
         """
@@ -231,7 +242,9 @@ class XmlAgileBoardReader(models.AbstractModel):
         :param default_value: The default value in case the attribute is not present within xml element.
         :return: Returns attribute value of type ``boolean``.
         """
-        return bool(self.read_attribute(element, attribute_name, default_value))
+        return bool(self.read_attribute(
+            element, attribute_name, default_value
+        ))
 
     def read_attribute(self, element, name, default_value=None):
         """
@@ -242,4 +255,3 @@ class XmlAgileBoardReader(models.AbstractModel):
         :return: Returns attribute value or the default value.
         """
         return element.attrib.get(name, default_value)
-

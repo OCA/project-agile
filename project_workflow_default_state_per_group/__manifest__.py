@@ -2,11 +2,11 @@
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 {
     "name": "Project Workflow Default Stage Per Security Group",
-    "summary": "This module extends project workflow with default task states per security group.",
+    "summary": "This module enables default task states per security group.",
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": [
         "project_workflow"

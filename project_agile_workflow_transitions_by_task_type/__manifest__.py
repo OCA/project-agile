@@ -3,11 +3,11 @@
 
 {
     "name": "Project Agile Workflow Transitions By Task Type",
-    "summary": "This module extends project workflow transitions with allowed task types",
+    "summary": "Extend project workflow transitions with allowed task types",
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": [
         "project_agile",

@@ -3,11 +3,11 @@
 
 {
     "name": "Project Portal",
-    "summary": "This module overrides project portal methods on controller and makes them properly extendable",
+    "summary": "Makes project portal controller more extendable",
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": [
         "project",

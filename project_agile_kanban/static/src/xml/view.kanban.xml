@@ -40,11 +40,6 @@
                      <t t-esc="count" />
                 </span>
                 <div class="context-menu">
-                    <!--<div class="estimates">-->
-                    <!--<span class="estimate todo blue darken-4 tooltipped" data-position="bottom" data-delay="50" data-tooltip="To do"><t t-esc="estimates.todo"/></span>-->
-                    <!--<span class="estimate in-progress amber darken-3 tooltipped" data-position="bottom" data-delay="50" data-tooltip="In progress"><t t-esc="estimates.inProgress"/></span>-->
-                    <!--<span class="estimate done green darken-3 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Done"><t t-esc="estimates.done"/></span>-->
-                    <!--</div>-->
                 </div>
             </li>
         </ul>

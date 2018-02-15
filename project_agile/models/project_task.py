@@ -88,7 +88,10 @@ class ProjectTaskLink(models.Model):
     def _compute_display_name(self):
         task_id = self.env.context.get('task_id', -1)
         for record in self:
-            other_task = task_id == record.task_right_id.id and record.task_left_id or record.task_right_id
+            other_task = task_id == record.task_right_id.id and \
+                         record.task_left_id or \
+                         record.task_right_id
+
             record.name = "[%s] %s" % (other_task.key, other_task.name)
 
     @api.multi
@@ -96,13 +99,17 @@ class ProjectTaskLink(models.Model):
         task_id = self.env.context.get('task_id', -1)
         for record in self:
             relation = record.relation_id
-            record.relation_name = task_id == record.task_right_id.id and relation.inverse_name or relation.name
+            record.relation_name = task_id == record.task_right_id.id and \
+                                   relation.inverse_name or \
+                                   relation.name
 
     @api.multi
     def _compute_related_task_id(self):
         task_id = self.env.context.get('task_id', -1)
         for record in self:
-            other_task = task_id == record.task_right_id.id and record.task_left_id or record.task_right_id
+            other_task = task_id == record.task_right_id.id and \
+                         record.task_left_id or \
+                         record.task_right_id
             record.related_task_id = other_task
         return
 
@@ -115,7 +122,9 @@ class ProjectTaskLink(models.Model):
     def open_task_link(self):
         self.ensure_one()
 
-        other_task = self.related_task_id.id == self.task_right_id.id and self.task_left_id or self.task_right_id
+        other_task = self.related_task_id.id == self.task_right_id.id and\
+                     self.task_left_id or \
+                     self.task_right_id
 
         return {
             'name': "Related task",
@@ -192,10 +201,14 @@ class TaskType(models.Model):
         if args is None:
             args = []
 
-        # This key 'selected_task_type_ids' is defined on the ``project.type`` form view.
+        # The key 'selected_task_type_ids' is defined on the
+        # project.type form view.
         if 'selected_task_type_ids' in self.env.context:
             args.append((
-                'id', 'in', [x[1] for x in self.env.context['selected_task_type_ids'][0][2]]
+                'id', 'in', [
+                    x[1]
+                    for x in self.env.context['selected_task_type_ids'][0][2]
+                ]
             ))
 
         if 'board_project_ids' in self.env.context:
@@ -208,7 +221,9 @@ class TaskType(models.Model):
                         .fetch_all()
                 ])
 
-        return super(TaskType, self).name_search(name=name, args=args, operator=operator, limit=limit)
+        return super(TaskType, self).name_search(
+            name=name, args=args, operator=operator, limit=limit
+        )
 
     @api.multi
     def fetch_all(self):
@@ -246,7 +261,8 @@ class TaskPriority(models.Model):
     )
 
     _sql_constraints = [
-        ('project_task_priority_name_unique', 'unique(name)', 'Priority name already exists')
+        ('project_task_priority_name_unique', 'unique(name)',
+         'Priority name already exists')
     ]
 
     @api.model
@@ -254,13 +270,16 @@ class TaskPriority(models.Model):
         if args is None:
             args = []
 
-        # This key 'selected_priority_ids' is defined on the ``project.task.type2`` form view.
+        # The key 'selected_priority_ids' is defined on the
+        # project.task.type2 form view.
         if 'selected_priority_ids' in self.env.context:
             args.append((
                 'id', 'in', self.env.context['selected_priority_ids'][0][2]
             ))
 
-        return super(TaskPriority, self).name_search(name=name, args=args, operator=operator, limit=limit)
+        return super(TaskPriority, self).name_search(
+            name=name, args=args, operator=operator, limit=limit
+        )
 
 
 class Task(models.Model):
@@ -444,7 +463,10 @@ class Task(models.Model):
         agile=True
     )
 
-    doc_count = fields.Integer(compute="_compute_doc_count", string="Number of documents attached")
+    doc_count = fields.Integer(
+        compute="_compute_doc_count",
+        string="Number of documents attached"
+    )
 
     link_ids = fields.One2many(
         comodel_name="project.task.link",
@@ -485,43 +507,108 @@ class Task(models.Model):
 
     activity_date_deadline = fields.Date(groups='')
 
-    # Following is the list of inherited fields which we want to register as agile related fields
-    name = fields.Char(agile=True)
-    key = fields.Char(agile=True)
-    effective_hours = fields.Float(agile=True)
-    description = fields.Html(index=True, agile=True)
-    color = fields.Integer(agile=True)
-    date_deadline = fields.Date(agile=True)
-    wkf_state_type = fields.Selection(agile=True)
-    project_id = fields.Many2one(comodel_name='project.project', agile=True)
-    parent_id = fields.Many2one(comodel_name='project.task', agile=True)
-    stage_id = fields.Many2one(comodel_name='project.task.type', agile=True)
-    wkf_state_id = fields.Many2one(comodel_name='project.workflow.state', agile=True)
-    workflow_id = fields.Many2one(comodel_name='project.workflow', agile=True)
-    child_ids = fields.One2many(comodel_name='project.task', agile=True)
-    timesheet_ids = fields.One2many(comodel_name='account.analytic.line', agile=True)
-    attachment_ids = fields.One2many(comodel_name='ir.attachment', inverse_name='res_id', agile=True)
-    tag_ids = fields.Many2many(comodel_name='project.tags', agile=True)
+    # Following is the list of inherited fields which we want to register
+    # as an agile related fields
+    name = fields.Char(
+        agile=True
+    )
+
+    key = fields.Char(
+        agile=True
+    )
+
+    effective_hours = fields.Float(
+        agile=True
+    )
+
+    description = fields.Html(
+        index=True,
+        agile=True
+    )
+
+    color = fields.Integer(
+        agile=True
+    )
+
+    date_deadline = fields.Date(
+        agile=True
+    )
+
+    wkf_state_type = fields.Selection(
+        agile=True
+    )
+
+    project_id = fields.Many2one(
+        comodel_name='project.project',
+        agile=True
+    )
+
+    parent_id = fields.Many2one(
+        comodel_name='project.task',
+        agile=True
+    )
+
+    stage_id = fields.Many2one(
+        comodel_name='project.task.type',
+        agile=True
+    )
+
+    wkf_state_id = fields.Many2one(
+        comodel_name='project.workflow.state',
+        agile=True
+    )
+
+    workflow_id = fields.Many2one(
+        comodel_name='project.workflow',
+        agile=True
+    )
+
+    child_ids = fields.One2many(
+        comodel_name='project.task',
+        agile=True
+    )
+
+    timesheet_ids = fields.One2many(
+        comodel_name='account.analytic.line',
+        agile=True
+    )
+
+    attachment_ids = fields.One2many(
+        comodel_name='ir.attachment',
+        inverse_name='res_id',
+        agile=True
+    )
+
+    tag_ids = fields.Many2many(
+        comodel_name='project.tags',
+        agile=True
+    )
     # EOF
 
     @api.multi
     @api.depends('type_id')
     def _compute_is_story(self):
-        story_type = self.env.ref('project_agile.project_task_type_story', raise_if_not_found=False)
+        story_type = self.env.ref(
+            'project_agile.project_task_type_story', raise_if_not_found=False
+        )
         for record in self:
-            record.is_user_story = story_type and record.type_id.id == story_type.id or False
+            record.is_user_story = record.type_id.id == story_type.id
 
     @api.multi
     @api.depends('type_id')
     def _compute_is_epic(self):
-        epic_type = self.env.ref('project_agile.project_task_type_epic', raise_if_not_found=False)
+        epic_type = self.env.ref(
+            'project_agile.project_task_type_epic', raise_if_not_found=False
+        )
         for record in self:
-            record.is_epic = epic_type and record.type_id.id == epic_type.id or False
+            record.is_epic = record.type_id.id == epic_type.id
 
     @api.multi
     @api.depends('parent_id', 'parent_id.epic_id')
     def _compute_epic_id(self):
-        epic_type = self.env.ref('project_agile.project_task_type_epic', raise_if_not_found=False)
+        epic_type = self.env.ref(
+            'project_agile.project_task_type_epic', raise_if_not_found=False
+        )
 
         if epic_type:
             for record in self:
@@ -546,7 +633,10 @@ class Task(models.Model):
 
     @api.multi
     def _compute_task_count(self):
-        data = self.env['project.task'].read_group([('parent_id', 'in', self.ids)], ['parent_id'], ['parent_id'])
+        data = self.env['project.task'].read_group(
+            [('parent_id', 'in', self.ids)], ['parent_id'], ['parent_id']
+        )
+
         data = dict([(m['parent_id'], m['parent_id_count']) for m in data])
 
         for record in self:
@@ -555,9 +645,10 @@ class Task(models.Model):
     @api.multi
     @api.depends('key')
     def _compute_agile_url(self):
+        url = "/agile/web#page=board&project=%s&&view=task&task=%s"
         for task in self:
             if task.project_id.agile_enabled:
-                task.url = "/agile/web#page=board&project=%s&&view=task&task=%s" % (task.project_id.id, task.id)
+                task.url =  url % (task.project_id.id, task.id)
 
     @api.multi
     def _compute_doc_count(self):
@@ -567,7 +658,10 @@ class Task(models.Model):
             ['res_id', 'res_model']
         )
 
-        mapped_data = dict([(m['res_id'], m['res_id_count']) for m in attachment_data])
+        mapped_data = dict(
+            [(m['res_id'], m['res_id_count'])
+             for m in attachment_data]
+        )
 
         for record in self:
             record.doc_count = mapped_data.get(record.id, 0)
@@ -576,7 +670,9 @@ class Task(models.Model):
     def _compute_links(self):
         for record in self:
             record.link_ids = self.env["project.task.link"].search([
-                "|", ("task_left_id", "=", record.id), ("task_right_id", "=", record.id)
+                "|",
+                ("task_left_id", "=", record.id),
+                ("task_right_id", "=", record.id)
             ])
 
     @api.multi
@@ -588,12 +684,15 @@ class Task(models.Model):
     def _onchange_project(self):
         super(Task, self)._onchange_project()
 
-        context_default_type_id = self.env.context.get('default_type_id', False)
+        default_type_id = self.env.context.get(
+            'default_type_id', False
+        )
 
         if self.project_id:
             task_type_id = self.project_id.type_id.default_task_type_id.id
-            if context_default_type_id and self.project_id.type_id.has_task_type(context_default_type_id):
-                task_type_id = context_default_type_id
+            if default_type_id and \
+                    self.project_id.type_id.has_task_type(default_type_id):
+                task_type_id = default_type_id
 
             self.type_id = task_type_id
         else:
@@ -601,26 +700,34 @@ class Task(models.Model):
 
     @api.onchange('type_id')
     def _onchange_type_id(self):
-        self.priority_id = self.type_id and self.type_id.default_priority_id and \
-                           self.type_id.default_priority_id.id or False
+        self.priority_id = self.type_id and self.type_id.default_priority_id \
+                           and self.type_id.default_priority_id.id or False
 
     @api.model
     @api.returns('self', lambda value: value.id)
     def create(self, vals):
-        project_id = vals.get('project_id', self.env.context.get('default_project_id', False))
-        if project_id:
+        project_id = vals.get(
+            'project_id',
+            self.env.context.get('default_project_id', False)
+        )
 
+        if project_id:
             project = self.env['project.project'].browse(project_id)
 
             if not vals.get('type_id', False):
-                default_type_id = self.env.context.get('default_type_id', False)
+                default_type_id = self.env.context.get(
+                    'default_type_id', False
+                )
                 if default_type_id:
                     vals['type_id'] = default_type_id
                 else:
-                    vals['type_id'] = project.type_id.default_task_type_id.id or False
+                    dtt = project.type_id.default_task_type_id
+                    vals['type_id'] = dtt and dtt.id or False
 
             if not vals.get('priority_id', False) and vals.get('type_id'):
-                task_type = self.env['project.task.type2'].browse(vals.get('type_id'))
+                task_type = self.env['project.task.type2'].browse(
+                    vals.get('type_id')
+                )
                 vals['priority_id'] = task_type.default_priority_id.id or False
 
         return super(Task, self).create(vals)
@@ -632,10 +739,14 @@ class Task(models.Model):
 
         if 'filter_user_stories' in self.env.context:
             args.append((
-                'type_id', '=', self.env.ref_id('project_agile.project_task_type_story')
+                'type_id', '=', self.env.ref_id(
+                    'project_agile.project_task_type_story'
+                )
             ))
 
-        return super(Task, self).name_search(name=name, args=args, operator=operator, limit=limit)
+        return super(Task, self).name_search(
+            name=name, args=args, operator=operator, limit=limit
+        )
 
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
@@ -644,12 +755,16 @@ class Task(models.Model):
 
         if 'filter_user_stories' in self.env.context:
             args.append((
-                'type_id', '=', self.env.ref_id(self, 'project_agile.project_task_type_story')
+                'type_id', '=', self.env.ref_id(
+                    self, 'project_agile.project_task_type_story'
+                )
             ))
 
         if 'filter_tasks' in self.env.context:
             args.append((
-                'type_id', '=', self.env.ref_id(self, 'project_agile.project_task_type_task')
+                'type_id', '=', self.env.ref_id(
+                    self, 'project_agile.project_task_type_task'
+                )
             ))
 
         return super(Task, self).search(args, offset, limit, order, count)
@@ -689,12 +804,11 @@ class Task(models.Model):
 
         action = self.env.ref_action("base.action_attachment")
 
-        action['domain'] = [('res_model', '=', 'project.task'), ('res_id', '=', self.id)]
-        action['help'] = '''<p class="oe_view_nocontent_create">
-                               Documents are attached to the tasks and issues of your project.</p><p>
-                               Send messages or log internal notes with attachments to link
-                               documents to your project.
-                           </p>'''
+        action['domain'] = [
+            ('res_model', '=', 'project.task'),
+            ('res_id', '=', self.id)
+        ]
+
         action['context'] = {
             'default_res_model': self._name,
             'default_res_id': self.id,
@@ -704,7 +818,7 @@ class Task(models.Model):
 
     @api.model
     def create_task_portal(self, values):
-        if not (values['name'] and values['type_id'] and values['priority_id'] and values['project_id']):
+        if not (self.task_portal_check_mandatory_fields(values)):
             return {
                 'errors': _('Fields marked with "*" are required!')
             }
@@ -726,24 +840,34 @@ class Task(models.Model):
             'id': task.id
         }
 
+    def task_portal_check_mandatory_fields(self, values):
+        return values['name'] and values['type_id'] and \
+               values['priority_id'] and values['project_id']
+
     @api.multi
     def update_task_portal(self, values):
         task_values = {
             "name": values['name'],
-            "date_deadline": values['date_deadline'] if values['date_deadline'] else False,
+            "date_deadline": values['date_deadline'] or False,
             "description": values['description'],
             "type_id": values['type_id'],
             "priority_id": values['priority_id'],
         }
         self.write(task_values)
 
-    # Following methods will be called from hooks file, so we can leave ``project.task`` in valid state.
+    # Following methods will be called from hooks file,
+    # so we can leave project.task in valid state.
     @api.model
     def _set_default_task_priority_id(self):
-        for res in self.with_context(active_test=False).search([('priority_id', '=', False)]):
+        for res in self.with_context(active_test=False).search([
+            ('priority_id', '=', False)
+        ]):
             res.priority_id = res.type_id.default_priority_id or False
 
     @api.model
     def _set_default_task_type_id(self):
-        for task in self.with_context(active_test=False).search([('type_id', '=', False)]):
-            task.type_id = task.project_id.type_id.default_task_type_id.id or False
+        for task in self.with_context(active_test=False).search([
+            ('type_id', '=', False)
+        ]):
+            dtt = task.project_id.type_id.default_task_type_id
+            task.type_id = dtt and dtt.id or False

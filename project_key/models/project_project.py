@@ -59,7 +59,8 @@ class ProjectProject(models.Model):
         res = super(ProjectProject, self).write(values)
 
         if reindex:
-            # Here we don't expect to have more than one record because we can not have multiple projects with same KEY.
+            # Here we don't expect to have more than one record
+            # because we can not have multiple projects with same KEY.
             self.update_sequence()
             self._reindex_task_keys()
 
@@ -76,7 +77,9 @@ class ProjectProject(models.Model):
         args = args or []
         domain = []
         if name:
-            domain = ['|', ('key', 'ilike', name + '%'), ('name', operator, name)]
+            domain = [
+                '|', ('key', 'ilike', name + '%'), ('name', operator, name)
+            ]
             if operator in expression.NEGATIVE_TERM_OPERATORS:
                 domain = ['&'] + domain
         projects = self.search(domain + args, limit=limit)
@@ -107,7 +110,9 @@ class ProjectProject(models.Model):
         :param init: Set to False in case you don't want to set initial values for number_increment and number_next_actual
         """
         values = {
-            'name': "%s %s" % (_("Project task sequence for project "), self.name),
+            'name': "%s %s" % (
+                _("Project task sequence for project "), self.name
+            ),
             'implementation': 'standard',
             'code': 'project.task.key.%s' % (self.id,),
             'prefix': "%s-" % (self.key,),
@@ -116,7 +121,7 @@ class ProjectProject(models.Model):
         }
 
         if init:
-            values.update({'number_increment': 1, 'number_next_actual': 1})
+            values.update(dict(number_increment=1, number_next_actual=1))
 
         return values
 
@@ -146,14 +151,15 @@ class ProjectProject(models.Model):
         UPDATE project_task
         SET key = x.key
         FROM (
-        SELECT t.id, p.key || '-' || split_part(t.key, '-', 2) AS key FROM project_task t INNER JOIN project_project p ON t.project_id = p.id WHERE t.project_id = %s
+          SELECT t.id, p.key || '-' || split_part(t.key, '-', 2) AS key 
+          FROM project_task t 
+          INNER JOIN project_project p ON t.project_id = p.id 
+          WHERE t.project_id = %s
         ) AS x
         WHERE project_task.id = x.id;
         """
 
         self.env.cr.execute(reindex_query, (self.id,))
-        #self.env.invalidate_all()
-
         self.env['project.task'].invalidate_cache(['key'], self.task_ids.ids)
 
     @api.model
@@ -163,7 +169,9 @@ class ProjectProject(models.Model):
         project.task, so we leave those tables nice and clean after module installation.
         :return:
         """
-        for project in self.with_context(active_test=False).search([('key', '=', False)]):
+        for project in self.with_context(active_test=False).search([
+            ('key', '=', False)
+        ]):
             project.key = self.generate_project_key(project.name)
             project.create_sequence()
 

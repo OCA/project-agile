@@ -3,11 +3,11 @@
 
 {
     "name": "Project Agile Git",
-    "summary": """This module enables you to integrate project_git with project_agile""",
+    "summary": "Enables you to integrate project_git with project_agile",
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
     "depends": [
         "project_agile",

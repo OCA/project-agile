@@ -71,13 +71,19 @@ class GitPayloadParser(models.AbstractModel):
         return data
 
     def _map_gitlab_action_type(self, raw_payload):
+
+        def is_delete_event(event, payload):
+            return event == 'push' and \
+                   (raw_payload['after'].isdigit() and
+                    not int(raw_payload['after']))
+
         event = raw_payload['object_kind']
 
         if event not in self._gitlab_supported_event_types():
             return False
 
-        # In case of a pushe we need to check if we have a delete event
-        if event == 'push' and (raw_payload['after'].isdigit() and not int(raw_payload['after'])):
+        # In case of a push we need to check if we have a delete event
+        if is_delete_event(event, raw_payload):
             event = 'delete'
 
         return event
@@ -92,7 +98,8 @@ class GitPayloadParser(models.AbstractModel):
     # Payload
     # -------------------------------------------
     def parse_gitlab_payload(self, context):
-        parse_event_method = getattr(self, "parse_gitlab_%s" % context.action_type)
+        method_name = "parse_gitlab_%s" % context.action_type
+        parse_event_method = getattr(self, method_name)
         return parse_event_method(context)
 
     # -------------------------------------------
@@ -121,9 +128,11 @@ class GitPayloadParser(models.AbstractModel):
         branch_name = payload["ref"].split('/')[-1]
         data = {
             "name": branch_name,
-            "url": urljoin(payload['project']['homepage'] + '/', 'tree', branch_name),
             "type": context.type,
-            "repository_id": context.repository.id
+            "repository_id": context.repository.id,
+            "url": urljoin(
+                payload['project']['homepage'] + '/', 'tree', branch_name
+            ),
         }
 
         if commits:
@@ -148,9 +157,16 @@ class GitPayloadParser(models.AbstractModel):
         }
 
     def parse_gitlab_commit_author(self, context, commit):
-        author_data = dict(name=commit["author"]["name"], email=commit["author"]["email"])
+        author_data = dict(
+            name=commit["author"]["name"],
+            email=commit["author"]["email"]
+        )
+
         repository_owner = self.parse_gitlab_repository_owner(context)
-        return repository_owner if repository_owner['email'] == author_data['email'] else author_data
+        if repository_owner['email'] == author_data['email']:
+            return repository_owner
+
+        return author_data
 
     def parse_gitlab_sender(self, context):
         raw_payload = context.raw_payload
@@ -177,7 +193,11 @@ class GitPayloadParser(models.AbstractModel):
     def parse_gitlab_repository_owner(self, context):
         raw_payload = context.raw_payload
 
-        utils = re.search("(https?://.+/)(\w+)/.+", raw_payload["repository"]["git_http_url"])
+        utils = re.search(
+            "(https?://.+/)(\w+)/.+",
+            raw_payload["repository"]["git_http_url"]
+        )
+
         link = utils.group(1)
         username = utils.group(2)
 

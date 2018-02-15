@@ -33,7 +33,8 @@ class SyncerContext(object):
         return self._data['values']
 
     def update(self, record, values):
-        self.values.setdefault(record._name, {}).setdefault(record.id, {}).update(values)
+        self.values.setdefault(record._name, {}).setdefault(record.id, {})\
+            .update(values)
 
     @property
     def records(self):
@@ -41,7 +42,9 @@ class SyncerContext(object):
         for res_model in self.values:
             for record_id, data in self.values[res_model].items():
                 record = self._env[res_model].browse(record_id)
-                indirect = not (record._name in self.origin and record.id in self.origin[record._name])
+                indirect = not (record._name in self.origin and
+                                record.id in self.origin[record._name]
+                                )
                 records.append((data, record, indirect))
         return records
 
@@ -68,7 +71,8 @@ class SyncerContext(object):
         return len(self.notifications) > 0
 
     def push(self, notification):
-        notif = self.notifications.setdefault(notification[0], {}).setdefault(notification[1][0], notification)
+        notif = self.notifications.setdefault(notification[0], {})\
+                    .setdefault(notification[1][0], notification)
         notif[1][1]['data'].update(notification[1][1]['data'])
 
     def send(self):
@@ -93,7 +97,9 @@ class SyncerEnvironment(api.Environment):
         cr = self.cr if cr is None else cr
         uid = self.uid if user is None else int(user)
         context = self.context if context is None else context
-        new = SyncerEnvironment(cr, uid, context, self.syncer and self.syncer.data or None)
+        new = SyncerEnvironment(
+            cr, uid, context, self.syncer and self.syncer.data or None
+        )
         return new
 
     @property

@@ -76,10 +76,9 @@ class ProjectAnalyticLine(models.Model):
     def _compute_duration(self):
         for record in self:
             s = fields.Datetime.from_string(record.start_date)
-            e = record.end_date and fields.Datetime.from_string(record.end_date) or datetime.now()
+            e = record.end_date and \
+                fields.Datetime.from_string(record.end_date) or datetime.now()
 
             delta = e - s
             hours = delta.total_seconds() / 36000
             record.duration = hours
-
-

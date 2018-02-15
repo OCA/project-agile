@@ -8,9 +8,14 @@ class Workflow(models.Model):
     _inherit = 'project.workflow'
 
     def get_available_transitions(self, task, state):
-        transitions = super(Workflow, self).get_available_transitions(task, state)
+        transitions = super(Workflow, self).get_available_transitions(
+            task, state
+        )
         user_groups = frozenset(self.env.user.groups_id.ids or ())
-        return [x for x in transitions if not (x.group_ids and user_groups.isdisjoint(x.group_ids.ids))]
+        return [
+            x for x in transitions
+            if not (x.group_ids and user_groups.isdisjoint(x.group_ids.ids))
+        ]
 
 
 class WorkflowTransition(models.Model):
@@ -22,6 +27,7 @@ class WorkflowTransition(models.Model):
         column1='transition_id',
         column2='group_id',
         string='Groups',
-        help='Only defined groups are allowed to make execute this transition. '
-             'In case no groups has been defined then everyone can perform this transition.'
+        help='Only defined groups are allowed to make execute this transition.'
+             'In case no groups has been defined then everyone can perform '
+             'this transition.'
     )

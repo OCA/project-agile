@@ -1,6 +1,8 @@
 # Copyright 2017 - 2018 Modoolar <info@modoolar.com>
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
+import jira
+
 from odoo import models, fields, api, exceptions, _
 
 
@@ -23,16 +25,20 @@ class TaskImport(models.TransientModel):
     def change_issue_types(self):
         if not self.project_id:
             return
-        import jira
 
-        jira_config = self.env[self.env.context.get("active_model")].browse(self.env.context.get("active_id"))
-        client = jira.JIRA(server=jira_config.location, basic_auth=(jira_config.username, jira_config.password))
+        jira_config = self.env[self.env.context.get("active_model")].browse(
+            self.env.context.get("active_id")
+        )
+        client = jira.JIRA(
+            server=jira_config.location,
+            basic_auth=(jira_config.username, jira_config.password)
+        )
 
         jira_project = client.project(self.project_id.key)
 
         issue_types = []
         for issue_type in jira_project.issueTypes:
-            issue_types.append((0, 0,{"issue_type" : issue_type.name}))
+            issue_types.append((0, 0, {"issue_type": issue_type.name}))
 
         self.issue_type_mapper_ids = issue_types
 
@@ -40,29 +46,31 @@ class TaskImport(models.TransientModel):
     def button_import(self):
 
         if self.project_id.task_ids:
-            raise exceptions.Warning(
-                _("Project %s has tasks... Possible problem with task KEY" % (self.project_id.name))
-            )
+            raise exceptions.Warning(_(
+                "Project %s has tasks... Possible problem with task KEY"
+            ) % self.project_id.name)
 
         if not self.project_id.workflow_id:
-            raise exceptions.ValidationError(
-                _("Project %s must have workflow defined!" % (self.project_id.name))
-            )
+            raise exceptions.ValidationError(_(
+                "Project %s must have workflow defined!"
+            ) % self.project_id.name)
 
         mapper = dict()
 
         for issue_type_mapper in self.issue_type_mapper_ids:
             mapper.update({
-                issue_type_mapper.issue_type : issue_type_mapper.task_type_id.id
+                issue_type_mapper.issue_type: issue_type_mapper.task_type_id.id
             })
 
-        jira_config = self.env[self.env.context.get("active_model")].browse(self.env.context.get("active_id"))
+        jira_config = self.env[self.env.context.get("active_model")].browse(
+            self.env.context.get("active_id")
+        )
 
         jira_config.write({
-            "request_ids" : [(0, 0, {
-                "project_id" : self.project_id.id,
-                "kwargs" : mapper,
-                "job_type" : "prepare_issues_import"
+            "request_ids": [(0, 0, {
+                "project_id": self.project_id.id,
+                "kwargs": mapper,
+                "job_type": "prepare_issues_import"
             })]
         })
 
@@ -87,4 +95,3 @@ class IssueTypeMapper(models.TransientModel):
         comodel_name="project.task.type2",
         string="Task Type"
     )
-

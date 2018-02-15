@@ -26,11 +26,18 @@ def get_image_type(self):
 def get_avatar(self, name):
     base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
     for record in self:
-        record.avatar = urljoin(base_url, 'project_git', 'static', 'src', 'img', '{}.png'.format(name))
+        record.avatar = urljoin(
+            base_url, 'project_git', 'static', 'src', 'img', '%s.png' % name
+        )
 
 
 def hmac_new(secret, message, add_sha1=False):
-    digest = hmac.new(secret.encode('utf-8'), message.encode('utf-8'), sha1).hexdigest()
+    digest = hmac.new(
+        secret.encode('utf-8'),
+        message.encode('utf-8'),
+        sha1
+    ).hexdigest()
+
     if add_sha1:
         digest = 'sha1=' + digest
     return digest

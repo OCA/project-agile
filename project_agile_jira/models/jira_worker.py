@@ -1,16 +1,22 @@
 # Copyright 2017 - 2018 Modoolar <info@modoolar.com>
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
-import jira
 import logging
 import traceback
 import ast
 import re
+
 from contextlib import contextmanager
+
 from odoo import models, api
 
 
 _logger = logging.getLogger(__name__)
+
+try:
+    import jira
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 
 class JiraWorker(models.AbstractModel):
@@ -31,7 +37,9 @@ class JiraWorker(models.AbstractModel):
 
     @api.model
     def execute_requests(self):
-        requests = self.env["project.agile.jira.request"].search([("state", "=", "confirmed")])
+        requests = self.env["project.agile.jira.request"].search([
+            ("state", "=", "confirmed")
+        ])
 
         for request in requests:
             request.write_dict({"state": "processing"})
@@ -61,7 +69,9 @@ class JiraWorker(models.AbstractModel):
     def prepare_issuses_import(self, request):
 
         max_issue_number = -1
-        relationships = list() #(parent, child)
+
+        # (parent, child)
+        relationships = list()
         links = list()
         worklogs = list()
 
@@ -84,7 +94,9 @@ class JiraWorker(models.AbstractModel):
 
             for link in issue.fields.issuelinks:
                 if hasattr(link, 'outwardIssue'):
-                    links.append((issue.key, link.outwardIssue.key, link.type.outward))
+                    links.append(
+                        (issue.key, link.outwardIssue.key, link.type.outward)
+                    )
 
             for worklog in issue.fields.worklog.worklogs:
                 worklogs.append({
@@ -174,7 +186,9 @@ class JiraWorker(models.AbstractModel):
 
             client = jira.JIRA(
                 server=request.config_id.location,
-                basic_auth=(request.config_id.username, request.config_id.password)
+                basic_auth=(
+                    request.config_id.username, request.config_id.password
+                )
             )
 
             issue = client.issue(args[0])
@@ -191,27 +205,31 @@ class JiraWorker(models.AbstractModel):
 
             if issue.raw["fields"]["priority"]:
                 task_priority = self.env["project.task.priority"].search([
-                    ("name", "ilike" , issue.raw["fields"]["priority"]["name"])
+                    ("name", "ilike", issue.raw["fields"]["priority"]["name"])
                 ])
-                data["priority_id"] = task_priority and task_priority.id or False
+                priority_id = task_priority and task_priority.id or False
+                data["priority_id"] = priority_id
 
             if issue.raw["fields"]["assignee"]:
+                name = issue.raw["fields"]["assignee"]["displayName"]
                 assignee_id = self.env["res.users"].search([
-                    ("name", "ilike", issue.raw["fields"]["assignee"]["displayName"])
+                    ("name", "ilike", name)
                 ])
                 data["user_id"] = assignee_id and assignee_id.id or False
 
             if issue.raw["fields"]["reporter"]:
+                name = issue.raw["fields"]["reporter"]["displayName"]
                 reporter_id = self.env["res.users"].search([
-                    ("name", "ilike", issue.raw["fields"]["reporter"]["displayName"])
+                    ("name", "ilike", name)
                 ])
                 data["create_uid"] = reporter_id and reporter_id.id or False
 
             if issue.raw["fields"]["issuetype"]:
-                data["type_id"] = kwargs[issue.raw["fields"]["issuetype"]["name"]]
+                type_id = kwargs[issue.raw["fields"]["issuetype"]["name"]]
+                data["type_id"] = type_id
 
             task = self.env["project.task"].create(data)
-            task.write({"key" : key})
+            task.write({"key": key})
 
     def add_relation(self, request):
         args = list()
@@ -220,12 +238,14 @@ class JiraWorker(models.AbstractModel):
             args = ast.literal_eval(request.args)
 
         for arg in args:
-            parent_task = self.env["project.task"].search([("key", "=", arg[0])])
+            parent_task = self.env["project.task"].search([
+                ("key", "=", arg[0])
+            ])
             task = self.env["project.task"].search([("key", "=", arg[1])])
 
             if parent_task and task:
                 task.write({
-                    "parent_id" : task.id
+                    "parent_id": task.id
                 })
 
     def add_link(self, request):
@@ -237,8 +257,13 @@ class JiraWorker(models.AbstractModel):
         for arg in args:
 
             task = self.env["project.task"].search([("key", "=", arg[0])])
-            related_task = self.env["project.task"].search([("key", "=", arg[1])])
-            relation = self.env["project.task.link.relation"].search([("name", "=", arg[2])])
+            related_task = self.env["project.task"].search([
+                ("key", "=", arg[1])
+            ])
+
+            relation = self.env["project.task.link.relation"].search([
+                ("name", "=", arg[2])
+            ])
 
             if task and related_task and relation:
                 self.env['project.task.link'].create({
@@ -248,7 +273,6 @@ class JiraWorker(models.AbstractModel):
                 })
 
     def add_worklog(self, request):
-
         args = list()
 
         if request.args:
@@ -256,9 +280,9 @@ class JiraWorker(models.AbstractModel):
 
         for arg in args:
             data = {
-                "unit_amount" : arg["duration"],
-                "name" : arg["description"],
-                "account_id" : request.project_id.analytic_account_id.id
+                "unit_amount": arg["duration"],
+                "name": arg["description"],
+                "account_id": request.project_id.analytic_account_id.id
             }
 
             user = self.env["res.users"].search([
@@ -266,11 +290,10 @@ class JiraWorker(models.AbstractModel):
             ])
             data["user_id"] = user and user.id or False
 
-            task = self.env["project.task"].search([("key", "=", arg["issue"])])
+            task = self.env["project.task"].search([
+                ("key", "=", arg["issue"])
+            ])
 
             task.write({
-                "timesheet_ids" : [(0, 0, data)]
+                "timesheet_ids": [(0, 0, data)]
             })
-
-
-

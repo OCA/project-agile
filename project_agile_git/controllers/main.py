@@ -6,6 +6,8 @@ from odoo.addons.project_agile.controllers.main import AgileController
 
 
 class GitAgileController(AgileController):
-    @http.route('/agile/git/<model("project.task"):task>/commits', type='json', auth='user')
+    @http.route([
+        '/agile/git/<model("project.task"):task>/commits'
+    ], type='json', auth='user')
     def load_commits(self, task):
         return task.commit_ids.format_commits()

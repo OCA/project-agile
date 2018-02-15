@@ -15,9 +15,9 @@ class TaskBrowser(http.Controller):
         tasks = Task.search([('key', '=ilike', key)])
         task_action = env.ref('project.action_view_task')
 
-        task_url = "/web#id=%s&view_type=form&model=project.task&action=%s" % (tasks and tasks.id or -1,
-                                                                                   task_action.id)
-        return task_url
+        url = "/web#id=%s&view_type=form&model=project.task&action=%s" %\
+                   (tasks and tasks.id or -1, task_action.id)
+        return url
 
     def get_project_url(self, key):
         env = request.env()
@@ -28,9 +28,9 @@ class TaskBrowser(http.Controller):
             return False
 
         project_action = env.ref('project.open_view_project_all_config')
-        project_url = "/web#id=%s&view_type=form&model=project.project&action=%s" % (projects and projects.id or -1,
-                                                                                   project_action.id)
-        return project_url
+        url = "/web#id=%s&view_type=form&model=project.project&action=%s" % \
+              (projects and projects.id or -1, project_action.id)
+        return url
 
     @http.route([
         '/browse/<string:key>',
@@ -41,5 +41,3 @@ class TaskBrowser(http.Controller):
         if not redirect_url:
             redirect_url = self.get_task_url(key)
         return werkzeug.utils.redirect(redirect_url or '', 301)
-
-

@@ -13,9 +13,14 @@ class Task(models.Model):
         if not default_stage_id:
             return False
 
-        project_id = self.env.context.get('default_project_id', self.env.context.get('project_id'))
+        project_id = self.env.context.get(
+            'default_project_id', self.env.context.get('project_id')
+        )
+
         project = self.env['project.project'].browse(project_id)
-        if project and project.workflow_id and project.workflow_id.default_state_ids:
+        if project and project.workflow_id and \
+                project.workflow_id.default_state_ids:
+
             for default_state in project.workflow_id.default_state_ids:
                 if default_state.group_id in self.env.user.groups_id:
                     return default_state.state_id.stage_id.id

@@ -3,10 +3,12 @@
 from odoo import models, exceptions, _
 
 
+def name(value):
+    return {'name': value}
+
 
 class XmlAgileBoardReader(models.AbstractModel):
     _inherit = 'project.agile.board.xml.reader'
-
 
     def validate_board(self, board):
         """
@@ -22,12 +24,14 @@ class XmlAgileBoardReader(models.AbstractModel):
 
         workflow_count = len(workflows)
         if workflow_count == 0:
-            raise exceptions.ValidationError(
-                _("Workflow with name '%s' could not be found in database" % board['workflow']))
+            raise exceptions.ValidationError(_(
+                "Workflow with name '%s' could not be found in database"
+            ) % board['workflow'])
 
         if workflow_count > 1:
-            raise exceptions.ValidationError(
-                _("Found multiple instances of workflow with name '%s' " % board['workflow']))
+            raise exceptions.ValidationError(_(
+                "Found multiple instances of workflow with name '%s' "
+            ) % board['workflow'])
 
         wkf_states = set([state.name for state in workflows.state_ids])
 
@@ -47,13 +51,15 @@ class XmlAgileBoardReader(models.AbstractModel):
         error_messages = []
 
         if multiples:
-            error_messages.append(_("Following states: [%s] are assigned to multiple columns!" % multiples))
+            error_messages.append(_(
+                "Following states: [%s] are assigned to multiple columns!"
+            ) % multiples)
 
         if lost_and_found:
-            error_messages.append(
-                _("Following states [%] are referenced in the board but are not found in the related workflow!"
-                  % lost_and_found)
-            )
+            error_messages.append(_(
+                "Following states [%] are referenced in the board but are not "
+                "found in the related workflow!"
+            ) % lost_and_found)
 
         if error_messages:
             raise exceptions.ValidationError("\n".join(error_messages))
@@ -80,7 +86,8 @@ class XmlAgileBoardReader(models.AbstractModel):
         root.insert(0, self.rng_define_task_types())
 
         transition = root.xpath(
-            "//rng:define[@name='transition']//rng:element[@name='transition']",
+            "//rng:define[@name='transition']//rng:element[@name='transition']"
+            ,
             namespaces=self._rng_namespace_map
         )[0]
 
@@ -121,4 +128,3 @@ class XmlAgileBoardReader(models.AbstractModel):
             )
         )
         return doc[0]
-

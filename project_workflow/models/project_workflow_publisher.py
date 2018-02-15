@@ -1,7 +1,7 @@
 # Copyright 2017 - 2018 Modoolar <info@modoolar.com>
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
-from odoo import models, exceptions
+from odoo import models, exceptions, _
 
 
 class PublisherResult(object):
@@ -42,33 +42,45 @@ class ProjectWorkflowPublisher(models.AbstractModel):
 
     def publish(self, old, new, mappings=None, project_id=None, switch=False):
         if not new:
-            raise exceptions.ValidationError('You have to provide the new workflow!')
+            raise exceptions.ValidationError(_(
+                'You have to provide the new workflow!')
+            )
 
         if not old and not project_id:
-            raise exceptions.ValidationError("""
-            'In case old workflow is not present, you need to provide project to which a new workflow will be applied!
-            """)
+            raise exceptions.ValidationError(_(
+                "In case old workflow is not present, "
+                "you need to provide project to which, "
+                "a new workflow will be applied!"
+            ))
 
         diff = self.diff(old, new, project_id)
 
         if diff['is_empty']:
-            return self._do_publish(old, new, project_id=project_id, switch=switch)
+            return self._do_publish(
+                old, new, project_id=project_id, switch=switch
+            )
 
         if self._do_map(diff, mappings, old, new, project_id):
-            return self._do_publish(old, new, project_id=project_id, switch=switch)
+            return self._do_publish(
+                old, new, project_id=project_id, switch=switch
+            )
 
         return PublisherResult.conflict(
             self._get_wizard_action(
-                self._build_mapping_wizard(old, new, diff, project_id=project_id, switch=switch)
+                self._build_mapping_wizard(
+                    old, new, diff, project_id=project_id, switch=switch
+                )
             )
         )
 
     def diff(self, old, new, project_id):
         """
-        This method will return compare result between old and new workflow or project and workflow
+        This method will return compare result between old and new workflow
+        or project and workflow
         :param old: The old workflow
         :param new: The new workflow
-        :param project_id: The project on which we want to apply the new workflow.
+        :param project_id: The project on which we want to apply
+        the new workflow.
         :return: Returns result of this comparison
         """
         result = dict()
@@ -80,7 +92,11 @@ class ProjectWorkflowPublisher(models.AbstractModel):
                     states.add(state.stage_id.id)
                 return states
             else:
-                self.env.cr.execute("SELECT distinct(stage_id) FROM project_task WHERE project_id IN %s", (tuple([obj.id]),))
+                self.env.cr.execute("""
+                    SELECT distinct(stage_id) 
+                    FROM project_task 
+                    WHERE project_id IN %s""", (tuple([obj.id]),)
+                )
                 return set([x[0] for x in self.env.cr.fetchall()])
 
         # Following stages has been removed from the workflow
@@ -119,12 +135,12 @@ class ProjectWorkflowPublisher(models.AbstractModel):
 
         if 'stages' in mappings:
             for mapping in mappings['stages']:
-                tasks = self.env['project.task'].with_context(publish=True).search([
-                    ('project_id', 'in', project_ids),
-                    ('stage_id', '=', mapping['from'])
+                tasks = self.env['project.task'].with_context(publish=True)\
+                    .search([
+                        ('project_id', 'in', project_ids),
+                        ('stage_id', '=', mapping['from'])
                 ])
                 tasks.write({'stage_id': mapping['to']})
-
         return True
 
     def _can_be_mapped(self, result, mappings):
@@ -144,9 +160,15 @@ class ProjectWorkflowPublisher(models.AbstractModel):
             stage_ids = [(6, 0, [x.stage_id.id for x in new.state_ids])]
 
             if project_id:
-                project_id.with_context(publish=True).write({'workflow_id': new.id, 'type_ids': stage_ids})
+                project_id.with_context(publish=True).write({
+                    'workflow_id': new.id,
+                    'type_ids': stage_ids
+                })
             else:
-                old.project_ids.with_context(publish=True).write({'workflow_id': new.id, 'type_ids': stage_ids})
+                old.project_ids.with_context(publish=True).write({
+                    'workflow_id': new.id,
+                    'type_ids': stage_ids
+                })
         else:
             data = {}
             if not new.name.startswith('Draft'):
@@ -155,7 +177,8 @@ class ProjectWorkflowPublisher(models.AbstractModel):
             if new.description != old.description:
                 data['description'] = new.description
 
-            data['default_state_id'] = new.default_state_id and new.default_state_id.id or False
+            data['default_state_id'] = new.default_state_id and \
+                                       new.default_state_id.id or False
 
             if data:
                 old.write(data)
@@ -169,19 +192,20 @@ class ProjectWorkflowPublisher(models.AbstractModel):
 
         return PublisherResult.success()
 
-    def _build_mapping_wizard(self, old, new, result, project_id=None, switch=False):
+    def _build_mapping_wizard(self, old, new, result, project_id=None,
+                              switch=False):
         # Create Wizard
-
         wizard = self.env['project.workflow.stage.mapping.wizard'].create(
-            self._prepare_mapping_wizard(old, new, project_id=project_id, switch=switch)
+            self._prepare_mapping_wizard(
+                old, new, project_id=project_id, switch=switch
+            )
         )
 
         # Bind stages for mapping
         wstages = []
         for stage in result['stages']:
-            wstage = self.env['project.workflow.stage.mapping.wizard.stage'].create(
-                self._prepare_deleted_wizard_stage(wizard, stage)
-            )
+            wstage = self.env['project.workflow.stage.mapping.wizard.stage']\
+                .create(self._prepare_deleted_wizard_stage(wizard, stage))
 
             wstages.append(wstage)
 
@@ -243,7 +267,7 @@ class ProjectWorkflowPublisher(models.AbstractModel):
         }
 
     def _get_wizard_action(self, wizard):
-        action = self.env['ir.actions.act_window'].for_xml_id('project_workflow',
-                                                              'project_workspace_mapping_wizard_action')
+        action = self.env['ir.actions.act_window'].for_xml_id(
+            'project_workflow', 'project_workspace_mapping_wizard_action')
         action['res_id'] = wizard.id
         return action

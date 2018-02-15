@@ -17,7 +17,9 @@ class BoardCreateWizard(models.TransientModel):
     def post_create_hook(self, board):
         if board.type == 'kanban':
             vals = {
-                'default_kanban_status_id': self.map_default_kanban_status(board),
+                'default_kanban_status_id': self.map_default_kanban_status(
+                    board
+                ),
                 'kanban_backlog_status_id': self.kanban_backlog_status_id.id
             }
 

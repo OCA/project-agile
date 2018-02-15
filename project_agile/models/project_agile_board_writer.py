@@ -19,7 +19,9 @@ class XmlAgileBoardWriter(models.AbstractModel):
         :param encoding: Target encoding for xml string. If not provided default encoding will be ``utf-8``.
         """
         tree = self._build_xml(board, element_tree=True)
-        tree.write(stream, encoding=encoding, xml_declaration=True, pretty_print=True)
+        tree.write(
+            stream, encoding=encoding, xml_declaration=True, pretty_print=True
+        )
 
     def to_string(self, board):
         """
@@ -27,7 +29,10 @@ class XmlAgileBoardWriter(models.AbstractModel):
         :param workflow: The ``project.workflow`` browse object to be converted to the xml string.
         :return: Returns xml string representation of the give ``workflow`` object.
         """
-        return etree.tostring(self._get_xml(board), encoding=self.encoding, xml_declaration=True, pretty_print=True)
+        return etree.tostring(
+            self._get_xml(board),
+            encoding=self.encoding, xml_declaration=True, pretty_print=True
+        )
 
     def _build_xml(self, board, element_tree=False):
         """
@@ -41,7 +46,9 @@ class XmlAgileBoardWriter(models.AbstractModel):
         columnsElement = self.create_columns_element(root, board)
         for column in board.column_ids:
             columnElement = self.create_column_element(columnsElement, column)
-            columnStusesElement = self.create_statuses_element(columnElement, column)
+            columnStusesElement = self.create_statuses_element(
+                columnElement, column
+            )
             for status in column.status_ids:
                 self.create_status_element(columnStusesElement, status)
 

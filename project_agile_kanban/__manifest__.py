@@ -3,13 +3,12 @@
 
 {
     "name": "Project Agile Kanban",
-    "summary": "This module enables you to manage your projects by using agile kanban methodology",
+    "summary": "Manage your projects by using agile kanban methodology",
     "category": "Project",
     "version": "11.0.0.1.0",
     "license": "LGPL-3",
-    "author": "Modoolar",
+    "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",
-
     "depends": [
         "project_agile",
         "project_agile_analytic"

@@ -74,6 +74,10 @@ odoo.define('project_agile.header', function (require) {
             });
             this.$('.team-dropdown-button').closest(".dropdown-content").css("display", "block");
             let buttonWidth = this.$('.team-dropdown-button').outerWidth();
+            // Fix for case when icon is not loaded at the moment of calculating width
+            if ($('.team-dropdown-button').find("i.mdi").outerWidth() === 0) {
+                buttonWidth += 20;
+            }
             this.$('.team-dropdown-button').closest(".dropdown-content").css("display", "");
             this.$('.team-dropdown-button').dropdown({
                 inDuration: 300,

@@ -16,7 +16,9 @@ class ProjectWorkflowPublisher(models.AbstractModel):
             for wkf_state in new.state_ids:
                 wkf_states[wkf_state.stage_id.id] = wkf_state
 
-            for board in self.env['project.agile.board'].sudo().search([('workflow_id', '=', old.id)]):
+            for board in self.env['project.agile.board'].sudo().search([
+                ('workflow_id', '=', old.id)
+            ]):
                 status_tree = dict()
                 for status in board.mapped("column_ids.status_ids"):
                     status_tree[status.stage_id.id] = status
@@ -27,13 +29,17 @@ class ProjectWorkflowPublisher(models.AbstractModel):
 
             if project_id.agile_enabled:
                 default_board = self.env['project.agile.board'].search([
-                    ('workflow_id', '=', new.id), ('type', '=', project_id.agile_method), ('is_default', '=', True)
+                    ('workflow_id', '=', new.id),
+                    ('type', '=', project_id.agile_method),
+                    ('is_default', '=', True)
                 ])
 
                 if default_board.exists():
                     project_id.write({'board_ids': [(4, default_board.id,)]})
 
-        return super(ProjectWorkflowPublisher, self)._do_publish(old, new, project_id, switch)
+        return super(ProjectWorkflowPublisher, self)._do_publish(
+            old, new, project_id, switch
+        )
 
     def update_board_no_switch(self, board, wkf_states):
         # Detect and delete states which does not exists anymore
@@ -47,4 +53,5 @@ class ProjectWorkflowPublisher(models.AbstractModel):
                 status.write({'state_id': wkf_state.id})
 
         if to_delete:
-            self.env['project.agile.board.column.status'].browse(to_delete).unlink()
+            self.env['project.agile.board.column.status']\
+                .browse(to_delete).unlink()

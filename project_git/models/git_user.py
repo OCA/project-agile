@@ -2,7 +2,7 @@
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
 from odoo import models, fields, api
-from ..utils.utils import get_image_type, get_avatar
+from ..utils.utils import get_image_type
 
 
 class GitUser(models.Model):
@@ -57,10 +57,10 @@ class GitUser(models.Model):
 
     image_type = fields.Char(
         string="Type",
-        compute="_calculate_image_type"
+        compute="_compute_image_type"
     )
 
     @api.multi
     @api.depends("type")
-    def _calculate_image_type(self):
+    def _compute_image_type(self):
         get_image_type(self)

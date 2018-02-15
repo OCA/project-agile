@@ -16,17 +16,25 @@ class AgileController(http.Controller):
         link = request.env()['project.task.link'].create(link)
         return self.prepare_task_link(link)
 
-    @http.route('/agile/web/data/task/<model("project.task"):task>/add_comment', type='json', auth='user')
+    @http.route([
+        '/agile/web/data/task/<model("project.task"):task>/add_comment'
+        ], type='json', auth='user')
     def add_comment(self, task, comment):
-        new_message = task.message_post(body=comment['body'], message_type='comment')
+        new_message = task.message_post(
+            body=comment['body'], message_type='comment'
+        )
         return new_message.with_context(agile=True).message_format()
 
-    @http.route('/agile/web/data/task/<model("project.task"):task>/update_comment/<model("mail.message"):message>', type='json', auth='user')
+    @http.route([
+        '/agile/web/data/task/<model("project.task"):task>/update_comment/<model("mail.message"):message>'
+    ], type='json', auth='user')
     def edit_comment(self, task, message, comment):
         message.write(comment)
         return message.with_context(agile=True).message_format()
 
-    @http.route('/agile/web/data/workflow/<model("project.workflow"):workflow>', type='json', auth='user')
+    @http.route([
+        '/agile/web/data/workflow/<model("project.workflow"):workflow>'
+    ], type='json', auth='user')
     def get_workflow(self, workflow):
         return self.prepare_workflow(workflow)
 
@@ -38,16 +46,22 @@ class AgileController(http.Controller):
 
         return request.render('project_agile.index', qcontext=context)
 
-    @http.route('/agile/web/data/task/<model("project.task"):task>/confirm_stage_change', type='json', auth='user')
+    @http.route([
+        '/agile/web/data/task/<model("project.task"):task>/confirm_stage_change'
+    ], type='json', auth='user')
     def confirm_task_stage_change(self, task, values, message=None):
         msg = task._confirm_stage_change(values, message)
         return msg and msg.with_context(agile=True).message_format() or False
 
-    @http.route('/agile/web/data/task/<model("project.task"):task>/get_task_links', type='json', auth='user')
+    @http.route([
+        '/agile/web/data/task/<model("project.task"):task>/get_task_links',
+    ], type='json', auth='user')
     def get_task_links(self, task):
         return [self.prepare_task_link(link) for link in task.link_ids]
 
-    @http.route('/agile/web/data/project/<model("project.project"):project>/task_types_and_priorities', type='json', auth='user')
+    @http.route([
+        '/agile/web/data/project/<model("project.project"):project>/task_types_and_priorities',
+    ], type='json', auth='user')
     def task_types_and_priorities(self, project):
         result = {
             'types': {},
@@ -64,8 +78,10 @@ class AgileController(http.Controller):
 
         for type in project.type_id.task_type_ids:
             collect_task_types(type)
+
             for priority in type.priority_ids:
-                result['priorities'][priority.id] = self.prepare_task_priority(priority)
+                result['priorities'][priority.id] =\
+                    self.prepare_task_priority(priority)
 
         # Keep track of task types that belong directly to project
         result["project_types"] = project.type_id.task_type_ids.ids
@@ -79,7 +95,8 @@ class AgileController(http.Controller):
             "relation_name": link.relation_name
         }
         user_id = link.related_task_id.user_id
-        result["related_task"]["user_id"] = user_id.id and [user_id.id, user_id.name] or False
+        result["related_task"]["user_id"] = \
+            user_id and [user_id.id, user_id.name] or False
         return result
 
     def prepare_task_type(self, type):
@@ -166,14 +183,20 @@ class AgileController(http.Controller):
 
     def prepare_workflow(self, workflow):
         wkf = {
-            'workflows': [{'id': workflow.id, 'name': workflow.name, 'description': workflow.description}],
+            'workflows': [{
+                'id': workflow.id,
+                'name': workflow.name,
+                'description': workflow.description
+            }],
             'states': {},
             'transitions': {},
         }
         for state in workflow.state_ids:
             wkf['states'][state.id] = self.prepare_state(state)
+
         for transition in workflow.transition_ids:
-            wkf['transitions'][transition['id']] = self.prepare_transition(transition)
+            wkf['transitions'][transition['id']] = \
+                self.prepare_transition(transition)
 
         return wkf
 
@@ -200,17 +223,22 @@ class AgileController(http.Controller):
         }
 
     @http.route('/agile/messages', type='json', auth='user')
-    def load_messages(self, model, res_id, message_type=None, message_subtype=None, **kwargs):
+    def load_messages(self, model, res_id, message_type=None,
+                      message_subtype=None, **kwargs):
         def operator(value):
             return isinstance(value, (list,)) and 'in' or '='
 
         domain = [("model", "=", model), ("res_id", "=", res_id)]
 
         if message_type:
-            domain.append(('message_type', operator(message_type), message_type))
+            domain.append(
+                ('message_type', operator(message_type), message_type)
+            )
 
         if message_subtype:
-            domain.append(('subtype_id', operator(message_subtype), message_type))
+            domain.append(
+                ('subtype_id', operator(message_subtype), message_type)
+            )
 
         fields = kwargs.get('fields', [])
         offset = kwargs.get('offset', 0)
@@ -247,13 +275,14 @@ class AgileController(http.Controller):
     @http.route('/agile/session_user', type='json', auth='user')
     def session_user(self):
         user = request.env.user
+        team_id = user.team_id
         return {
             "id": user.id,
             "write_date": user.write_date,
             "name": user.name,
             "groups_id": user.groups_id.ids,
             "team_ids": self.prepare_user_teams(user.team_ids),
-            "team_id": [user.team_id.id, user.team_id.name] if user.team_id else False,
+            "team_id": team_id and [team_id.id, team_id.name] or False,
             "partner_id": [user.partner_id.id, user.partner_id.name],
         }
 
@@ -272,19 +301,28 @@ class AgileController(http.Controller):
 
     @http.route('/agile/security', type='json', auth='user')
     def security(self):
-        result = {}
         request.cr.execute("""
-        SELECT m.model, bool_or(a.perm_create) c, bool_or(a.perm_read) r, bool_or(a.perm_write) u, bool_or(a.perm_unlink) d FROM ir_model_access a
+        SELECT m.model, 
+              bool_or(a.perm_create) c, 
+              bool_or(a.perm_read) r, 
+              bool_or(a.perm_write) u, 
+              bool_or(a.perm_unlink) d 
+        FROM ir_model_access a
         JOIN ir_model m ON (m.id = a.model_id)
         WHERE a.active AND
         m.model IN %s AND
         (a.group_id IN %s OR a.group_id IS NULL)
         GROUP BY m.model
-        """, (tuple(self.get_security_models()), tuple(request.env.user.groups_id.ids)))
+        """, (
+            tuple(self.get_security_models()),
+            tuple(request.env.user.groups_id.ids)
+        ))
+
+        result = {}
         for a in request.cr.dictfetchall():
             result[a['model']] = a
-            del result[a['model']]['model']  # we don't need model since it is key
-        pass
+            del result[a['model']]['model']
+
         return result
 
     def get_security_models(self):
@@ -317,11 +355,15 @@ class AgileController(http.Controller):
             if not field._attrs.get("agile", False):
                 continue
 
+            inverse_name = False
+            if field.type == 'one2many':
+                inverse_name = field.inverse_name
+
             result['fields'][field.name] = {
                 'name': field.name,
                 'type': field.type,
                 'comodel_name': field.comodel_name,
-                'inverse_name': field.type == 'one2many' and field.inverse_name or False,
+                'inverse_name': inverse_name,
                 'string': field.string,
                 'help': field.help,
                 'required': field.required,
@@ -336,8 +378,9 @@ class AgileController(http.Controller):
         Task = env['project.task']
         tasks = Task.search([('key', '=ilike', key)])
 
-        task_url = "agile/web?#page=board&project=%s&task=%s&view=task" % (tasks and tasks.project_id.id or -1,
-                                                                           tasks and tasks.id or -1)
+        task_url = "agile/web?#page=board&project=%s&task=%s&view=task" % \
+                   (tasks and tasks.project_id.id or -1,
+                    tasks and tasks.id or -1)
         return task_url
 
     def get_project_url(self, key):
@@ -348,8 +391,11 @@ class AgileController(http.Controller):
         if not projects.exists():
             return False
 
-        project_url = "agile/web?#page=board&project=%s&view=%s" % (projects and projects.id or -1,
-                                                                    projects and projects.agile_method or '')
+        project_url = "agile/web?#page=board&project=%s&view=%s" % (
+            projects and projects.id or -1,
+            projects and projects.agile_method or ''
+        )
+
         return project_url
 
     @http.route('/agile/browse/<string:key>', type='http', auth="user")

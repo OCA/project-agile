@@ -77,8 +77,6 @@
 
                         <div class="o_dropdown_kanban" style="visibility: visible;">
                             <a name="icon" class="btn" t-attf-href="#{record.url.raw_value}" target="_blank">
-                                <!--<span t-if="record.type.raw_value === 'bitbucket'" class="fa fa-bitbucket fa-lg"/>-->
-                                <!--<span t-if="record.type.raw_value === 'github'" class="fa fa-github fa-lg"/>-->
                             </a>
                         </div>
                         <div class="o_kanban_image">

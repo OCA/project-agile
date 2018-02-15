@@ -1,7 +1,7 @@
 # Copyright 2017 - 2018 Modoolar <info@modoolar.com>
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
-from odoo import models, api, exceptions
+from odoo import models, api, exceptions, _
 
 
 def is_module_installed(env, module_name):
@@ -11,11 +11,13 @@ def is_module_installed(env, module_name):
 class Base(models.AbstractModel):
     _inherit = 'base'
 
-    # Following attributes are here so that we can accumulate changes of computed fields,
+    # Following attributes are here so that
+    # we can accumulate changes of computed fields,
     # because those fields trigger write function multiple times
     _implements_syncer = False
 
-    # If this field is True, then syncer notification would contain entire record,
+    # If this field is set to True,
+    # then syncer notification would contain entire record,
     # by default it will return vals
     _sync_entire = False
 
@@ -54,7 +56,8 @@ class Base(models.AbstractModel):
         }
 
         if field.type == 'one2many':
-            if field._attrs.get('syncer', False) and isinstance(field._attrs['syncer'], (dict,)):
+            if field._attrs.get('syncer', False) and \
+                    isinstance(field._attrs['syncer'], (dict,)):
                 model['inverse_name'] = field._attrs['syncer']['inverse_names']
             else:
                 model['inverse_name'] = [field.inverse_name]
@@ -63,11 +66,14 @@ class Base(models.AbstractModel):
 
             def field_filter(field_name):
                 field = comodel._fields[field_name]
-                return field.type == 'many2many' and field.comodel_name == cls._name
+                return field.type == 'many2many' and \
+                       field.comodel_name == cls._name
 
+            # If there is no other side or there is more than one
+            # then we can't process notifications
             inverse_field = list(filter(field_filter, comodel._fields))
             if len(inverse_field) == 0 or len(inverse_field) > 1:
-                return # If there is no other side or there is more than one then we can't process notifications
+                return
             model['inverse_field'] = inverse_field[0]
 
         cls.env[field.comodel_name]._syncer_satellites.append(model)
@@ -80,7 +86,8 @@ class Base(models.AbstractModel):
 
     @api.multi
     def _write(self, vals):
-        if self and is_module_installed(self.env, "web_syncer") and self._implements_syncer:
+        if is_module_installed(self.env, "web_syncer") and \
+                self._implements_syncer:
             for record in self:
                 self.env.syncer.update(record, vals)
         return super(Base, self)._write(vals)
@@ -93,7 +100,8 @@ class Base(models.AbstractModel):
         # We always process m2x notifications
         self.process_x2m_notifications_before_write(vals)
 
-        # In case current model does not implements syncer we just call base write
+        # In case current model does not implements syncer
+        # we just call base write
         if not self._implements_syncer:
             return super(Base, self).write(vals)
 
@@ -128,19 +136,28 @@ class Base(models.AbstractModel):
             if self.env.syncer.is_top_level:
                 for delta, record, indirect in self.env.syncer.records:
                     record.push_write_notification(delta, indirect)
-
-
         return new
 
     @api.multi
     def unlink(self):
-        if is_module_installed(self.env, "web_syncer") and self._implements_syncer:
+        if is_module_installed(self.env, "web_syncer") and \
+                self._implements_syncer:
             for rec in self:
                 rec.push_unlink_notification()
         return super(Base, self).unlink()
 
     def process_x2m_notifications(self, vals):
         if not self._syncer_satellites: return
+
+        def is_fake_one2many(field_name):
+            return self._fields[field_name].type == 'integer' and \
+                   field_name == 'res_id'
+
+        def is_fake_one2many_for_model(model, rec):
+            for field_name in ['res_model', 'model']:
+                if field_name in rec and rec[field_name] == model:
+                    return True
+            return False
 
         for x2m_field in self._syncer_satellites:
             model = x2m_field['model']
@@ -150,12 +167,11 @@ class Base(models.AbstractModel):
                 for rec in self:
                     for inverse_name in x2m_field['inverse_name']:
 
-                        # Special case for fake one2many field (i.e. ir.attachments)
-                        if self._fields[inverse_name].type == 'integer' and inverse_name == 'res_id':
-                            if ('res_model' in rec and rec['res_model'] != model) or \
-                               ('model' in rec and rec['model'] != model):
+                        # Special case for fake one2many field
+                        #  (i.e. ir.attachments)
+                        if is_fake_one2many(inverse_name):
+                            if not is_fake_one2many_for_model(model, rec):
                                 continue
-
                             record = self.env[model].browse(rec[inverse_name])
                         else:
                             record = rec[inverse_name]
@@ -244,7 +260,8 @@ class Base(models.AbstractModel):
                     'data': {x2m_field['field_name']: item[1]},
                 })
 
-    def push_record_notification(self, method, delta=False, entire=False, indirect=False):
+    def push_record_notification(self, method, delta=False, entire=False,
+                                 indirect=False):
         self.ensure_one()
 
         entire = entire or self._sync_entire
@@ -252,14 +269,21 @@ class Base(models.AbstractModel):
             "method": method,
             "record_name": self.name,
             "__last_update": self.write_date,
-            "data": self._format_values(self, entire and self.sudo().read()[0] or delta, not entire),
+            "data": self._format_values(
+                        self,
+                        entire and self.sudo().read()[0] or delta, not entire
+                    ),
         })
 
     def push_indirect_notification(self, res_model, res_id, message):
         self.push_notification(res_model, res_id, False, True, message)
 
     def push_notification(self, res_model, res_id, entire, indirect, message):
-        message.update(dict(indirect=indirect, entire=entire, user_id=self.prepare_user()))
+        message.update(dict(
+            indirect=indirect,
+            entire=entire,
+            user_id=self.prepare_user()
+        ))
         self.env.syncer.push([
             self.generate_channel_name(res_model),
             self.prepare_sync_message(message, res_model, res_id)
@@ -267,11 +291,18 @@ class Base(models.AbstractModel):
 
     @api.model
     def prepare_user(self):
-        return {"id": self.env.user.id, "name": self.env.user.name, "__last_update": self.env.user.write_date}
+        return {
+            "id": self.env.user.id,
+            "name": self.env.user.name,
+            "__last_update": self.env.user.write_date
+        }
 
     @api.model
     def prepare_sync_message(self, message, res_model=None, record_id=None):
-        return [(self._cr.dbname, res_model or self._name, record_id or self.id), message]
+        return [
+            (self._cr.dbname, res_model or self._name, record_id or self.id),
+            message
+        ]
 
     @api.model
     def generate_channel_name(self, res_model=None):
@@ -280,7 +311,9 @@ class Base(models.AbstractModel):
     @api.model
     def _format_values(self, record, vals, update_related_fields=False):
         if len(record) == 0:
-            raise exceptions.ValidationError("Write must be called on recordset with at least one record")
+            raise exceptions.ValidationError(
+                _("Write must be called on recordset with at least one record")
+            )
         single_record = record if len(record) == 1 else record[0]
         ret_val = vals.copy()
 
@@ -305,7 +338,7 @@ class Base(models.AbstractModel):
 
             elif f_type == 'many2one':
                 value = single_record[fn]
-                ret_val[fn] = value and value.id and [value.id, value.name] or False
+                ret_val[fn] = value and [value.id, value.name] or False
 
             elif f_type == 'many2many':
                 value = single_record[fn]
