@@ -93,6 +93,12 @@ class Project(models.Model):
         string="Project type",
         required=True,
         ondelete="restrict",
+        default=lambda s: s._get_default_type_id(),
+    )
+
+    workflow_id = fields.Many2one(
+        comodel_name='project.workflow',
+        default=lambda s: s._get_default_workflow_id(),
     )
 
     default_task_type_id = fields.Many2one(
@@ -245,11 +251,6 @@ class Project(models.Model):
     def _inverse_image_small(self):
         for rec in self:
             rec.image = tools.image_resize_image_big(rec.image_small)
-
-    _defaults = {
-        'type_id': lambda self: self._get_default_type_id(),
-        'workflow_id': lambda self: self._get_default_workflow_id(),
-    }
 
     @api.onchange('type_id')
     def _onchange_type(self):

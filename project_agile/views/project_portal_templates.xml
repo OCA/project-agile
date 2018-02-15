@@ -13,7 +13,7 @@ License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
             </button>
         </xpath>
 
-        <xpath expr="//div[@t-if='tasks']//thead//th[contains(@class, 'col-md-10')]" position="after">
+        <xpath expr="//div[@t-if='tasks']//thead//th[hasclass('col-md-10')]" position="after">
             <th>Type</th>
             <th>Priority</th>
         </xpath>
@@ -206,7 +206,7 @@ License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
     </template>
 
     <template id="portal_my_task" name="My Task" inherit_id="project_workflow.portal_my_task">
-        <xpath expr="//span[contains(@class, 'wkf-transitions')]" position="attributes">
+        <xpath expr="//span[hasclass('wkf-transitions')]" position="attributes">
             <attribute name="groups">project_agile.group_project_portal_task_edit</attribute>
         </xpath>
     </template>

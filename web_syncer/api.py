@@ -10,7 +10,8 @@ class SyncerContext(object):
         self._data = data or {'notifications': {}, 'values': {}}
 
     def begin(self, records):
-        if self.is_started(): return
+        if self.is_started():
+            return
         self._data.update({
             'origin': {records._name: [r.id for r in records]},
             # 'values': {},

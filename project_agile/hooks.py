@@ -11,7 +11,7 @@ def post_init_hook(cr, registry):
 
     # Load project workflow
     workflow_pathname = os.path.join(
-        'project_agile', 'data', 'project_workflow.xml'
+        'project_agile', 'import', 'project_workflow.xml'
     )
     with misc.file_open(workflow_pathname) as stream:
         importer = env['project.workflow.importer']
@@ -27,8 +27,8 @@ def post_init_hook(cr, registry):
     cr.execute("SELECT COUNT(*) FROM project_task")
     count = cr.fetchone()[0]
     cr.execute("""
-      UPDATE project_task 
-      SET agile_order = %s - id 
+      UPDATE project_task
+      SET agile_order = %s - id
       WHERE agile_order IS NULL
       """, (int(count), )
     )

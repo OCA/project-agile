@@ -279,9 +279,9 @@ class Base(models.AbstractModel):
             "record_name": self.name,
             "__last_update": self.write_date,
             "data": self._format_values(
-                        self,
-                        entire and self.sudo().read()[0] or delta, not entire
-                    ),
+                self,
+                entire and self.sudo().read()[0] or delta, not entire
+            ),
         })
 
     def push_indirect_notification(self, res_model, res_id, message):
