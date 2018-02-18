@@ -25,8 +25,6 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box" groups="base.group_user">
-                        <button name="open_agile" string="View in Agile" type="object"
-                                class="oe_stat_button"  icon="fa-puzzle-piece" />
                     </div>
 
                     <field name="image" widget="image" class="oe_avatar"/>

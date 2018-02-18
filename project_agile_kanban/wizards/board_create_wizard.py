@@ -11,7 +11,6 @@ class BoardCreateWizard(models.TransientModel):
         comodel_name='project.workflow.state',
         domain="[('workflow_id', '=', workflow_id)]",
         string='Backlog Status',
-        agile=True,
     )
 
     def post_create_hook(self, board):

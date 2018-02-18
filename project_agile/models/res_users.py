@@ -7,10 +7,6 @@ from odoo import models, fields, api, exceptions, _
 class Users(models.Model):
     _inherit = "res.users"
 
-    name = fields.Char(agile=True)
-    write_date = fields.Datetime(agile=True)
-    partner_id = fields.Many2one(comodel_name='res.partner', agile=True)
-
     team_ids = fields.Many2many(
         comodel_name='project.agile.team',
         relation='project_agile_team_member_rel',

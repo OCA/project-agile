@@ -1,19 +1,18 @@
 # Copyright 2017 - 2018 Modoolar <info@modoolar.com>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 {
     "name": "Project Agile",
     "summary": "Framework for development of agile methodologies",
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Odoo Community Association (OCA), Modoolar",
+    "author": "Modoolar, Odoo Community Association (OCA)",
     "website": "https://www.modoolar.com/",
     "depends": [
         "web",
         "project_key",
         "project_workflow",
         "hr_timesheet",
-        "web_syncer",
         "website",
         "web_editor",
         "project_portal",
@@ -39,16 +38,7 @@
         "views/project_workflow.xml",
         "views/project_agile_team_views.xml",
         "views/project_agile_board_views.xml",
-
-        # Web assets
-        "views/project_agile_web_assets.xml",
-
-        "views/templates.xml",
-        "views/agile_assets.xml",
-
-        # Project Portal
-        'views/project_portal_assets.xml',
-        'views/project_portal_templates.xml',
+        "views/project_agile.xml",
 
         # Menus
         "views/menu.xml",

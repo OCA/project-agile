@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="lira.activity.stream">
+        <div class="list with-shadow">
+            <div class="list-header">
+                <div class="list-title">
+                    <p class="list-title">Recent activities</p>
+                    <!--<p class="list-count">10 issues</p>-->
+                </div>
+            </div>
+            <div class="activity">
+
+            </div>
+            <div class="list-preloader">
+               <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-red-only">
+                          <div class="circle-clipper left">
+                                <div class="circle"></div>
+                          </div><div class="gap-patch">
+                                <div class="circle"></div>
+                          </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                          </div>
+                    </div>
+              </div>
+           </div>
+            <div class="load-more">
+                <a class="load-more-btn">Load more...</a>
+            </div>
+        </div>
+    </t>
+    <t t-name="lira.activity.group">
+        <div class="activity-group">
+            <div class="activity-group-aside">
+                <img class="circle" t-attf-src="{{author.image}}"/>
+            </div>
+            <div class="activity-group-content"/>
+        </div>
+    </t>
+    <t t-name="lira.activity.item">
+        <div class="activity-item">
+            <div class="activity-header">
+                <i class="mdi mdi-comment-text-outline activity-type"></i>
+                <a class="activity-actor"><t t-esc="widget.getAuthor(message).name"/></a>
+                <span class="activity-action"> <t t-esc="widget.getActivityType(message).message"/> </span>
+                <i class="mdi mdi-chevron-double-up mdi-20px mdi-middle task-priority"></i>
+                <a t-attf-object-id="{{message.res_id}}"  t-attf-object-model="{{message.model}}" class="activity-object"><t t-esc="message.record_name"/></a>
+            </div>
+            <div class="activity-body">
+                <p class="message-body"><t t-raw="message.body"/></p>
+            </div>
+            <div class="activity-footer">
+                <i class="mdi mdi-bookmark task-type"></i>
+                <span class="activity-item-date"><t t-esc="widget.formatTime(message.date)"/></span>
+            </div>
+        </div>
+    </t>
+
+</templates>

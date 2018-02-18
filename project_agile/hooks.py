@@ -1,5 +1,5 @@
 # Copyright 2017 - 2018 Modoolar <info@modoolar.com>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
 
 def post_init_hook(cr, registry):
@@ -22,12 +22,6 @@ def post_init_hook(cr, registry):
         # Assign simple workflow to all project types
         env['project.type'].search([]).write({'workflow_id': workflow.id})
 
-    # Epics allow sub epics
-    task_type_epic = env.ref("project_agile.project_task_type_epic")
-    type_ids = task_type_epic.type_ids.ids
-    type_ids.append(task_type_epic.id)
-    task_type_epic.write({'type_ids': [(6, 0, type_ids)]})
-
     # We need to assign initial agile order.
     # It would be nicer if latest tasks were in the top of the backlog.
     cr.execute("SELECT COUNT(*) FROM project_task")
@@ -36,12 +30,19 @@ def post_init_hook(cr, registry):
       UPDATE project_task
       SET agile_order = %s - id
       WHERE agile_order IS NULL
-      """, (int(count), )
+      """, (int(count),)
     )
 
+    # Epics allow sub epics
+    task_type_epic = env.ref("project_agile.project_task_type_epic")
+    type_ids = task_type_epic.type_ids.ids
+    type_ids.append(task_type_epic.id)
+    task_type_epic.write({'type_ids': [(6, 0, type_ids)]})
+
     # Set default project task type to the existing projects
-    env['project.project'].sudo().with_context(no_workflow=True)\
-        ._set_default_project_type_id()
+    env['project.project'].sudo().with_context(
+        no_workflow=True
+    )._set_default_project_type_id()
 
     # and set ``type_id`` field to not null
     cr.execute(

@@ -10,22 +10,18 @@ class AgileTeam(models.Model):
 
     name = fields.Char(
         string='Name',
-        agile=True,
     )
 
     description = fields.Html(
         string='Description',
-        agile=True,
     )
 
     type = fields.Selection(
         selection=[],
-        agile=True,
     )
 
     email = fields.Char(
         string='E-mail',
-        agile=True,
     )
 
     member_ids = fields.Many2many(
@@ -34,7 +30,6 @@ class AgileTeam(models.Model):
         column1='team_id',
         column2='member_id',
         string='Scrum Members',
-        agile=True,
     )
 
     project_ids = fields.Many2many(
@@ -43,27 +38,23 @@ class AgileTeam(models.Model):
         column1="team_id",
         column2="project_id",
         string="Projects",
-        agile=True,
     )
 
     product_owner_ids = fields.One2many(
         comodel_name='res.users',
         string='Product Owner',
         compute="_compute_product_owner_ids",
-        agile=True,
     )
 
     workflow_id = fields.Many2one(
         comodel_name='project.workflow',
         string='Workflow',
         required=True,
-        agile=True,
     )
 
     default_hrs = fields.Float(
         string='Default daily hours',
         default=8,
-        agile=True,
     )
 
     report_ids = fields.One2many(
@@ -133,38 +124,15 @@ class AgileTeam(models.Model):
 
     @api.model
     def create(self, vals):
-        res = super(AgileTeam, self).create(vals)
-        res.member_ids.fix_team_id()
-        return res
+        new = super(AgileTeam, self).create(vals)
+        new.member_ids.fix_team_id()
+        return new
 
     @api.multi
     def write(self, vals):
-        if 'member_ids' in vals:
-            removed_members = self.member_ids.filtered(
-                lambda x: x.id not in vals['member_ids'][0][2]
-            )
-            added_ids = [
-                x for x in vals['member_ids'][0][2]
-                if x not in self.member_ids.ids
-            ]
-
         res = super(AgileTeam, self).write(vals)
 
+        # Set default team for users without one
         if 'member_ids' in vals:
-            if removed_members:
-                removed_members.fix_team_id()
-            if added_ids:
-                self.member_ids.browse(added_ids).fix_team_id()
+            self.filtered(lambda x: not x.team_id).fix_team_id()
         return res
-
-    @api.model
-    def all_users_from_my_team(self):
-        users = []
-        for member in self.my_team_members():
-            user = {
-                'id': member.id,
-                'name': member.name,
-                '__last_update': member.write_date
-            }
-            users.append(user)
-        return users

@@ -7,7 +7,6 @@ from odoo import models, fields, api, tools, _
 class ProjectType(models.Model):
     _name = "project.type"
     _inherit = ['project.agile.code_item']
-    _sync = True
 
     stage_ids = fields.Many2many(
         comodel_name='project.task.type',
@@ -29,7 +28,6 @@ class ProjectType(models.Model):
         column1="project_type_id",
         column2="task_type_id",
         string="Task Types",
-        agile=True,
     )
 
     default_task_type_id = fields.Many2one(
@@ -85,9 +83,6 @@ class Project(models.Model):
             .search([]) \
             .write(dict(type_id=project_type.id, workflow_id=workflow_id.id))
 
-    image_key = fields.Char(agile=True)
-    write_date = fields.Datetime(agile=True)
-
     type_id = fields.Many2one(
         comodel_name="project.type",
         string="Project type",
@@ -106,13 +101,11 @@ class Project(models.Model):
         related='type_id.default_task_type_id',
         string='Default Task Type',
         readonly=True,
-        agile=True,
     )
 
     agile_enabled = fields.Boolean(
         string='Use Agile',
         help='If checked project will be enabled for agile management',
-        default=False,
     )
 
     agile_method = fields.Selection(
@@ -154,17 +147,14 @@ class Project(models.Model):
     todo_estimation = fields.Integer(
         string="Todo estimation",
         compute="_compute_estimations",
-        agile=True,
     )
     in_progress_estimation = fields.Integer(
         string="In progress estimation",
         compute="_compute_estimations",
-        agile=True,
     )
     done_estimation = fields.Integer(
         string="Done estimation",
         compute="_compute_estimations",
-        agile=True,
     )
 
     # image: all image fields are base64 encoded and PIL-supported
@@ -418,19 +408,3 @@ class Project(models.Model):
             action['views'] = views
 
         return action
-
-    @api.multi
-    def open_in_agile(self):
-        self.ensure_one()
-        url = "/agile/web#page=board&project=%s&view=%s"
-        return {
-            'type': 'ir.actions.act_url',
-            'target': 'self',
-            'url': url % (self.id, self.agile_method)
-        }
-
-
-class AnalyticAccount(models.Model):
-    _inherit = 'account.analytic.account'
-
-    name = fields.Char(agile=True)

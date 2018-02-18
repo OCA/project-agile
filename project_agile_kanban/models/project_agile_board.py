@@ -16,14 +16,12 @@ class ProjectAgileBoard(models.Model):
         string="Backlog Column",
         help="This column will be used for moving items from backlog"
              " to the kanban board.",
-        agile=True,
     )
 
     kanban_backlog_column_status_id = fields.Many2one(
         comodel_name="project.agile.board.column.status",
         string="Backlog Column Status",
         help="Every task moved to the column will be put in this status",
-        agile=True,
     )
 
     kanban_backlog_column_stage_id = fields.Many2one(
@@ -31,21 +29,18 @@ class ProjectAgileBoard(models.Model):
         string="Backlog Column Stage",
         related="kanban_backlog_column_status_id.stage_id",
         help="Every task moved to the column will be put in this status",
-        agile=True,
     )
 
     kanban_backlog_status_id = fields.Many2one(
         comodel_name='project.workflow.state',
         domain="[('workflow_id', '=', workflow_id)]",
         string='Backlog Status',
-        agile=True,
     )
 
     kanban_backlog_stage_id = fields.Many2one(
         comodel_name="project.task.type",
         string="Kanban backlog stage",
         related="kanban_backlog_status_id.stage_id",
-        agile=True,
     )
 
     kanban_task_type_ids = fields.Many2many(
@@ -54,7 +49,6 @@ class ProjectAgileBoard(models.Model):
         column1="board_id",
         column2="type_id",
         string="Kanban Task Types",
-        agile=True,
         help='List of available task types for kanban table.'
              'If left empty task types from registered projects will be used',
     )

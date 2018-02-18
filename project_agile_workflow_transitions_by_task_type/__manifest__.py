@@ -7,14 +7,13 @@
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Odoo Community Association (OCA), Modoolar",
+    "author": "Modoolar, Odoo Community Association (OCA)",
     "website": "https://www.modoolar.com/",
     "depends": [
         "project_agile",
     ],
 
     "data": [
-        "views/project_agile_workflow_transitions_by_task_type.xml",
         "views/project_workflow_views.xml",
     ],
     "images": [],

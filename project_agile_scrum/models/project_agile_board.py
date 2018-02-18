@@ -17,7 +17,6 @@ class Board(models.Model):
         column1="board_id",
         column2="type_id",
         string="Active Sprint Task Types",
-        agile=True,
         help='List of available task types for active sprint.'
              'If left empty task types from registered projects will be used',
     )

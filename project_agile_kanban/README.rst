@@ -7,8 +7,6 @@ Project Agile Kanban
 ====================
 
 This module enables you to manage your projects by using agile kanban methodology.
-Please note that this module is not yet fully functional.
-It won't break anything in case you install it but at the moment you won't be able to drag&drop tasks from backlog to the kanban board.
 
 Credits
 =======

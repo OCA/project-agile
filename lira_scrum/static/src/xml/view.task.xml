@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-extend="lira.view.task_widget">
+        <t t-jquery="responsive.s.m[data-id='resolution']" t-operation="after">
+            <responsive class="s m" data-id="sprint"/>
+            <responsive class="s m" data-id="sprints"/>
+        </t>
+        <t t-jquery=".responsive[data-responsive-id='resolution']" t-operation="after">
+            <responsive class="l" data-id="sprint"/>
+            <mytr t-if="widget._model.sprint_id" class="responsive" data-responsive-id="sprint">
+                <mytd class="field_label">Sprint</mytd>
+                <mytd data-field="sprint_id">
+                    <span class="field_value"><t t-esc="widget._model.sprint_id[1]"/></span>
+                </mytd>
+            </mytr>
+            <responsive class="l" data-id="sprints"/>
+            <mytr t-if="widget._model.sprint_ids.length > 1" class="responsive" data-responsive-id="sprints">
+                <mytd class="field_label">Sprints</mytd>
+                <mytd data-field="sprint_ids">
+                    <span class="field_value"></span>
+                </mytd>
+            </mytr>
+        </t>
+    </t>
+    <t t-extend="lira.task">
+        <t t-jquery="[data-field-name='resolution_id']" t-operation="after">
+            <tr t-if="widget._model.sprint_id" data-field-name="sprint_id">
+                <td class="field_label">Sprint</td>
+                <td data-field="sprint_id">
+                    <span class="field_value"><t t-esc="widget._model.sprint_id[1]"/></span>
+                </td>
+            </tr>
+            <tr t-if="widget._model.sprint_ids.length > 1" data-field-name="sprint_ids" style="display:none;">
+                <td class="field_label">Sprints</td>
+                <td data-field="sprint_ids"/>
+            </tr>
+        </t>
+    </t>
+</templates>

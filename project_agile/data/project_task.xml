@@ -59,40 +59,30 @@
         <record id="project_task_priority_blocker" model="project.task.priority">
             <field name="name">Blocker</field>
             <field name="description">Block development and/or testing work,production could not run.</field>
-            <field name="agile_icon">block-helper</field>
-            <field name="agile_icon_color">#b71c1c</field>
             <field name="icon" type="base64" file="project_agile/static/img/priority-blocker.png"/>
         </record>
 
         <record id="project_task_priority_critical" model="project.task.priority">
             <field name="name">Critical</field>
             <field name="description">Crashed, loss of data,severe memory leak.</field>
-            <field name="agile_icon">arrow-up-bold</field>
-            <field name="agile_icon_color">#b71c1c</field>
             <field name="icon" type="base64" file="project_agile/static/img/priority-critical.png"/>
         </record>
 
         <record id="project_task_priority_major" model="project.task.priority">
             <field name="name">Major</field>
             <field name="description">Major loss of function.</field>
-            <field name="agile_icon">chevron-double-up</field>
-            <field name="agile_icon_color">#b71c1c</field>
             <field name="icon" type="base64" file="project_agile/static/img/priority-major.png"/>
         </record>
 
         <record id="project_task_priority_minor" model="project.task.priority">
             <field name="name">Minor</field>
             <field name="description">Minor loss of function or other problem where easy workaround is present.</field>
-            <field name="agile_icon">chevron-double-down</field>
-            <field name="agile_icon_color">#2e7d32</field>
             <field name="icon" type="base64" file="project_agile/static/img/priority-minor.png"/>
         </record>
 
         <record id="project_task_priority_trivial" model="project.task.priority">
             <field name="name">Trivial</field>
             <field name="description">Cosmetic problem like misspelt words or misaligned text</field>
-            <field name="agile_icon">arrow-down-bold</field>
-            <field name="agile_icon_color">#A9A9A9</field>
             <field name="icon" type="base64" file="project_agile/static/img/priority-trivial.png"/>
         </record>
 
@@ -105,8 +95,6 @@
 It is good to have clarity on this before a project begins, as this is the minimum scope for the product to be useful.
                 ]]>
             </field>
-            <field name="agile_icon">custom-moscow-must</field>
-            <field name="agile_icon_color">#b71c1c</field>
             <field name="icon" type="base64" file="project_agile/static/img/priority-must-have.png"/>
         </record>
 
@@ -117,8 +105,6 @@ It is good to have clarity on this before a project begins, as this is the minim
 <strong>‘Should Haves‘</strong> are features that are not critical to launch, but are considered to be important and of a high value to the user.
                 ]]>
             </field>
-            <field name="agile_icon">custom-moscow-should</field>
-            <field name="agile_icon_color">#e65100</field>
             <field name="icon" type="base64" file="project_agile/static/img/priority-should-have.png"/>
         </record>
 
@@ -131,8 +117,6 @@ These will be the first features to be removed from scope if the project’s tim
                 ]]>
             </field>
             <!--<field name="order" eval="8"/>-->
-            <field name="agile_icon">custom-moscow-could</field>
-            <field name="agile_icon_color">#ffab00</field>
             <field name="icon" type="base64" file="project_agile/static/img/priority-could-have.png"/>
         </record>
 
@@ -143,8 +127,6 @@ These will be the first features to be removed from scope if the project’s tim
 <strong>‘Won’t Haves‘</strong> are features that have been reqeusted but are explicitly excluded from scope for the planned duration, and may be included in a future phase of development.
                 ]]>
             </field>
-            <field name="agile_icon">custom-moscow-would</field>
-            <field name="agile_icon_color">#689f38</field>
             <field name="icon" type="base64" file="project_agile/static/img/priority-would-have.png"/>
         </record>
 
@@ -304,8 +286,6 @@ These will be the first features to be removed from scope if the project’s tim
          <record id="project_task_type_subtask" model="project.task.type2">
             <field name="name">Sub Task</field>
             <field name="description">A subtask that needs to be done..</field>
-            <field name="agile_icon">checkbox-multiple-marked-circle-outline</field>
-            <field name="agile_icon_color">#039be5</field>
             <field name="icon" type="base64" file="project_agile/static/img/type-task.png"/>
             <field name="is_subtask" eval="True"/>
             <field name="allow_sub_tasks" eval="False"/>
@@ -325,8 +305,6 @@ These will be the first features to be removed from scope if the project’s tim
         <record id="project_task_type_task" model="project.task.type2">
             <field name="name">Task</field>
             <field name="description">A task that needs to be done.</field>
-            <field name="agile_icon">checkbox-marked-circle</field>
-            <field name="agile_icon_color">#039be5</field>
             <field name="icon" type="base64" file="project_agile/static/img/type-task.png"/>
             <field name="allow_sub_tasks" eval="True"/>
             <field name="default_priority_id" ref="project_task_priority_minor"/>
@@ -349,8 +327,6 @@ These will be the first features to be removed from scope if the project’s tim
         <record id="project_task_type_new_feature" model="project.task.type2">
             <field name="name">New Feature</field>
             <field name="description">A new feature of the product, which has yet to be developed.</field>
-            <field name="agile_icon">bookmark-plus</field>
-            <field name="agile_icon_color">#2e7d32</field>
             <field name="icon" type="base64" file="project_agile/static/img/type-new-feature.png"/>
             <field name="default_priority_id" ref="project_task_priority_minor"/>
             <field name="priority_ids" eval="[
@@ -367,8 +343,6 @@ These will be the first features to be removed from scope if the project’s tim
         <record id="project_task_type_improvement" model="project.task.type2">
             <field name="name">Improvement</field>
             <field name="description">An improvement or enhancement to an existing feature or task.</field>
-            <field name="agile_icon">arrow-up-bold-circle</field>
-            <field name="agile_icon_color">#2e7d32</field>
             <field name="icon" type="base64" file="project_agile/static/img/type-improvement.png"/>
             <field name="default_priority_id" ref="project_task_priority_minor"/>
             <field name="priority_ids" eval="[
@@ -385,8 +359,6 @@ These will be the first features to be removed from scope if the project’s tim
         <record id="project_task_type_bug" model="project.task.type2">
             <field name="name">Bug</field>
             <field name="description">A problem which impairs or prevents the functions of the product.</field>
-            <field name="agile_icon">bug</field>
-            <field name="agile_icon_color">#d50000</field>
             <field name="allow_story_points" eval="False"/>
             <field name="icon" type="base64" file="project_agile/static/img/type-bug.png"/>
             <field name="default_priority_id" ref="project_task_priority_minor"/>
@@ -408,8 +380,6 @@ These will be the first features to be removed from scope if the project’s tim
                 An user story item is meant to be used by agile team to specify how will they implement user story.
                 ]]>
              </field>
-             <field name="agile_icon">checkbox-marked-circle</field>
-             <field name="agile_icon_color">#1dad1d</field>
              <field name="allow_story_points" eval="False"/>
              <field name="is_subtasl" eval="False"/>
              <field name="allow_sub_tasks" eval="False"/>
@@ -437,8 +407,6 @@ These will be the first features to be removed from scope if the project’s tim
                 In best-case scenarios, developers collaborate closely with the business owners to clarify the details as the code gets developed.
                 ]]>
             </field>
-            <field name="agile_icon">bookmark</field>
-            <field name="agile_icon_color">#2e7d32</field>
             <field name="icon" type="base64" file="project_agile/static/img/type-user-story.png"/>
             <field name="allow_sub_tasks" eval="True"/>
             <field name="type_ids" eval="[
@@ -464,8 +432,6 @@ These will be the first features to be removed from scope if the project’s tim
                 A story or task aimed at answering a question or gathering information, rather than at producing shippable product.
                 ]]>
             </field>
-            <field name="agile_icon">pin</field>
-            <field name="agile_icon_color">#2e7d32</field>
             <field name="allow_sub_tasks" eval="False"/>
             <field name="allow_story_points" eval="False"/>
             <field name="default_priority_id" ref="project_task_priority_minor"/>
@@ -487,8 +453,6 @@ These will be the first features to be removed from scope if the project’s tim
                     An Agile epic is essentially a large user story that can be broken down into a number of smaller user stories.
                 ]]>
             </field>
-            <field name="agile_icon">bookmark</field>
-            <field name="agile_icon_color">#944ce4</field>
             <field name="icon" type="base64" file="project_agile/static/img/type-epic.png"/>
             <field name="allow_sub_tasks" eval="True"/>
             <field name="type_ids" eval="[
@@ -511,8 +475,6 @@ These will be the first features to be removed from scope if the project’s tim
         <record id="project_task_type_change" model="project.task.type2">
             <field name="name">Change</field>
             <field name="description">Change Management ITIL Improvement</field>
-            <field name="agile_icon"></field>
-            <field name="agile_icon_color"></field>
             <field name="icon" type="base64" file="project_agile/static/img/type-change.png"/>
             <field name="default_priority_id" ref="project_task_priority_minor"/>
             <field name="priority_ids" eval="[
@@ -529,8 +491,6 @@ These will be the first features to be removed from scope if the project’s tim
         <record id="project_task_type_access" model="project.task.type2">
             <field name="name">Access</field>
             <field name="description">Errors access / Can't access / Password Change.</field>
-            <field name="agile_icon"></field>
-            <field name="agile_icon_color"></field>
             <field name="icon" type="base64" file="project_agile/static/img/type-access.png"/>
             <field name="default_priority_id" ref="project_task_priority_minor"/>
             <field name="priority_ids" eval="[
@@ -547,8 +507,6 @@ These will be the first features to be removed from scope if the project’s tim
         <record id="project_task_type_fault" model="project.task.type2">
             <field name="name">Fault</field>
             <field name="description">System Error Fault Problem</field>
-            <field name="agile_icon"></field>
-            <field name="agile_icon_color"></field>
             <field name="icon" type="base64" file="project_agile/static/img/type-fault.png"/>
             <field name="default_priority_id" ref="project_task_priority_minor"/>
             <field name="priority_ids" eval="[
@@ -565,8 +523,6 @@ These will be the first features to be removed from scope if the project’s tim
         <record id="project_task_type_purchase" model="project.task.type2">
             <field name="name">Purchase</field>
             <field name="description">Track items that need to be bought.</field>
-            <field name="agile_icon"></field>
-            <field name="agile_icon_color"></field>
             <field name="icon" type="base64" file="project_agile/static/img/type-purchase.png"/>
             <field name="default_priority_id" ref="project_task_priority_minor"/>
             <field name="priority_ids" eval="[
@@ -583,8 +539,6 @@ These will be the first features to be removed from scope if the project’s tim
         <record id="project_task_type_it_help" model="project.task.type2">
             <field name="name">IT Help</field>
             <field name="description">IT help Issue</field>
-            <field name="agile_icon"></field>
-            <field name="agile_icon_color"></field>
             <field name="icon" type="base64" file="project_agile/static/img/type-it-help.png"/>
             <field name="default_priority_id" ref="project_task_priority_minor"/>
             <field name="priority_ids" eval="[

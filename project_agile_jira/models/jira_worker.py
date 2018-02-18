@@ -29,8 +29,8 @@ class JiraWorker(models.AbstractModel):
             try:
                 yield new_cr
                 new_cr.commit()
-            except:
-                _logger.info("Failed to write to database!")
+            except Exception as ex:
+                _logger.info("Failed to write to database!: %s", str(ex))
                 new_cr.rollback()
             finally:
                 new_cr.close()

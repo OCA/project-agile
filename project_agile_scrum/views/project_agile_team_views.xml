@@ -9,7 +9,7 @@
         <field name="model">project.agile.team</field>
         <field name="inherit_id" ref="project_agile.view_project_agile_team_form"/>
         <field name="arch" type="xml">
-            <button name="open_agile" position="before">
+            <div name="button_box">
                 <button class="oe_stat_button" type="object" name="open_active_sprint" icon="fa-tasks">
                     <field string="Active" name="active_sprint_count" widget="statinfo" />
                 </button>
@@ -21,7 +21,7 @@
                 <button class="oe_stat_button" type="object" name="open_completed_sprints" icon="fa-tasks">
                         <field string="Completed" name="completed_sprint_count" widget="statinfo" />
                 </button>
-            </button>
+            </div>
 
             <group name="left" position="inside">
                 <field name="master_id" attrs="{'invisible': [('type', '!=', 'scrum')]}" options="{'no_create_edit': True}"/>

@@ -17,19 +17,16 @@ class ProjectTaskLinkRelation(models.Model):
     name = fields.Char(
         string="Name",
         required=True,
-        agile=True
     )
 
     inverse_name = fields.Char(
         string="Reverse Name",
         required=True,
-        agile=True
     )
 
     sequence = fields.Integer(
         string="Order",
         required=True,
-        agile=True
     )
 
 
@@ -40,19 +37,16 @@ class ProjectTaskLink(models.Model):
     name = fields.Char(
         string="Name",
         compute="_compute_display_name",
-        agile=True
     )
 
     comment = fields.Char(
         string="Comment",
-        agile=True
     )
 
     relation_id = fields.Many2one(
         comodel_name="project.task.link.relation",
         string="Relation",
         required=True,
-        agile=True
     )
 
     task_left_id = fields.Many2one(
@@ -60,7 +54,6 @@ class ProjectTaskLink(models.Model):
         string="Task on the left",
         required=True,
         ondelete="cascade",
-        agile=True,
     )
 
     task_right_id = fields.Many2one(
@@ -68,20 +61,17 @@ class ProjectTaskLink(models.Model):
         string="Task on the right",
         required=True,
         ondelete="cascade",
-        agile=True,
     )
 
     relation_name = fields.Char(
         string="Relation",
         compute="_compute_relation_name",
-        agile=True,
     )
 
     related_task_id = fields.Many2one(
         comodel_name="project.task",
         string="Related task",
         compute="_compute_related_task_id",
-        agile=True,
     )
 
     @api.multi
@@ -169,25 +159,21 @@ class TaskType(models.Model):
         column1='type_id',
         column2='priority_id',
         string='Priorities',
-        agile=True
     )
 
     default_priority_id = fields.Many2one(
         comodel_name='project.task.priority',
         string='Default Task Priority',
-        agile=True
     )
 
     allow_story_points = fields.Boolean(
         string='Allow Story Points',
         default=True,
-        agile=True,
     )
 
     allow_sub_tasks = fields.Boolean(
         string="Allow Sub-Items",
         default=False,
-        agile=True,
     )
 
     type_ids = fields.Many2many(
@@ -196,7 +182,6 @@ class TaskType(models.Model):
         column1='type_id',
         column2='sub_type_id',
         string='Sub Types',
-        agile=True
     )
 
     @api.model
@@ -256,7 +241,6 @@ class TaskPriority(models.Model):
         column1='priority_id',
         column2='type_id',
         string='Types',
-        agile=True,
     )
 
     icon = fields.Binary(
@@ -288,7 +272,6 @@ class TaskPriority(models.Model):
 class Task(models.Model):
     _name = 'project.task'
     _inherit = ['project.task', 'project.agile.mixin.id_search']
-    _implements_syncer = True
 
     def _default_agile_order(self):
         self.env.cr.execute("SELECT MAX(agile_order) + 1 FROM project_task")
@@ -300,30 +283,26 @@ class Task(models.Model):
         string='Type',
         required=True,
         ondelete="restrict",
-        agile=True,
     )
-
+    agile_order = fields.Float(
+        required=False,
+        default=_default_agile_order,
+        lira=True
+    )
     agile_enabled = fields.Boolean(
         related='project_id.agile_enabled',
-        readonly=True,
-    )
-
-    planned_hours = fields.Float(
-        agile=True
     )
 
     resolution_id = fields.Many2one(
         comodel_name='project.task.resolution',
         string='Resolution',
         index=True,
-        agile=True,
     )
 
     allow_story_points = fields.Boolean(
         related='type_id.allow_story_points',
         string='Allow Story Points',
         readonly=True,
-        agile=True,
     )
 
     project_type_id = fields.Many2one(
@@ -331,14 +310,12 @@ class Task(models.Model):
         related='project_id.type_id',
         string='Project Type',
         readonly=True,
-        agile=True,
     )
 
     is_user_story = fields.Boolean(
         string='Is Story',
         compute="_compute_is_story",
         store=True,
-        agile=True,
     )
 
     is_epic = fields.Boolean(
@@ -353,7 +330,6 @@ class Task(models.Model):
         compute="_compute_epic_id",
         store=True,
         readonly=True,
-        agile=True,
         help='This field represents the first'
     )
 
@@ -365,56 +341,27 @@ class Task(models.Model):
     user_id = fields.Many2one(
         comodel_name="res.users",
         default=False,
-        agile=True
     )
 
     create_uid = fields.Many2one(
         comodel_name='res.users',
         string='Reported By',
         readonly=True,
-        agile=True,
     )
 
     create_date = fields.Datetime(
         string='Created',
         readonly=True,
-        agile=True,
     )
 
     write_date = fields.Datetime(
         string='Updated',
         readonly=True,
-        agile=True,
-    )
-
-    type_agile_icon = fields.Char(
-        string='Type Agile Icon',
-        related="type_id.agile_icon",
-        agile=True,
-    )
-
-    type_agile_icon_color = fields.Char(
-        string='Type Agile Icon Color',
-        related="type_id.agile_icon_color",
-        agile=True,
-    )
-
-    priority_agile_icon = fields.Char(
-        string='Priority Agile Icon',
-        related="priority_id.agile_icon",
-        agile=True,
-    )
-
-    priority_agile_icon_color = fields.Char(
-        string='Priority Agile Icon Color',
-        related="priority_id.agile_icon_color",
-        agile=True,
     )
 
     team_id = fields.Many2one(
         comodel_name="project.agile.team",
         string="Committed team",
-        agile=True,
     )
 
     type_ids = fields.Many2many(
@@ -433,13 +380,6 @@ class Task(models.Model):
         related="type_id.allow_sub_tasks",
         string="Allow Sub-Tasks",
         stored=True,
-        agile=True,
-    )
-
-    agile_url = fields.Char(
-        string='URL',
-        compute="_compute_agile_url",
-        readonly=True,
     )
 
     priority_id = fields.Many2one(
@@ -447,19 +387,11 @@ class Task(models.Model):
         string='Priority',
         required=True,
         ondelete="restrict",
-        agile=True,
     )
 
     story_points = fields.Integer(
         string='Story points',
-        agile=True,
         default=0
-    )
-
-    agile_order = fields.Float(
-        required=False,
-        default=_default_agile_order,
-        agile=True
     )
 
     doc_count = fields.Integer(
@@ -471,7 +403,6 @@ class Task(models.Model):
         comodel_name="project.task.link",
         compute="_compute_links",
         string="Links",
-        agile=True,
         syncer={'inverse_names': ['task_left_id', 'task_right_id']},
     )
 
@@ -480,109 +411,7 @@ class Task(models.Model):
         string="Number of Links"
     )
 
-    project_last_update = fields.Datetime(
-        related='project_id.__last_update',
-        readonly=True,
-        agile=True
-    )
-
-    user_last_update = fields.Datetime(
-        related='user_id.__last_update',
-        readonly=True,
-        agile=True
-    )
-
-    stage_name = fields.Char(
-        related='stage_id.name',
-        readonly=True,
-        agile=True
-    )
-
-    parent_key = fields.Char(
-        related='parent_id.key',
-        readonly=True,
-        agile=True
-    )
-
     activity_date_deadline = fields.Date(groups='')
-
-    # Following is the list of inherited fields which we want to register
-    # as an agile related fields
-    name = fields.Char(
-        agile=True
-    )
-
-    key = fields.Char(
-        agile=True
-    )
-
-    effective_hours = fields.Float(
-        agile=True
-    )
-
-    description = fields.Html(
-        index=True,
-        agile=True
-    )
-
-    color = fields.Integer(
-        agile=True
-    )
-
-    date_deadline = fields.Date(
-        agile=True
-    )
-
-    wkf_state_type = fields.Selection(
-        agile=True
-    )
-
-    project_id = fields.Many2one(
-        comodel_name='project.project',
-        agile=True
-    )
-
-    parent_id = fields.Many2one(
-        comodel_name='project.task',
-        agile=True
-    )
-
-    stage_id = fields.Many2one(
-        comodel_name='project.task.type',
-        agile=True
-    )
-
-    wkf_state_id = fields.Many2one(
-        comodel_name='project.workflow.state',
-        agile=True
-    )
-
-    workflow_id = fields.Many2one(
-        comodel_name='project.workflow',
-        agile=True
-    )
-
-    child_ids = fields.One2many(
-        comodel_name='project.task',
-        agile=True
-    )
-
-    timesheet_ids = fields.One2many(
-        comodel_name='account.analytic.line',
-        agile=True
-    )
-
-    attachment_ids = fields.One2many(
-        comodel_name='ir.attachment',
-        inverse_name='res_id',
-        agile=True
-    )
-
-    tag_ids = fields.Many2many(
-        comodel_name='project.tags',
-        agile=True
-    )
-    # EOF
 
     @api.multi
     @api.depends('type_id')
@@ -640,14 +469,6 @@ class Task(models.Model):
 
         for record in self:
             record.task_count = data.get(record.id, 0)
-
-    @api.multi
-    @api.depends('key')
-    def _compute_agile_url(self):
-        url = "/agile/web#page=board&project=%s&&view=task&task=%s"
-        for task in self:
-            if task.project_id.agile_enabled:
-                task.url = url % (task.project_id.id, task.id)
 
     @api.multi
     def _compute_doc_count(self):
@@ -790,15 +611,6 @@ class Task(models.Model):
         }
 
     @api.multi
-    def open_in_agile(self):
-        self.ensure_one()
-        return {
-            'type': 'ir.actions.act_url',
-            'target': 'self',
-            'url': self.agile_url,
-        }
-
-    @api.multi
     def attachment_tree_view(self):
         self.ensure_one()
 
@@ -815,6 +627,27 @@ class Task(models.Model):
         }
 
         return action
+
+    # Following methods will be called from hooks file,
+    # so we can leave project.task in valid state.
+    @api.model
+    def _set_default_task_priority_id(self):
+        for res in self.with_context(active_test=False).search([
+            ('priority_id', '=', False)
+        ]):
+            res.priority_id = res.type_id.default_priority_id or False
+
+    @api.model
+    def _set_default_task_type_id(self):
+        for task in self.with_context(active_test=False).search([
+            ('type_id', '=', False)
+        ]):
+            dtt = task.project_id.type_id.default_task_type_id
+            task.type_id = dtt and dtt.id or False
+
+
+class PortalTask(models.Model):
+    _inherit = 'project.task'
 
     @api.model
     def create_task_portal(self, values):
@@ -840,12 +673,6 @@ class Task(models.Model):
             'id': task.id
         }
 
-    def task_portal_check_mandatory_fields(self, values):
-        for fname in ['name', 'type_id', 'priority_id', 'project_id']:
-            if not values[fname]:
-                return False
-        return True
-
     @api.multi
     def update_task_portal(self, values):
         task_values = {
@@ -857,19 +684,8 @@ class Task(models.Model):
         }
         self.write(task_values)
 
-    # Following methods will be called from hooks file,
-    # so we can leave project.task in valid state.
-    @api.model
-    def _set_default_task_priority_id(self):
-        for res in self.with_context(active_test=False).search([
-            ('priority_id', '=', False)
-        ]):
-            res.priority_id = res.type_id.default_priority_id or False
-
-    @api.model
-    def _set_default_task_type_id(self):
-        for task in self.with_context(active_test=False).search([
-            ('type_id', '=', False)
-        ]):
-            dtt = task.project_id.type_id.default_task_type_id
-            task.type_id = dtt and dtt.id or False
+    def task_portal_check_mandatory_fields(self, values):
+        for fname in ['name', 'type_id', 'priority_id', 'project_id']:
+            if not values[fname]:
+                return False
+        return True

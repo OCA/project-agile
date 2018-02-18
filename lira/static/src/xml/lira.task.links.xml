@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+
+    <t t-name="lira.task.link.group">
+        <div class="task-link-group">
+            <div class="task-link-group-header"><t t-esc="widget.relation"/></div>
+            <div class="collection"></div>
+        </div>
+    </t>
+</templates>

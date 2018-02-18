@@ -17,8 +17,6 @@
                     <div class="oe_button_box" name="button_box">
                         <button name="export_board" string="Export" type="object"
                                 class="oe_stat_button" icon="fa-truck"/>
-                        <button name="open_in_odoo_agile" string="View in Agile" type="object"
-                                class="oe_stat_button" icon="fa-puzzle-piece" />
                     </div>
                     <div class="oe_title">
                         <h1>

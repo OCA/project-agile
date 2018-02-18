@@ -34,8 +34,6 @@
                         <field name="workflow_id" required="1"/>
                     </group>
                     <group name="configuration">
-                        <field name="agile_icon"/>
-                        <field name="agile_icon_color"/>
                     </group>
                     <notebook>
                         <page name="task_types" string="Task Types">
@@ -122,9 +120,9 @@
                     <field string="Agile Boards" name="boards_count" widget="statinfo"/>
                 </button>
 
-                <button class="oe_stat_button" type="object"
-                        name="open_in_agile"  attrs="{'invisible':[('agile_enabled','=', False)]}"
-                        icon="fa-puzzle-piece" string="View in Agile"/>
+                <!--<button class="oe_stat_button" type="object"-->
+                        <!--name="open_in_agile"  attrs="{'invisible':[('agile_enabled','=', False)]}"-->
+                        <!--icon="fa-puzzle-piece" string="View in Agile"/>-->
 
             </xpath>
 

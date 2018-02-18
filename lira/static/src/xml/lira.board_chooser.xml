@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="lira.list.board_chooser_item">
+        <li>
+            <a>
+                <t t-esc="widget.record.name"/>
+            </a>
+        </li>
+        <!--<option t-attf-value="{{widget.id}}"><t t-esc="widget.name"/></option>-->
+    </t>
+    <t t-name="lira.board_chooser">
+        <li class="board-chooser">
+            <div class="board-chooser-left">
+                <img t-attf-src="{{widget.project_image_url()}}" alt=""
+                     class="circle responsive-img valign profile-image"/>
+            </div>
+            <div class="board-chooser-middle">
+                <a class="white-text project-name"><t t-if="widget.project" t-esc="widget.project.name"/><t t-if="!widget.project">All project</t></a>
+                <a t-attf-class="{{(widget.boards.size !== 1) ? 'available-boards white-text dropdown-button' : 'available-boards white-text'}}" data-activates="board-chooser-dropdown">
+                    <t t-esc="widget.board.name"/> <i t-if="widget.boards.size !== 1" class="mdi mdi-menu-down right"></i>
+                </a>
+            </div>
+        </li>
+    </t>
+</templates>

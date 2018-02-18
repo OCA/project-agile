@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <!-- Project Task Type2 From View -->
+    <record id="project_task_type2_form" model="ir.ui.view">
+        <field name="name">project_task_type2_form</field>
+        <field name="model">project.task.type2</field>
+        <field name="inherit_id" ref="project_agile.project_task_type2_form"/>
+        <field name="arch" type="xml">
+            <field name="allow_sub_tasks" position="before">
+                <field name="lira_icon"/>
+                <field name="lira_icon_color"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Project Task Priority Form View -->
+    <record id="project_task_priority_form" model="ir.ui.view">
+         <field name="name">project_task_priority_form</field>
+         <field name="model">project.task.priority</field>
+         <field name="inherit_id" ref="project_agile.project_task_priority_form"/>
+         <field name="arch" type="xml">
+             <group name="configuration">
+                <field name="lira_icon"/>
+                <field name="lira_icon_color"/>
+             </group>
+        </field>
+    </record>
+
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">view.task.form2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_agile.view_task_form2"/>
+        <field name="arch" type="xml">
+            <button name="attachment_tree_view" position="after">
+                <button name="open_in_lira" string="View in Lira" type="object" class="oe_stat_button"
+                        icon="fa-puzzle-piece"
+                        attrs="{'invisible':[('agile_enabled','!=', True)]}"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>

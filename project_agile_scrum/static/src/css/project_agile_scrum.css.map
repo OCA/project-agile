@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAEE,yDAAyC;EACvC,UAAU,EAAE,IAAI;AAElB,mDAAmC;EAUjC,gBAAgB,EAfS,OAAO;EAMhC,6EAA0B;IACxB,OAAO,EAAE,WAAW;EAEtB,yHAAkB;IAChB,OAAO,EAAE,KAAK;IACd,WAAW,EAAE,MAAM;IACnB,WAAW,EAAE,MAAM",
-"sources": ["../scss/project_agile_scrum.scss"],
-"names": [],
-"file": "project_agile_scrum.css"
-}

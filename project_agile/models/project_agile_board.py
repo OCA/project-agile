@@ -9,12 +9,11 @@ class Board(models.Model):
     _inherit = ['project.agile.mixin.id_search']
     _description = "Agile Board"
 
-    name = fields.Char(agile=True)
-    description = fields.Char(agile=True)
+    name = fields.Char()
+    description = fields.Char()
 
     type = fields.Selection(
         selection=[],
-        agile=True,
     )
 
     workflow_id = fields.Many2one(
@@ -32,7 +31,6 @@ class Board(models.Model):
         column1="board_id",
         column2="project_id",
         string="Projects",
-        agile=True,
     )
 
     column_ids = fields.One2many(
@@ -40,7 +38,6 @@ class Board(models.Model):
         inverse_name="board_id",
         string="Columns",
         required=False,
-        agile=True,
     )
 
     status_ids = fields.One2many(
@@ -59,13 +56,11 @@ class Board(models.Model):
         comodel_name='project.workflow.state',
         compute="_compute_unmapped_state_ids",
         readonly=True,
-        agile=True,
     )
     unmapped_task_stage_ids = fields.One2many(
         comodel_name='project.task.type',
         compute="_compute_unmapped_task_stage_ids",
         readonly=True,
-        agile=True,
     )
 
     report_ids = fields.One2many(
@@ -79,7 +74,6 @@ class Board(models.Model):
         column1="board_id",
         column2="type_id",
         string="Backlog Task Types",
-        agile=True,
         help='List of available task types for this board.'
              'If left empty task types from registered projects will be used',
     )
@@ -106,8 +100,9 @@ class Board(models.Model):
     @api.multi
     def _compute_report_ids(self):
         for rec in self:
-            rec.project_ids = self.env['project.agile.board.report']\
-                                  .search([('type', '=', rec.type)]).ids or []
+            rec.project_ids = self.env['project.agile.board.report'].search([
+                ('type', '=', rec.type)
+            ]).ids or []
 
     @api.multi
     def get_mapped_states(self):
@@ -199,16 +194,6 @@ class Board(models.Model):
         })
         return wizard.button_export()
 
-    @api.multi
-    def open_in_odoo_agile(self):
-        self.ensure_one()
-        url = "/agile/web#page=board&board=%s&view=%s" % (self.id, self.type)
-        return {
-            'type': 'ir.actions.act_url',
-            'target': 'self',
-            'url': url
-        }
-
 
 class Column(models.Model):
     _name = 'project.agile.board.column'
@@ -216,6 +201,7 @@ class Column(models.Model):
     _order = 'order'
 
     name = fields.Char()
+    order = fields.Float()
     board_id = fields.Many2one(
         comodel_name="project.agile.board",
         string="Board",
@@ -229,7 +215,6 @@ class Column(models.Model):
         required=True
     )
 
-    order = fields.Float(required=False, )
     min = fields.Integer(
         "Min",
         help="The minimum number of issues in this column"
@@ -355,5 +340,6 @@ class ColumnStatus(models.Model):
             columns = self.env.context.get('filter_statuses_in_column', [])
             ids = [x[1] for x in columns]
             args.append(('id', 'in', ids))
-        return super(ColumnStatus, self)\
-            .name_search(name, args=args, operator=operator, limit=limit)
+        return super(ColumnStatus, self).name_search(
+            name, args=args, operator=operator, limit=limit
+        )

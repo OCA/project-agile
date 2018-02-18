@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-extend="lira.task">
+        <t t-jquery="[data-group-name=dates]" t-operation="after">
+            <li data-group-name="repository">
+                <div class="collapsible-header active"><i class="mdi mdi-git"/>Development</div>
+                <div class="collapsible-body">
+                   <a id="show_commits"><t t-esc="widget._model.commit_ids.length" /> commits</a>
+                </div>
+            </li>
+        </t>
+    </t>
+
+    <t t-extend="lira.view.task_widget">
+        <t t-jquery="[data-group-name=dates]" t-operation="after">
+            <responsive data-id="group-commits" class="s"/>
+            <ul class="collapsible responsive" data-group-name="commits" data-responsive-id="group-commits" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header active"><i class="mdi mdi-git"/> Development</div>
+                    <div class="collapsible-body">
+                        <a id="show_commits"><t t-esc="widget._model.commit_ids.length" /> commits</a>
+                    </div>
+                </li>
+            </ul>
+        </t>
+        <t t-jquery="responsive[data-id=group-dates].m.l" t-operation="after">
+            <responsive data-id="group-commits" class="m l"/>
+        </t>
+    </t>
+
+    <t t-name="lira.widget.modal.show_commits">
+        <!-- Modal Structure -->
+        <div id="commits-modal" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4><i class="mdi mdi-git"/> Commits</h4>
+                <table class="striped">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th>User</th>
+                        <th>Branch</th>
+                        <th>Commit</th>
+                        <th>Date</th>
+                        <th>Message</th>
+                          <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="widget.commits" t-as="commit">
+                        <tr data-id="1">
+                            <td>
+                                <img class="circle" style="height:30px;width:30px" t-attf-src="{{commit.avatar}}"/>
+                            </td>
+                            <td>
+                                <img class="circle tooltipped" data-delay="50" data-position="bottom" style="height:30px;width:30px" t-attf-data-tooltip="{{commit.author.username}}" t-attf-src="{{commit.author.avatar}}"/>
+                            </td>
+                            <td class="user"><span class="tooltipped" data-position="bottom" data-delay="50" t-attf-data-tooltip="{{commit.author.username}}"><t t-esc="commit.author.name"/></span></td>
+                            <td class="branch"><a t-attf-href="{{commit.branch.url}}" target="_blank"><t t-esc="commit.branch.name"/></a></td>
+                            <td class="name"><a t-attf-href="{{commit.url}}" target="_blank"><t t-esc="commit.name"/></a></td>
+                            <td class="date"><t t-esc="commit.date"/></td>
+
+                            <td class="message"><t t-esc="commit.message_short"/></td>
+                             <td>
+                                <a t-attf-href="{{commit.repository.url}}" target="_blank">
+                                    <img class="circle tooltipped" data-delay="50" data-position="bottom" style="height:30px;width:30px" t-attf-data-tooltip="{{commit.repository.name}}" t-attf-src="{{commit.repository.avatar}}"/>
+                                </a>
+                            </td>
+                        </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
+    </t>
+</templates>

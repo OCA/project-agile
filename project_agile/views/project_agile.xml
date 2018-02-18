@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <template id="pa_web_assets_backend" name="project_agile web assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/project_agile/static/src/js/project_workflow.js" />
+        </xpath>
+    </template>
+
+    <!-- Portal -->
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Project portal task edit frontend assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/project_agile/static/src/js/portal_extensions.js"></script>
+        </xpath>
+    </template>
+
+
+    <template id="layout" name="Main layout" inherit_id="website.layout">
+        <xpath expr="//t[@t-call-assets='web_editor.summernote' and @t-js='false']" position="replace">
+            <t t-call-assets="web_editor.summernote" t-js="false" groups="website.group_website_publisher,project_agile.group_project_portal_task_edit"/>
+        </xpath>
+        <xpath expr="//t[@t-call-assets='web_editor.summernote' and @t-css='false']" position="replace">
+            <t t-call-assets="web_editor.summernote" t-css="false" groups="website.group_website_publisher,project_agile.group_project_portal_task_edit"/>
+        </xpath>
+        <xpath expr="//t[@t-call-assets='web_editor.assets_editor' and @t-js='false']" position="replace">
+            <t t-call-assets="web_editor.assets_editor" t-js="false" groups="website.group_website_publisher,project_agile.group_project_portal_task_edit"/>
+        </xpath>
+        <xpath expr="//t[@t-call-assets='web_editor.assets_editor' and @t-css='false']" position="replace">
+            <t t-call-assets="web_editor.assets_editor" t-css="false" groups="website.group_website_publisher,project_agile.group_project_portal_task_edit"/>
+        </xpath>
+    </template>
+
+    <template id="portal_my_tasks_task_edit" inherit_id="project.portal_my_tasks" name="portal_my_tasks_task_edit">
+        <xpath expr="//h3" position="inside">
+            <button name='new_task' data-toggle="modal"
+                    data-target=".modal_new_task" class="btn btn-default pull-right mr8"
+                    groups="project_agile.group_project_portal_task_edit">
+                <i class="fa fa-plus fa-lg"/>
+            </button>
+        </xpath>
+
+        <xpath expr="//div[@t-if='tasks']//thead//th[hasclass('col-md-10')]" position="after">
+            <th>Type</th>
+            <th>Priority</th>
+        </xpath>
+
+        <xpath expr="//div[@t-if='tasks']//span[@t-field='task.name']" position="after">
+            <td>
+                <img style="width: 20px; vertical-align: top; text-align: center;" t-if="task.type_id.icon"
+                     t-att-src="'data:image/png;base64,%s' % to_text(task.type_id.icon)"
+                     data-toggle="tooltip" data-placement="top" t-att-title="task.type_id.name"
+                     data-delay='{"show":"0", "hide":"0"}'/>
+            </td>
+            <td>
+                <img style="width: 20px; vertical-align: top; text-align: center;" t-if="task.priority_id.icon"
+                     t-att-src="'data:image/png;base64,%s' % to_text(task.priority_id.icon)"
+                     data-toggle="tooltip" data-placement="top" t-att-title="task.priority_id.name"
+                     data-delay='{"show":"0", "hide":"0"}'/>
+            </td>
+        </xpath>
+
+        <xpath expr="//h3" position="after">
+            <div class="modal fade modal_new_task" role="form" aria-hidden="true" groups="project_agile.group_project_portal_task_edit">
+                <div class="modal-dialog">
+                    <form method="POST" class="modal-content js_website_submit_form new_task_form">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
+                            <h4 class="modal-title">New Task</h4>
+                        </div>
+                        <div class="modal-body" id="new-task-dialog">
+                            <div class="form-group">
+                                <label class="control-label" for="project">Project (*)</label>
+                                <select class="form-control project" name="project">
+                                    <t t-foreach="projects" t-as="project">
+                                        <option t-att-data="project.id"
+                                                t-att-data-types="project.type_id.task_type_ids.ids"
+                                                t-att-data-default-type="project.type_id.default_task_type_id.id">
+                                            <t t-esc="project.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label hdd4" for="name">Name (*)</label>
+                                <input type='text' name="name" class="form-control name"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label" for="type">Type (*)</label>
+                                    <select class="form-control type" name="type">
+                                        <t t-foreach="types" t-as="type">
+                                            <option t-att-data="type.id"
+                                                    t-att-data-priorities="type.priority_ids.ids"
+                                                    t-att-data-default-priority="type.default_priority_id.id">
+                                                <t t-esc="type.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label" for="priority">Priority (*)</label>
+                                    <select class="form-control priority" name="priority">
+                                        <t t-foreach="priorities" t-as="priority">
+                                            <option t-att-data="priority.id">
+                                                <t t-esc="priority.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Deadline:</label>
+                                <div class='input-group date'>
+                                    <input type="text" name="date_deadline"
+                                           class="form-control date_deadline" data-date-format="YYYY-MM-DD" t-att-name="prefix"
+                                           placeholder="YYYY-MM-DD"/>
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label hdd4" for="description">Description</label>
+                                <div class="form-control description summernote"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button t-attf-class="btn btn-primary new_task_confirm">Confirm</button>
+                            or
+                            <button type="button" class="btn btn-link" data-dismiss="modal" style="padding: 0">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <template id="portal_my_task_task_edit" inherit_id="project.portal_my_task" name="portal_my_task_task_edit">
+        <xpath expr="//div[hasclass('panel-body')]/div[hasclass('mb8')]" position="before">
+            <div class="row" groups="project_agile.group_project_portal_task_edit">
+                <div class="col-md-6">
+                    <div>
+                        <button type="button" name='edit_task' data-toggle="modal" data-target=".modal_edit_task" class="btn btn-sm btn-primary"
+                                style="margin-bottom: 10px;">Edit Task
+                        </button>
+                        <div class="modal fade modal_edit_task" role="form" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form method="POST" class="js_accept_json modal-content js_website_submit_form edit_task_form">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="task_id" class="task_id" t-att-value="task.id"/>
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
+                                        <h4 class="modal-title">Edit Task</h4>
+                                    </div>
+                                    <div class="modal-body" id="sign-dialog">
+                                        <div class="form-group">
+                                            <label class="control-label hdd4" for="name">Name</label>
+                                            <input type='text' name="name" t-att-value="task.name" class="form-control name"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-6">
+                                                <label class="control-label" for="type">Type</label>
+                                                <select class="form-control type" name="type">
+                                                    <t t-foreach="types" t-as="type">
+                                                        <option t-if="type.id in task.project_id.type_id.task_type_ids.ids"
+                                                                t-att-data="type.id"
+                                                                t-att-data-priorities="type.priority_ids.ids"
+                                                                t-att-data-default-priority="type.default_priority_id.id"
+                                                                t-att-selected="type.id == task.type_id.id">
+                                                            <t t-esc="type.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="control-label" for="priority">Priority</label>
+                                                <select class="form-control priority" name="priority">
+                                                    <t t-foreach="priorities" t-as="priority">
+                                                        <option t-att-data="priority.id"
+                                                                t-att-selected="priority.id == task.priority_id.id">
+                                                            <t t-esc="priority.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Deadline:</label>
+                                            <div class='input-group date'>
+                                                <input type="text" name="date_deadline" t-att-value="task.date_deadline"
+                                                       class="form-control date_deadline" data-date-format="YYYY-MM-DD" t-att-name="prefix"
+                                                       placeholder="YYYY-MM-DD"/>
+                                                <span class="input-group-addon">
+                                                    <span class="fa fa-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label hdd4" for="description">Description</label>
+                                            <div class="form-control description summernote">
+                                                <t t-raw="task.description"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button t-attf-class="btn btn-primary edit_task_confirm">Confirm</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//strong[text()='Date:']/.." position="before">
+            <div>
+                <div class="mb8">
+                    <strong>Type:</strong>
+                    <img style="max-width: 16px; vertical-align: top;" t-if="task.type_id.icon"
+                         t-att-src="'data:image/png;base64,%s' % to_text(task.type_id.icon)"/>
+                    <span t-field="task.type_id.name"/>
+                </div>
+                <div class="mb8">
+                    <strong>Priority:</strong>
+                    <img style="max-width: 16px; vertical-align: top;" t-if="task.priority_id.icon"
+                         t-att-src="'data:image/png;base64,%s' % to_text(task.priority_id.icon)"/>
+                    <span t-field="task.priority_id.name"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="portal_my_task" name="My Task" inherit_id="project_workflow.portal_my_task">
+        <xpath expr="//span[hasclass('wkf-transitions')]" position="attributes">
+            <attribute name="groups">project_agile.group_project_portal_task_edit</attribute>
+        </xpath>
+    </template>
+</odoo>

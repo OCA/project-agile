@@ -4,20 +4,6 @@
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 -->
 <odoo>
-    <record id="project_agile_home_page" model="ir.actions.act_url">
-        <field name="name">Agile</field>
-        <field name="url">/agile/web</field>
-        <field name="target">self</field>
-    </record>
-
-     <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
-    <menuitem id="project_agile_app"
-              name="Odoo Agile"
-              groups="project.group_project_user"
-              action="project_agile_home_page"
-              web_icon="project_agile,static/description/icon.png"/>
-
-
     <menuitem id="project_agile_menu"
               name="Agile"
               parent="project.menu_main_pm"/>

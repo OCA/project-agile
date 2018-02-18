@@ -51,8 +51,7 @@
                 <sheet attrs="{'readonly': [('state', 'in', ['active', 'completed'])]}">
 
                     <div class="oe_button_box" name="button_box" groups="base.group_user">
-                        <button name="open_sprint_in_odoo_agile" string="Odoo Agile" type="object"
-                                class="oe_stat_button" icon="fa-tasks" />
+
                     </div>
 
                     <div class="oe_title">

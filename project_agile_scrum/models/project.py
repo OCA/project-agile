@@ -26,7 +26,6 @@ class Task(models.Model):
         comodel_name="project.agile.scrum.sprint",
         string="Current sprint",
         domain="[('team_id','=',team_id)]",
-        agile=True
     )
 
     sprint_ids = fields.Many2many(
@@ -34,7 +33,6 @@ class Task(models.Model):
         column1="task_id",
         column2="sprint_id",
         string="Sprint history",
-        agile=True
     )
 
     sprint_state = fields.Char(compute="_compute_sprint_state", store=True)

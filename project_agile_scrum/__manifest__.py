@@ -7,7 +7,7 @@
     "category": "Project",
     "version": "11.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Odoo Community Association (OCA), Modoolar",
+    "author": "Modoolar, Odoo Community Association (OCA)",
     "website": "https://www.modoolar.com/",
     "depends": [
         "project_agile",
@@ -21,14 +21,11 @@
         "views/project_agile_team_views.xml",
 
         "views/menu.xml",
-        "views/project_agile_scrum.xml",
         "views/project_agile_board_views.xml",
     ],
 
     "demo": [],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
+    "qweb": [],
     "application": True,
     "post_init_hook": "post_init_hook",
 }

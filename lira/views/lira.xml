@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <template id="assets_css" name="agile css assets">
+
+        <link href="/lira/static/src/css/materialize.css" type="text/css" rel="stylesheet"/>
+        <link href="/lira/static/src/css/materialNote.css" type="text/css" rel="stylesheet"/>
+        <link href="/lira/static/src/css/materialdesignicons.css" type="text/css" rel="stylesheet"/>
+
+        <link href="/lira/static/src/css/compiled/ion.rangeSlider.css" rel="stylesheet"/>
+        <link href="/lira/static/src/css/compiled/ion.rangeSlider.skinFlat.css" rel="stylesheet"/>
+
+        <link href="/lira/static/src/css/lira.css" type="text/css" rel="stylesheet"/>
+    </template>
+
+
+    <template id="common_assets" name="Lira Common Assets">
+        <script type="text/javascript" src="/web/static/lib/es5-shim/es5-shim.min.js"></script>
+        <script type="text/javascript" src="/web/static/lib/underscore/underscore.js"></script>
+        <script type="text/javascript" src="/web/static/lib/underscore.string/lib/underscore.string.js"></script>
+        <script type="text/javascript" src="/web/static/lib/moment/moment.js"></script>
+
+        <script type="text/javascript" src="/web/static/lib/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/web/static/lib/jquery.ui/jquery-ui.js"></script>
+        <script type="text/javascript" src="/web/static/lib/jquery/jquery.browser.js"></script>
+        <script type="text/javascript" src="/web/static/lib/jquery.blockUI/jquery.blockUI.js"></script>
+        <script type="text/javascript" src="/web/static/lib/jquery.hotkeys/jquery.hotkeys.js"></script>
+        <script type="text/javascript" src="/web/static/lib/jquery.placeholder/jquery.placeholder.js"></script>
+        <script type="text/javascript" src="/web/static/lib/jquery.form/jquery.form.js"></script>
+        <script type="text/javascript" src="/web/static/lib/jquery.ba-bbq/jquery.ba-bbq.js"></script>
+        <script type="text/javascript" src="/web/static/lib/jquery.mjs.nestedSortable/jquery.mjs.nestedSortable.js"></script>
+
+        <script src="/web/static/lib/bootstrap/js/affix.js"></script>
+        <script src="/web/static/lib/bootstrap/js/alert.js"></script>
+        <script src="/web/static/lib/bootstrap/js/button.js"></script>
+        <script src="/web/static/lib/bootstrap/js/carousel.js"></script>
+        <script src="/web/static/lib/bootstrap/js/collapse.js"></script>
+        <script src="/web/static/lib/bootstrap/js/dropdown.js"></script>
+        <script src="/web/static/lib/bootstrap/js/modal.js"></script>
+        <script src="/web/static/lib/bootstrap/js/tooltip.js"></script>
+        <script src="/web/static/lib/bootstrap/js/popover.js"></script>
+        <script src="/web/static/lib/bootstrap/js/scrollspy.js"></script>
+        <script src="/web/static/lib/bootstrap/js/tab.js"></script>
+        <script src="/web/static/lib/bootstrap/js/transition.js"></script>
+
+        <script type="text/javascript" src="/web/static/lib/bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"></script>
+        <script type="text/javascript" src="/web/static/lib/select2/select2.js"></script>
+        <script type="text/javascript" src="/web/static/lib/clipboard/clipboard.js"></script>
+        <script type="text/javascript" src="/web/static/lib/qweb/qweb2.js"></script>
+
+
+        <script type="text/javascript" src="/web/static/src/js/boot.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/libs/autocomplete.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/libs/bootstrap.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/libs/jquery.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/services/config.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/abstract_service.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/class.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/collections.js"/>
+        <script type="text/javascript" src="/web/static/src/js/core/translation.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/ajax.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/services/ajax_service.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/time.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/mixins.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/rpc.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/widget.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/registry.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/session.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/dom.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/concurrency.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/utils.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/qweb.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/bus.js"></script>
+
+        <script type="text/javascript" src="/web/static/src/js/services/core.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/dialog.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/local_storage.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/services/local_storage_service.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/rainbow_man.js"></script>
+    </template>
+
+
+    <template id="backend_assets" name="Lira Backend Assets">
+
+
+        <script type="text/javascript" src="/base/static/src/js/res_config_settings.js"></script>
+
+        <script type="text/javascript" src="/web/static/lib/jquery.scrollTo/jquery.scrollTo.js"></script>
+        <script type="text/javascript" src="/web/static/lib/backbone/backbone.js"></script>
+        <script type="text/javascript" src="/web/static/lib/fuzzy-master/fuzzy.js"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            odoo._modules =<t t-raw="get_modules_order()"/>;
+        </script>
+
+        <script type="text/javascript" src="/web/static/lib/py.js/lib/py.js"></script>
+        <!-- Special case: core.js declares $.browser needed by ba-bbq -->
+        <script type="text/javascript" src="/web/static/lib/jquery.ba-bbq/jquery.ba-bbq.js"></script>
+
+        <script type="text/javascript" src="/web/static/src/js/core/domain.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/pyeval.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/action_manager.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/control_panel.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/view_manager.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/abstract_web_client.js"></script>
+        <script type="text/javascript" src="/web_enterprise/static/src/js/web_client.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/_deprecated/data.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/context.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/core/misc.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/services/crash_manager.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/services/data_manager.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/services/session.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/auto_complete.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/change_password.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/debug_manager.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/data_export.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/date_picker.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/domain_selector_dialog.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/domain_selector.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/iframe_widget.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/loading.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/model_field_selector.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/notification.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/sidebar.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/pager.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/systray_menu.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/widgets/switch_company_menu.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/user_menu.js"></script>
+        <script type="text/javascript" src="/web_enterprise/static/src/js/menu.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/search_view.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/search_filters.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/search_inputs.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/search_menus.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/apps.js"></script>
+
+        <script type="text/javascript" src="/web/static/src/js/fields/abstract_field.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/fields/basic_fields.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/fields/field_registry.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/basic/widget_registry.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/fields/field_utils.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/fields/relational_fields.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/fields/special_fields.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/fields/upgrade_fields.js"></script>
+
+        <script type="text/javascript" src="/web/static/src/js/views/abstract_view.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/abstract_renderer.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/abstract_model.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/abstract_controller.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/basic/basic_model.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/basic/basic_view.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/basic/basic_controller.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/basic/basic_renderer.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/field_manager_mixin.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/standalone_field_manager_mixin.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/view_registry.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/view_dialogs.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/form/form_renderer.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/form/form_controller.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/form/form_view.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/graph/graph_model.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/graph/graph_controller.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/graph/graph_renderer.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/graph/graph_view.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/kanban/kanban_column.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/kanban/kanban_quick_create.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/kanban/kanban_column_progressbar.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/kanban/kanban_model.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/kanban/kanban_controller.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/kanban/kanban_record.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/kanban/kanban_renderer.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/kanban/kanban_renderer_mobile.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/kanban/kanban_view.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/list/list_editable_renderer.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/list/list_renderer.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/list/list_view.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/list/list_controller.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/pivot/pivot_model.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/pivot/pivot_controller.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/pivot/pivot_renderer.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/pivot/pivot_view.js"></script>
+
+        <script type="text/javascript" src="/web/static/src/js/views/calendar/calendar_controller.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/calendar/calendar_model.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/calendar/calendar_quick_create.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/calendar/calendar_renderer.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/views/calendar/calendar_view.js"></script>
+
+        <script type="text/javascript" src="/web/static/src/js/report/qwebactionmanager.js"/>
+        <script type="text/javascript" src="/web/static/src/js/report/utils.js"/>
+        <script type="text/javascript" src="/web/static/src/js/report/client_action.js"/>
+
+        <script type="text/javascript" src="/web_enterprise/static/src/js/apps.js"></script>
+        <script type="text/javascript" src="/web_enterprise/static/src/js/app_switcher.js"></script>
+        <script type="text/javascript" src="/web_enterprise/static/src/js/control_panel.js"></script>
+        <script type="text/javascript" src="/web_enterprise/static/src/js/menu_mobile.js"></script>
+        <script type="text/javascript" src="/web_enterprise/static/src/js/view_manager.js"></script>
+
+        <script type="text/javascript" src="/web_enterprise/static/src/js/widgets/debug_manager.js"></script>
+        <script type="text/javascript" src="/web_enterprise/static/src/js/widgets/user_menu.js"></script>
+        <script type="text/javascript" src="/web_enterprise/static/src/js/widgets/switch_company_menu.js"></script>
+
+        <script type="text/javascript" src="/bus/static/src/js/bus.js"></script>
+
+    </template>
+
+    <template id="assets" name="lira assets">
+        <script type="text/javascript" src="/lira/static/src/js/main.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/app_cache.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/core.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/mixins.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/data/dataset.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/data/dependency_cache.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/data/data.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/data/data_service.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/data/data_service_factory.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/hash_service.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/storage_service.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/web_client.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/helper_methods.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/dialog.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/config.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/framework/toast.js"/>
+
+
+        <script type="text/javascript" src="/lira/static/src/js/lib/external/materialize.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/external/dropify.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/external/jquery.expander.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/external/jquery.validate.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/external/jquery-ui.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/external/materialNote.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/external/ion.rangeSlider.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/external/moment.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/external/waypoint.js"/>
+
+        <script type="text/javascript" src="/lira/static/src/js/lib/materialNoteOverrides.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/Sortable.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/pluralize.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/my-jquery-extensions.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/lib/jquery-validate.js"/>
+
+        <script type="text/javascript" src="/lira/static/src/js/views/view_manager.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/views/page_manager.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/views/backlog.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/views/kanban_table.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/views/task.js"/>
+
+
+        <script type="text/javascript" src="/lira/static/src/js/views/pages/dashboard.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/views/pages/board.js"/>
+
+        <script type="text/javascript" src="/lira/static/src/js/widgets/attachments.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/base_widget.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/header.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/menu.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/layout.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/model_list.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/board_chooser.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/task_widget.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/task_links.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/modal_widget.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/subheader.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/many2one.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/many2many_tags.js"/>
+        <script type="text/javascript" src="/lira/static/src/js/widgets/activity_stream.js"/>
+
+        <script type="text/javascript" src="/web_syncer/static/src/js/syncer.js"/>
+    </template>
+
+</odoo>
