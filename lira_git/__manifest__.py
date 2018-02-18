@@ -10,8 +10,8 @@
     "author": "Modoolar, Odoo Community Association (OCA)",
     "website": "https://www.modoolar.com/",
     "depends": [
-        "project_git"
-        "lira",
+        "project_git",
+        "lira"
     ],
     "data": [
         "views/lira_git.xml"
