@@ -5,7 +5,7 @@
 -->
 <odoo>
     <data noupdate="1">
-        <record id="project_type_software" model="project.type">
+        <record forcecreate="False" id="project_type_software" model="project.type">
             <field name="name">Software</field>
             <field name="description">This type is for software developing projects.</field>
             <field name="active" eval="True"/>
@@ -19,7 +19,7 @@
             />
         </record>
 
-        <record id="project_type_technical_support" model="project.type">
+        <record forcecreate="False" id="project_type_technical_support" model="project.type">
             <field name="name">Technical Support</field>
             <field name="description">This type is for technical support projects.</field>
             <field name="active" eval="True"/>
@@ -36,7 +36,7 @@
             />
         </record>
 
-        <record id="project_type_business" model="project.type">
+        <record forcecreate="False" id="project_type_business" model="project.type">
             <field name="name">Business</field>
             <field name="description">This type is for general business projects. It is used by default if not specified.</field>
             <field name="active" eval="True"/>
