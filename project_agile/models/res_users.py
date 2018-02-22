@@ -22,12 +22,13 @@ class Users(models.Model):
 
     @api.multi
     def write(self, vals):
-        super(Users, self).write(vals)
+        res = super(Users, self).write(vals)
         if 'team_ids' in vals:
             self.fix_team_id()
         if 'team_id' in vals:
             self.invalidate_cache()
             self.env["ir.rule"].invalidate_cache()
+        return res
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
