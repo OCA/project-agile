@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="lira_home_page" model="ir.actions.act_url">
+        <field name="name">Lira</field>
+        <field name="url">/lira/web</field>
+        <field name="target">self</field>
+    </record>
+
+     <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+    <menuitem id="lira_app"
+              name="Lira"
+              groups="project.group_project_user"
+              action="lira_home_page"
+              web_icon="lira,static/description/icon.png"/>
+</odoo>

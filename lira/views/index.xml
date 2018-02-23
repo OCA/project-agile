@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <template id="index" name="Lira Index">
+        &lt;!DOCTYPE html&gt;
+        <html lang="en">
+
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+                <meta name="msapplication-tap-highlight" content="no"/>
+                <meta name="description" content=""/>
+                <meta name="keywords" content=""/>
+                <title>Project Agile</title>
+
+                <!-- Favicons-->
+                <link rel="apple-touch-icon" sizes="57x57" href="/lira/static/src/img/apple-icon-57x57.png?v=2"/>
+                <link rel="apple-touch-icon" sizes="60x60" href="/lira/static/src/img/apple-icon-60x60.png?v=2"/>
+                <link rel="apple-touch-icon" sizes="72x72" href="/lira/static/src/img/apple-icon-72x72.png?v=2"/>
+                <link rel="apple-touch-icon" sizes="76x76" href="/lira/static/src/img/apple-icon-76x76.png?v=2"/>
+                <link rel="apple-touch-icon" sizes="114x114" href="/lira/static/src/img/apple-icon-114x114.png?v=2"/>
+                <link rel="apple-touch-icon" sizes="120x120" href="/lira/static/src/img/apple-icon-120x120.png?v=2"/>
+                <link rel="apple-touch-icon" sizes="144x144" href="/lira/static/src/img/apple-icon-144x144.png?v=2"/>
+                <link rel="apple-touch-icon" sizes="152x152" href="/lira/static/src/img/apple-icon-152x152.png?v=2"/>
+                <link rel="apple-touch-icon" sizes="180x180" href="/lira/static/src/img/apple-icon-180x180.png?v=2"/>
+                <link rel="icon" type="image/png" sizes="192x192" href="/lira/static/src/img/android-icon-192x192.png?v=2"/>
+                <link rel="icon" type="image/png" sizes="32x32" href="/lira/static/src/img/favicon-32x32.png?v=2"/>
+                <link rel="icon" type="image/png" sizes="96x96" href="/lira/static/src/img/favicon-96x96.png?v=2"/>
+                <link rel="icon" type="image/png" sizes="16x16" href="/lira/static/src/img/favicon-16x16.png?v=2"/>
+
+                <link rel="shortcut icon" href="/lira/static/src/img/favicon.ico?v=2" type="image/x-icon"/>
+
+                <!-- Favicons-->
+                <link rel="apple-touch-icon-precomposed" href="/lira/static/src/img/apple-icon-152x152.png?v=2"/>
+                <!-- For iPhone -->
+                <meta name="msapplication-TileColor" content="#00bcd4"/>
+                <meta name="msapplication-TileImage" content="/lira/static/src/img/apple-icon-144x144.png?v=2"/>
+                <!-- For Windows Phone -->
+
+                <t t-call-assets="lira.assets_css" t-css="true"/>
+
+
+                <script type="text/javascript">
+                    var odoo = {
+                    csrf_token: "<t t-esc="request.csrf_token(None)"/>",
+                    session_info:<t t-raw="session_info"/>,
+                    };
+                </script>
+
+                <t t-call-assets="lira.common_assets" t-css="false"/>
+                <t t-call-assets="lira.backend_assets" t-css="false"/>
+                <t t-call-assets="lira.assets" t-css="false"/>
+
+            </head>
+
+            <body>
+                <!-- Start Page Loading -->
+                <div id="preloader-stage">
+                    <div class="preloader-wrapper active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-red">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-yellow">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-green">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spinner-icon">
+                            <img src="/lira/static/description/icon.png"/>
+                        </div>
+                </div>
+                <!-- End Page Loading -->
+
+                <div class="o_main_content"></div>
+            </body>
+        </html>
+    </template>
+</odoo>

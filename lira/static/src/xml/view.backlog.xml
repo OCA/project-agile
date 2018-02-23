@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="lira.view.backlog">
+        <!--start container-->
+        <div class="slide-viewport">
+            <div class="slide-wrapper">
+                <div id="backlog-view" class="slide-part task-lists-view">
+                    <div class="master-list">
+                        <div class="section no-pad">
+                            <ul class="collapsible collapsible-accordion non-backlog-list" data-collapsible="expandable" />
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="splitter" />-->
+                <div id="right-detail-view" class="slide-part" />
+            </div>
+        </div>
+        <!--end container-->
+    </t>
+    <t t-name="lira.backlog.task_list">
+        <div class="collection" />
+    </t>
+    <t t-name="lira.backlog">
+        <ul id="backlog-task-list" class="collection with-header with-shadow task-list">
+            <li class="task-list-header">
+                <span>Backlog</span>
+                <span class="task-count">
+                     <t t-esc="count" />
+                </span>
+                <div class="context-menu">
+                    <div class="switches">
+                    </div>
+                </div>
+            </li>
+            <div class="list-preloader">
+               <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-red-only">
+                          <div class="circle-clipper left">
+                                <div class="circle"></div>
+                          </div><div class="gap-patch">
+                                <div class="circle"></div>
+                          </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                          </div>
+                    </div>
+              </div>
+           </div>
+        </ul>
+    </t>
+</templates>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="lira.view_manager">
+    <!-- START CONTENT -->
+    <section class="view-manager view-wrapper">
+        <!--breadcrumbs start-->
+        <div id="subheader-wrapper"></div>
+        <!--breadcrumbs end-->
+        <div class="progress">
+            <div class="indeterminate" />
+        </div>
+        <widget class="view-content" />
+    </section>
+    <!-- END CONTENT -->
+    </t>
+</templates>

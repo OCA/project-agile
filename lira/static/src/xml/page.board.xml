@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="lira.page.board">
+        <div id="middle-content">
+            <widget class="aside-left"></widget>
+            <widget class="view_manager"></widget>
+        </div>
+    </t>
+</templates>

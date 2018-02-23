@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="lira.layout">
+        <div id="agile_layout">
+            <widget class="header"></widget>
+            <widget class="page_manager"></widget>
+        </div>
+    </t>
+    <t t-name="lira.layout.fail">
+        <div id="agile_layout_fail">
+            <div class="message-wrapper">
+                <div class="message">
+                    <h3 class="title">Access denied</h3>
+                    <t t-foreach="errors" t-as="error">
+                        <h5 class="error-title"><t t-esc="error.title"/></h5>
+                        <p class="error-message"><t t-esc="error.message"/></p>
+                    </t>
+                    <a class="waves-effect waves-light btn back" href="/web">back to odoo</a>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

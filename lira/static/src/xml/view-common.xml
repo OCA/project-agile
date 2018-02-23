@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="lira.view.floating-action-button">
+        <t t-if="widget.menuItems">
+            <!-- Floating Action Button -->
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large" data-position="left" data-delay="50">
+                    <i class="mdi mdi-plus" />
+                </a>
+                <ul>
+                    <t t-foreach="widget.menuItems" t-as="item">
+                        <li t-attf-class="{{item.class}}">
+                            <a class="btn-floating red tooltipped" data-position="left" data-delay="50" t-attf-data-tooltip="{{item.text}}">
+                                <i t-attf-class="mdi {{item.icon}}"/>
+                            </a>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+            <!-- Floating Action Button -->
+        </t>
+    </t>
+</templates>

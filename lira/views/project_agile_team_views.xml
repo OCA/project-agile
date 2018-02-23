@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="view_project_agile_team_form" model="ir.ui.view">
+        <field name="name">project_agile_team_form</field>
+        <field name="model">project.agile.team</field>
+        <field name="inherit_id" ref="project_agile.view_project_agile_team_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="open_in_lira" string="View in Lira" type="object"
+                        class="oe_stat_button"  icon="fa-puzzle-piece" />
+            </div>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="lira.activity.stream">
+        <div t-attf-class="list {{widget.withShadow ? 'with-shadow' : ''}}">
+            <div class="list-header" t-if="widget.listTitle">
+                <div class="list-title">
+                    <p class="list-title"><t t-esc="widget.listTitle"/></p>
+                </div>
+            </div>
+            <div class="activity">
+                <!--<t t-foreach="Array.from(widget.groupWeekDays.keys())" t-as="weekdayGroup">-->
+                <!--<div class="activity-date"><t t-esc="weekdayGroup"/></div>-->
+                <!--<t t-foreach="widget.groupWeekDays.get(weekdayGroup)" t-as="activityGroup">-->
+                <!--<t t-set="author" t-value="widget.getAuthor(activityGroup[0])"/>-->
+                <!--<t t-call="lira.activity.group"/>-->
+                <!--</t>-->
+                <!--</t>-->
+            </div>
+            <div class="list-preloader">
+               <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-red-only">
+                          <div class="circle-clipper left">
+                                <div class="circle"></div>
+                          </div><div class="gap-patch">
+                                <div class="circle"></div>
+                          </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                          </div>
+                    </div>
+              </div>
+           </div>
+            <div class="load-more">
+                <a class="load-more-btn" style="display:none;">Load more...</a>
+            </div>
+        </div>
+    </t>
+    <t t-name="lira.activity.group">
+        <div class="activity-group">
+            <div class="activity-group-aside">
+                <img class="circle" t-attf-src="{{author.image}}"/>
+            </div>
+            <div class="activity-group-content">
+            </div>
+        </div>
+    </t>
+    <t t-name="lira.activity.item">
+        <t t-set="message" t-value="widget.message"/>
+        <div class="activity-item"
+             t-att-data-object-id="widget.message.id"
+             t-att-data-object-res-id="widget.message.res_id"
+             t-att-data-object-model="message.model">
+            <div class="activity-header">
+                <i class="mdi mdi-comment-text-outline activity-type"></i>
+                <t t-if="message.is_note">
+                    <span style="padding-right:15px">Note by</span>
+                </t>
+                <a class="activity-actor"><t t-esc="message.author_id[1]"/></a>
+                <t t-if="widget.menuItems and widget.menuItems.length > 0">
+                    <div class="activity-actions">
+                        <span class="rest">
+                            <t t-foreach="widget.menuItems" t-as="item">
+                                <a t-attf-class="btn-overflow hoverable-icon {{item.class}}">
+                                    <i t-attf-class="mdi {{item.icon}}"/>
+                                </a>
+                            </t>
+                        </span>
+                        <span>
+                            <a>
+                                <i class="mdi mdi-dots-vertical mdi-18px btn-overflow" />
+                            </a>
+                        </span>
+                    </div>
+                </t>
+            </div>
+            <div class="activity-subheader">
+                <t t-if="widget.showMessageName">
+                    <i t-attf-class="mdi mdi-{{widget.record.type_lira_icon}} mdi-20px mdi-middle tooltipped" data-position="bottom" data-delay="50" t-attf-data-tooltip="{{widget.record.type_id[1]}}" t-attf-style="{{widget.record.type_lira_icon_color &amp;&amp; widget.record.type_lira_icon.startsWith('custom-') ? 'background-color:' + widget.record.type_lira_icon_color: 'color:' + widget.record.type_lira_icon_color}}"/>
+                    <i t-attf-class="mdi mdi-{{widget.record.priority_lira_icon}} mdi-20px mdi-middle tooltipped" data-position="bottom" data-delay="50" t-attf-data-tooltip="{{widget.record.priority_id[1]}}" t-attf-style="{{widget.record.priority_lira_icon_color &amp;&amp; widget.record.priority_lira_icon.startsWith('custom-') ? 'background-color:' + widget.record.priority_lira_icon_color: 'color:' + widget.record.priority_lira_icon_color}}"/>
+                    <a class="activity-object">
+                        <t t-esc="message.record_name"/>
+                    </a>
+                </t>
+            </div>
+            <t t-if="message.tracking_value_ids and message.tracking_value_ids.length &gt; 0">
+                <t t-if="message.subtype_description">
+                    <p><t t-esc="message.subtype_description"/></p>
+                </t>
+                <t t-call="lira.activity.message_tracking"/>
+            </t>
+
+            <t t-if="!(message.tracking_value_ids and message.tracking_value_ids.length &gt; 0)">
+                <div class="activity-body">
+                    <t t-raw="message.body"/>
+                </div>
+                <div class="activity-attachments">
+                    <t t-foreach="message.attachment_ids" t-as="attachment">
+                        <t t-call="lira.activity.attachment"/>
+                    </t>
+                </div>
+            </t>
+            <div class="activity-footer">
+                <i class="mdi mdi-clock-outline"></i>
+                <span class="activity-item-date"><t t-esc="widget.formatTime(message.date)"/></span>
+            </div>
+        </div>
+    </t>
+    <t t-name="lira.activity.message_tracking">
+        <ul>
+            <t t-foreach='message.tracking_value_ids' t-as='value'>
+                <li>
+                    <t t-esc="value.changed_field"/>:
+                    <t t-if="value.old_value">
+                        <span> <t t-esc="value.old_value || ((value.field_type !== 'boolean') and '')"/> </span>
+                        <span t-if="value.old_value != value.new_value" class="material-icons arrow-tracking">trending_flat</span>
+                    </t>
+                    <span t-if="value.old_value != value.new_value">
+                        <t t-esc="value.new_value || ((value.field_type !== 'boolean') and '')"/>
+                    </span>
+                </li>
+            </t>
+        </ul>
+    </t>
+
+    <t t-name="lira.activity.attachment">
+        <t t-set="type" t-value="attachment.mimetype and attachment.mimetype.split('/').shift()"/>
+        <t t-set="subtype" t-value="attachment.mimetype and attachment.mimetype.split('/').pop()"/>
+        <t t-set="attachment.url" t-value="'/web/content/' + attachment.id"/>
+        <div class="activity-attachment">
+            <t t-call="lira.activity.attachment.preview-image"/>
+            <div class="caption">
+                <t t-call="lira.activity.attachment.lity-link"/>
+            </div>
+            <div class="commands">
+                <a class="btn-floating btn-flat waves-effect hoverable-icon" t-attf-href="#{attachment.url}?download=true">
+                    <i class="mdi mdi-download"/>
+                </a>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="lira.activity.attachment.preview-image">
+        <div class="preview-image">
+            <t t-if="attachment.mimetype == 'image/svg+xml'">
+                <img src="/lira/static/img/icons/image.png"/>
+            </t>
+            <t t-elif="type == 'image'">
+                <img t-attf-src="/web/image/#{attachment.id}/200x200/"/>
+            </t>
+            <t t-elif="type == 'video'">
+                <img src="/lira/static/img/icons/video.png"/>
+            </t>
+            <t t-elif="['audio','video'].includes(type)">
+                <img t-attf-src="/lira/static/img/icons/#{type}.png"/>
+            </t>
+            <t t-elif="['pdf','html', 'rar', 'zip', 'json', 'css'].includes(subtype)">
+                <img t-attf-src="/lira/static/img/icons/#{subtype}.png"/>
+            </t>
+            <t t-elif="subtype.includes('spreadsheet') or subtype == 'csv'">
+                <img t-attf-src="/lira/static/img/icons/sheet.png"/>
+            </t>
+            <t t-elif="subtype.includes('presentation') or subtype.includes('powerpoint')">
+                <img t-attf-src="/lira/static/img/icons/ppt.png"/>
+            </t>
+            <t t-elif="subtype.includes('.document') or subtype.includes('document.text')">
+                <img t-attf-src="/lira/static/img/icons/doc.png"/>
+            </t>
+            <t t-elif="['x-tar', 'x-7z-compressed'].includes(subtype)">
+                <img src="/lira/static/img/icons/archive.png"/>
+            </t>
+            <t t-elif="subtype == 'vnd.android.package-archive'">
+                <img src="/lira/static/img/icons/apk.png"/>
+            </t>
+            <t t-elif="attachment.mimetype == 'text/plain'">
+                <img src="/lira/static/img/icons/text.png"/>
+            </t>
+            <t t-else="">
+                <img src="/lira/static/img/icons/unknown.png"/>
+                <t t-set="extension" t-value="attachment.filename and !attachment.filename.startsWith('.') and attachment.filename.includes('.') and attachment.filename.split('.').pop().substring(0,4)"/>
+                <div t-if="extension" class="extension"><t t-esc="extension"/></div>
+            </t>
+        </div>
+    </t>
+    <t t-name="lira.activity.attachment.lity-link">
+        <t t-if="
+        ['image','video','audio'].includes(type) or
+        ['pdf'].includes(subtype) or
+        ['text/plain','text/css','text/html'].includes(attachment.mimetype)">
+            <a t-att-href='attachment.url'
+               t-attf-data-lity='{"handler":"#{type}"}'
+               t-att-data-lity-desc="attachment.name">
+                <t t-esc='attachment.name'/>
+            </a>
+        </t>
+        <t t-else="">
+            <a t-att-href='attachment.url'>
+                <t t-esc='attachment.name'/>
+            </a>
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="lira.layout.header">
+        <!-- START HEADER -->
+        <header id="header" class="page-topbar">
+            <!-- start header nav-->
+            <div class="navbar-fixed">
+                <nav class="agile-main-color">
+                    <div class="nav-wrapper">
+                        <ul class="nav-left">
+                            <a class="nav-logo darken-1">
+                                <img src="/lira/static/img/lira.svg" alt="odoo"/>
+                            </a>
+                        </ul>
+                        <div class="nav-middle hide-on-med-and-down">
+
+                        </div>
+                        <div class="nav-search">
+                            <div style="display:none">
+                                <i class="mdi mdi-magnify hide-on-med-and-down"></i>
+                                <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Filter tasks"/>
+                            </div>
+                        </div>
+                        <ul class="nav-right">
+                            <li class="search-button hide-on-large-only">
+                                <a class="waves-effect waves-block waves-light">
+                                    <i class="mdi mdi-magnify"/>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-block waves-light user-button"
+                                   data-activates="user-dropdown">
+                                    <span class="user-name hide-on-med-and-down"><t t-esc="widget.user.name"/></span>
+                                    <span class="hide-on-med-and-down">(<span class="team-name"><t t-esc="widget.user.team_id[1]"/></span>)</span>
+                                    <i class="mdi mdi-account-multiple hide-on-large-only"/>
+                                    <span class="caret hide-on-med-and-down">▼</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <!-- notifications-dropdown -->
+                        <ul id="user-dropdown" class="header-dropdown dropdown-content">
+                            <li t-if="Object.keys(widget.user.team_ids).length > 1">
+                                <a class="team-dropdown-button" data-activates="team-dropdown">
+                                    <i class="mdi mdi-account-multiple"></i>
+                                    <span>Change team</span>
+                                </a>
+                            </li>
+                            <!--<li class="divider"></li>-->
+                            <li>
+                                <a href="/web" class="back-to-odoo">
+                                    <i class="mdi mdi-home"></i>
+                                    Back to Odoo
+                                </a>
+                            </li>
+                        </ul>
+                        <ul id="team-dropdown" class="dropdown-content">
+                            <t t-if="Object.keys(widget.user.team_ids).length > 1">
+                                <t t-foreach="Object.keys(widget.user.team_ids)" t-as="team_id">
+                                    <t t-set="team" t-value="widget.user.team_ids[team_id]" />
+                                    <li class="team-option" t-att-data-id='team.id'>
+                                        <a><img class='circle team-image' t-att-src='widget.data.getImage("project.agile.team", team_id)'/> <t t-esc="team.name"/></a>
+                                    </li>
+                                </t>
+                            </t>
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+            <!-- end header nav-->
+        </header>
+        <!-- END HEADER -->
+    </t>
+
+    <t t-name="lira.menu.menuitem.horisontal">
+        <li t-attf-id="{{widget.id}}">
+            <a class="waves-effect waves-block waves-light translation-button">
+                <t t-esc="widget.name"/>
+            </a>
+        </li>
+    </t>
+</templates>
