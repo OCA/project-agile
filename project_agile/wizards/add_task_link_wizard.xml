@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+
+<odoo>
+      <act_window id="launch_task_link_wizard"
+                name="Add Link"
+                src_model="project.task"
+                res_model="project.task.link.add_wizard"
+                view_mode="form"
+                target="new"
+                key2="client_action_multi"/>
+
+     <record id="project_task_link_action_window" model="ir.actions.act_window">
+        <field name="name">Project Task Link</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.task.link</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="project_task_link_wizard" model="ir.ui.view">
+        <field name="name">add_task_link_wizard</field>
+        <field name="model">project.task.link.add_wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="task_left_id" invisible="1"/>
+                        <field name="relation_id" widget="selection" required="1"/>
+                        <field name="task_right_id" required="1"/>
+                        <field name="comment"/>
+                    </group>
+                    <footer>
+                        <button string="Add link" name="add_task_link" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

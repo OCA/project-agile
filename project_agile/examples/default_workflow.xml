@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <data>
+
+        <record id="wkf_simple" model="project.workflow">
+            <field name="name">Default Workflow</field>
+            <field name="description">Workflow for simple software development.</field>
+            <field name="state">live</field>
+        </record>
+
+        <!-- Workflow States -->
+        <record id="wkf_simple_state_todo" model="project.workflow.state">
+            <field name="workflow_id" ref="wkf_simple"/>
+            <field name="stage_id" ref="project_agile.project_task_stage_todo"/>
+            <field name="type">todo</field>
+        </record>
+
+        <record id="wkf_simple_state_in_progress" model="project.workflow.state">
+            <field name="workflow_id" ref="wkf_simple"/>
+            <field name="stage_id" ref="project_agile.project_task_stage_in_progress"/>
+            <field name="type">in_progress</field>
+        </record>
+
+        <record id="wkf_simple_state_done" model="project.workflow.state">
+            <field name="workflow_id" ref="wkf_simple"/>
+            <field name="stage_id" ref="project_agile.project_task_stage_done"/>
+            <field name="type">done</field>
+        </record>
+        <!-- Transitions -->
+
+        <!-- Start Progress: From ``ToDo`` to ``In Progress`` -->
+        <record id="wkf_simple_trn_todo_in_progress" model="project.workflow.transition">
+            <field name="workflow_id" ref="wkf_simple"/>
+            <field name="name">Start Progress</field>
+            <field name="src_id" ref="wkf_simple_state_todo"/>
+            <field name="dst_id" ref="wkf_simple_state_in_progress"/>
+            <field name="description">Start working on this task.</field>
+        </record>
+
+        <!-- Stop Progress: From ``In Progress`` to ``ToDo``  -->
+        <record id="wkf_simple_trn_in_progress_todo" model="project.workflow.transition">
+            <field name="workflow_id" ref="wkf_simple"/>
+            <field name="name">Stop Progress</field>
+            <field name="src_id" ref="wkf_simple_state_in_progress"/>
+            <field name="dst_id" ref="wkf_simple_state_todo"/>
+            <field name="description">Stop working on this task.</field>
+        </record>
+
+        <!-- Finish Work: From ``In Progress`` to ``Done``  -->
+        <record id="wkf_simple_trn_in_progress_done" model="project.workflow.transition">
+            <field name="workflow_id" ref="wkf_simple"/>
+            <field name="name">Finish Work</field>
+            <field name="src_id" ref="wkf_simple_state_in_progress"/>
+            <field name="dst_id" ref="wkf_simple_state_done"/>
+            <field name="description">Work on this task has been finished.</field>
+        </record>
+
+        <!-- Start Progress: From ``Done`` to ``In Progress``  -->
+        <record id="wkf_simple_trn_done_in_progress" model="project.workflow.transition">
+            <field name="workflow_id" ref="wkf_simple"/>
+            <field name="name">Start Progress</field>
+            <field name="src_id" ref="wkf_simple_state_done"/>
+            <field name="dst_id" ref="wkf_simple_state_in_progress"/>
+            <field name="description">Start working on this task again.</field>
+        </record>
+
+        <!-- Back on the list: From ``Done`` to ``ToDo``  -->
+        <record id="wkf_simple_trn_done_todo" model="project.workflow.transition">
+            <field name="workflow_id" ref="wkf_simple"/>
+            <field name="name">Back on the list</field>
+            <field name="src_id" ref="wkf_simple_state_done"/>
+            <field name="dst_id" ref="wkf_simple_state_todo"/>
+            <field name="description">Put the task back to TDOD list.</field>
+        </record>
+
+        <!-- Back on the list: From ``ToDo`` to ``Done`` -->
+        <record id="wkf_simple_trn_todo_done" model="project.workflow.transition">
+            <field name="workflow_id" ref="wkf_simple"/>
+            <field name="name">Done</field>
+            <field name="src_id" ref="wkf_simple_state_todo"/>
+            <field name="dst_id" ref="wkf_simple_state_done"/>
+            <field name="description">Put the task directly to done.</field>
+        </record>
+    </data>
+</odoo>

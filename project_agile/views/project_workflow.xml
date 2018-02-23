@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="edit_project_workflow" model="ir.ui.view">
+        <field name="name">project.workflow.form</field>
+        <field name="model">project.workflow</field>
+        <field name="inherit_id" ref="project_workflow.edit_project_workflow"/>
+        <field name="arch" type="xml">
+            <page name="description" position="after">
+                <page name="task_types" string="Task Types">
+                    <field name="task_type_ids" nolabel="1">
+                        <tree name="Task Types" editable="bottom">
+                            <field name="type_id"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+
+     <record id="project_workflow_transition_diagram_form2" model="ir.ui.view">
+        <field name="name">project.workflow.transition.form</field>
+        <field name="model">project.workflow.transition</field>
+        <field name="inherit_id" ref="project_workflow.project_workflow_transition_diagram_form"/>
+        <field name="arch" type="xml">
+                <field name="user_confirmation" position="after">
+                    <field name="resolution_id"/>
+                </field>
+        </field>
+    </record>
+
+    <record id="project_workflow_state_tree" model="ir.ui.view">
+        <field name="name">project.workflow.state.tree</field>
+        <field name="model">project.workflow.state</field>
+        <field name="inherit_id" ref="project_workflow.project_workflow_state_tree"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="after">
+                <field name="workflow_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="agile_board_create_action" model="ir.actions.act_window">
+        <field name="name">Agile Board Create Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.agile.board.create.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="agile_board_create_wizard_form" model="ir.ui.view">
+        <field name="name">Agile Board Create Wizard</field>
+        <field name="model">project.agile.board.create.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Agile Board">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="visibility" required="True"/>
+                            <field name="team_id"
+                                   domain="[('type', '=', type)]"
+                                   attrs="{'invisible': [('visibility', '!=', 'team')], 'required': [('visibility', '=', 'team')]}"/>
+                            <field name="user_id"
+                                   attrs="{'invisible': [('visibility', '!=', 'user')], 'required': [('visibility', '=', 'user')]}"/>
+                        </group>
+                        <group>
+                            <field name="workflow_ids" widget="many2many_tags"/>
+                            <field name="project_ids"
+                                   domain="[('agile_enabled', '=', True), ('agile_method', '=', type)]"
+                                   widget="many2many_tags"
+                                   options="{'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="_Apply" name="button_apply" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="agile_project_task_worklog_action" model="ir.actions.act_window">
+        <field name="name">Task Worklog</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.task.worklog.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="agile_project_task_worklog_form" model="ir.ui.view">
+        <field name="name">Project Task Worklog</field>
+        <field name="model">project.task.worklog.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Worklog">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="task_id" invisible="1"/>
+                            <field name="duration" widget="float_time" default_focus="1"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="user_id" options="{'no_open': False}"/>
+                        </group>
+                    </group>
+                    <group string="Worklog Description">
+                        <field name="name" nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button string="_Sumbit" name="button_submit_worklog" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="project_agile_board_export_wizard_action" model="ir.actions.act_window">
+        <field name="name">Project Agile Board Export Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.agile.board.export.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="project_agile_board_export_wizard_form" model="ir.ui.view">
+        <field name="name">Project Agile Board Export Wizard</field>
+        <field name="model">project.agile.board.export.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Agile Board Exporter">
+                <sheet>
+                    <field name="state" invisible="1" />
+                    <group states="end">
+                        <p>Agile Baord has been exported and now you can download it from here:  <field name="data" filename="file_name"/></p>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+
+                    <group states="start">
+                        <field name="board_id"
+                               options="{'no_open':'False', 'no_create': True, 'no_create_edit': True, 'no_quick_create': True}"/>
+                    </group>
+
+                    <footer states="start">
+                        <button string="_Export" name="button_export" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                    <footer states="end">
+                        <button string="Close" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

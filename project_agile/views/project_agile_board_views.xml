@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="agile_board_form" model="ir.ui.view">
+        <field name="name">agile_board_form</field>
+        <field name="model">project.agile.board</field>
+        <field name="arch" type="xml">
+            <form string="" create="0">
+                <header>
+                    <button name="declare_default" type="object" string="Declare Default"
+                            attrs="{'invisible': [('is_default', '=', True)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="export_board" string="Export" type="object"
+                                class="oe_stat_button" icon="fa-truck"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group name="main">
+                        <group name="left">
+                            <field name="type" options="{'horizontal': true}" widget="radio"/>
+                            <field name="is_default" readonly="1"/>
+                            <field name="description" placeholder="Description..."/>
+                        </group>
+                        <group name="right">
+                            <field name="workflow_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="project_ids" options="{'no_create_edit': True}"
+                                   domain="[('agile_enabled', '=', True), ('agile_method', '=', type)]"
+                                   widget="many2many_tags"
+                                   placeholder="Projects..."/>
+                            <field name="status_ids" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page name="columns" string="Columns">
+                            <group>
+                                <group string="Board Columns">
+                                    <field name="column_ids" nolabel="1"
+                                           context="{'project_ids': project_ids, 'default_workflow_ids': workflow_ids }">
+                                        <tree>
+                                            <field name="order" widget="handle"/>
+                                            <field name="name"/>
+                                            <field name="status_ids"/>
+                                        </tree>
+                                        <form>
+                                            <sheet>
+                                                <div class="oe_button_box" name="button_box">
+                                                </div>
+                                                <div class="oe_title">
+                                                    <h1>
+                                                        <field name="name" default_focus="1" placeholder="Name"/>
+                                                    </h1>
+                                                </div>
+                                                <group name="main">
+                                                    <group name="left">
+                                                        <field name="min_max_visible" invisible="1"/>
+                                                        <field name="min"
+                                                               attrs="{'invisible': [('min_max_visible', '!=', True)]}"/>
+                                                        <field name="max"
+                                                               attrs="{'invisible': [('min_max_visible', '!=', True)]}"/>
+                                                        <field name="notification_level"
+                                                               attrs="{'invisible': [('min_max_visible', '!=', True)], 'required': [('min_max_visible', '=', True), ('max', '>', 0)]}"
+                                                        />
+                                                        <field name="order"/>
+                                                        <field name="workflow_ids" widget="many2many_tags" invisible="1"/>
+                                                    </group>
+                                                    <group name="right">
+                                                    </group>
+
+                                                </group>
+                                                <group string="Column Stages">
+                                                    <field name="status_ids" nolabel="1" context="{'default_workflow_ids': workflow_ids}"
+                                                          >
+                                                        <tree editable="bottom">
+                                                            <field name="order" widget="handle"/>
+                                                            <field name="workflow_id" options="{'no_create':true}" />
+                                                            <field name="state_id" options="{'no_create':true}" domain="[('workflow_id', '=', workflow_id)]"/>
+                                                            <field name="workflow_ids" widget="many2many_tags" invisible="1"/>
+                                                            <field name="workflow_stage_ids" invisible="1"/>
+                                                        </tree>
+                                                        <form>
+                                                            <sheet>
+                                                                <group name="main">
+                                                                    <group name="left">
+                                                                        <field name="workflow_id" />
+                                                                        <field name="workflow_ids" widget="many2many_tags" invisible="1"/>
+                                                                        <field name="state_id"/>
+                                                                    </group>
+                                                                    <group name="right">
+                                                                    </group>
+                                                                </group>
+                                                            </sheet>
+                                                        </form>
+                                                    </field>
+                                                </group>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                </group>
+                                <group string="Unmapped States">
+                                    <field name="unmapped_state_ids" nolabel="1">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="type"/>
+                                            <field name="workflow_id"/>
+                                            <field name="is_global"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="advanced" string="Advanced">
+                            <group name="main">
+                                <group name="left">
+                                    <field name="visibility"/>
+                                    <field name="team_id" domain="[('type', '=', type)]"
+                                           attrs="{'invisible': [('visibility', '!=', 'team')], 'required': [('visibility', '=', 'team')]}"/>
+                                    <field name="user_id"
+                                           attrs="{'invisible': [('visibility', '!=', 'user')], 'required': [('visibility', '=', 'user')]}"/>
+                                </group>
+
+                                <group name="right">
+                                    <field name="board_task_type_ids" options="{'no_create_edit': True}"
+                                       widget="many2many_tags"
+                                       placeholder="Board Task Types..."
+                                       context="{'board_project_ids': project_ids}"/>
+
+                                    <field name="backlog_task_type_ids" options="{'no_create_edit': True}"
+                                       widget="many2many_tags"
+                                       placeholder="Backlog Task Types..."
+                                       context="{'board_project_ids': project_ids}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="reports" string="Reports">
+                            <field name="report_ids" nolabel="1" mode="kanban" context="{'agile_team_id': active_id}">
+                                <kanban class="pa_reports_kanban" create="0" js_class="pa_web_reports">
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                    <field name="action_id"/>
+                                    <field name="image_url"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <figure class="pa_kanban_report">
+                                                <img class="pa_report_action" t-att-src="record.image_url.raw_value"
+                                                     t-att-action="record.action_id.raw_value[0]"/>
+                                                <figcaption>
+                                                    <t t-raw="record.description.raw_value"/>
+                                                </figcaption>
+                                            </figure>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="agile_board_tree" model="ir.ui.view">
+        <field name="name">agile_board_tree</field>
+        <field name="model">project.agile.board</field>
+        <field name="arch" type="xml">
+            <tree string="" create="0">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="is_default"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="open_agile_board_form" model="ir.actions.act_window">
+        <field name="name">Board</field>
+        <field name="res_model">project.agile.board</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

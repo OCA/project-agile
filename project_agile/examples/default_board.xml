@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <data noupdate="1">
+
+        <record id="default_board" model="project.agile.board">
+            <field name="name">Default Board</field>
+            <field name="description">This is a default board. Every newly created project will be assigned to this board</field>
+            <field name="type">scrum</field>
+            <field name="is_default" eval="True"/>
+            <field name="state">live</field>
+            <field name="workflow_id" ref="wkf_simple"/>
+        </record>
+
+        <record id="default_board_column_todo" model="project.agile.board.column">
+            <field name="name">ToDo</field>
+            <field name="board_id" ref="default_board"/>
+            <field name="order" eval="1"/>
+        </record>
+
+        <record id="default_board_column_status_todo" model="project.agile.board.column.status">
+            <field name="column_id" ref="default_board_column_todo"/>
+            <field name="state_id" ref="wkf_simple_state_todo"/>
+            <field name="order" eval="1"/>
+        </record>
+
+        <record id="default_board_column_in_progress" model="project.agile.board.column">
+            <field name="name">In Progress</field>
+            <field name="board_id" ref="default_board"/>
+            <field name="order" eval="2"/>
+        </record>
+
+        <record id="default_board_column_status_in_progress" model="project.agile.board.column.status">
+            <field name="column_id" ref="default_board_column_in_progress"/>
+            <field name="state_id" ref="wkf_simple_state_in_progress"/>
+            <field name="order" eval="1"/>
+        </record>
+
+        <record id="default_board_column_done" model="project.agile.board.column">
+            <field name="name">Done</field>
+            <field name="board_id" ref="default_board"/>
+            <field name="order" eval="3"/>
+        </record>
+
+        <record id="default_board_column_status_done" model="project.agile.board.column.status">
+            <field name="column_id" ref="default_board_column_done"/>
+            <field name="state_id" ref="wkf_simple_state_done"/>
+            <field name="order" eval="1"/>
+        </record>
+
+    </data>
+</odoo>

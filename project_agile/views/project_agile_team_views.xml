@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="view_project_agile_team_tree" model="ir.ui.view">
+        <field name="name">project_agile_team_tree</field>
+        <field name="model">project.agile.team</field>
+        <field name="arch" type="xml">
+            <tree string="Agile Team">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="member_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_project_agile_team_form" model="ir.ui.view">
+        <field name="name">project_agile_team_form</field>
+        <field name="model">project.agile.team</field>
+        <field name="arch" type="xml">
+            <form string="Agile Team">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" groups="base.group_user">
+                    </div>
+
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group name="main">
+                        <group name="left">
+                            <field name="type"/>
+                        </group>
+                        <group name="right">
+                            <field name="email"/>
+                            <field name="project_ids"
+                                   domain="[('agile_enabled', '=', True), ('agile_method', '=', type)]"
+                                   widget="many2many_tags"
+                                   options="{'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="members" string="Team Members">
+                            <field name="member_ids" nolabel="1" >
+                                <kanban>
+                                    <field name="name"/>
+                                    <field name="email"/>
+                                    <field name="phone"/>
+                                    <field name="mobile"/>
+                                    <field name="partner_id"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-att-class="oe_kanban_global_click">
+                                                <a t-if="!read_only_mode" type="delete" class="fa fa-times pull-right"/>
+                                                <div class="o_kanban_image">
+                                                    <img t-att-src="kanban_image('res.partner', 'image_small', record.partner_id.raw_value)"/>
+                                                </div>
+                                                <div class="oe_kanban_details">
+                                                    <field name="name"/>
+                                                    <div t-if="record.email.raw_value"><field name="email"/></div>
+                                                    <div t-if="record.phone.raw_value">Phone: <field name="phone"/></div>
+                                                    <div t-if="record.mobile.raw_value">Mobile: <field name="mobile"/></div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                        <page name="product_ownders" string="Product Owners">
+                            <field name="product_owner_ids" nolabel="1" >
+                                <kanban>
+                                    <field name="name"/>
+                                    <field name="email"/>
+                                    <field name="phone"/>
+                                    <field name="mobile"/>
+                                    <field name="partner_id"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-att-class="oe_kanban_global_click">
+                                                <a t-if="!read_only_mode" type="delete" class="fa fa-times pull-right"/>
+                                                <div class="o_kanban_image">
+                                                    <img t-att-src="kanban_image('res.partner', 'image_small', record.partner_id.raw_value)"/>
+                                                </div>
+                                                <div class="oe_kanban_details">
+                                                    <field name="name"/>
+                                                    <div t-if="record.email.raw_value"><field name="email"/></div>
+                                                    <div t-if="record.phone.raw_value">Phone: <field name="phone"/></div>
+                                                    <div t-if="record.mobile.raw_value">Mobile: <field name="mobile"/></div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                        <page name="reports" string="Reports">
+                            <field name="report_ids" nolabel="1" mode="kanban"  context="{'agile_team_id': active_id}">
+                                <kanban class="pa_reports_kanban" create="0" edit="0" agile_report="1">
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                    <field name="action_id" context="{'agile_team_id': parent.id}"/>
+                                    <field name="image_url"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                                <figure class="pa_kanban_report oe_kanban_global_click">
+                                                    <img class="pa_report_action" t-att-src="record.image_url.raw_value"
+                                                         t-att-action="record.action_id.raw_value[0]"/>
+                                                    <figcaption>
+                                                        <t t-raw="record.description.raw_value"/>
+                                                    </figcaption>
+                                                </figure>
+
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Agile Team Kanban View -->
+    <record model="ir.ui.view" id="project_agile_team_kanban_view">
+        <field name="name">project.agile.team.kanban</field>
+        <field name="model">project.agile.team</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="image_small"/>>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_res_partner_kanban">
+                            <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                            <div class="o_kanban_image">
+                                <t t-if="record.image_small.raw_value">
+                                    <img t-att-src="kanban_image('project.agile.team', 'image_small', record.id.raw_value)"/>
+                                </t>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="oe_partner_heading"><field name="name"/></strong>
+                                <ul>
+                                    <li name="email" t-if="record.email.raw_value" class="o_text_overflow"><field name="email"/></li>
+                                </ul>
+                                <div class="oe_kanban_partner_links"/>
+                            </div>
+                        </div>
+
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_project_agile_team" model="ir.actions.act_window">
+        <field name="res_model">project.agile.team</field>
+        <field name="view_type">form</field>
+        <field name="name">Teams</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="project_agile_team_kanban_view"/>
+        <field name="help" type="html">
+            <p>
+                With this view you can create your agile teams.
+            </p>
+        </field>
+    </record>
+</odoo>

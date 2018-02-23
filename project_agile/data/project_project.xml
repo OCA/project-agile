@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo noupdate="1">
+    <record id="project_type_software" model="project.type">
+        <field name="name">Software</field>
+        <field name="description">This type is for software developing projects.</field>
+        <field name="active" eval="True"/>
+        <field name="default_task_type_id" ref="project_task_type_task"/>
+        <field name="task_type_ids" eval="[(6, 0, [
+            ref('project_task_type_task'),
+            ref('project_task_type_bug'),
+            ref('project_task_type_story'),
+            ref('project_task_type_epic'),
+            ])]"
+        />
+    </record>
+
+    <record id="project_type_technical_support" model="project.type">
+        <field name="name">Technical Support</field>
+        <field name="description">This type is for technical support projects.</field>
+        <field name="active" eval="True"/>
+        <field name="default_task_type_id" ref="project_task_type_it_help"/>
+        <field name="task_type_ids" eval="[(6, 0, [
+            ref('project_task_type_it_help'),
+            ref('project_task_type_improvement'),
+            ref('project_task_type_change'),
+            ref('project_task_type_access'),
+            ref('project_task_type_fault'),
+            ref('project_task_type_purchase'),
+            ref('project_task_type_new_feature'),
+            ])]"
+        />
+    </record>
+
+    <record id="project_type_business" model="project.type">
+        <field name="name">Business</field>
+        <field name="description">This type is for general business projects. It is used by default if not specified.</field>
+        <field name="active" eval="True"/>
+        <field name="default_task_type_id" ref="project_task_type_task"/>
+        <field name="task_type_ids" eval="[(6, 0, [
+            ref('project_task_type_purchase'),
+            ref('project_task_type_task'),
+            ref('project_task_type_change'),
+            ])]"
+        />
+    </record>
+</odoo>

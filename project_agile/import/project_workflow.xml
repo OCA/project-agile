@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<project-workflow name="Default Workflow"
+                  default-state="ToDo"
+                  description="&lt;p&gt;Default Workflow.&lt;/p&gt;">
+  <states>
+    <state name="ToDo"
+           sequence="1"
+           type="todo"
+           xpos="223"
+           ypos="158"
+           description="This stage means that the task is waiting on TODO list to be picked up for work."
+    />
+
+    <state name="In Progress"
+           sequence="1"
+           type="in_progress"
+           xpos="516"
+           ypos="155"
+           description="This stage means that on this task is been actively worked on."
+    />
+
+    <state name="Done"
+           sequence="3"
+           type="done"
+           xpos="379"
+           ypos="322"
+           description="This stage means that the task has been completed."
+    />
+  </states>
+
+  <transitions>
+    <transition name="Start Progress"
+                src="ToDo"
+                dst="In Progress"
+                confirmation="True"
+                description="&lt;p&gt;Start working on this task.&lt;/p&gt;"
+    />
+
+    <transition name="Stop Progress"
+                src="In Progress"
+                dst="ToDo"
+                confirmation="True"
+                description="&lt;p&gt;Stop working on this task.&lt;/p&gt;"
+    />
+
+    <transition name="Finish Work"
+                src="In Progress"
+                dst="Done"
+                confirmation="True"
+                description="&lt;p&gt;Work on this task has been finished.&lt;/p&gt;"
+    />
+
+    <transition name="Start Progress"
+                src="Done"
+                dst="In Progress"
+                confirmation="True"
+                description="&lt;p&gt;Start working on this task again.&lt;/p&gt;"
+    />
+    <transition name="Reopen"
+                src="Done"
+                dst="ToDo"
+                confirmation="True"
+                description="&lt;p&gt;Reopen this task.&lt;/p&gt;"
+    />
+    <transition name="Done"
+                src="ToDo"
+                dst="Done"
+                confirmation="True"
+                description="&lt;p&gt;Put the task directly to done.&lt;/p&gt;"
+    />
+  </transitions>
+</project-workflow>

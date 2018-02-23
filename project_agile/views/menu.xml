@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <menuitem id="project_agile_menu"
+              name="Agile"
+              parent="project.menu_main_pm"/>
+
+        <menuitem id="project_agile_team_menu"
+                  name="Teams"
+                  parent="project_agile_menu"
+                  action="action_project_agile_team"/>
+
+
+    <menuitem id="project_type_menu"
+              name="Project Types"
+              parent="project.menu_project_config"
+              action="project_type_action"
+              sequence="5"/>
+
+    <menuitem id="project_task_priority_menu"
+              parent="project.menu_project_config"
+              action="open_task_priority_form"
+              sequence="6"/>
+
+    <menuitem id="project_task_resolution_menu"
+              parent="project.menu_project_config"
+              action="open_task_resolution_form"
+              sequence="7"/>
+
+    <menuitem id="project_task_type2_menu"
+              parent="project.menu_project_config"
+              action="open_task_type2_form"
+              sequence="8"/>
+
+    <menuitem id="project_agile_board_menu_config"
+              name="Boards"
+              parent="project.menu_project_config"
+              sequence="10"/>
+
+        <menuitem id="project_agile_board_wiz_menu"
+                  name="Create Board"
+                  parent="project_agile_board_menu_config"
+                  action="agile_board_create_action"
+                  sequence="1"/>
+
+        <menuitem id="project_agile_boards_menu"
+                  name="Boards"
+                  parent="project_agile_board_menu_config"
+                  action="open_agile_board_form"
+                  sequence="2"/>
+
+        <menuitem id="project_agile_board_menu_export"
+                  name="Export"
+                  parent="project_agile_board_menu_config"
+                  action="project_agile_board_export_wizard_action"
+                  sequence="3"/>
+
+        <menuitem id="project_agile_board_menu_import"
+                  name="Import"
+                  parent="project_agile_board_menu_config"
+                  action="agile_board_import_wizard_action"
+                  sequence="4"/>
+
+
+    <menuitem id="project_services_menu"
+              name="Services"
+              parent="project.menu_project_config"/>
+
+</odoo>

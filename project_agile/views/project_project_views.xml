@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <!--
+        ================================
+                Project Type Views
+        ================================
+    -->
+
+    <!-- Project Type Tree View -->
+     <record id="project_type_tree" model="ir.ui.view">
+        <field name="name">project.type.tree"</field>
+        <field name="model">project.type</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Project Type Form View -->
+    <record id="project_type_form" model="ir.ui.view">
+        <field name="name">project.type.form</field>
+        <field name="model">project.type</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="workflow_id" required="1"/>
+                    </group>
+                    <group name="configuration">
+                    </group>
+                    <notebook>
+                        <page name="task_types" string="Task Types">
+                            <group>
+                                <field name="default_task_type_id" context="{'selected_task_type_ids': task_type_ids}"/>
+                            </group>
+                            <group string="Task Types">
+                                <field name="task_type_ids" nolabel="1">
+                                    <tree string="Task Types">
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page name="description" string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--   Project Type Action  -->
+    <record id="project_type_action" model="ir.actions.act_window">
+        <field name="name">Project types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.type</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+
+    <!--
+        ================================
+             Project Project Views
+        ================================
+    -->
+
+
+    <!-- Project Form View -->
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">project.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <notebook position="before">
+                <group>
+                    <field name="agile_enabled"/>
+                    <field name="agile_method"  attrs="{'invisible': [('agile_enabled', '=', False)]}"
+                           options="{'horizontal': true}" widget="radio"/>
+                    <field name="type_id" context="{'apply_stages':True}" string="Project type"/>
+                </group>
+            </notebook>
+
+            <field name="allow_workflow" position="attributes">
+                <attribute name="attrs">{'readonly': [('agile_enabled', '=', True)]}</attribute>
+            </field>
+
+            <div class="oe_title" position="before">
+                <field name="image" widget="image" class="oe_avatar"/>
+            </div>
+
+            <notebook>
+                <page string="Stages">
+                    <field name="type_ids" nolabel="1" readonly="1">
+                        <tree>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+
+            <xpath expr="//field[@name='task_count']/parent::button" position="after">
+                <button class="oe_stat_button" type="object"
+                        name="open_user_stories" icon="fa-tasks">
+                        <field string="User Stories" name="user_story_count" widget="statinfo" />
+                </button>
+                <button class="oe_stat_button" type="object"
+                        name="open_epics" icon="fa-tasks">
+                        <field string="Epics" name="epics_count" widget="statinfo" />
+                </button>
+
+                 <button class="oe_stat_button" type="object" attrs="{'invisible':[('agile_enabled','=', False)]}"
+                        name="open_board_tree_view" icon="fa-tasks">
+                    <field string="Agile Boards" name="boards_count" widget="statinfo"/>
+                </button>
+
+                <!--<button class="oe_stat_button" type="object"-->
+                        <!--name="open_in_agile"  attrs="{'invisible':[('agile_enabled','=', False)]}"-->
+                        <!--icon="fa-puzzle-piece" string="View in Agile"/>-->
+
+            </xpath>
+
+            <xpath expr="//field[@name='task_count']/.." position="attributes">
+                <attribute name="name">open_tasks</attribute>
+                <attribute name="type">object</attribute>
+            </xpath>
+
+            <notebook>
+                <page name="teams" string="Teams">
+                    <field name="todo_estimation"/>
+                    <field name="in_progress_estimation"/>
+                    <field name="done_estimation"/>
+                    <field name="team_ids" readonly="1"/>
+                </page>
+            </notebook>
+
+        </field>
+    </record>
+
+    <!-- Project Simplified Form View  -->
+    <record id="project_project_view_form_simplified" model="ir.ui.view">
+        <field name="name">project.project.view.form.simplified</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project_workflow.project_project_view_form_simplified"/>
+        <field name="arch" type="xml">
+            <field name="workflow_id" position="before">
+                <field name="type_id" required="1"/>
+            </field>
+
+             <field name='user_id' position="after">
+                 <field name="agile_enabled"/>
+                 <field name="agile_method"
+                        attrs="{'invisible': [('agile_enabled', '=', False)]}"
+                        options="{'horizontal': true}"
+                        widget="radio"/>
+             </field>
+        </field>
+    </record>
+
+    <!-- Project Search View  -->
+    <record id="view_project_project_filter_extend_with_key" model="ir.ui.view">
+        <field name="name">project.type.search</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="type_id" string="Project Type"/>
+            </field>
+
+            <group position="inside">
+                <filter string="Type" name="Type" context="{'group_by':'type_id'}"/>
+                <filter string="Agile" name="Agile" context="{'group_by':'agile_enabled'}"/>
+                <filter string="Agile Method" name="Agile Method" context="{'group_by':'agile_method'}"/>
+            </group>
+        </field>
+    </record>
+
+
+
+    <!-- Dashboard: Project Kanban -->
+    <record model="ir.ui.view" id="view_project_kanban">
+        <field name="name">project.project.kanban</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="type_id"/>
+            </field>
+
+            <xpath expr="//div[hasclass('o_primary')]/span[1]" position="after">
+                <span t-if="record.type_id.value">
+                    <t t-esc="record.type_id.value"/>
+                </span>
+
+            </xpath>
+
+
+            <xpath expr="//div[hasclass('o_kanban_manage_reports')]/div[2]" position="before">
+                <div>
+                    <a name="open_epics" type="object">Epics</a>
+                </div>
+                <div>
+                    <a name="open_user_stories" type="object">User Stories</a>
+                </div>
+
+            </xpath>
+
+            <xpath expr="//a[text()='Tasks']" position="attributes">
+                <attribute name="name">open_tasks</attribute>
+                <attribute name="type">object</attribute>
+            </xpath>
+
+            <xpath expr="//t[@t-esc='record.task_count.value']/../../.." position="attributes">
+                <attribute name="name">open_tasks</attribute>
+                <attribute name="type">object</attribute>
+            </xpath>
+
+            <xpath expr="//button[@t-if='record.task_needaction_count.raw_value']" position="attributes">
+                <attribute name="name">open_tasks</attribute>
+                <attribute name="type">object</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
