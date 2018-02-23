@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="view_project_agile_team_form" model="ir.ui.view">
+        <field name="name">project_agile_team_form</field>
+        <field name="model">project.agile.team</field>
+        <field name="inherit_id" ref="project_agile.view_project_agile_team_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box">
+                <button name="open_active_sprint" type="object" class="oe_stat_button" icon="fa-tasks">
+                    <field string="Active" name="active_sprint_count" widget="statinfo" />
+                </button>
+
+                <button  name="open_future_sprints" type="object" class="oe_stat_button" icon="fa-tasks">
+                        <field string="Draft" name="future_sprint_count" widget="statinfo" />
+                </button>
+
+                <button name="open_completed_sprints" type="object" class="oe_stat_button"  icon="fa-tasks">
+                        <field string="Completed" name="completed_sprint_count" widget="statinfo" />
+                </button>
+            </div>
+            <group name="left" position="inside">
+                <field name="master_id"
+                       attrs="{'invisible': [('type', '!=', 'scrum')]}"
+                       options="{'no_create_edit': True}"/>
+
+                <field name="sprint_sequence"
+                       attrs="{'invisible': [('type', '!=', 'scrum')]}"/>
+            </group>
+            <field name="email" position="after">
+                <field name="default_sprint_length"
+                       attrs="{'invisible': [('type', '!=', 'scrum')]}"/>
+
+                <field name="velocity"
+                       attrs="{'invisible': [('type', '!=', 'scrum')]}"/>
+            </field>
+        </field>
+    </record>
+
+
+    <!-- Agile Team Kanban View -->
+    <record model="ir.ui.view" id="project_agile_team_kanban_view">
+        <field name="name">project.agile.team.kanban</field>
+        <field name="model">project.agile.team</field>
+        <field name="inherit_id" ref="project_agile.project_agile_team_kanban_view"/>
+        <field name="arch" type="xml">
+            <field name="image_small" position="after">
+                <field name="master_id"/>
+                <field name="type"/>
+                <field name="default_sprint_length"/>
+                <field name="velocity"/>
+            </field>
+
+
+            <li name="email" position="before">
+                <li name="master_id"
+                    t-if="record.type.raw_value == 'scrum' and record.master_id.raw_value">
+                    <field name="master_id"/>
+                </li>
+                <li name="default_sprint_length"
+                    t-if="record.type.raw_value == 'scrum' and record.default_sprint_length.raw_value">
+                    <field name="default_sprint_length"/
+                </li>
+                <li name="velocity"
+                    t-if="record.type.raw_value == 'scrum' and record.velocity.raw_value">
+                    <field name="velocity"/>
+                </li>
+            </li>
+        </field>
+    </record>
+
+</odoo>

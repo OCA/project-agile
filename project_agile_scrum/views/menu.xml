@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+     <menuitem id="menu_agile_sprint"
+               name="Sprints"
+               parent="project_agile.project_agile_menu"
+               action="open_agile_sprint"
+               sequence=""/>
+</odoo>

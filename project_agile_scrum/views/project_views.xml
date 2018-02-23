@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="view_task_form2_agile" model="ir.ui.view">
+        <field name="name">view_task_form2_agile</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <field name="date_deadline" position="after">
+                <field name="sprint_id" readonly="1" attrs="{'invisible': [('sprint_id', '=', False)]}"/>
+            </field>
+            <field name="date_last_stage_update" position="after">
+                <field name="sprint_ids" widget="many2many_tags" readonly="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

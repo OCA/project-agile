@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_project_agile_scrum_sprint_user,project.agile.scrum.sprint,model_project_agile_scrum_sprint,project.group_project_user,1,0,0,0
+access_project_agile_scrum_sprint_manager,project.agile.scrum.sprint,model_project_agile_scrum_sprint,project.group_project_manager,1,1,1,1
