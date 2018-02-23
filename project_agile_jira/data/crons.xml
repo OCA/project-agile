@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <data noupdate="1">
+        <record model="ir.cron" id="project_agile_jira_request_cron">
+            <field name='name'>Proccess JIRA requests</field>
+            <field name='interval_number'>30</field>
+            <field name='interval_type'>minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="model">project.agile.jira.worker</field>
+            <field name="function">execute_requests</field>
+        </record>
+    </data>
+</odoo>
