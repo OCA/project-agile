@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+
+    <t t-name="lira_kanban.widget.modal.assign_to">
+        <div class="modal">
+            <div class="modal-content">
+                <h4>Assign to</h4>
+                <form>
+                    <button type="submit" name="action" style="display:none"></button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-submit waves-effect waves-green btn-flat">Confirm</a>
+                <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+            </div>
+        </div>
+    </t>
+
+</templates>
