@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<odoo>
+    <record id="agile_board_form" model="ir.ui.view">
+        <field name="name">agile_board_form</field>
+        <field name="model">project.agile.board</field>
+        <field name="inherit_id" ref="project_agile.agile_board_form"/>
+        <field name="arch" type="xml">
+
+            <page name="advanced" position="before">
+                <page name="backlog" string="Backlog Column"
+                      attrs="{'invisible': [('type', '!=', 'kanban')]}">
+                    <group>
+                        <group>
+                            <field name="kanban_backlog_column_id"
+                                   string="Column"
+                                   domain="[('board_id', '=', id)]"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <field name="kanban_backlog_column_status_ids"
+                           attr="{'required':  [('type', '=', 'kanban')]}"
+                           context="{
+                                'default_workflow_ids': workflow_ids,
+                                'default_board_id': id,
+                                'default_column_id': kanban_backlog_column_id,
+                           }"
+                           nolabel="1">
+                        <tree string="Backlog Columns Statuses" editable="bottom">
+                            <field name="workflow_ids" invisible="1"/>
+                            <field name="board_id" required="1" invisible="1"/>
+                            <field name="workflow_id"
+                                   domain="[('id', 'in', workflow_ids)]"
+                                   options="{'no_create':true}"/>
+                            <field name="column_id" invisible="1"/>
+                            <field name="status_id"
+                                   domain="[
+                                         ('column_id', '=', column_id)
+                                        ,('workflow_id', '=', workflow_id)
+                                   ]"
+                                   options="{'no_create':true}"/>
+                        </tree>
+                        <form string="Backlog Columns Status">
+                            <sheet>
+                                <group name="main">
+                                    <group name="left">
+                                        <field name="workflow_ids" invisible="1"/>
+                                        <field name="board_id" required="1" invisible="1"/>
+                                        <field name="workflow_id"
+                                               domain="[('id', 'in', workflow_ids)]"
+                                               options="{'no_create':true}"/>
+                                        <field name="column_id" invisible="1"/>
+                                        <field name="status_id"
+                                               domain="[
+                                                     ('column_id', '=', column_id)
+                                                    ,('workflow_id', '=', workflow_id)
+                                               ]"
+                                               options="{'no_create':true}"/>
+                                    </group>
+                                    <group name="right">
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+
+                </page>
+                <page name="kanban_backlog_states" string="Backlog States"
+                      attrs="{'invisible': [('type', '!=', 'kanban')]}">
+                    <field name="kanban_backlog_state_ids"
+                           attr="{'required':  [('type', '=', 'kanban')]}"
+                           context="{
+                                'default_workflow_ids': workflow_ids,
+                                'default_board_id': id,
+                           }"
+                           nolabel="1">
+                        <tree string="Backlog States" editable="bottom">
+                            <field name="workflow_ids" invisible="1"/>
+                            <field name="board_id" required="1" invisible="1"/>
+                            <field name="workflow_id"
+                                   domain="[('id', 'in', workflow_ids)]"
+                                   options="{'no_create':true}"/>
+                            <field name="state_id"
+                                   domain="[('workflow_id', '=', workflow_id)]"
+                                   options="{'no_create':true}"/>
+                        </tree>
+                        <form string="Backlog State">
+                            <sheet>
+                                <group name="main">
+                                    <group name="left">
+                                        <field name="workflow_ids" invisible="1"/>
+                                        <field name="board_id" required="1" invisible="1"/>
+                                        <field name="workflow_id"
+                                               domain="[('id', 'in', workflow_ids)]"
+                                               options="{'no_create':true}"/>
+                                        <field name="state_id"
+                                               domain="[('workflow_id', '=', workflow_id)]"
+                                               options="{'no_create':true}"/>
+                                    </group>
+                                    <group name="right">
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

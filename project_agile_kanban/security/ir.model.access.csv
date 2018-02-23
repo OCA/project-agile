@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_project_agile_board_kanban_backlog_column_status_user,project.agile.board.kanban.backlog.column.status,model_project_agile_board_kanban_backlog_column_status,project.group_project_user,1,0,0,0
+access_project_agile_board_kanban_backlog_column_status_manager,project.agile.board.kanban.backlog.column.status,model_project_agile_board_kanban_backlog_column_status,project.group_project_manager,1,1,1,1
+
+access_project_agile_board_kanban_backlog_state_user,project.agile.board.kanban.backlog.state,model_project_agile_board_kanban_backlog_state,project.group_project_user,1,0,0,0
+access_project_agile_board_kanban_backlog_state_manager,project.agile.board.kanban.backlog.state,model_project_agile_board_kanban_backlog_state,project.group_project_manager,1,1,1,1
