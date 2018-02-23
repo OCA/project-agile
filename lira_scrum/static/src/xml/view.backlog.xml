@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+<templates xml:space="preserve">
+    <t t-name="lira.scrum.sprint">
+        <li>
+            <div class="collapsible-header active">
+                <div class="collapsible-title">
+                    <p data-widget-editable="true" data-field="name" class="task-list-title">
+                        <t t-esc="widget._model.name" />
+                    </p>
+                    <p class="task-count">
+                        <t t-esc="widget._model.task_ids.length || 0" />
+                        <t t-esc="widget.pluralize('issue', widget._model.task_ids.length)" />
+                    </p>
+                    <p id="start-end-date" class="date"><t t-esc="widget.start_date_f()" /> - <t t-esc="widget.end_date_f()" /></p>
+                </div>
+
+                <div class="context-menu">
+                    <p>
+                       <span class="rest">
+                            <a id="btn_end" class="btn-overflow hoverable-icon">
+                                <i class="mdi mdi-stop" />
+                            </a>
+                            <a id="btn_start" class="btn-overflow hoverable-icon">
+                                <i class="mdi mdi-play" />
+                            </a>
+                            <a id="btn_up" class="btn-overflow hoverable-icon">
+                                <i class="mdi mdi-chevron-up" />
+                            </a>
+                            <a id="btn_down" class="btn-overflow hoverable-icon">
+                                <i class="mdi mdi-chevron-down" />
+                            </a>
+                            <a id="btn_delete" class="btn-overflow hoverable-icon">
+                                <i class="mdi mdi-delete" />
+                            </a>
+                        </span>
+                        <span>
+                            <a>
+                                <i class="mdi mdi-dots-vertical btn-overflow hoverable-icon" />
+                            </a>
+                        </span>
+                    </p>
+                    <div class="estimates">
+                        <span class="estimate blue darken-4 tooltipped wkf_state_todo" data-position="bottom" data-delay="50" data-tooltip="To do"><t t-esc="widget.count['todo']"/></span>
+                        <span class="estimate amber darken-3 tooltipped wkf_state_in_progress" data-position="bottom" data-delay="50" data-tooltip="In progress"><t t-esc="widget.count['in_progress']"/></span>
+                        <span class="estimate green darken-3 tooltipped wkf_state_done" data-position="bottom" data-delay="50" data-tooltip="Done"><t t-esc="widget.count['done']"/></span>
+                    </div>
+                </div>
+            </div>
+            <div class="collapsible-body" style="display: block;"></div>
+        </li>
+    </t>
+</templates>

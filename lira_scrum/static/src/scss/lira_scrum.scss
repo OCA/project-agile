@@ -1,0 +1,18 @@
+$agile-main-color-lighten-4: #DEE4C8;
+.task-lists-view {
+  :not(.sprint-active) .collapsible-header {
+    min-height: 75px;
+  }
+  .sprint-active .collapsible-header {
+    .collapsible-title:before {
+      content: "Active - ";
+    }
+    .date, .estimates {
+      display: block;
+      line-height: normal;
+      font-weight: normal;
+    }
+    //padding-bottom: 10px;
+    background-color: $agile-main-color-lighten-4;
+  }
+}
