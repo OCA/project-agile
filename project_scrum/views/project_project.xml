@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="project_ps_view" model="ir.ui.view">
+        <field name="name">project.project.tree</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="use_scrum" string="Using Scrum" readonly="1" />
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="string">Scrum Master/Project
+                    Manager
+                </attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">Edit Project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <field name="use_tasks" position="before">
+                <field name="use_scrum" class="oe_inline" />
+                <label for="use_scrum" string="Use Scrum" />
+            </field>
+        </field>
+    </record>
+ 
+    <record id="edit_ps_project" model="ir.ui.view">
+        <field name="name">project.scrum.project.form</field>
+        <field name="model">project.project</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <button name="attachment_tree_view" position="before">
+                <button class="oe_inline oe_stat_button"
+                    type="action" icon="fa-files-o"
+                    name="%(action_ps_us_current)d">
+                    <field name="user_story_count" widget="statinfo" />
+                </button>
+                <button class="oe_inline oe_stat_button"
+                    type="action" icon="fa-tasks"
+                    name="%(action_ps_sprint_current)d">
+                    <field name="sprint_count" widget="statinfo" />
+                </button>
+                <button class="oe_inline oe_stat_button"
+                    type="action" icon="fa-files-o"
+                    name="%(action_ps_tc_current)d">
+                    <field name="test_case_count" widget="statinfo" />
+                </button>
+                <button class="oe_inline oe_stat_button"
+                    type="action" icon="fa-files-o"
+                    name="%(action_ps_meeting_current)d">
+                    <field name="meeting_count" widget="statinfo" />
+                </button>
+            </button>
+            <field name="use_tasks" position="before">
+                <field name="use_scrum" class="oe_inline" />
+                <label for="use_scrum" string="Use Scrum" />
+            </field>
+            <field name="partner_id" position="after">
+                <group>
+                    <label for="manhours" string="Expected Hours" />
+                    <label for="manhours" />
+                    <field name="manhours" nolabel="1" />
+                </group>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_ps_kanban" model="ir.ui.view">
+        <field name="name">project.scrum.project.kanban</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <field name="task_count" position="before">
+                <field name="user_story_count" />
+                <field name="sprint_count" />
+                <field name="meeting_count" />
+                <field name="test_case_count" />
+                <field name="use_scrum" />
+                <field name="description" />
+            </field>
+            <xpath expr="//div[@class='o_kanban_primary_left']"
+                position='after'>
+                <a t-if="record.description.raw_value">
+                    <h2>
+                        <span class="o_label">Project Description</span>
+                    </h2>
+                    <h3>
+                        <span class="o_value" style="color:blue;">
+                            <t t-esc="record.description.value" />
+                        </span>
+                    </h3>
+                </a>
+            </xpath>
+            <a name="%(project.act_project_project_2_project_task_all)d"
+                position="replace">
+                <a t-if="record.use_tasks.raw_value"
+                    name="%(project.act_project_project_2_project_task_all)d"
+                    type="action" style="margin-right: 10px">
+                    <span class="o_value">
+                        <t t-esc="record.task_count.raw_value" />
+                    </span>
+                    <span class="o_value">
+                        <t t-if="record.use_scrum.raw_value">Items</t>
+                    </span>
+                    <span class="o_value">
+                        <t t-if="! record.use_scrum.raw_value">Tasks</t>
+                    </span>
+                </a>
+                <a t-if="record.sprint_count.raw_value" name="%(action_ps_sprint_current)d"
+                    type="action" style="margin-right: 10px">
+                    <span class="o_value">
+                        <t t-esc="record.sprint_count.raw_value" />
+                    </span>
+                    <span class="o_label">Sprints</span>
+                </a>
+                <a t-if="record.user_story_count.raw_value" name="%(action_ps_us_current)d"
+                    type="action" style="margin-right: 10px">
+                    <span class="o_value">
+                        <t t-esc="record.user_story_count.raw_value" />
+                    </span>
+                    <span class="o_label">User Stories</span>
+                </a>
+                <a t-if="record.meeting_count.raw_value" name="%(action_ps_meeting_current)d"
+                    type="action" style="margin-right: 10px">
+                    <span class="o_value">
+                        <t t-esc="record.meeting_count.raw_value" />
+                    </span>
+                    <span class="o_label">Meetings</span>
+                </a>
+                <a t-if="record.test_case_count.raw_value" name="%(action_ps_tc_current)d"
+                    type="action" style="margin-right: 10px">
+                    <span class="o_value">
+                        <t t-esc="record.test_case_count.raw_value" />
+                    </span>
+                    <span class="o_label">Test Cases</span>
+                </a>
+            </a>
+        </field>
+    </record>
+
+    <record id="action_show_scrum_projects" model="ir.actions.act_window">
+        <field name="name">Scrum Projects</field>
+        <field name="res_model">project.project</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,form</field>
+        <field
+            name="search_view_id"
+            ref="project.view_project_project_filter" />
+        <field name="context">{'default_use_scrum': True}</field>
+        <field name="domain">[('use_scrum', '=', True)]</field>
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_ps_kanban')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('edit_ps_project')})]"/>
+    </record>
+
+</odoo>
