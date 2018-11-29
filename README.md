@@ -6,6 +6,13 @@
 Odoo modules for agile project management.
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[project_scrum](project_scrum/) | 10.0.1.0.0 | Use Scrum Method to manage your project
+
 [//]: # (end addons)
 
 ----
