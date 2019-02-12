@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- model.name inherit tree view -->
+<odoo>
+<record id="inherit_view_task_form" model="ir.ui.view">
+    <field name="name">project.task.inherit_form</field>
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="project.view_task_form2"/>
+    <field name="arch" type="xml">
+    <xpath expr="//field[@name='kanban_state']" position="replace">    
+    </xpath>
+    <xpath expr="//field[@name='priority']" position="replace">    
+    </xpath>  
+    <xpath expr="//page[@name='extra_info']" position="attributes">
+        <attribute name="attrs">{'invisible':1}</attribute>
+    </xpath>        
+
+    <xpath expr="//field[@name='name']" position="before">
+        <field name="kanban_state" widget="state_selection"/>        
+    </xpath>
+    <xpath expr="//field[@name='user_id']" position="after">
+        <field name="is_user_storie"/>
+        <field name="scrum_complexity"/>
+        <field name="scrum_priority" widget="priority"/>
+    </xpath>
+    <xpath expr="//notebook" position="inside">
+        <page string="Desciption Task" name="desciption_page">
+        <group>
+            <group string="Description">
+                <field name="scrum_what"/>
+                <field name="scrum_who"/>
+                <field name="scrum_for_what"/>
+            </group>
+        </group>
+        </page>
+    </xpath>        
+    </field>
+</record>
+</odoo>

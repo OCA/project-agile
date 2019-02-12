@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!-- model.name tree view -->
+<record id="scrum_team_view_tree" model="ir.ui.view">
+    <field name="name">scrum.team.view.tree</field>
+    <field name="model">scrum.team</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="scrum_team_name"/>
+        </tree>
+    </field>
+</record>
+
+<!-- model.name form view -->
+<record id="scrum_team_view_form" model="ir.ui.view">
+    <field name="name">scrum.team.view.form</field>
+    <field name="model">scrum.team</field>
+    <field name="arch" type="xml">
+        <form string="Scrum Team">
+            <sheet>
+              <h1>Name Scrum Team</h1>
+                    <h1>
+                        <field name="scrum_team_name"/>
+                    </h1>
+                 <group>
+                    <field name="scrum_team_users" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                 </group>
+            </sheet>
+        </form>
+    </field>
+</record> 
+
+<!-- model.name action window -->
+<record id="scrum_team_action" model="ir.actions.act_window">
+    <field name="name">Scrum Team</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">scrum.team</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_type">form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            <!-- Add Text Here -->
+            Click to create yout Scrum Team!
+        </p><p>
+            <!-- More details about what a user can do with this object will be OK --> 
+        </p>
+    </field>
+</record>
+
+<!-- This Menu Item must have a parent and an action -->
+<menuitem id="menu_action_scrum_team" name="Scrum Team"
+ parent="project.menu_project_config" action="scrum_team_action" sequence="25"/>
+</odoo>
