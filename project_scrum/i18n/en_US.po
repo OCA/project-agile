@@ -324,6 +324,11 @@ msgid "Group By..."
 msgstr "Group By..."
 
 #. module: project_scrum
+#: model:ir.actions.act_window,help:project_scrum.act_project_tasks
+msgid "Here, you can create new tasks"
+msgstr ""
+
+#. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_project_manhours
 msgid "How many hours you expect this project needs before it's finished"
 msgstr "How many hours you expect this project needs before it's finished"
@@ -711,6 +716,7 @@ msgid "Task test ids"
 msgstr "Item test ids"
 
 #. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.act_project_tasks
 #: model:ir.ui.menu,name:project_scrum.menu_scrum_tasks
 #: model:ir.ui.view,arch_db:project_scrum.view_ps_kanban
 #: model:ir.ui.view,arch_db:project_scrum.view_ps_sprint_form
@@ -812,7 +818,6 @@ msgstr "The user stories of scrum."
 
 #. module: project_scrum
 #: model:ir.ui.view,arch_db:project_scrum.edit_project
-#: model:ir.ui.view,arch_db:project_scrum.edit_ps_project
 msgid "Use Scrum"
 msgstr "Use Scrum"
 
@@ -879,6 +884,13 @@ msgstr "What do you plan to do till the next meeting?"
 #: selection:project.scrum.meeting,question_backlog:0
 msgid "Yes"
 msgstr "Yes"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,help:project_scrum.act_project_tasks
+msgid ""
+"You can now manage your tasks in order to get things done efficiently. Track "
+"progress, discuss, attach documents, etc."
+msgstr ""
 
 #. module: project_scrum
 #: model:ir.ui.view,arch_db:project_scrum.view_ps_sprint_form
