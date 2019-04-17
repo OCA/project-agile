@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* project_scrum
+# 	* project_scrum
 #
 msgid ""
 msgstr ""
@@ -18,28 +18,36 @@ msgstr ""
 
 #. module: project_scrum
 #: model:mail.template,body_html:project_scrum.email_template_id
-msgid "  <div style=\"font-family: \n"
-"        'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 16px; color: \n"
-"        rgb(34, 34, 34); background-color: rgb(255, 255, 255); \"> <p>Name: ${object.user_id_meeting}</p> \n"
-"        <p>Date: ${object.datetime_meeting}</p> <br/> <p style=\"color:blue\"><font-size=\"14\">What \n"
-"        did you do since the last meeting?</font></p> ${object.question_yesterday} \n"
-"        <br/><br/> <p style=\"color:blue\"><font-size=\"14\">What do you plan to do till \n"
-"        the next meeting?</font></p> ${object.question_today} <br/><br/> <p style=\"color:blue\"><font-size=\"14\">Are \n"
-"        there anything blocking you?</font></p> ${object.question_blocks} <br/><br/> \n"
+msgid ""
+"  <div style=\"font-family: \n"
+"        'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: "
+"16px; color: \n"
+"        rgb(34, 34, 34); background-color: rgb(255, 255, 255); \"> <p>Name: "
+"${object.user_id_meeting}</p> \n"
+"        <p>Date: ${object.datetime_meeting}</p> <br/> <p style=\"color:blue"
+"\"><font-size=\"14\">What \n"
+"        did you do since the last meeting?</font></p> ${object."
+"question_yesterday} \n"
+"        <br/><br/> <p style=\"color:blue\"><font-size=\"14\">What do you "
+"plan to do till \n"
+"        the next meeting?</font></p> ${object.question_today} <br/><br/> <p "
+"style=\"color:blue\"><font-size=\"14\">Are \n"
+"        there anything blocking you?</font></p> ${object.question_blocks} "
+"<br/><br/> \n"
 "        </div> \n"
 "        "
 msgstr ""
 "  <div style=\"font-family: \n"
-"        'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 16px;"
-" color: \n"
+"        'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: "
+"16px; color: \n"
 "        rgb(34, 34, 34); background-color: rgb(255, 255, 255); \"> <p>Name: "
 "${object.user_id_meeting}</p> \n"
-"        <p>Date: ${object.datetime_meeting}</p> <br/> <p style=\"color:blue\""
-"><font-size=\"14\">Was haben Sie seit dem letzten Meeting getan?</font></p> "
-"${object.question_yesterday} \n"
+"        <p>Date: ${object.datetime_meeting}</p> <br/> <p style=\"color:blue"
+"\"><font-size=\"14\">Was haben Sie seit dem letzten Meeting getan?</font></"
+"p> ${object.question_yesterday} \n"
 "        <br/><br/> <p style=\"color:blue\"><font-size=\"14\">Was planen Sie "
-"bis zum nächsten Meeting zu tun?</font></p> ${object.question_today} <br/><"
-"br/> <p style=\"color:blue\"><font-size=\"14\">Gibt es etwas was Sie vom "
+"bis zum nächsten Meeting zu tun?</font></p> ${object.question_today} <br/"
+"><br/> <p style=\"color:blue\"><font-size=\"14\">Gibt es etwas was Sie vom "
 "arbeiten abhält?</font></p> ${object.question_blocks} <br/><br/> \n"
 "        </div> \n"
 "        "
@@ -258,7 +266,8 @@ msgstr "Bearbeite Testfall"
 
 #. module: project_scrum
 #: model:ir.ui.view,arch_db:project_scrum.view_ps_us_kanban
-msgid "Edit User\n"
+msgid ""
+"Edit User\n"
 "                                                Story"
 msgstr ""
 "Bearbeite User\n"
@@ -271,7 +280,9 @@ msgstr "Enddatum"
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint_planned_hours
-msgid "Estimated time to do the task, usually set by the project manager when the task is in draft state."
+msgid ""
+"Estimated time to do the task, usually set by the project manager when the "
+"task is in draft state."
 msgstr ""
 "Geschätzte Zeit für die Ausführung der Aufgabe, die normalerweise vom "
 "Projektmanager festgelegt wird, wenn sich die Aufgabe im Entwurfsstatus "
@@ -307,6 +318,11 @@ msgid "Group By..."
 msgstr "Gruppieren nach..."
 
 #. module: project_scrum
+#: model:ir.actions.act_window,help:project_scrum.act_project_tasks
+msgid "Here, you can create new tasks"
+msgstr ""
+
+#. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_project_manhours
 msgid "How many hours you expect this project needs before it's finished"
 msgstr ""
@@ -323,7 +339,9 @@ msgstr "ID"
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint_project_id
-msgid "If you have [?] in the project name, it means there are no analytic account linked to this project."
+msgid ""
+"If you have [?] in the project name, it means there are no analytic account "
+"linked to this project."
 msgstr ""
 "Wenn Sie im Projektnamen ein [?] haben, bedeutet dies, dass kein "
 "Analysekonto mit diesem Projekt verknüpft ist."
@@ -535,7 +553,8 @@ msgstr "Scrum Master"
 
 #. module: project_scrum
 #: model:ir.ui.view,arch_db:project_scrum.project_ps_view
-msgid "Scrum Master/Project\n"
+msgid ""
+"Scrum Master/Project\n"
 "                    Manager"
 msgstr ""
 "Scrum Master/Projekt\n"
@@ -695,6 +714,7 @@ msgid "Task test ids"
 msgstr "Aufgaben test ids"
 
 #. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.act_project_tasks
 #: model:ir.ui.menu,name:project_scrum.menu_scrum_tasks
 #: model:ir.ui.view,arch_db:project_scrum.view_ps_kanban
 #: model:ir.ui.view,arch_db:project_scrum.view_ps_sprint_form
@@ -755,7 +775,8 @@ msgstr "Die Person die für das Produkt verantwortlich ist"
 #. module: project_scrum
 #: model:ir.actions.act_window,help:project_scrum.action_ps_sprint_all
 #: model:ir.actions.act_window,help:project_scrum.action_ps_sprint_current
-msgid "The scrum agile methodology is used in\n"
+msgid ""
+"The scrum agile methodology is used in\n"
 "            software\n"
 "            development projects.\n"
 "            In this methodology,\n"
@@ -795,7 +816,6 @@ msgstr "Die Scrum user stories"
 
 #. module: project_scrum
 #: model:ir.ui.view,arch_db:project_scrum.edit_project
-#: model:ir.ui.view,arch_db:project_scrum.edit_ps_project
 msgid "Use Scrum"
 msgstr "Nutze Scrum"
 
@@ -864,6 +884,13 @@ msgstr "Was hast du bis zum nächsten Treffen vor?"
 #: selection:project.scrum.meeting,question_backlog:0
 msgid "Yes"
 msgstr "Ja"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,help:project_scrum.act_project_tasks
+msgid ""
+"You can now manage your tasks in order to get things done efficiently. Track "
+"progress, discuss, attach documents, etc."
+msgstr ""
 
 #. module: project_scrum
 #: model:ir.ui.view,arch_db:project_scrum.view_ps_sprint_form
