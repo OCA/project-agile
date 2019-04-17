@@ -5,7 +5,6 @@
         <field name="name">project.project.tree</field>
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.view_project" />
-        <field name="mode">primary</field>
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="use_scrum" string="Using Scrum" readonly="1" />
@@ -29,11 +28,44 @@
             </field>
         </field>
     </record>
- 
+
+    <record id="act_project_tasks" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+        <field name="context">{
+            'group_by': 'stage_id',
+            'search_default_project_id': [active_id],
+            'default_project_id': active_id,
+        }</field>
+        <field name="search_view_id" ref="project.view_task_search_form"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Here, you can create new tasks
+            </p>
+            <p>
+                You can now manage your tasks in order to get things done efficiently. Track progress, discuss, attach documents, etc.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_project_task_tree" model="ir.actions.act_window.view">
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_ps_sprint_task_tree2"/>
+        <field name="act_window_id" ref="act_project_tasks"/>
+    </record>
+
+    <record id="view_project_task_form" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_ps_sprint_task_form2"/>
+        <field name="act_window_id" ref="act_project_tasks"/>
+    </record>
+
     <record id="edit_ps_project" model="ir.ui.view">
         <field name="name">project.scrum.project.form</field>
         <field name="model">project.project</field>
         <field name="mode">primary</field>
+        <field name="priority">99</field>
         <field name="inherit_id" ref="project.edit_project" />
         <field name="arch" type="xml">
             <button name="attachment_tree_view" position="before">
@@ -58,10 +90,11 @@
                     <field name="meeting_count" widget="statinfo" />
                 </button>
             </button>
-            <field name="use_tasks" position="before">
-                <field name="use_scrum" class="oe_inline" />
-                <label for="use_scrum" string="Use Scrum" />
-            </field>
+            <xpath
+                expr="//field[@name='task_count']/parent::button"
+                position="attributes">
+                <attribute name="name">%(act_project_tasks)d</attribute>
+            </xpath>
             <field name="partner_id" position="after">
                 <group>
                     <label for="manhours" string="Expected Hours" />
@@ -77,6 +110,7 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.view_project_kanban" />
         <field name="mode">primary</field>
+        <field name="priority">99</field>
         <field name="arch" type="xml">
             <field name="task_count" position="before">
                 <field name="user_story_count" />
@@ -102,7 +136,7 @@
             <a name="%(project.act_project_project_2_project_task_all)d"
                 position="replace">
                 <a t-if="record.use_tasks.raw_value"
-                    name="%(project.act_project_project_2_project_task_all)d"
+                    name="%(act_project_tasks)d"
                     type="action" style="margin-right: 10px">
                     <span class="o_value">
                         <t t-esc="record.task_count.raw_value" />
