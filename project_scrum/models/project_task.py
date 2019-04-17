@@ -73,7 +73,7 @@ class ProjectTask(models.Model):
         string='User Stories',
         index=True,
     )
-    use_scrum = fields.Boolean(related='project_id.use_scrum')
+    use_scrum = fields.Boolean(related='project_id.use_scrum', readonly=1)
     current_sprint = fields.Boolean(
         compute='_compute_current_sprint',
         string='Current Sprint',
