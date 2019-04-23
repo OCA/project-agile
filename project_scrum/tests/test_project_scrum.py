@@ -24,6 +24,7 @@ class TestProjectScrum(TransactionCase):
     def test_crud_operations(self):
         _logger.debug('Testing CRUD operations on the models of project_scrum')
         self._test_create()
+        self._test_get_formview_id()
         self._test_read()
         self._test_assertions()
         self._test_write()
@@ -121,6 +122,16 @@ class TestProjectScrum(TransactionCase):
         self.project_task = self.project_task_obj.create(
             self.project_task_vals,
         )
+
+    def _test_get_formview_id(self):
+        self.assertEquals(
+            self.project_task.get_formview_id(),
+            self.env.ref('project_scrum.view_ps_sprint_task_form2').id)
+        self.project_project.write({'use_scrum': False})
+        self.assertNotEqual(
+            self.project_task.get_formview_id(),
+            self.env.ref('project_scrum.view_ps_sprint_task_form2').id)
+        self.project_project.write({'use_scrum': True})
 
     def _test_read(self):
         _logger.debug('Testing read')
