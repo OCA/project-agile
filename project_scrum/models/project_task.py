@@ -122,3 +122,9 @@ class ProjectTask(models.Model):
             return user_stories, None
         else:
             return [], None
+
+    @api.multi
+    def get_formview_id(self):
+        if all(self.mapped('use_scrum')):
+            return self.env.ref('project_scrum.view_ps_sprint_task_form2').id
+        return super(ProjectTask, self).get_formview_id()
