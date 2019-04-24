@@ -124,6 +124,7 @@ class TestProjectScrum(TransactionCase):
         )
 
     def _test_get_formview_id(self):
+        self.project_task.write({'project_id': self.project_project.id})
         self.assertEquals(
             self.project_task.get_formview_id(),
             self.env.ref('project_scrum.view_ps_sprint_task_form2').id)
@@ -131,7 +132,9 @@ class TestProjectScrum(TransactionCase):
         self.assertNotEqual(
             self.project_task.get_formview_id(),
             self.env.ref('project_scrum.view_ps_sprint_task_form2').id)
+        # reset data as before testing function
         self.project_project.write({'use_scrum': True})
+        self.project_task.write({'project_id': False})
 
     def _test_read(self):
         _logger.debug('Testing read')
