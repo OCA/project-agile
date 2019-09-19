@@ -4,7 +4,7 @@
 {
     'name': 'Project Scrum',
     'summary': 'Use Scrum Method to manage your project',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'category': 'Project Management',
     'author': "Odoo Community Association (OCA)",
     'website': 'https://github.com/OCA/project-agile',
