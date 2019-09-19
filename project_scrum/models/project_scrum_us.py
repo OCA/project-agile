@@ -8,7 +8,7 @@ class ProjectScrumUs(models.Model):
     _name = 'project.scrum.us'
     _description = 'Project Scrum Use Stories'
     _order = 'reference'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     @api.model
     def create(self, vals):
@@ -107,9 +107,9 @@ class ProjectScrumUs(models.Model):
         """
         context = self.env.context
         project_project_model = self.env['project.project']
-        if type(context.get('default_project_id')) in (int, long):
+        if type(context.get('default_project_id')) in (int, ):
             return context['default_project_id']
-        if isinstance(context.get('default_project_id'), basestring):
+        if isinstance(context.get('default_project_id'), str):
             project_name = context['default_project_id']
             project_ids = project_project_model.with_context(context)
             project_ids = project_ids.name_search(project_name, operator='=')

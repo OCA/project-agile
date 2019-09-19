@@ -22,7 +22,7 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.edit_project" />
         <field name="arch" type="xml">
-            <field name="use_tasks" position="before">
+            <field name="user_id" position="before">
                 <field name="use_scrum" class="oe_inline" />
                 <label for="use_scrum" string="Use Scrum" />
             </field>
@@ -135,8 +135,7 @@
             </xpath>
             <a name="%(project.act_project_project_2_project_task_all)d"
                 position="replace">
-                <a t-if="record.use_tasks.raw_value"
-                    name="%(act_project_tasks)d"
+                <a name="%(act_project_tasks)d"
                     type="action" style="margin-right: 10px">
                     <span class="o_value">
                         <t t-esc="record.task_count.raw_value" />

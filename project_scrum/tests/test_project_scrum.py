@@ -43,7 +43,6 @@ class TestProjectScrum(TransactionCase):
             'use_scrum': True,
             'default_sprintduration': 20,
             'manhours': 17,
-            'alias_model': 'project.task',
             'alias_id': mail_alias.id,
             'privacy_visibility': 'followers',
             'description': '<p>Description</p>',

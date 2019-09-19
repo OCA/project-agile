@@ -7,8 +7,8 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree
-                colors="black:state in ('draft'); orange:state in ('pending'); blue:state in('open');
-            grey:state in ('cancel'); green:state in('done')"
+                decoration-success="state == 'done'" decoration-muted="state == 'cancel'"
+                decoration-info="state in ('pending','open')"  decoration-bf="state == 'draft'"
                 string="Scrum Sprint">
                 <field name="name" />
                 <!--name of sprint -->

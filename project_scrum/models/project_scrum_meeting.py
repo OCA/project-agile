@@ -7,7 +7,7 @@ from odoo import models, fields, api, _
 class ProjectScrumMeeting(models.Model):
     _name = 'project.scrum.meeting'
     _description = 'Project Scrum Daily Meetings'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     project_id = fields.Many2one(
         comodel_name='project.project',

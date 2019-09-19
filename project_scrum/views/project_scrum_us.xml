@@ -185,8 +185,8 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree
-                colors="brown:moscow in ('1'); blue:moscow in ('2'); grey:moscow 
-                in ('3'); green:moscow in('4') red:moscow in('5') ">
+                decoration-danger="moscow == '5'" decoration-success="moscow == '4'" decoration-muted="moscow == '3'"
+                decoration-info="moscow == '2'"  decoration-bf="moscow == '1'">
                 <field name="reference" />
                 <field name="name" />
                 <field name="actor_ids" />
