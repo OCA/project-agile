@@ -67,8 +67,8 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree
-                colors="black:stats_test in ('draft'); blue:stats_test in ('pending');
-            grey:stats_test in ('cancel'); green:stats_test in('done')">
+                decoration-success="stats_test == 'done'" decoration-muted="stats_test == 'cancel'"
+                decoration-info="stats_test == 'pending'"  decoration-bf="stats_test == 'draft'">
                 <field name="name" />
                 <field name="sequence_test" />
                 <field name="project_id" />
