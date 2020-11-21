@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="view_ps_sprint_tree" model="ir.ui.view">
         <field name="name">project.scrum.sprint.tree</field>
         <field name="model">project.scrum.sprint</field>
@@ -9,7 +8,8 @@
             <tree
                 colors="black:state in ('draft'); orange:state in ('pending'); blue:state in('open');
             grey:state in ('cancel'); green:state in('done')"
-                string="Scrum Sprint">
+                string="Scrum Sprint"
+            >
                 <field name="name" />
                 <!--name of sprint -->
                 <field name="project_id" />
@@ -22,7 +22,6 @@
             </tree>
         </field>
     </record>
-
     <record id="view_ps_sprint_form" model="ir.ui.view">
         <field name="name">project.scrum.sprint.form</field>
         <field name="model">project.scrum.sprint</field>
@@ -31,24 +30,35 @@
             <form string="Scrum Sprint">
                 <!--Header States -->
                 <header>
-                    <field name="state" string="State" widget="statusbar"
-                        clickable="True" />
+                    <field
+                        name="state"
+                        string="State"
+                        widget="statusbar"
+                        clickable="True"
+                    />
                 </header>
                 <sheet string="Sprint">
                     <h1>
-                        <field name="name" placeholder="Sprint..."
-                            class="oe_inline" />
+                        <field name="name" placeholder="Sprint..." class="oe_inline" />
                     </h1>
-                    <button class="oe_inline oe_stat_button"
-                        type="action" icon="fa-tasks"
-                        name="%(action_ps_sprint_backlog)d" string="Backlog"
-                        context="{'default_project_id': project_id}">
-                        <field name="task_count" widget="statinfo"
-                            string="Tasks" />
+                    <button
+                        class="oe_inline oe_stat_button"
+                        type="action"
+                        icon="fa-tasks"
+                        name="%(action_ps_sprint_backlog)d"
+                        string="Backlog"
+                        context="{'default_project_id': project_id}"
+                    >
+                        <field name="task_count" widget="statinfo" string="Tasks" />
                     </button>
-                    <button class="oe_inline oe_stat_button"
-                        type="action" icon="fa-tasks" name="%(action_ps_tc)d"
-                        string="[TC] Tasks" context="{'default_project_id': project_id}">
+                    <button
+                        class="oe_inline oe_stat_button"
+                        type="action"
+                        icon="fa-tasks"
+                        name="%(action_ps_tc)d"
+                        string="[TC] Tasks"
+                        context="{'default_project_id': project_id}"
+                    >
 
                     </button>
                     <group colspan="4" col="4">
@@ -64,11 +74,15 @@
                     <notebook colspan="5">
                         <!--User Stories -->
                         <page string="User Story">
-                            <field colspan="2" col="1" name="us_ids"
+                            <field
+                                colspan="2"
+                                col="1"
+                                name="us_ids"
                                 context="{
                                     'default_project_id': project_id,
                                     'default_sprint_id': id,
-                                    }">
+                                    }"
+                            >
                                 <tree>
                                     <field name="name" />
                                     <field name="actor_ids" />
@@ -81,15 +95,17 @@
                                 <field name="review" />
                             </group>
                             <group col="1">
-                                <field name="task_ids" string="Task"
+                                <field
+                                    name="task_ids"
+                                    string="Task"
                                     context="{
                                         'default_project_id': project_id,
                                         'default_sprint_id': id,
                                         'default_us_ids': us_ids,
-                                        }">
+                                        }"
+                                >
                                     <tree>
-                                        <field name="sequence"
-                                            widget="handle" />
+                                        <field name="sequence" widget="handle" />
                                         <field name="priority" />
                                         <field name="name" />
                                         <field name="user_id" />
@@ -108,30 +124,30 @@
             </form>
         </field>
     </record>
-
     <record id="view_ps_sprint_calendar" model="ir.ui.view">
         <field name="name">project.scrum.sprint.calendar</field>
         <field name="model">project.scrum.sprint</field>
         <field name="type">calendar</field>
         <field name="arch" type="xml">
-            <calendar string="Scrum Sprint" date_start="date_start"
-                color="us_ids">
+            <calendar string="Scrum Sprint" date_start="date_start" color="us_ids">
                 <field name="name" />
                 <field name="project_id" />
             </calendar>
         </field>
     </record>
-
     <record id="view_ps_sprint_gantt" model="ir.ui.view">
         <field name="name">project.scrum.sprint.gantt</field>
         <field name="model">project.scrum.sprint</field>
         <field name="arch" type="xml">
-            <gantt date_start="date_start" date_stop="date_stop"
-                progress="progress" string="Projects">
+            <gantt
+                date_start="date_start"
+                date_stop="date_stop"
+                progress="progress"
+                string="Projects"
+            >
             </gantt>
         </field>
     </record>
-
     <record id="view_ps_sprint_graph" model="ir.ui.view">
         <field name="name">project.scrum.sprint.graph</field>
         <field name="model">project.scrum.sprint</field>
@@ -142,7 +158,6 @@
             </graph>
         </field>
     </record>
-
     <record id="view_ps_sprint_search" model="ir.ui.view">
         <field name="name">project.scrum.sprint.search</field>
         <field name="model">project.scrum.sprint</field>
@@ -164,8 +179,7 @@
                     <separator orientation="vertical" />
                     <filter string="Open" domain="[('state','=','open')]" />
                     <separator orientation="vertical" />
-                    <filter string="Pending"
-                        domain="[('state','=','pending')]" />
+                    <filter string="Pending" domain="[('state','=','pending')]" />
                     <separator orientation="vertical" />
                     <filter string="Cancelled" domain="[('state','=','cancel')]" />
                     <separator orientation="vertical" />
@@ -173,22 +187,34 @@
                 </group>
                 <newline />
                 <group expand="0" string="Group By...">
-                    <filter string="Product owner" domain="[]"
-                        context="{'group_by':'product_owner_id'}" />
+                    <filter
+                        string="Product owner"
+                        domain="[]"
+                        context="{'group_by':'product_owner_id'}"
+                    />
                     <separator orientation="vertical" />
-                    <filter string="Scrum Master" domain="[]"
-                        context="{'group_by':'scrum_master_id'}" />
+                    <filter
+                        string="Scrum Master"
+                        domain="[]"
+                        context="{'group_by':'scrum_master_id'}"
+                    />
                     <separator orientation="vertical" />
-                    <filter string="Project" domain="[]"
-                        context="{'group_by':'project_id'}" />
+                    <filter
+                        string="Project"
+                        domain="[]"
+                        context="{'group_by':'project_id'}"
+                    />
                     <separator orientation="vertical" />
-                    <filter string="Month" domain="[]"
-                        context="{'group_by':'date_start'}" help="Sprint Month" />
+                    <filter
+                        string="Month"
+                        domain="[]"
+                        context="{'group_by':'date_start'}"
+                        help="Sprint Month"
+                    />
                 </group>
             </search>
         </field>
     </record>
-
     <record id="action_ps_sprint_all" model="ir.actions.act_window">
         <field name="name">Sprints</field>
         <field name="res_model">project.scrum.sprint</field>
@@ -215,7 +241,6 @@
             customer and product owner.
         </field>
     </record>
-
     <record id="action_ps_sprint_current" model="ir.actions.act_window">
         <field name="name">Sprints</field>
         <field name="res_model">project.scrum.sprint</field>
@@ -249,5 +274,4 @@
             customer and product owner.
         </field>
     </record>
-
 </odoo>
