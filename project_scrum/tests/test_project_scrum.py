@@ -36,7 +36,7 @@ class TestProjectScrum(TransactionCase):
         mail_alias = self.env["mail.alias"].create(
             {
                 "alias_model_id": self.env["ir.model"]
-                .search([("model", "=", "res.users"),])
+                .search([("model", "=", "res.users")])
                 .id,
                 "alias_defaults": {},
                 "alias_contact": "everyone",
@@ -126,7 +126,7 @@ class TestProjectScrum(TransactionCase):
 
     def _test_get_formview_id(self):
         self.project_task.write({"project_id": self.project_project.id})
-        self.assertEquals(
+        self.assertEqual(
             self.project_task.get_formview_id(),
             self.env.ref("project_scrum.view_ps_sprint_task_form2").id,
         )
@@ -141,68 +141,68 @@ class TestProjectScrum(TransactionCase):
 
     def _test_read(self):
         _logger.debug("Testing read")
-        for key in self.project_project_vals.keys():
+        for key in list(self.project_project_vals.keys()):
             attr = getattr(self.project_project, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr, self.project_project_vals[key],
             )
-        for key in self.project_scrum_actors_vals.keys():
+        for key in list(self.project_scrum_actors_vals.keys()):
             attr = getattr(self.project_scrum_actors, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr, self.project_scrum_actors_vals[key],
             )
         for key in filter(
             lambda x: x not in ["message_follower_ids", "name"],
-            self.project_scrum_meeting_vals.keys(),
+            list(self.project_scrum_meeting_vals.keys()),
         ):
             attr = getattr(self.project_scrum_meeting, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr, self.project_scrum_meeting_vals[key],
             )
-        for key in self.project_scrum_sprint_vals.keys():
+        for key in list(self.project_scrum_sprint_vals.keys()):
             attr = getattr(self.project_scrum_sprint, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr, self.project_scrum_sprint_vals[key],
             )
-        for key in self.project_scrum_test_vals.keys():
+        for key in list(self.project_scrum_test_vals.keys()):
             attr = getattr(self.project_scrum_sprint, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr, self.project_scrum_test_vals[key],
             )
         for key in filter(
             lambda x: x not in ["message_follower_ids"],
-            self.project_scrum_us_vals.keys(),
+            list(self.project_scrum_us_vals.keys()),
         ):
             attr = getattr(self.project_scrum_us, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr, self.project_scrum_us_vals[key],
             )
         for key in filter(
             lambda x: x not in ["message_follower_ids", "code"],
-            self.project_task_vals.keys(),
+            list(self.project_task_vals.keys()),
         ):
             attr = getattr(self.project_task, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr, self.project_task_vals[key],
             )
 
     def _test_assertions(self):
         _logger.debug("Testing assertions")
-        self.assertEquals(
+        self.assertEqual(
             self.project_scrum_meeting.name_get()[0][1],
             "%s - %s - %s"
             % (
@@ -211,11 +211,11 @@ class TestProjectScrum(TransactionCase):
                 self.project_scrum_meeting.datetime_meeting,
             ),
         )
-        self.assertEquals(self.project_scrum_sprint.task_count, 1)
-        self.assertEquals(self.project_project.sprint_count, 1)
-        self.assertEquals(self.project_project.user_story_count, 1)
-        self.assertEquals(self.project_project.meeting_count, 1)
-        self.assertEquals(self.project_project.test_case_count, 1)
+        self.assertEqual(self.project_scrum_sprint.task_count, 1)
+        self.assertEqual(self.project_project.sprint_count, 1)
+        self.assertEqual(self.project_project.user_story_count, 1)
+        self.assertEqual(self.project_project.meeting_count, 1)
+        self.assertEqual(self.project_project.test_case_count, 1)
 
     def _test_write(self):
         _logger.debug("Testing write")
@@ -234,10 +234,10 @@ class TestProjectScrum(TransactionCase):
 
     def _test_unlink(self):
         _logger.debug("Testing unlinks")
-        self.assertEquals(self.project_scrum_actors.unlink(), True)
-        self.assertEquals(self.project_scrum_meeting.unlink(), True)
-        self.assertEquals(self.project_scrum_sprint.unlink(), True)
-        self.assertEquals(self.project_scrum_test.unlink(), True)
-        self.assertEquals(self.project_scrum_us.unlink(), True)
-        self.assertEquals(self.project_task.unlink(), True)
-        self.assertEquals(self.project_project.unlink(), True)
+        self.assertEqual(self.project_scrum_actors.unlink(), True)
+        self.assertEqual(self.project_scrum_meeting.unlink(), True)
+        self.assertEqual(self.project_scrum_sprint.unlink(), True)
+        self.assertEqual(self.project_scrum_test.unlink(), True)
+        self.assertEqual(self.project_scrum_us.unlink(), True)
+        self.assertEqual(self.project_task.unlink(), True)
+        self.assertEqual(self.project_project.unlink(), True)

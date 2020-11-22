@@ -1,12 +1,12 @@
 # Copyright <2017> <Tenovar Ltd>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 
 class ProjectScrumMeeting(models.Model):
     _name = "project.scrum.meeting"
     _description = "Project Scrum Daily Meetings"
-    _inherit = ["mail.thread", "ir.needaction_mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     project_id = fields.Many2one(
         comodel_name="project.project",
@@ -38,23 +38,19 @@ class ProjectScrumMeeting(models.Model):
     )
     company_id = fields.Many2one(related="project_id.analytic_account_id.company_id",)
 
-    @api.multi
     def name_get(self):
         result = []
         for rec in self:
             name = ""
             if rec.project_id:
                 name = "{} - {} - {}".format(
-                    rec.project_id.name,
-                    rec.user_id_meeting.name,
-                    rec.datetime_meeting,
+                    rec.project_id.name, rec.user_id_meeting.name, rec.datetime_meeting,
                 )
             else:
                 name = "{} - {}".format(rec.user_id_meeting.name, rec.datetime_meeting)
             result.append((rec.id, name))
         return result
 
-    @api.multi
     def send_email(self):
         self.ensure_one()
         template = self.env.ref("project_scrum.email_template_id", False)

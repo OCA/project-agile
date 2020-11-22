@@ -20,10 +20,12 @@
                         >
                             <div
                                 class="o_dropdown_kanban dropdown"
+                                role="menu"
                                 groups="base.group_user"
                             >
                                 <a
                                     class="dropdown-toggle btn"
+                                    role="button"
                                     data-toggle="dropdown"
                                     href="#"
                                 >
@@ -76,8 +78,10 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree
-                colors="black:stats_test in ('draft'); blue:stats_test in ('pending');
-            grey:stats_test in ('cancel'); green:stats_test in('done')"
+                decoration-bf="stats_test in ('draft')"
+                decoration-info="stats_test in ('pending')"
+                decoration-muted="stats_test in ('cancel')"
+                decoration-success="stats_test in ('done')"
             >
                 <field name="name" />
                 <field name="sequence_test" />
@@ -141,10 +145,18 @@
                 <field name="description_test" />
                 <field name="stats_test" />
                 <group string="Filter By...">
-                    <filter string="Draft" domain="[('stats_test','=','draft')]" />
+                    <filter
+                        string="Draft"
+                        name="draft"
+                        domain="[('stats_test','=','draft')]"
+                    />
                     <separator orientation="vertical" />
                     <separator orientation="vertical" />
-                    <filter string="Cancelled" domain="[('stats_test','=','cancel')]" />
+                    <filter
+                        string="Cancelled"
+                        name="cancelled"
+                        domain="[('stats_test','=','cancel')]"
+                    />
                 </group>
                 <newline />
                 <group expand="0" string="Group By...">
@@ -166,7 +178,6 @@
     <record id="action_ps_tc_all" model="ir.actions.act_window">
         <field name="name">Test Case</field>
         <field name="res_model">project.scrum.test</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_ps_tc_kanban" />
         <field name="context">{"search_default_current": 1}</field>
@@ -177,7 +188,6 @@
     <record id="action_ps_tc_current" model="ir.actions.act_window">
         <field name="name">Test Case</field>
         <field name="res_model">project.scrum.test</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_ps_tc_kanban" />
         <field name="context">

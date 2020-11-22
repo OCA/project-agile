@@ -79,7 +79,6 @@
     <record id="action_ps_sprint_backlog" model="ir.actions.act_window">
         <field name="name">Sprint Backlog</field>
         <field name="res_model">project.task</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="context">
             {
@@ -100,7 +99,6 @@
     <record id="action_ps_tc" model="ir.actions.act_window">
         <field name="name">Sprint Test Case</field>
         <field name="res_model">project.task</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="context">
             {
@@ -122,7 +120,6 @@
         <field name="name">Scrum Tasks</field>
         <field name="res_model">project.task</field>
         <field name="domain">[('use_scrum', '=', True)]</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,form,tree,calendar,pivot,graph</field>
         <field
             name="view_ids"

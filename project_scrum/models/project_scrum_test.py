@@ -33,9 +33,9 @@ class ProjectScrumTest(models.Model):
 
     def _resolve_project_id_from_context(self):
         context = self.env.context
-        if type(context.get("default_project_id")) in (int, long):
+        if type(context.get("default_project_id")) in (int, int):
             return context["default_project_id"]
-        if isinstance(context.get("default_project_id"), basestring):
+        if isinstance(context.get("default_project_id"), str):
             project_name = context["default_project_id"]
             project_ids = self.env["project.project"].name_search(name=project_name)
             if len(project_ids) == 1:

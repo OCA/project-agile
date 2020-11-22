@@ -5,11 +5,9 @@
             <field name="name">Sprint</field>
             <field name="model_id" ref="model_project_scrum_sprint" />
             <field name="global" eval="True" />
-            <field name="domain_force">['|',
-                ('company_id', '=', False),
-                ('company_id', 'child_of', [user.company_id.id]),
-                ]
-            </field>
+            <field
+                name="domain_force"
+            >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
         </record>
         <record model="ir.rule" id="ps_sprint_rule_visibility">
             <field name="name">Sprint Visibility</field>
@@ -27,11 +25,9 @@
             <field name="name">Meeting</field>
             <field name="model_id" ref="model_project_scrum_meeting" />
             <field name="global" eval="True" />
-            <field name="domain_force">['|',
-                ('company_id', '=', False),
-                ('company_id', 'child_of', [user.company_id.id]),
-                ]
-            </field>
+            <field
+                name="domain_force"
+            >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
         </record>
         <record model="ir.rule" id="ps_meeting_visibility">
             <field name="name">Meeting Visibility</field>
@@ -49,11 +45,9 @@
             <field name="name">User Story</field>
             <field name="model_id" ref="model_project_scrum_us" />
             <field name="global" eval="True" />
-            <field name="domain_force">['|',
-                ('company_id', '=', False),
-                ('company_id', 'child_of', [user.company_id.id]),
-                ]
-            </field>
+            <field
+                name="domain_force"
+            >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
         </record>
         <record model="ir.rule" id="ps_us_rule_visibility">
             <field name="name">User Story Visibility</field>
@@ -78,11 +72,9 @@
             <field name="name">Test Case</field>
             <field name="model_id" ref="model_project_scrum_test" />
             <field name="global" eval="True" />
-            <field name="domain_force">['|',
-                ('company_id', '=', False),
-                ('company_id', 'child_of', [user.company_id.id]),
-                ]
-            </field>
+            <field
+                name="domain_force"
+            >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
         </record>
         <record model="ir.rule" id="ps_test_rule_visibility">
             <field name="name">Test Case Visibility</field>

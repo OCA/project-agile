@@ -25,7 +25,7 @@ class ProjectScrumSprint(models.Model):
         return sprint
 
     def time_cal(self):
-        diff = fields.Date.from_string(self.date_stop) - fields.Date.from_string(
+        diff = fields.Date.to_date(self.date_stop) - fields.Date.to_date(
             self.date_start
         )
         if diff.days <= 0:

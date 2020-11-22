@@ -89,24 +89,28 @@
                 <group expand="0" string="Group By...">
                     <filter
                         string="Project"
+                        name="project"
                         domain="[]"
                         context="{'group_by':'project_id'}"
                     />
-                    <separator orientation="vertical" />
+                    <separator />
                     <filter
                         string="Sprint"
+                        name="sprint"
                         domain="[]"
                         context="{'group_by':'sprint_id'}"
                     />
-                    <separator orientation="vertical" />
+                    <separator />
                     <filter
                         string="Date"
+                        name="date"
                         domain="[]"
                         context="{'group_by':'datetime_meeting'}"
                     />
-                    <separator orientation="vertical" />
+                    <separator />
                     <filter
                         string="Name"
+                        name="name"
                         domain="[]"
                         context="{'group_by':'user_id_meeting'}"
                     />
@@ -117,7 +121,6 @@
     <record id="action_ps_meeting_all" model="ir.actions.act_window">
         <field name="name">Meetings</field>
         <field name="res_model">project.scrum.meeting</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,calendar</field>
         <field name="view_id" ref="view_ps_meeting_calendar" />
         <field name="context">{"search_default_current": 1}</field>
@@ -127,7 +130,6 @@
     <record id="action_ps_meeting_current" model="ir.actions.act_window">
         <field name="name">Meetings</field>
         <field name="res_model">project.scrum.meeting</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,calendar</field>
         <field name="view_id" ref="view_ps_meeting_calendar" />
         <field name="context">

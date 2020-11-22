@@ -6,8 +6,11 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree
-                colors="black:state in ('draft'); orange:state in ('pending'); blue:state in('open');
-            grey:state in ('cancel'); green:state in('done')"
+                decoration-bf="state in ('draft')"
+                decoration-warning="state in ('pending')"
+                decoration-info="state in ('open')"
+                decoration-muted="state in ('cancel')"
+                decoration-success="state in ('done')"
                 string="Scrum Sprint"
             >
                 <field name="name" />
@@ -175,38 +178,54 @@
                 <field name="us_ids" />
                 <field name="task_ids" />
                 <group string="Filter By...">
-                    <filter string="Draft" domain="[('state','=','draft')]" />
+                    <filter
+                        name="draft"
+                        string="Draft"
+                        domain="[('state','=','draft')]"
+                    />
                     <separator orientation="vertical" />
-                    <filter string="Open" domain="[('state','=','open')]" />
+                    <filter name="open" string="Open" domain="[('state','=','open')]" />
                     <separator orientation="vertical" />
-                    <filter string="Pending" domain="[('state','=','pending')]" />
+                    <filter
+                        name="pending"
+                        string="Pending"
+                        domain="[('state','=','pending')]"
+                    />
                     <separator orientation="vertical" />
-                    <filter string="Cancelled" domain="[('state','=','cancel')]" />
+                    <filter
+                        name="cancelled"
+                        string="Cancelled"
+                        domain="[('state','=','cancel')]"
+                    />
                     <separator orientation="vertical" />
-                    <filter string="Done" domain="[('state','=','done')]" />
+                    <filter name="done" string="Done" domain="[('state','=','done')]" />
                 </group>
                 <newline />
                 <group expand="0" string="Group By...">
                     <filter
                         string="Product owner"
+                        name="product_owner"
                         domain="[]"
                         context="{'group_by':'product_owner_id'}"
                     />
                     <separator orientation="vertical" />
                     <filter
                         string="Scrum Master"
+                        name="scrum_master"
                         domain="[]"
                         context="{'group_by':'scrum_master_id'}"
                     />
                     <separator orientation="vertical" />
                     <filter
                         string="Project"
+                        name="project"
                         domain="[]"
                         context="{'group_by':'project_id'}"
                     />
                     <separator orientation="vertical" />
                     <filter
                         string="Month"
+                        name="month"
                         domain="[]"
                         context="{'group_by':'date_start'}"
                         help="Sprint Month"
@@ -218,7 +237,6 @@
     <record id="action_ps_sprint_all" model="ir.actions.act_window">
         <field name="name">Sprints</field>
         <field name="res_model">project.scrum.sprint</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,calendar,gantt,graph</field>
         <field name="view_id" ref="view_ps_sprint_tree" />
         <field name="context">{"search_default_current": 1}</field>

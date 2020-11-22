@@ -24,6 +24,7 @@
                             >
                                 <a
                                     class="dropdown-toggle btn"
+                                    role="button"
                                     data-toggle="dropdown"
                                     href="#"
                                 >
@@ -202,8 +203,11 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree
-                colors="brown:moscow in ('1'); blue:moscow in ('2'); grey:moscow
-                in ('3'); green:moscow in('4') red:moscow in('5') "
+                decoration-warning="moscow in ('1')"
+                decoration-info="moscow in ('2')"
+                decoration-muted="moscow in ('3')"
+                decoration-success="moscow in ('4')"
+                decoration-danger="moscow in ('5')"
             >
                 <field name="reference" />
                 <field name="name" />
@@ -248,7 +252,6 @@
     <record id="action_ps_us_all" model="ir.actions.act_window">
         <field name="name">User Stories</field>
         <field name="res_model">project.scrum.us</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_ps_us_tree" />
         <field name="context">{"search_default_current": 1}</field>
@@ -258,7 +261,6 @@
     <record id="action_ps_us_current" model="ir.actions.act_window">
         <field name="name">User Stories</field>
         <field name="res_model">project.scrum.us</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_ps_us_kanban" />
         <field name="context">
