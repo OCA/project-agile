@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright <2017> <Tenovar Ltd>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import models, fields, api, _
@@ -7,7 +6,7 @@ from odoo import models, fields, api, _
 class ProjectScrumMeeting(models.Model):
     _name = 'project.scrum.meeting'
     _description = 'Project Scrum Daily Meetings'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     project_id = fields.Many2one(
         comodel_name='project.project',
@@ -33,11 +32,11 @@ class ProjectScrumMeeting(models.Model):
         default=lambda self: self.env.user
     )
     question_yesterday = fields.Html(
-        string='Description',
+        string='Description Yesterday',
         required=True,
     )
     question_today = fields.Html(
-        string='Description',
+        string='Description Today',
         required=True,
     )
     question_blocks = fields.Html(
@@ -51,7 +50,7 @@ class ProjectScrumMeeting(models.Model):
         default='yes',
     )
     company_id = fields.Many2one(
-        related='project_id.analytic_account_id.company_id',
+        related='project_id.company_id',
     )
 
     @api.multi

@@ -160,29 +160,29 @@
                 <field name="us_ids" />
                 <field name="task_ids" />
                 <group string="Filter By...">
-                    <filter string="Draft" domain="[('state','=','draft')]" />
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" />
                     <separator orientation="vertical" />
-                    <filter string="Open" domain="[('state','=','open')]" />
+                    <filter name="open" string="Open" domain="[('state','=','open')]" />
                     <separator orientation="vertical" />
-                    <filter string="Pending"
+                    <filter name="pending" string="Pending"
                         domain="[('state','=','pending')]" />
                     <separator orientation="vertical" />
-                    <filter string="Cancelled" domain="[('state','=','cancel')]" />
+                    <filter name="cancelled" string="Cancelled" domain="[('state','=','cancel')]" />
                     <separator orientation="vertical" />
-                    <filter string="Done" domain="[('state','=','done')]" />
+                    <filter name="done" string="Done" domain="[('state','=','done')]" />
                 </group>
                 <newline />
                 <group expand="0" string="Group By...">
-                    <filter string="Product owner" domain="[]"
+                    <filter name="product_owner" string="Product owner" domain="[]"
                         context="{'group_by':'product_owner_id'}" />
                     <separator orientation="vertical" />
-                    <filter string="Scrum Master" domain="[]"
+                    <filter name="scrum_master" string="Scrum Master" domain="[]"
                         context="{'group_by':'scrum_master_id'}" />
                     <separator orientation="vertical" />
-                    <filter string="Project" domain="[]"
+                    <filter name="project" string="Project" domain="[]"
                         context="{'group_by':'project_id'}" />
                     <separator orientation="vertical" />
-                    <filter string="Month" domain="[]"
+                    <filter name="month" string="Month" domain="[]"
                         context="{'group_by':'date_start'}" help="Sprint Month" />
                 </group>
             </search>

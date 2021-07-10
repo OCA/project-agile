@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright <2017> <Tenovar Ltd>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     'name': 'Project Scrum',
     'summary': 'Use Scrum Method to manage your project',
-    'version': '10.0.1.0.1',
+    'version': '12.0.1.0.0',
     'category': 'Project Management',
     'author': "Odoo Community Association (OCA)",
     'website': 'https://github.com/OCA/project-agile',
@@ -14,6 +13,7 @@
         'project_task_code',
         'project_stage_state',
         'mail',
+        'hr_timesheet',
     ],
     'data': [
         'views/mail_template.xml',

@@ -21,6 +21,7 @@
                             <div class="o_dropdown_kanban dropdown"
                                 groups="base.group_user">
                                 <a class="dropdown-toggle btn"
+                                    role="button"
                                     data-toggle="dropdown" href="#">
                                     <span class="fa fa-bars fa-lg" />
                                 </a>
