@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright <2017> <Tenovar Ltd>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import models, fields, api
@@ -119,7 +118,7 @@ class ProjectScrumSprint(models.Model):
         required=False,
     )
     company_id = fields.Many2one(
-        related='project_id.analytic_account_id.company_id',
+        related='project_id.company_id',
     )
 
     @api.onchange('project_id')
