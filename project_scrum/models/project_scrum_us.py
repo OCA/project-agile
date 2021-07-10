@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright <2017> <Tenovar Ltd>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import models, fields, api
@@ -8,12 +7,12 @@ class ProjectScrumUs(models.Model):
     _name = 'project.scrum.us'
     _description = 'Project Scrum Use Stories'
     _order = 'reference'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     @api.model
     def create(self, vals):
         vals['reference'] = self.env['ir.sequence'].next_by_code('user.story')
-        return super(ProjectScrumUs, self).create(vals)
+        return super().create(vals)
 
     @api.model
     def _get_moscow_field(self):
@@ -68,7 +67,7 @@ class ProjectScrumUs(models.Model):
     test_count = fields.Integer(compute='_compute_test_count', store=True)
     sequence = fields.Integer()
     company_id = fields.Many2one(
-        related='project_id.analytic_account_id.company_id',
+        related='project_id.company_id',
         store=True
     )
     moscow = fields.Selection('_get_moscow_field', string='Moscow')
@@ -107,9 +106,9 @@ class ProjectScrumUs(models.Model):
         """
         context = self.env.context
         project_project_model = self.env['project.project']
-        if type(context.get('default_project_id')) in (int, long):
+        if type(context.get('default_project_id')) in (int, int):
             return context['default_project_id']
-        if isinstance(context.get('default_project_id'), basestring):
+        if isinstance(context.get('default_project_id'), str):
             project_name = context['default_project_id']
             project_ids = project_project_model.with_context(context)
             project_ids = project_ids.name_search(project_name, operator='=')

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright <2017> <Tenovar Ltd>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import models, fields
@@ -29,20 +28,20 @@ class ProjectProject(models.Model):
     )
     sprint_count = fields.Integer(
         compute='_compute_sprint_count',
-        string="Sprints",
+        string="# Sprints",
         index=True,
     )
     user_story_count = fields.Integer(
         compute='_compute_user_story_count',
-        string="User Stories",
+        string="# User Stories",
     )
     meeting_count = fields.Integer(
         compute='_compute_meeting_count',
-        string="Meetings",
+        string="# Meetings",
     )
     test_case_count = fields.Integer(
         compute='_compute_test_case_count',
-        string="Test Cases",
+        string="# Test Cases",
     )
     use_scrum = fields.Boolean()
     default_sprintduration = fields.Integer(
