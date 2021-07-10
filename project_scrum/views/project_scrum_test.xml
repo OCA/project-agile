@@ -21,6 +21,7 @@
                             <div class="o_dropdown_kanban dropdown"
                                 groups="base.group_user">
                                 <a class="dropdown-toggle btn"
+                                    role="button"
                                     data-toggle="dropdown" href="#">
                                     <span class="fa fa-bars fa-lg" />
                                 </a>
@@ -124,11 +125,11 @@
                 <field name="description_test" />
                 <field name="stats_test" />
                 <group string="Filter By...">
-                    <filter string="Draft"
+                    <filter name="draft" string="Draft"
                         domain="[('stats_test','=','draft')]" />
                     <separator orientation="vertical" />
                     <separator orientation="vertical" />
-                    <filter string="Cancelled"
+                    <filter name="cancelled" string="Cancelled"
                         domain="[('stats_test','=','cancel')]" />
                 </group>
                 <newline />

@@ -77,16 +77,16 @@
                 <field name="datetime_meeting" />
                 <field name="user_id_meeting" />
                 <group expand="0" string="Group By...">
-                    <filter string="Project" domain="[]"
+                    <filter name="project" string="Project" domain="[]"
                         context="{'group_by':'project_id'}" />
                     <separator orientation="vertical" />
-                    <filter string="Sprint" domain="[]"
+                    <filter name="sprint" string="Sprint" domain="[]"
                         context="{'group_by':'sprint_id'}" />
                     <separator orientation="vertical" />
-                    <filter string="Date" domain="[]"
+                    <filter name="date" string="Date" domain="[]"
                         context="{'group_by':'datetime_meeting'}" />
                     <separator orientation="vertical" />
-                    <filter string="Name" domain="[]"
+                    <filter name="name" string="Name" domain="[]"
                         context="{'group_by':'user_id_meeting'}" />
                 </group>
             </search>
