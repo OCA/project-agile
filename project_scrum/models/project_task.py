@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright <2017> <Tenovar Ltd>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import models, fields, api
@@ -127,4 +126,4 @@ class ProjectTask(models.Model):
     def get_formview_id(self):
         if all(self.mapped('use_scrum')):
             return self.env.ref('project_scrum.view_ps_sprint_task_form2').id
-        return super(ProjectTask, self).get_formview_id()
+        return super().get_formview_id()
