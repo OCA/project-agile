@@ -22,10 +22,12 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.edit_project" />
         <field name="arch" type="xml">
-            <field name="use_tasks" position="before">
-                <field name="use_scrum" class="oe_inline" />
-                <label for="use_scrum" string="Use Scrum" />
-            </field>
+            <xpath expr="//div[@name='options_active']" position="inside">
+                <div>
+                    <field name="use_scrum" class="oe_inline" />
+                    <label for="use_scrum" string="Use Scrum"/>
+                </div>
+            </xpath>
         </field>
     </record>
 
@@ -96,12 +98,13 @@
                 <attribute name="name">%(act_project_tasks)d</attribute>
             </xpath>
             <field name="partner_id" position="after">
-                <group>
-                    <label for="manhours" string="Expected Hours" />
-                    <label for="manhours" />
-                    <field name="manhours" nolabel="1" />
-                </group>
+                <field name="manhours"/>
             </field>
+            <xpath expr="//page[@name='settings']" position="after">
+                <page name="description" string="Description">
+                    <field name="description" nolabel="1"/>
+                </page>
+            </xpath>
         </field>
     </record>
 
@@ -120,23 +123,16 @@
                 <field name="use_scrum" />
                 <field name="description" />
             </field>
-            <xpath expr="//div[@class='o_kanban_primary_left']"
+            <xpath expr="//div[hasclass('o_kanban_primary_left')]"
                 position='after'>
                 <a t-if="record.description.raw_value">
-                    <h2>
-                        <span class="o_label">Project Description</span>
-                    </h2>
-                    <h3>
-                        <span class="o_value" style="color:blue;">
-                            <t t-esc="record.description.value" />
-                        </span>
-                    </h3>
+                    <span>Project Description</span>
+                    <span t-raw="record.description.value" />
                 </a>
             </xpath>
             <a name="%(project.act_project_project_2_project_task_all)d"
                 position="replace">
-                <a t-if="record.use_tasks.raw_value"
-                    name="%(act_project_tasks)d"
+                <a name="%(act_project_tasks)d"
                     type="action" style="margin-right: 10px">
                     <span class="o_value">
                         <t t-esc="record.task_count.raw_value" />
