@@ -1,9 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+import logging
 from odoo.tests.common import TransactionCase
 from odoo import fields, models, SUPERUSER_ID
-import logging
+from odoo.exceptions import UserError
+
 _logger = logging.getLogger(__name__)
 
 
@@ -12,7 +13,7 @@ class TestProjectScrum(TransactionCase):
     post_install = True
 
     def setUp(self):
-        super(TestProjectScrum, self).setUp()
+        super().setUp()
         self.project_project_obj = self.env['project.project']
         self.project_scrum_actors_obj = self.env['project.scrum.actors']
         self.project_scrum_meeting_obj = self.env['project.scrum.meeting']
@@ -32,20 +33,12 @@ class TestProjectScrum(TransactionCase):
 
     def _test_create(self):
         _logger.debug('Testing create operations')
-        mail_alias = self.env['mail.alias'].create({
-            'alias_model_id': self.env['ir.model'].search([
-                ('model', '=', 'res.users'),
-            ]).id,
-            'alias_defaults': {},
-            'alias_contact': 'everyone',
-        })
         self.project_project_vals = {
             'name': 'test',
             'use_scrum': True,
             'default_sprintduration': 20,
             'manhours': 17,
-            'alias_model': 'project.task',
-            'alias_id': mail_alias.id,
+            'alias_name': 'project',
             'privacy_visibility': 'followers',
             'description': '<p>Description</p>',
         }
@@ -134,7 +127,8 @@ class TestProjectScrum(TransactionCase):
             self.env.ref('project_scrum.view_ps_sprint_task_form2').id)
         # reset data as before testing function
         self.project_project.write({'use_scrum': True})
-        self.project_task.write({'project_id': False})
+        with self.assertRaises(UserError):
+            self.project_task.write({'project_id': False})
 
     def _test_read(self):
         _logger.debug('Testing read')

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright <2017> <Tenovar Ltd>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import models, fields, api
@@ -7,6 +6,7 @@ from odoo import models, fields, api
 class ProjectScrumTest(models.Model):
     _name = 'project.scrum.test'
     _order = 'sequence_test'
+    _description = 'Project Scrum Test'
 
     name = fields.Char(required=True)
     project_id = fields.Many2one(
@@ -36,15 +36,15 @@ class ProjectScrumTest(models.Model):
         required=False,
     )
     company_id = fields.Many2one(
-        related='project_id.analytic_account_id.company_id',
+        related='project_id.company_id',
     )
     color = fields.Integer(related='project_id.color')
 
     def _resolve_project_id_from_context(self):
         context = self.env.context
-        if type(context.get('default_project_id')) in (int, long):
+        if type(context.get('default_project_id')) in (int, int):
             return context['default_project_id']
-        if isinstance(context.get('default_project_id'), basestring):
+        if isinstance(context.get('default_project_id'), str):
             project_name = context['default_project_id']
             project_ids = self.env['project.project'].name_search(
                 name=project_name)

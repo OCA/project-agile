@@ -15,7 +15,7 @@
        <field name="privacy_visibility">employees</field>
         <field name="user_id" ref="base.user_demo"/>
         <field name="description">Model for Testing Scrum using in projects</field>
-        <field name="alias_model">project.task</field>
+        <field name="alias_name">project_scrum</field>
     </record>
 
     <record id="project_project_2" model="project.project">
@@ -27,7 +27,7 @@
         <field name="privacy_visibility">employees</field>
         <field name="user_id" ref="base.user_demo"/>
         <field name="description">Model for Testing Scrum using in projects</field>
-        <field name="alias_model">project.task</field>
+        <field name="alias_name">project_scrum2</field>
     </record>
 
     <record id="project_sprint_1" model="project.scrum.sprint">
