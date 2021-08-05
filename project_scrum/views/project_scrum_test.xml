@@ -29,7 +29,7 @@
                                     data-toggle="dropdown"
                                     href="#"
                                 >
-                                    <span class="fa fa-bars fa-lg" />
+                                    <i class="fa fa-bars fa-lg" title="dropdown" />
                                 </a>
                                 <ul
                                     class="dropdown-menu"
@@ -79,8 +79,10 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree
-                colors="black:stats_test in ('draft'); blue:stats_test in ('pending');
-            grey:stats_test in ('cancel'); green:stats_test in('done')"
+                decoration-bf="stats_test in ('draft')"
+                decoration-info="stats_test in ('pending')"
+                decoration-muted="stats_test in ('cancel')"
+                decoration-success="stats_test in ('done')"
             >
                 <field name="name" />
                 <field name="sequence_test" />
@@ -180,7 +182,6 @@
     <record id="action_ps_tc_all" model="ir.actions.act_window">
         <field name="name">Test Case</field>
         <field name="res_model">project.scrum.test</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_ps_tc_kanban" />
         <field name="context">{"search_default_current": 1}</field>
@@ -191,7 +192,6 @@
     <record id="action_ps_tc_current" model="ir.actions.act_window">
         <field name="name">Test Case</field>
         <field name="res_model">project.scrum.test</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_ps_tc_kanban" />
         <field name="context">

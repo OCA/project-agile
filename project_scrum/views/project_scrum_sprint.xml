@@ -7,8 +7,11 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree
-                colors="black:state in ('draft'); orange:state in ('pending'); blue:state in('open');
-            grey:state in ('cancel'); green:state in('done')"
+                decoration-bf="state in ('draft')"
+                decoration-warning="state in ('pending')"
+                decoration-info="state in ('open')"
+                decoration-muted="state in ('cancel')"
+                decoration-success="state in ('done')"
                 string="Scrum Sprint"
             >
                 <field name="name" />
@@ -241,7 +244,6 @@
     <record id="action_ps_sprint_all" model="ir.actions.act_window">
         <field name="name">Sprints</field>
         <field name="res_model">project.scrum.sprint</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,calendar,gantt,graph</field>
         <field name="view_id" ref="view_ps_sprint_tree" />
         <field name="context">{"search_default_current": 1}</field>

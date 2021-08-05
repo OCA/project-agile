@@ -53,8 +53,6 @@ class ProjectScrumSprint(models.Model):
     project_id = fields.Many2one(
         comodel_name="project.project",
         string="Project",
-        ondelete="cascade",
-        track_visibility="onchange",
         change_default=True,
         required=True,
         index=True,
@@ -109,7 +107,6 @@ class ProjectScrumSprint(models.Model):
         help="Gives the sequence order when displaying a list of tasks.",
     )
     planned_hours = fields.Float(
-        multi="planned_hours",
         string="Planned Hours",
         help="Estimated time to do the task, "
         "usually set by the project manager when the task is in draft state.",

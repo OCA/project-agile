@@ -15,7 +15,6 @@ class ProjectScrumTest(models.Model):
         ondelete="cascade",
         index=True,
         required=True,
-        track_visibility="onchange",
         change_default=True,
     )
     sprint_id = fields.Many2one(

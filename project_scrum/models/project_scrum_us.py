@@ -42,9 +42,8 @@ class ProjectScrumUs(models.Model):
     project_id = fields.Many2one(
         comodel_name="project.project",
         string="Project",
-        ondelete="set null",
         index=True,
-        track_visibility="onchange",
+        tracking=True,
         change_default=True,
         required=True,
     )
