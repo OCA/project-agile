@@ -1,10 +1,10 @@
 # Copyright <2017> <Tenovar Ltd>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import models, fields
+from odoo import fields, models
 
 
 class ProjectProject(models.Model):
-    _inherit = 'project.project'
+    _inherit = "project.project"
 
     sprint_ids = fields.One2many(
         comodel_name="project.scrum.sprint",
@@ -27,34 +27,33 @@ class ProjectProject(models.Model):
         string="Test Cases",
     )
     sprint_count = fields.Integer(
-        compute='_compute_sprint_count',
+        compute="_compute_sprint_count",
         string="# Sprints",
         index=True,
     )
     user_story_count = fields.Integer(
-        compute='_compute_user_story_count',
+        compute="_compute_user_story_count",
         string="# User Stories",
     )
     meeting_count = fields.Integer(
-        compute='_compute_meeting_count',
+        compute="_compute_meeting_count",
         string="# Meetings",
     )
     test_case_count = fields.Integer(
-        compute='_compute_test_case_count',
+        compute="_compute_test_case_count",
         string="# Test Cases",
     )
     use_scrum = fields.Boolean()
     default_sprintduration = fields.Integer(
-        string='Calendar',
+        string="Calendar",
         required=False,
         default=14,
-        help="Default Sprint time for this project, in days"
+        help="Default Sprint time for this project, in days",
     )
     manhours = fields.Integer(
-        string='Man Hours',
+        string="Man Hours",
         required=False,
-        help="How many hours you expect this project "
-        "needs before it's finished"
+        help="How many hours you expect this project " "needs before it's finished",
     )
     description = fields.Html()
 

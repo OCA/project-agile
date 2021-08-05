@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_ps_meeting_tree" model="ir.ui.view">
         <field name="name">project.scrum.meeting.tree</field>
@@ -24,29 +24,39 @@
                         <field name="datetime_meeting" />
                         <field name="user_id_meeting" />
                         <field name="project_id" />
-                        <field name="sprint_id"
+                        <field
+                            name="sprint_id"
                             domain="[('project_id', '=', project_id)]"
-                            context="{'default_project_id': project_id}" />
-                        <button name="send_email" string="Send Email"
-                            type="object" icon="terp-mail-message-new" />
+                            context="{'default_project_id': project_id}"
+                        />
+                        <button
+                            name="send_email"
+                            string="Send Email"
+                            type="object"
+                            icon="terp-mail-message-new"
+                        />
                     </group>
                     <group>
-                        <separator colspan="4"
-                            string="What did you do since the last meeting?" />
-                        <field colspan="4" name="question_yesterday"
-                            nolabel="1" />
-                        <separator colspan="4"
-                            string="What do you plan to do till the next meeting?" />
-                        <field colspan="4" name="question_today"
-                            nolabel="1" />
-                        <separator colspan="4"
-                            string="Are there anything blocking you?" />
-                        <field colspan="4" name="question_blocks"
-                            nolabel="1" />
-                        <separator colspan="4"
-                            string="Are your Sprint Backlog estimate accurate ?" />
-                        <field colspan="4" name="question_backlog"
-                            nolabel="1" />
+                        <separator
+                            colspan="4"
+                            string="What did you do since the last meeting?"
+                        />
+                        <field colspan="4" name="question_yesterday" nolabel="1" />
+                        <separator
+                            colspan="4"
+                            string="What do you plan to do till the next meeting?"
+                        />
+                        <field colspan="4" name="question_today" nolabel="1" />
+                        <separator
+                            colspan="4"
+                            string="Are there anything blocking you?"
+                        />
+                        <field colspan="4" name="question_blocks" nolabel="1" />
+                        <separator
+                            colspan="4"
+                            string="Are your Sprint Backlog estimate accurate ?"
+                        />
+                        <field colspan="4" name="question_backlog" nolabel="1" />
                         <separator colspan="4" string="" />
                     </group>
                 </sheet>
@@ -59,8 +69,11 @@
         <field name="model">project.scrum.meeting</field>
         <field name="type">calendar</field>
         <field name="arch" type="xml">
-            <calendar string="Scrum Meeting" date_start="datetime_meeting"
-                color="user_id_meeting">
+            <calendar
+                string="Scrum Meeting"
+                date_start="datetime_meeting"
+                color="user_id_meeting"
+            >
                 <field name="user_id_meeting" />
             </calendar>
         </field>
@@ -77,17 +90,33 @@
                 <field name="datetime_meeting" />
                 <field name="user_id_meeting" />
                 <group expand="0" string="Group By...">
-                    <filter name="project" string="Project" domain="[]"
-                        context="{'group_by':'project_id'}" />
+                    <filter
+                        name="project"
+                        string="Project"
+                        domain="[]"
+                        context="{'group_by':'project_id'}"
+                    />
                     <separator orientation="vertical" />
-                    <filter name="sprint" string="Sprint" domain="[]"
-                        context="{'group_by':'sprint_id'}" />
+                    <filter
+                        name="sprint"
+                        string="Sprint"
+                        domain="[]"
+                        context="{'group_by':'sprint_id'}"
+                    />
                     <separator orientation="vertical" />
-                    <filter name="date" string="Date" domain="[]"
-                        context="{'group_by':'datetime_meeting'}" />
+                    <filter
+                        name="date"
+                        string="Date"
+                        domain="[]"
+                        context="{'group_by':'datetime_meeting'}"
+                    />
                     <separator orientation="vertical" />
-                    <filter name="name" string="Name" domain="[]"
-                        context="{'group_by':'user_id_meeting'}" />
+                    <filter
+                        name="name"
+                        string="Name"
+                        domain="[]"
+                        context="{'group_by':'user_id_meeting'}"
+                    />
                 </group>
             </search>
         </field>
@@ -121,4 +150,4 @@
         <field name="help">The daily meeting of scrum.</field>
     </record>
 
-</odoo> 
+</odoo>
