@@ -113,11 +113,6 @@
             <field name="partner_id" position="after">
                 <field name="manhours" />
             </field>
-            <xpath expr="//page[@name='settings']" position="after">
-                <page name="description" string="Description">
-                    <field name="description" nolabel="1" />
-                </page>
-            </xpath>
         </field>
     </record>
 
@@ -143,7 +138,11 @@
                 </a>
             </xpath>
             <a name="action_view_tasks" position="replace">
-                <a name="action_view_tasks" type="action" style="margin-right: 10px">
+                <a
+                    name="%(act_project_tasks)d"
+                    type="action"
+                    style="margin-right: 10px"
+                >
                     <span class="o_value">
                         <t t-esc="record.task_count.raw_value" />
                     </span>
