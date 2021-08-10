@@ -123,7 +123,7 @@ class ProjectTask(models.Model):
             return [], None
 
     @api.multi
-    def get_formview_id(self):
+    def get_formview_id(self, access_uid=None):
         if all(self.mapped('use_scrum')):
             return self.env.ref('project_scrum.view_ps_sprint_task_form2').id
-        return super().get_formview_id()
+        return super().get_formview_id(access_uid)
