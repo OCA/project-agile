@@ -1,8 +1,8 @@
 This module implements all concepts defined by the scrum project management
 methodology for IT companies:
 
-- Project with sprints, product owner, scrum master 
-- Sprints with reviews, daily meetings, feedbacks 
+- Project with sprints, product owner, scrum master
+- Sprints with reviews, daily meetings, feedbacks
 - Product backlog
 - Sprint backlog
 

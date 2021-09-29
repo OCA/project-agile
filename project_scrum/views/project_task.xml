@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_ps_task_search" model="ir.ui.view">
@@ -12,10 +12,16 @@
                 <field name="sprint_id" />
             </field>
             <filter name="project" position="after">
-                <filter string="Sprint" name="group_by_sprint"
-                    context="{'group_by':'sprint_id'}" />
-                <filter string="User Story" name="group_by_us"
-                    context="{'group_by':'us_id'}" />
+                <filter
+                    string="Sprint"
+                    name="group_by_sprint"
+                    context="{'group_by':'sprint_id'}"
+                />
+                <filter
+                    string="User Story"
+                    name="group_by_us"
+                    context="{'group_by':'us_id'}"
+                />
             </filter>
         </field>
     </record>
@@ -28,23 +34,25 @@
         <field name="priority">99</field>
         <field name="arch" type="xml">
             <field name="date_deadline" position="before">
-                <field name="use_scrum" invisible="1"/>
+                <field name="use_scrum" invisible="1" />
                 <field
                     string="Sprint"
                     name="sprint_id"
                     context="{'default_project_id':project_id}"
-                    domain="[('project_id', '=', project_id)]"/>
+                    domain="[('project_id', '=', project_id)]"
+                />
                 <field
                     string="User Story"
                     name="us_id"
                     context="{'default_project_id':project_id}"
-                    domain="[('project_id', '=', project_id)]"/>
+                    domain="[('project_id', '=', project_id)]"
+                />
             </field>
             <field name="date_deadline" position="after">
-                <field name="moscow"/>
-                <field name="value"/>
-                <field name="risk"/>
-                <field name="kano"/>
+                <field name="moscow" />
+                <field name="value" />
+                <field name="risk" />
+                <field name="kano" />
             </field>
         </field>
     </record>
@@ -61,11 +69,13 @@
                     string="Sprint"
                     name="sprint_id"
                     context="{'default_project_id':project_id}"
-                    domain="[('project_id', '=', project_id)]"/>
+                    domain="[('project_id', '=', project_id)]"
+                />
                 <field
                     string="User Story"
                     name="us_id"
-                    domain="[('project_id', '=', project_id)]"/>
+                    domain="[('project_id', '=', project_id)]"
+                />
             </field>
         </field>
     </record>
@@ -88,7 +98,8 @@
             name="view_ids"
             eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('view_ps_sprint_task_tree2')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('view_ps_sprint_task_form2')})]" />
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_ps_sprint_task_form2')})]"
+        />
     </record>
 
     <record id="action_ps_tc" model="ir.actions.act_window">
@@ -109,7 +120,8 @@
             name="view_ids"
             eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('view_ps_sprint_task_tree2')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('view_ps_sprint_task_form2')})]" />
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_ps_sprint_task_form2')})]"
+        />
     </record>
 
     <record id="action_show_scrum_tasks" model="ir.actions.act_window">
@@ -122,7 +134,8 @@
             name="view_ids"
             eval="[(5, 0, 0),
                    (0, 0, {'view_mode': 'tree', 'view_id': ref('view_ps_sprint_task_tree2')}),
-                   (0, 0, {'view_mode': 'form', 'view_id': ref('view_ps_sprint_task_form2')})]" />
+                   (0, 0, {'view_mode': 'form', 'view_id': ref('view_ps_sprint_task_form2')})]"
+        />
     </record>
 
 </odoo>

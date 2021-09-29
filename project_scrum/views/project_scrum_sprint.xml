@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_ps_sprint_tree" model="ir.ui.view">
@@ -9,7 +9,8 @@
             <tree
                 colors="black:state in ('draft'); orange:state in ('pending'); blue:state in('open');
             grey:state in ('cancel'); green:state in('done')"
-                string="Scrum Sprint">
+                string="Scrum Sprint"
+            >
                 <field name="name" />
                 <!--name of sprint -->
                 <field name="project_id" />
@@ -31,24 +32,35 @@
             <form string="Scrum Sprint">
                 <!--Header States -->
                 <header>
-                    <field name="state" string="State" widget="statusbar"
-                        clickable="True" />
+                    <field
+                        name="state"
+                        string="State"
+                        widget="statusbar"
+                        clickable="True"
+                    />
                 </header>
                 <sheet string="Sprint">
                     <h1>
-                        <field name="name" placeholder="Sprint..."
-                            class="oe_inline" />
+                        <field name="name" placeholder="Sprint..." class="oe_inline" />
                     </h1>
-                    <button class="oe_inline oe_stat_button"
-                        type="action" icon="fa-tasks"
-                        name="%(action_ps_sprint_backlog)d" string="Backlog"
-                        context="{'default_project_id': project_id}">
-                        <field name="task_count" widget="statinfo"
-                            string="Tasks" />
+                    <button
+                        class="oe_inline oe_stat_button"
+                        type="action"
+                        icon="fa-tasks"
+                        name="%(action_ps_sprint_backlog)d"
+                        string="Backlog"
+                        context="{'default_project_id': project_id}"
+                    >
+                        <field name="task_count" widget="statinfo" string="Tasks" />
                     </button>
-                    <button class="oe_inline oe_stat_button"
-                        type="action" icon="fa-tasks" name="%(action_ps_tc)d"
-                        string="[TC] Tasks" context="{'default_project_id': project_id}">
+                    <button
+                        class="oe_inline oe_stat_button"
+                        type="action"
+                        icon="fa-tasks"
+                        name="%(action_ps_tc)d"
+                        string="[TC] Tasks"
+                        context="{'default_project_id': project_id}"
+                    >
 
                     </button>
                     <group colspan="4" col="4">
@@ -64,11 +76,15 @@
                     <notebook colspan="5">
                         <!--User Stories -->
                         <page string="User Story">
-                            <field colspan="2" col="1" name="us_ids"
+                            <field
+                                colspan="2"
+                                col="1"
+                                name="us_ids"
                                 context="{
                                     'default_project_id': project_id,
                                     'default_sprint_id': id,
-                                    }">
+                                    }"
+                            >
                                 <tree>
                                     <field name="name" />
                                     <field name="actor_ids" />
@@ -81,15 +97,17 @@
                                 <field name="review" />
                             </group>
                             <group col="1">
-                                <field name="task_ids" string="Task"
+                                <field
+                                    name="task_ids"
+                                    string="Task"
                                     context="{
                                         'default_project_id': project_id,
                                         'default_sprint_id': id,
                                         'default_us_ids': us_ids,
-                                        }">
+                                        }"
+                                >
                                     <tree>
-                                        <field name="sequence"
-                                            widget="handle" />
+                                        <field name="sequence" widget="handle" />
                                         <field name="priority" />
                                         <field name="name" />
                                         <field name="user_id" />
@@ -114,8 +132,7 @@
         <field name="model">project.scrum.sprint</field>
         <field name="type">calendar</field>
         <field name="arch" type="xml">
-            <calendar string="Scrum Sprint" date_start="date_start"
-                color="us_ids">
+            <calendar string="Scrum Sprint" date_start="date_start" color="us_ids">
                 <field name="name" />
                 <field name="project_id" />
             </calendar>
@@ -126,8 +143,12 @@
         <field name="name">project.scrum.sprint.gantt</field>
         <field name="model">project.scrum.sprint</field>
         <field name="arch" type="xml">
-            <gantt date_start="date_start" date_stop="date_stop"
-                progress="progress" string="Projects">
+            <gantt
+                date_start="date_start"
+                date_stop="date_stop"
+                progress="progress"
+                string="Projects"
+            >
             </gantt>
         </field>
     </record>
@@ -160,30 +181,58 @@
                 <field name="us_ids" />
                 <field name="task_ids" />
                 <group string="Filter By...">
-                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" />
+                    <filter
+                        name="draft"
+                        string="Draft"
+                        domain="[('state','=','draft')]"
+                    />
                     <separator orientation="vertical" />
                     <filter name="open" string="Open" domain="[('state','=','open')]" />
                     <separator orientation="vertical" />
-                    <filter name="pending" string="Pending"
-                        domain="[('state','=','pending')]" />
+                    <filter
+                        name="pending"
+                        string="Pending"
+                        domain="[('state','=','pending')]"
+                    />
                     <separator orientation="vertical" />
-                    <filter name="cancelled" string="Cancelled" domain="[('state','=','cancel')]" />
+                    <filter
+                        name="cancelled"
+                        string="Cancelled"
+                        domain="[('state','=','cancel')]"
+                    />
                     <separator orientation="vertical" />
                     <filter name="done" string="Done" domain="[('state','=','done')]" />
                 </group>
                 <newline />
                 <group expand="0" string="Group By...">
-                    <filter name="product_owner" string="Product owner" domain="[]"
-                        context="{'group_by':'product_owner_id'}" />
+                    <filter
+                        name="product_owner"
+                        string="Product owner"
+                        domain="[]"
+                        context="{'group_by':'product_owner_id'}"
+                    />
                     <separator orientation="vertical" />
-                    <filter name="scrum_master" string="Scrum Master" domain="[]"
-                        context="{'group_by':'scrum_master_id'}" />
+                    <filter
+                        name="scrum_master"
+                        string="Scrum Master"
+                        domain="[]"
+                        context="{'group_by':'scrum_master_id'}"
+                    />
                     <separator orientation="vertical" />
-                    <filter name="project" string="Project" domain="[]"
-                        context="{'group_by':'project_id'}" />
+                    <filter
+                        name="project"
+                        string="Project"
+                        domain="[]"
+                        context="{'group_by':'project_id'}"
+                    />
                     <separator orientation="vertical" />
-                    <filter name="month" string="Month" domain="[]"
-                        context="{'group_by':'date_start'}" help="Sprint Month" />
+                    <filter
+                        name="month"
+                        string="Month"
+                        domain="[]"
+                        context="{'group_by':'date_start'}"
+                        help="Sprint Month"
+                    />
                 </group>
             </search>
         </field>
