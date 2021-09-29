@@ -9,6 +9,7 @@ class ProjectScrumSprint(models.Model):
     _name = "project.scrum.sprint"
     _description = "Project Scrum Sprint"
     _order = "date_start desc"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     def get_current_sprint(self, project_id):
         scrum_obj = self.env["project.scrum.sprint"]
@@ -54,7 +55,7 @@ class ProjectScrumSprint(models.Model):
         comodel_name="project.project",
         string="Project",
         ondelete="cascade",
-        track_visibility="onchange",
+        tracking=True,
         change_default=True,
         required=True,
         index=True,
@@ -109,8 +110,6 @@ class ProjectScrumSprint(models.Model):
         help="Gives the sequence order when displaying a list of tasks.",
     )
     planned_hours = fields.Float(
-        multi="planned_hours",
-        string="Planned Hours",
         help="Estimated time to do the task, "
         "usually set by the project manager when the task is in draft state.",
     )
@@ -122,7 +121,6 @@ class ProjectScrumSprint(models.Model):
             ("cancel", "Cancelled"),
             ("done", "Done"),
         ],
-        string="State",
         required=False,
     )
     company_id = fields.Many2one(
