@@ -1,6 +1,6 @@
 # Copyright <2017> <Tenovar Ltd>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 
 class ProjectScrumMeeting(models.Model):
@@ -13,7 +13,7 @@ class ProjectScrumMeeting(models.Model):
         string="Project",
         ondelete="cascade",
         index=True,
-        track_visibility="onchange",
+        tracking=True,
         change_default=True,
         required=True,
     )
@@ -53,7 +53,6 @@ class ProjectScrumMeeting(models.Model):
         related="project_id.company_id",
     )
 
-    @api.multi
     def name_get(self):
         result = []
         for rec in self:
@@ -69,7 +68,6 @@ class ProjectScrumMeeting(models.Model):
             result.append((rec.id, name))
         return result
 
-    @api.multi
     def send_email(self):
         self.ensure_one()
         template = self.env.ref("project_scrum.email_template_id", False)
