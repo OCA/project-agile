@@ -7,6 +7,7 @@ class ProjectScrumTest(models.Model):
     _name = "project.scrum.test"
     _order = "sequence_test"
     _description = "Project Scrum Test"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(required=True)
     project_id = fields.Many2one(
@@ -15,7 +16,7 @@ class ProjectScrumTest(models.Model):
         ondelete="cascade",
         index=True,
         required=True,
-        track_visibility="onchange",
+        tracking=True,
         change_default=True,
     )
     sprint_id = fields.Many2one(

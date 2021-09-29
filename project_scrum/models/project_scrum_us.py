@@ -5,7 +5,7 @@ from odoo import api, fields, models
 
 class ProjectScrumUs(models.Model):
     _name = "project.scrum.us"
-    _description = "Project Scrum Use Stories"
+    _description = "Project Scrum User Stories"
     _order = "reference"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
@@ -32,9 +32,7 @@ class ProjectScrumUs(models.Model):
 
     name = fields.Char(string="User Story", required=True)
     color = fields.Integer(related="project_id.color")
-    description = fields.Html(
-        string="Description",
-    )
+    description = fields.Html()
     actor_ids = fields.Many2many(
         comodel_name="project.scrum.actors",
         string="Actor",
@@ -42,9 +40,9 @@ class ProjectScrumUs(models.Model):
     project_id = fields.Many2one(
         comodel_name="project.project",
         string="Project",
-        ondelete="set null",
+        ondelete="restrict",
         index=True,
-        track_visibility="onchange",
+        tracking=True,
         change_default=True,
         required=True,
     )
@@ -69,10 +67,10 @@ class ProjectScrumUs(models.Model):
     test_count = fields.Integer(compute="_compute_test_count", store=True)
     sequence = fields.Integer()
     company_id = fields.Many2one(related="project_id.company_id", store=True)
-    moscow = fields.Selection("_get_moscow_field", string="Moscow")
-    value = fields.Selection("_get_value_field", string="Value")
-    risk = fields.Selection("_get_risk_field", string="Risk")
-    kano = fields.Selection("_get_kano_field", string="Kano")
+    moscow = fields.Selection("_get_moscow_field")
+    value = fields.Selection("_get_value_field")
+    risk = fields.Selection("_get_risk_field")
+    kano = fields.Selection("_get_kano_field")
     reference = fields.Char(
         "Number",
         index=True,
@@ -86,7 +84,6 @@ class ProjectScrumUs(models.Model):
             ("blocked", "Mark as waiting"),
             ("done", "Mark item as defined and ready for implementation"),
         ],
-        "Kanban State",
         default="blocked",
     )
 

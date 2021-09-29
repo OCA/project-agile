@@ -3,7 +3,6 @@
 import logging
 
 from odoo import SUPERUSER_ID, fields, models
-from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 _logger = logging.getLogger(__name__)
@@ -106,7 +105,6 @@ class TestProjectScrum(TransactionCase):
             "name": "A Task",
             "user_id": SUPERUSER_ID,
             "sprint_id": self.project_scrum_sprint.id,
-            "date_start": fields.Datetime.now(),
             "description": "<p>Description</p>",
             "moscow": self.project_scrum_us_obj._get_moscow_field()[-1][0],
             "value": self.project_scrum_us_obj._get_value_field()[-1][0],
@@ -119,7 +117,7 @@ class TestProjectScrum(TransactionCase):
 
     def _test_get_formview_id(self):
         self.project_task.write({"project_id": self.project_project.id})
-        self.assertEquals(
+        self.assertEqual(
             self.project_task.get_formview_id(),
             self.env.ref("project_scrum.view_ps_sprint_task_form2").id,
         )
@@ -130,8 +128,6 @@ class TestProjectScrum(TransactionCase):
         )
         # reset data as before testing function
         self.project_project.write({"use_scrum": True})
-        with self.assertRaises(UserError):
-            self.project_task.write({"project_id": False})
 
     def _test_read(self):
         _logger.debug("Testing read")
@@ -139,7 +135,7 @@ class TestProjectScrum(TransactionCase):
             attr = getattr(self.project_project, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr,
                 self.project_project_vals[key],
             )
@@ -147,7 +143,7 @@ class TestProjectScrum(TransactionCase):
             attr = getattr(self.project_scrum_actors, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr,
                 self.project_scrum_actors_vals[key],
             )
@@ -158,7 +154,7 @@ class TestProjectScrum(TransactionCase):
             attr = getattr(self.project_scrum_meeting, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr,
                 self.project_scrum_meeting_vals[key],
             )
@@ -166,7 +162,7 @@ class TestProjectScrum(TransactionCase):
             attr = getattr(self.project_scrum_sprint, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr,
                 self.project_scrum_sprint_vals[key],
             )
@@ -174,7 +170,7 @@ class TestProjectScrum(TransactionCase):
             attr = getattr(self.project_scrum_sprint, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr,
                 self.project_scrum_test_vals[key],
             )
@@ -185,7 +181,7 @@ class TestProjectScrum(TransactionCase):
             attr = getattr(self.project_scrum_us, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr,
                 self.project_scrum_us_vals[key],
             )
@@ -196,14 +192,14 @@ class TestProjectScrum(TransactionCase):
             attr = getattr(self.project_task, key)
             if issubclass(type(attr), models.Model):
                 attr = attr.id
-            self.assertEquals(
+            self.assertEqual(
                 attr,
                 self.project_task_vals[key],
             )
 
     def _test_assertions(self):
         _logger.debug("Testing assertions")
-        self.assertEquals(
+        self.assertEqual(
             self.project_scrum_meeting.name_get()[0][1],
             "%s - %s - %s"
             % (
@@ -212,33 +208,30 @@ class TestProjectScrum(TransactionCase):
                 self.project_scrum_meeting.datetime_meeting,
             ),
         )
-        self.assertEquals(self.project_scrum_sprint.task_count, 1)
-        self.assertEquals(self.project_project.sprint_count, 1)
-        self.assertEquals(self.project_project.user_story_count, 1)
-        self.assertEquals(self.project_project.meeting_count, 1)
-        self.assertEquals(self.project_project.test_case_count, 1)
+        self.assertEqual(self.project_scrum_sprint.task_count, 1)
+        self.assertEqual(self.project_project.sprint_count, 1)
+        self.assertEqual(self.project_project.user_story_count, 1)
+        self.assertEqual(self.project_project.meeting_count, 1)
+        self.assertEqual(self.project_project.test_case_count, 1)
 
     def _test_write(self):
         _logger.debug("Testing write")
         self.project_project.write(self.project_project_vals)
         self.project_scrum_actors.write(self.project_scrum_actors_vals)
-        del self.project_scrum_meeting_vals["message_follower_ids"]
         self.project_scrum_meeting.with_context({"tracking_disable": True}).write(
             self.project_scrum_meeting_vals
         )
         self.project_scrum_sprint.write(self.project_scrum_sprint_vals)
         self.project_scrum_test.write(self.project_scrum_test_vals)
-        del self.project_scrum_us_vals["message_follower_ids"]
         self.project_scrum_us.write(self.project_scrum_us_vals)
-        del self.project_task_vals["message_follower_ids"]
         self.project_task.write(self.project_task_vals)
 
     def _test_unlink(self):
         _logger.debug("Testing unlinks")
-        self.assertEquals(self.project_scrum_actors.unlink(), True)
-        self.assertEquals(self.project_scrum_meeting.unlink(), True)
-        self.assertEquals(self.project_scrum_sprint.unlink(), True)
-        self.assertEquals(self.project_scrum_test.unlink(), True)
-        self.assertEquals(self.project_scrum_us.unlink(), True)
-        self.assertEquals(self.project_task.unlink(), True)
-        self.assertEquals(self.project_project.unlink(), True)
+        self.assertEqual(self.project_scrum_actors.unlink(), True)
+        self.assertEqual(self.project_scrum_meeting.unlink(), True)
+        self.assertEqual(self.project_scrum_sprint.unlink(), True)
+        self.assertEqual(self.project_scrum_test.unlink(), True)
+        self.assertEqual(self.project_scrum_us.unlink(), True)
+        self.assertEqual(self.project_task.unlink(), True)
+        self.assertEqual(self.project_project.unlink(), True)

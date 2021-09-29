@@ -125,7 +125,6 @@
     <record id="action_ps_meeting_all" model="ir.actions.act_window">
         <field name="name">Meetings</field>
         <field name="res_model">project.scrum.meeting</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,calendar</field>
         <field name="view_id" ref="view_ps_meeting_calendar" />
         <field name="context">{"search_default_current": 1}</field>
@@ -136,7 +135,6 @@
     <record id="action_ps_meeting_current" model="ir.actions.act_window">
         <field name="name">Meetings</field>
         <field name="res_model">project.scrum.meeting</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,calendar</field>
         <field name="view_id" ref="view_ps_meeting_calendar" />
         <field name="context">
