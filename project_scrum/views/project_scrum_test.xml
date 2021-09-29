@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_ps_tc_kanban" model="ir.ui.view">
@@ -17,16 +17,25 @@
                 <templates>
                     <t t-name="kanban-box">
                         <div
-                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
-                            <div class="o_dropdown_kanban dropdown"
-                                groups="base.group_user">
-                                <a class="dropdown-toggle btn"
+                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click"
+                        >
+                            <div
+                                class="o_dropdown_kanban dropdown"
+                                groups="base.group_user"
+                            >
+                                <a
+                                    class="dropdown-toggle btn"
                                     role="button"
-                                    data-toggle="dropdown" href="#">
+                                    data-toggle="dropdown"
+                                    href="#"
+                                >
                                     <span class="fa fa-bars fa-lg" />
                                 </a>
-                                <ul class="dropdown-menu" role="menu"
-                                    aria-labelledby="dLabel">
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu"
+                                    aria-labelledby="dLabel"
+                                >
                                     <t t-if="widget.editable">
                                         <li>
                                             <a type="edit">Edit Test Case
@@ -39,8 +48,10 @@
                                         </li>
                                     </t>
                                     <li>
-                                        <ul class="oe_kanban_colorpicker"
-                                            data-field="color" />
+                                        <ul
+                                            class="oe_kanban_colorpicker"
+                                            data-field="color"
+                                        />
                                     </li>
                                 </ul>
                             </div>
@@ -69,7 +80,8 @@
         <field name="arch" type="xml">
             <tree
                 colors="black:stats_test in ('draft'); blue:stats_test in ('pending');
-            grey:stats_test in ('cancel'); green:stats_test in('done')">
+            grey:stats_test in ('cancel'); green:stats_test in('done')"
+            >
                 <field name="name" />
                 <field name="sequence_test" />
                 <field name="project_id" />
@@ -87,21 +99,30 @@
         <field name="arch" type="xml">
             <form string="Test Cases">
                 <header>
-                    <field name="stats_test" string="State"
-                        widget="statusbar" clickable="True" />
+                    <field
+                        name="stats_test"
+                        string="State"
+                        widget="statusbar"
+                        clickable="True"
+                    />
                 </header>
                 <sheet string="Test Cases">
                     <h1>
-                        <field name="name" placeholder="Test Case..."
-                            class="oe_inline" />
+                        <field
+                            name="name"
+                            placeholder="Test Case..."
+                            class="oe_inline"
+                        />
                     </h1>
                     <group col="4">
 
                         <field name="sequence_test" />
                         <field name="project_id" />
-                        <field name="user_story_id_test"
+                        <field
+                            name="user_story_id_test"
                             domain="[('project_id', '=', project_id)]"
-                            context="{'default_project_id': project_id}" />
+                            context="{'default_project_id': project_id}"
+                        />
                     </group>
                     <notebook>
                         <page string="Description">
@@ -125,20 +146,32 @@
                 <field name="description_test" />
                 <field name="stats_test" />
                 <group string="Filter By...">
-                    <filter name="draft" string="Draft"
-                        domain="[('stats_test','=','draft')]" />
+                    <filter
+                        name="draft"
+                        string="Draft"
+                        domain="[('stats_test','=','draft')]"
+                    />
                     <separator orientation="vertical" />
                     <separator orientation="vertical" />
-                    <filter name="cancelled" string="Cancelled"
-                        domain="[('stats_test','=','cancel')]" />
+                    <filter
+                        name="cancelled"
+                        string="Cancelled"
+                        domain="[('stats_test','=','cancel')]"
+                    />
                 </group>
                 <newline />
                 <group expand="0" string="Group By...">
-                    <filter string="Project" name="group_by_project"
-                        context="{'group_by':'project_id'}" />
+                    <filter
+                        string="Project"
+                        name="group_by_project"
+                        context="{'group_by':'project_id'}"
+                    />
                     <separator orientation="vertical" />
-                    <filter string="User Story" name="group_by_us_test"
-                        context="{'group_by':'user_story_id_test'}" />
+                    <filter
+                        string="User Story"
+                        name="group_by_us_test"
+                        context="{'group_by':'user_story_id_test'}"
+                    />
                 </group>
             </search>
         </field>
@@ -171,5 +204,5 @@
         <field name="search_view_id" ref="view_ps_tc_search" />
         <field name="help">The test case.</field>
     </record>
- 
-</odoo> 
+
+</odoo>
