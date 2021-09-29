@@ -77,7 +77,6 @@ class ProjectTask(models.Model):
     use_scrum = fields.Boolean(related="project_id.use_scrum", readonly=1)
     current_sprint = fields.Boolean(
         compute="_compute_current_sprint",
-        string="Current Sprint",
         search="_search_current_sprint",
     )
     moscow = fields.Selection("_get_moscow_field")
@@ -132,8 +131,7 @@ class ProjectTask(models.Model):
         else:
             return [], None
 
-    @api.multi
     def get_formview_id(self, access_uid=None):
-        if all(self.mapped('use_scrum')):
-            return self.env.ref('project_scrum.view_ps_sprint_task_form2').id
+        if all(self.mapped("use_scrum")):
+            return self.env.ref("project_scrum.view_ps_sprint_task_form2").id
         return super().get_formview_id(access_uid)
