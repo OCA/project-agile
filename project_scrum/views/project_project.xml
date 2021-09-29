@@ -142,10 +142,7 @@
                     <span t-raw="record.description.value" />
                 </a>
             </xpath>
-            <a
-                name="%(project.act_project_project_2_project_task_all)d"
-                position="replace"
-            >
+            <a name="action_view_tasks" position="replace">
                 <a
                     name="%(act_project_tasks)d"
                     type="action"
@@ -212,7 +209,6 @@
     <record id="action_show_scrum_projects" model="ir.actions.act_window">
         <field name="name">Scrum Projects</field>
         <field name="res_model">project.project</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,form</field>
         <field name="search_view_id" ref="project.view_project_project_filter" />
         <field name="context">{'default_use_scrum': True}</field>
