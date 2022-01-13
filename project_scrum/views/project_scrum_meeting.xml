@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_ps_meeting_tree" model="ir.ui.view">
+        <field name="name">project.scrum.meeting.tree</field>
+        <field name="model">project.scrum.meeting</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Scrum Meeting">
+                <field name="datetime_meeting" />
+                <field name="user_id_meeting" />
+                <field name="sprint_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ps_meeting_form" model="ir.ui.view">
+        <field name="name">project.scrum.meeting.form</field>
+        <field name="model">project.scrum.meeting</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Scrum Meeting">
+                <sheet string="Daily Meeting">
+                    <group col="4">
+                        <field name="datetime_meeting" />
+                        <field name="user_id_meeting" />
+                        <field name="project_id" />
+                        <field
+                            name="sprint_id"
+                            domain="[('project_id', '=', project_id)]"
+                            context="{'default_project_id': project_id}"
+                        />
+                        <button
+                            name="send_email"
+                            string="Send Email"
+                            type="object"
+                            icon="terp-mail-message-new"
+                        />
+                    </group>
+                    <group>
+                        <separator
+                            colspan="4"
+                            string="What did you do since the last meeting?"
+                        />
+                        <field colspan="4" name="question_yesterday" nolabel="1" />
+                        <separator
+                            colspan="4"
+                            string="What do you plan to do till the next meeting?"
+                        />
+                        <field colspan="4" name="question_today" nolabel="1" />
+                        <separator
+                            colspan="4"
+                            string="Are there anything blocking you?"
+                        />
+                        <field colspan="4" name="question_blocks" nolabel="1" />
+                        <separator
+                            colspan="4"
+                            string="Are your Sprint Backlog estimate accurate ?"
+                        />
+                        <field colspan="4" name="question_backlog" nolabel="1" />
+                        <separator colspan="4" string="" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ps_meeting_calendar" model="ir.ui.view">
+        <field name="name">project.scrum.meeting.calendar</field>
+        <field name="model">project.scrum.meeting</field>
+        <field name="type">calendar</field>
+        <field name="arch" type="xml">
+            <calendar
+                string="Scrum Meeting"
+                date_start="datetime_meeting"
+                color="user_id_meeting"
+            >
+                <field name="user_id_meeting" />
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_ps_meeting_search" model="ir.ui.view">
+        <field name="name">project.scrum.meeting.search</field>
+        <field name="model">project.scrum.meeting</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Meeting">
+                <field name="project_id" />
+                <field name="sprint_id" />
+                <field name="datetime_meeting" />
+                <field name="user_id_meeting" />
+                <group expand="0" string="Group By...">
+                    <filter
+                        name="project"
+                        string="Project"
+                        domain="[]"
+                        context="{'group_by':'project_id'}"
+                    />
+                    <separator orientation="vertical" />
+                    <filter
+                        name="sprint"
+                        string="Sprint"
+                        domain="[]"
+                        context="{'group_by':'sprint_id'}"
+                    />
+                    <separator orientation="vertical" />
+                    <filter
+                        name="date"
+                        string="Date"
+                        domain="[]"
+                        context="{'group_by':'datetime_meeting'}"
+                    />
+                    <separator orientation="vertical" />
+                    <filter
+                        name="name"
+                        string="Name"
+                        domain="[]"
+                        context="{'group_by':'user_id_meeting'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ps_meeting_all" model="ir.actions.act_window">
+        <field name="name">Meetings</field>
+        <field name="res_model">project.scrum.meeting</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_id" ref="view_ps_meeting_calendar" />
+        <field name="context">{"search_default_current": 1}</field>
+        <field name="search_view_id" ref="view_ps_meeting_search" />
+        <field name="help">The daily meeting of scrum.</field>
+    </record>
+
+    <record id="action_ps_meeting_current" model="ir.actions.act_window">
+        <field name="name">Meetings</field>
+        <field name="res_model">project.scrum.meeting</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_id" ref="view_ps_meeting_calendar" />
+        <field name="context">
+            {
+            'search_default_project_id': [active_id],
+            'default_project_id': active_id,
+            'active_test': False,
+            }
+        </field>
+        <field name="search_view_id" ref="view_ps_meeting_search" />
+        <field name="help">The daily meeting of scrum.</field>
+    </record>
+
+</odoo>
