@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-04 15:25+0000\n"
-"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"PO-Revision-Date: 2023-04-07 18:28+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -505,7 +505,7 @@ msgstr "In corso"
 #: model:ir.model.fields,field_description:project_scrum.field_project_scrum_test__message_is_follower
 #: model:ir.model.fields,field_description:project_scrum.field_project_scrum_us__message_is_follower
 msgid "Is Follower"
-msgstr "Segue"
+msgstr "Sta seguendo"
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_kanban
