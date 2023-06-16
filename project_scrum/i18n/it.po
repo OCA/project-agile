@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-26 15:34+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2023-09-03 13:35+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: project_scrum
 #: model:mail.template,body_html:project_scrum.email_template_id
@@ -515,7 +515,7 @@ msgstr "Elementi"
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_scrum_us__kanban_state
 msgid "Kanban State"
-msgstr "Stato kanban"
+msgstr "Stato Kanban"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_scrum_us__kano
@@ -583,7 +583,7 @@ msgstr "Segna elemento come definito e pronto per implementazione"
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_meeting_search
 msgid "Meeting"
-msgstr "Meeting"
+msgstr "Riunione"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_scrum_meeting__user_id_meeting
@@ -596,7 +596,7 @@ msgstr "Organizzatore meeting"
 #: model:ir.model.fields,field_description:project_scrum.field_project_project__meeting_ids
 #: model:ir.ui.menu,name:project_scrum.menu_action_ps_meeting_all
 msgid "Meetings"
-msgstr "Meetings"
+msgstr "Riunioni"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_scrum_meeting__message_has_error
@@ -662,7 +662,7 @@ msgstr "Riepilogo prossima attività"
 #: model:ir.model.fields,field_description:project_scrum.field_project_scrum_test__activity_type_id
 #: model:ir.model.fields,field_description:project_scrum.field_project_scrum_us__activity_type_id
 msgid "Next Activity Type"
-msgstr "Tipologia prossima attività"
+msgstr "Tipo prossima attività"
 
 #. module: project_scrum
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_scrum_meeting__question_backlog__no
@@ -877,7 +877,7 @@ msgstr "Lavori Scrum"
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_meeting_form
 msgid "Send Email"
-msgstr "Invia email"
+msgstr "Invia e-mail"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__sequence
