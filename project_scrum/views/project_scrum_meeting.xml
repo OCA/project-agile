@@ -5,7 +5,7 @@
         <field name="model">project.scrum.meeting</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="Scrum Meeting">
+            <tree>
                 <field name="datetime_meeting" />
                 <field name="user_id_meeting" />
                 <field name="sprint_id" />
