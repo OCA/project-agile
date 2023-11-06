@@ -108,7 +108,7 @@ class ProjectScrumUs(models.Model):
             return context["default_project_id"]
         if isinstance(context.get("default_project_id"), str):
             project_name = context["default_project_id"]
-            project_ids = project_project_model.with_context(context)
+            project_ids = project_project_model.with_context(**context)
             project_ids = project_ids.name_search(project_name, operator="=")
             if not project_ids:
                 project_ids = project_ids.name_search(
