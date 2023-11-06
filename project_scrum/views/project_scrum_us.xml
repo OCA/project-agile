@@ -70,25 +70,25 @@
                                 </div>
                                 <div>
                                     <a t-if="record.task_count.raw_value">
-                                        <t t-raw="record.task_count.raw_value" />
+                                        <t t-out="record.task_count.raw_value" />
                                         Tasks
                                     </a>
                                 </div>
                                 <div>
                                     <a t-if="record.test_count.raw_value">
-                                        <t t-raw="record.test_count.raw_value" />
+                                        <t t-out="record.test_count.raw_value" />
                                         Test Cases
                                     </a>
                                 </div>
                                 <div>
                                     <a t-if="record.value.raw_value">
-                                        <t t-raw="record.value.raw_value" />
+                                        <t t-out="record.value.raw_value" />
                                         Value
                                     </a>
                                 </div>
                                 <div>
                                     <a t-if="record.risk.raw_value">
-                                        <t t-raw="record.risk.raw_value" />
+                                        <t t-out="record.risk.raw_value" />
                                         Risk
                                     </a>
                                 </div>
@@ -186,7 +186,7 @@
                                     'default_user_story_id_test': id,
                                     }"
                             >
-                                <tree name="test_ids" string="Test Cases">
+                                <tree name="test_ids">
                                     <field name="name" />
                                     <field name="stats_test" />
                                 </tree>
