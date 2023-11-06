@@ -11,7 +11,6 @@
                 decoration-warning="state in ('pending')"
                 decoration-primary="state in('open')"
                 decoration-success="state in('done')"
-                string="Scrum Sprint"
             >
                 <field name="name" />
                 <!--name of sprint -->

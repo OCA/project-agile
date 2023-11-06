@@ -139,7 +139,7 @@
             <xpath expr="//div[hasclass('o_kanban_primary_left')]" position='after'>
                 <a t-if="record.description.raw_value">
                     <span>Project Description</span>
-                    <span t-raw="record.description.value" />
+                    <span t-out="record.description.value" />
                 </a>
             </xpath>
             <a name="action_view_tasks" position="replace">
@@ -149,7 +149,7 @@
                     style="margin-right: 10px"
                 >
                     <span class="o_value">
-                        <t t-esc="record.task_count.raw_value" />
+                        <t t-out="record.task_count.raw_value" />
                     </span>
                     <span class="o_value">
                         <t t-if="record.use_scrum.raw_value">Items</t>
@@ -165,7 +165,7 @@
                     style="margin-right: 10px"
                 >
                     <span class="o_value">
-                        <t t-esc="record.sprint_count.raw_value" />
+                        <t t-out="record.sprint_count.raw_value" />
                     </span>
                     <span class="o_label">Sprints</span>
                 </a>
@@ -176,7 +176,7 @@
                     style="margin-right: 10px"
                 >
                     <span class="o_value">
-                        <t t-esc="record.user_story_count.raw_value" />
+                        <t t-out="record.user_story_count.raw_value" />
                     </span>
                     <span class="o_label">User Stories</span>
                 </a>
@@ -187,7 +187,7 @@
                     style="margin-right: 10px"
                 >
                     <span class="o_value">
-                        <t t-esc="record.meeting_count.raw_value" />
+                        <t t-out="record.meeting_count.raw_value" />
                     </span>
                     <span class="o_label">Meetings</span>
                 </a>
@@ -198,7 +198,7 @@
                     style="margin-right: 10px"
                 >
                     <span class="o_value">
-                        <t t-esc="record.test_case_count.raw_value" />
+                        <t t-out="record.test_case_count.raw_value" />
                     </span>
                     <span class="o_label">Test Cases</span>
                 </a>

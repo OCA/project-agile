@@ -12,15 +12,16 @@ class TestProjectScrum(TransactionCase):
 
     post_install = True
 
-    def setUp(self):
-        super().setUp()
-        self.project_project_obj = self.env["project.project"]
-        self.project_scrum_actors_obj = self.env["project.scrum.actors"]
-        self.project_scrum_meeting_obj = self.env["project.scrum.meeting"]
-        self.project_scrum_sprint_obj = self.env["project.scrum.sprint"]
-        self.project_scrum_test_obj = self.env["project.scrum.test"]
-        self.project_scrum_us_obj = self.env["project.scrum.us"]
-        self.project_task_obj = self.env["project.task"]
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass(cls)
+        cls.project_project_obj = cls.env["project.project"]
+        cls.project_scrum_actors_obj = cls.env["project.scrum.actors"]
+        cls.project_scrum_meeting_obj = cls.env["project.scrum.meeting"]
+        cls.project_scrum_sprint_obj = cls.env["project.scrum.sprint"]
+        cls.project_scrum_test_obj = cls.env["project.scrum.test"]
+        cls.project_scrum_us_obj = cls.env["project.scrum.us"]
+        cls.project_task_obj = cls.env["project.task"]
 
     def test_crud_operations(self):
         _logger.debug("Testing CRUD operations on the models of project_scrum")
@@ -218,7 +219,7 @@ class TestProjectScrum(TransactionCase):
         _logger.debug("Testing write")
         self.project_project.write(self.project_project_vals)
         self.project_scrum_actors.write(self.project_scrum_actors_vals)
-        self.project_scrum_meeting.with_context({"tracking_disable": True}).write(
+        self.project_scrum_meeting.with_context(tracking_disable=True).write(
             self.project_scrum_meeting_vals
         )
         self.project_scrum_sprint.write(self.project_scrum_sprint_vals)
