@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="email_template_id" model="mail.template">
+        <field name="name">Email
+            Template for Meeting
+        </field>
+        <field name="email_from">${object.user_id_meeting
+            or ''}
+        </field>
+        <field name="subject">${object.datetime_meeting or ''}</field>
+        <field name="model_id" ref="project_scrum.model_project_scrum_meeting" />
+        <field name="auto_delete" eval="True" />
+        <field name="email_to">${object.user_id_meeting
+            or ''}
+        </field>
+        <field
+            name="body_html"
+        > <![CDATA[ <div style="font-family:
+        'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 16px; color:
+        rgb(34, 34, 34); background-color: rgb(255, 255, 255); "> <p>Name: ${object.user_id_meeting}</p>
+        <p>Date: ${object.datetime_meeting}</p> <br/> <p style="color:blue"><font-size="14">What
+        did you do since the last meeting?</font></p> ${object.question_yesterday}
+        <br/><br/> <p style="color:blue"><font-size="14">What do you plan to do till
+        the next meeting?</font></p> ${object.question_today} <br/><br/> <p style="color:blue"><font-size="14">Are
+        there anything blocking you?</font></p> ${object.question_blocks} <br/><br/>
+        </div> ]]>
+        </field>
+    </record>
+
+</odoo>
