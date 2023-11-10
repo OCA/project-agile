@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="group_role_product_owner" model="res.groups">
+        <field name="name">Scrum Role Product Owner</field>
+    </record>
+
+    <record id="group_role_scrum_master" model="res.groups">
+        <field name="name">Scrum Role Scrum Master</field>
+    </record>
+
+    <record id="group_role_development_team" model="res.groups">
+        <field name="name">Scrum Role Development Team</field>
+    </record>
+
+</odoo>

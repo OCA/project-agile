@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_ps_tc_kanban" model="ir.ui.view">
+        <field name="name">project.scrum.test.kanban</field>
+        <field name="model">project.scrum.test</field>
+        <field name="type">kanban</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="project_id">
+                <field name="color" />
+                <field name="name" />
+                <field name="sequence_test" />
+                <field name="project_id" />
+                <field name="user_story_id_test" />
+                <field name="description_test" />
+                <field name="stats_test" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click"
+                        >
+                            <div
+                                class="o_dropdown_kanban dropdown"
+                                groups="base.group_user"
+                            >
+                                <a
+                                    class="dropdown-toggle btn"
+                                    role="button"
+                                    data-toggle="dropdown"
+                                    href="#"
+                                    title="Dropdown menu"
+                                >
+                                    <span class="fa fa-bars fa-lg" />
+                                </a>
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu"
+                                    aria-labelledby="dLabel"
+                                >
+                                    <t t-if="widget.editable">
+                                        <li>
+                                            <a type="edit">Edit Test Case
+                                            </a>
+                                        </li>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <li>
+                                            <a type="delete">Delete</a>
+                                        </li>
+                                    </t>
+                                    <li>
+                                        <ul
+                                            class="oe_kanban_colorpicker"
+                                            data-field="color"
+                                        />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <div>
+                                    <b>
+                                        <field name="name" />
+                                    </b>
+                                </div>
+                                <div>
+                                    <field name="stats_test" />
+                                </div>
+                            </div>
+                            <div class="oe_clear" />
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_ps_tc_tree" model="ir.ui.view">
+        <field name="name">project.scrum.test.tree</field>
+        <field name="model">project.scrum.test</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-bf="stats_test in ('draft')"
+                decoration-primary="stats_test in ('pending')"
+                decoration-muted="stats_test in ('cancel')"
+                decoration-success="stats_test in('done')"
+            >
+                <field name="name" />
+                <field name="sequence_test" />
+                <field name="project_id" />
+                <field name="user_story_id_test" />
+                <field name="description_test" />
+                <field name="stats_test" />
+            </tree>
+        </field>
+    </record>
+    <!--test case form view -->
+    <record id="view_ps_tc_form" model="ir.ui.view">
+        <field name="name">project.scrum.test.form</field>
+        <field name="model">project.scrum.test</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Test Cases">
+                <header>
+                    <field
+                        name="stats_test"
+                        string="State"
+                        widget="statusbar"
+                        clickable="True"
+                    />
+                </header>
+                <sheet string="Test Cases">
+                    <h1>
+                        <field
+                            name="name"
+                            placeholder="Test Case..."
+                            class="oe_inline"
+                        />
+                    </h1>
+                    <group col="4">
+
+                        <field name="sequence_test" />
+                        <field name="project_id" />
+                        <field
+                            name="user_story_id_test"
+                            domain="[('project_id', '=', project_id)]"
+                            context="{'default_project_id': project_id}"
+                        />
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description_test" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ps_tc_search" model="ir.ui.view">
+        <field name="name">project.scrum.test.search</field>
+        <field name="model">project.scrum.test</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Test Cases">
+                <field name="name" />
+                <field name="project_id" />
+                <field name="user_story_id_test" />
+                <field name="description_test" />
+                <field name="stats_test" />
+                <group string="Filter By...">
+                    <filter
+                        name="draft"
+                        string="Draft"
+                        domain="[('stats_test','=','draft')]"
+                    />
+                    <separator orientation="vertical" />
+                    <separator orientation="vertical" />
+                    <filter
+                        name="cancelled"
+                        string="Cancelled"
+                        domain="[('stats_test','=','cancel')]"
+                    />
+                </group>
+                <newline />
+                <group expand="0" string="Group By...">
+                    <filter
+                        string="Project"
+                        name="group_by_project"
+                        context="{'group_by':'project_id'}"
+                    />
+                    <separator orientation="vertical" />
+                    <filter
+                        string="User Story"
+                        name="group_by_us_test"
+                        context="{'group_by':'user_story_id_test'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ps_tc_all" model="ir.actions.act_window">
+        <field name="name">Test Case</field>
+        <field name="res_model">project.scrum.test</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_ps_tc_kanban" />
+        <field name="context">{"search_default_current": 1}</field>
+        <field name="search_view_id" ref="view_ps_tc_search" />
+        <field name="help">The test case.</field>
+    </record>
+    <!--access to current test case kanban view -->
+    <record id="action_ps_tc_current" model="ir.actions.act_window">
+        <field name="name">Test Case</field>
+        <field name="res_model">project.scrum.test</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_ps_tc_kanban" />
+        <field name="context">
+            {
+            'search_default_project_id': [active_id],
+            'default_project_id': active_id,
+            'active_test': False,
+            }
+        </field>
+        <field name="search_view_id" ref="view_ps_tc_search" />
+        <field name="help">The test case.</field>
+    </record>
+
+</odoo>
