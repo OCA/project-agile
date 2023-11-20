@@ -22,7 +22,7 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.edit_project" />
         <field name="arch" type="xml">
-            <xpath expr="//div[@name='options_active']" position="inside">
+            <xpath expr="//field[@name='tag_ids']" position="after">
                 <div>
                     <field name="use_scrum" class="oe_inline" />
                     <label for="use_scrum" string="Use Scrum" />
@@ -70,7 +70,7 @@
         <field name="priority">99</field>
         <field name="inherit_id" ref="project.edit_project" />
         <field name="arch" type="xml">
-            <button name="attachment_tree_view" position="before">
+            <button name="%(project.project_share_wizard_action)d" position="before">
                 <button
                     class="oe_inline oe_stat_button"
                     type="action"

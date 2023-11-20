@@ -14,7 +14,7 @@ class TestProjectScrum(TransactionCase):
 
     @classmethod
     def setUpClass(cls):
-        super().setUpClass(cls)
+        super().setUpClass()
         cls.project_project_obj = cls.env["project.project"]
         cls.project_scrum_actors_obj = cls.env["project.scrum.actors"]
         cls.project_scrum_meeting_obj = cls.env["project.scrum.meeting"]
