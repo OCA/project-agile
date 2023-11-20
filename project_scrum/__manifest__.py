@@ -11,7 +11,7 @@
         "base_setup",
         "project",
         "project_task_code",
-        "project_stage_state",
+        "project_task_stage_state",
         "mail",
         "hr_timesheet",
     ],

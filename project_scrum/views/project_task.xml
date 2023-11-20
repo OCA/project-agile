@@ -8,10 +8,10 @@
         <field name="mode">primary</field>
         <field name="priority">99</field>
         <field name="arch" type="xml">
-            <field name="project_id" position="after">
+            <field name="parent_id" position="after">
                 <field name="sprint_id" />
             </field>
-            <filter name="project" position="after">
+            <filter name="unassigned" position="after">
                 <filter
                     string="Sprint"
                     name="group_by_sprint"

@@ -171,7 +171,7 @@
                                 <tree>
                                     <field name="sequence" widget="handle" />
                                     <field name="name" />
-                                    <field name="user_id" />
+<!--                                    <field name="user_id" />-->
                                     <field name="date_deadline" />
                                     <field name="stage_id" />
                                 </tree>
