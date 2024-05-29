@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.actions.server" id="ps_action_server_creat_test_task">
+        <field name="name">Create Tasks from Test Cases</field>
+        <field name="model_id" ref="model_project_scrum_sprint" />
+        <field name="state">code</field>
+        <field name="type">ir.actions.server</field>
+        <field name="code">self.test_task(cr, uid, object, pool)</field>
+        <field name="binding_model_id" ref="model_project_scrum_sprint" />
+    </record>
+
+</odoo>
