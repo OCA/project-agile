@@ -8,7 +8,7 @@
         <field name="mode">primary</field>
         <field name="priority">99</field>
         <field name="arch" type="xml">
-            <field name="parent_id" position="after">
+            <field name="partner_id" position="after">
                 <field name="sprint_id" />
             </field>
             <filter name="unassigned" position="after">
