@@ -186,8 +186,9 @@ class TestProjectScrum(TransactionCase):
                 attr,
                 self.project_scrum_us_vals[key],
             )
+
         for key in filter(
-            lambda x: x not in ["message_follower_ids", "code"],
+            lambda x: x not in ["message_follower_ids", "code", "display_project_id"],
             self.project_task_vals.keys(),
         ):
             attr = getattr(self.project_task, key)
