@@ -26,36 +26,34 @@
                                 <a
                                     class="dropdown-toggle btn"
                                     role="button"
-                                    data-toggle="dropdown"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-display="static"
                                     href="#"
+                                    aria-label="Dropdown menu"
                                     title="Dropdown menu"
                                 >
                                     <span class="fa fa-bars fa-lg" />
                                 </a>
-                                <ul
-                                    class="dropdown-menu"
-                                    role="menu"
-                                    aria-labelledby="dLabel"
-                                >
+                                <div class="dropdown-menu" role="menu">
                                     <t t-if="widget.editable">
-                                        <li>
-                                            <a type="edit">Edit User
-                                                Story
-                                            </a>
-                                        </li>
+                                        <a
+                                            role="menuitem"
+                                            type="edit"
+                                            class="dropdown-item"
+                                        >Edit User Story</a>
                                     </t>
                                     <t t-if="widget.deletable">
-                                        <li>
-                                            <a type="delete">Delete</a>
-                                        </li>
+                                        <a
+                                            role="menuitem"
+                                            type="delete"
+                                            class="dropdown-item"
+                                        >Delete</a>
                                     </t>
-                                    <li>
-                                        <ul
-                                            class="oe_kanban_colorpicker"
-                                            data-field="color"
-                                        />
-                                    </li>
-                                </ul>
+                                    <ul
+                                        class="oe_kanban_colorpicker"
+                                        data-field="color"
+                                    />
+                                </div>
                             </div>
 
                             <div class="oe_kanban_content">
