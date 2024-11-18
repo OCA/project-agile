@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem
+        id="menu_action_ps_epic_all"
+        parent="project_scrum.menu_scrum_all"
+        sequence="24"
+        action="action_ps_epic_all"
+    />
+</odoo>

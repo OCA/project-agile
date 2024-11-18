@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_ps_task_search" model="ir.ui.view">
+        <field name="name">project.scrum.sprint.task</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_scrum.view_ps_task_search" />
+        <field name="arch" type="xml">
+            <filter name="project" position="after">
+                <filter
+                    string="Epic"
+                    name="group_by_epic"
+                    context="{'group_by':'epic_id'}"
+                />
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_ps_sprint_task_form2" model="ir.ui.view">
+        <field name="name">project.scrum.task.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_scrum.view_ps_sprint_task_form2" />
+        <field name="arch" type="xml">
+            <field name="us_id" position="after">
+                <field
+                    string="Epic"
+                    name="epic_id"
+                    context="{'default_project_id':project_id}"
+                    domain="[('project_id', '=', project_id)]"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_ps_sprint_task_tree2" model="ir.ui.view">
+        <field name="name">project.scrum.task.tree</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_scrum.view_ps_sprint_task_tree2" />
+        <field name="arch" type="xml">
+            <field name="stage_id" position="after">
+                <field
+                    string="Epic"
+                    name="epic_id"
+                    domain="[('project_id', '=', project_id)]"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
