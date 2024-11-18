@@ -1,4 +1,4 @@
-* Mohamed Habib Challouf <medhabib@tenovar.com>
-* Samir Guesmi <samir@tenovar.com>
-* George Daramouskas <gdaramouskas@therp.nl>
-* Alan Ramos <alan.ramos@jarsa.com.mx>
+* `Binhex <https://www.binhex.cloud>_`:
+
+  * Adasat Torres de León <a.torres@binhex.cloud>
+

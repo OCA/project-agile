@@ -1,3 +1,3 @@
-# Copyright 2018 Therp BV <http://therp.nl>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from . import test_project_scrum
+from . import test_project_sprint
+from . import test_project_project
+from . import test_project_task
