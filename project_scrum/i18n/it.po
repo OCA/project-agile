@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-11-28 23:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: project_scrum
 #. odoo-python
@@ -20,7 +22,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__1_months
 #, python-format
 msgid "1 Month"
-msgstr ""
+msgstr "1 mese"
 
 #. module: project_scrum
 #. odoo-python
@@ -28,7 +30,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__1_weeks
 #, python-format
 msgid "1 Week"
-msgstr ""
+msgstr "1 settimana"
 
 #. module: project_scrum
 #. odoo-python
@@ -36,7 +38,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__1_years
 #, python-format
 msgid "1 Year"
-msgstr ""
+msgstr "1 anno"
 
 #. module: project_scrum
 #. odoo-python
@@ -44,7 +46,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__2_months
 #, python-format
 msgid "2 Month"
-msgstr ""
+msgstr "2 mesi"
 
 #. module: project_scrum
 #. odoo-python
@@ -52,7 +54,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__2_weeks
 #, python-format
 msgid "2 Weeks"
-msgstr ""
+msgstr "2 settimane"
 
 #. module: project_scrum
 #. odoo-python
@@ -60,7 +62,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__2_years
 #, python-format
 msgid "2 Years"
-msgstr ""
+msgstr "2 anni"
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_form
@@ -69,6 +71,9 @@ msgid ""
 "                                Tasks\n"
 "                            </span>"
 msgstr ""
+"<span class=\"o_stat_text\">\n"
+"                                Lavori\n"
+"                            </span>"
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_project_view_form_inherit
@@ -77,6 +82,9 @@ msgid ""
 "                            Backlog\n"
 "                        </span>"
 msgstr ""
+"<span class=\"o_stat_text\">\n"
+"                            Backlog\n"
+"                        </span>"
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_project_view_form_inherit
@@ -85,36 +93,39 @@ msgid ""
 "                            Sprints\n"
 "                        </span>"
 msgstr ""
+"<span class=\"o_stat_text\">\n"
+"                            Sprint\n"
+"                        </span>"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Azione richiesta"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_ids
 msgid "Activities"
-msgstr ""
+msgstr "Attività"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr ""
+msgstr "Decorazione eccezione attività"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_state
 msgid "Activity State"
-msgstr ""
+msgstr "Stato attività"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_type_icon
 msgid "Activity Type Icon"
-msgstr ""
+msgstr "Icona tipo attività"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Conteggio allegati"
 
 #. module: project_scrum
 #. odoo-python
@@ -122,22 +133,22 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_project_view_kanban_inherit
 #, python-format
 msgid "Backlog"
-msgstr ""
+msgstr "Backlog"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_project__backlog_count
 msgid "Backlog Count"
-msgstr ""
+msgstr "Conteggio backlog"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: project_scrum
 #. odoo-python
@@ -145,50 +156,50 @@ msgstr ""
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__custom
 #, python-format
 msgid "Custom"
-msgstr ""
+msgstr "Personalizzato"
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_search
 msgid "Date End"
-msgstr ""
+msgstr "Data fine"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__date_option
 msgid "Date Option"
-msgstr ""
+msgstr "Opzione data"
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_search
 msgid "Date Start"
-msgstr ""
+msgstr "Data inizio"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__description
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: project_scrum
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__state__done
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_form
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_search
 msgid "Done"
-msgstr ""
+msgstr "Eseguito"
 
 #. module: project_scrum
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__state__draft
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_search
 msgid "Draft"
-msgstr ""
+msgstr "Bozza"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__date_end
 msgid "End Date"
-msgstr ""
+msgstr "Data fine"
 
 #. module: project_scrum
 #. odoo-python
@@ -196,197 +207,197 @@ msgstr ""
 #: model:ir.model.constraint,message:project_scrum.constraint_project_sprint_date_check
 #, python-format
 msgid "Error: End date must be greater than start date!"
-msgstr ""
+msgstr "Errore: la data fine deve essere maggiore della data inizio!"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Seguito da"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Seguito da (partner)"
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr ""
+msgstr "Icona Font Awesome es. fa-tasks"
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_search
 msgid "Group By"
-msgstr ""
+msgstr "Raggruppa per"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Ha un messaggio"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_exception_icon
 msgid "Icon"
-msgstr ""
+msgstr "Icona"
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "Icona per indicare un'attività eccezione."
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Se selezionata, nuovi messaggi richiedono attenzione."
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Se selezionata, alcuni messaggi hanno un errore di consegna."
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_search
 msgid "In Progress"
-msgstr ""
+msgstr "In corso"
 
 #. module: project_scrum
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__state__in_progress
 msgid "In progress"
-msgstr ""
+msgstr "In corso"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "Segue"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultimo aggiornamento di"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_main_attachment_id
 msgid "Main Attachment"
-msgstr ""
+msgstr "Allegato principale"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__user_ids
 msgid "Members"
-msgstr ""
+msgstr "Membri"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Errore di consegna messaggio"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Messaggi"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr ""
+msgstr "Scadenza mia attività"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__name
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr ""
+msgstr "Scadenza prossima attività"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_summary
 msgid "Next Activity Summary"
-msgstr ""
+msgstr "Riepilogo prossima attività"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
+msgstr "Tipo prossima attività"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Numero di azioni"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Numero di errori"
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Numero di messaggi che richiedono un'azione"
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Numero di messaggi con errore di consegna"
 
 #. module: project_scrum
 #: model:ir.model,name:project_scrum.model_project_project
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__project_id
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_search
 msgid "Project"
-msgstr ""
+msgstr "Progetto"
 
 #. module: project_scrum
 #: model:ir.model,name:project_scrum.model_project_sprint
 msgid "Project Sprint"
-msgstr ""
+msgstr "Sprint progetto"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_user_id
 msgid "Responsible User"
-msgstr ""
+msgstr "Utente responsabile"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_task__sprint_id
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_task_inherit_search_view
 msgid "Sprint"
-msgstr ""
+msgstr "Sprint"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_project__sprint_count
 msgid "Sprint Count"
-msgstr ""
+msgstr "Conteggio sprint"
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_task_inherit_search_view
 msgid "Sprint In Progress"
-msgstr ""
+msgstr "Sprint in corso"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_task__sprint_state
 msgid "Sprint State"
-msgstr ""
+msgstr "Stato sprint"
 
 #. module: project_scrum
 #. odoo-python
 #: code:addons/project_scrum/models/project.py:0
 #, python-format
 msgid "Sprint Timeline"
-msgstr ""
+msgstr "Timeline sprint"
 
 #. module: project_scrum
 #. odoo-python
@@ -398,28 +409,28 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:project_scrum.view_sprint_timeline
 #, python-format
 msgid "Sprints"
-msgstr ""
+msgstr "Sprint"
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_project_view_kanban_inherit
 msgid "Sprints Timeline"
-msgstr ""
+msgstr "Timeline print"
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_form
 msgid "Start"
-msgstr ""
+msgstr "Avvio"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__date_start
 msgid "Start Date"
-msgstr ""
+msgstr "Data inizio"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__state
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_search
 msgid "State"
-msgstr ""
+msgstr "Stato"
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__activity_state
@@ -429,11 +440,15 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
+"Stato in base alle attività\n"
+"Scaduto: la data richiesta è trascorsa\n"
+"Oggi: la data attività è oggi\n"
+"Pianificato: attività future."
 
 #. module: project_scrum
 #: model:ir.model,name:project_scrum.model_project_task
 msgid "Task"
-msgstr ""
+msgstr "Lavoro"
 
 #. module: project_scrum
 #. odoo-python
@@ -441,37 +456,37 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__task_ids
 #, python-format
 msgid "Tasks"
-msgstr ""
+msgstr "Lavori"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__tasks_count
 msgid "Tasks Count"
-msgstr ""
+msgstr "Conteggio lavori"
 
 #. module: project_scrum
 #. odoo-python
 #: code:addons/project_scrum/models/project_task.py:0
 #, python-format
 msgid "The assignees must be part of the sprint."
-msgstr ""
+msgstr "L'assegnatario deve essere parte dello sprint."
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr ""
+msgstr "Tipo di attività eccezione sul record."
 
 #. module: project_scrum
 #: model:ir.actions.server,name:project_scrum.cron_update_sprint_state_ir_actions_server
 #: model:ir.cron,cron_name:project_scrum.cron_update_sprint_state
 msgid "Update sprint state"
-msgstr ""
+msgstr "Aggiorna stato sprint"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Messaggi sito web"
 
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Cronologia comunicazioni sito web"
