@@ -58,13 +58,12 @@ class ProjectScrumMeeting(models.Model):
         for rec in self:
             name = ""
             if rec.project_id:
-                name = "%s - %s - %s" % (
-                    rec.project_id.name,
-                    rec.user_id_meeting.name,
-                    rec.datetime_meeting,
-                )
+                project_name = rec.project_id.name
+                meeting_name = rec.user_id_meeting.name
+                datetime = rec.datetime_meeting
+                name = f"{project_name} - {meeting_name} - {datetime}"
             else:
-                name = "%s - %s" % (rec.user_id_meeting.name, rec.datetime_meeting)
+                name = f"{rec.user_id_meeting.name} - {rec.datetime_meeting}"
             result.append((rec.id, name))
         return result
 
