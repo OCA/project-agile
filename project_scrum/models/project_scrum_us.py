@@ -9,10 +9,11 @@ class ProjectScrumUs(models.Model):
     _order = "reference"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    @api.model
-    def create(self, vals):
-        vals["reference"] = self.env["ir.sequence"].next_by_code("user.story")
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals["reference"] = self.env["ir.sequence"].next_by_code("user.story")
+        return super().create(vals_list)
 
     @api.model
     def _get_moscow_field(self):

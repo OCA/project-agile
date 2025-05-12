@@ -9,7 +9,6 @@ _logger = logging.getLogger(__name__)
 
 
 class TestProjectScrum(TransactionCase):
-
     post_install = True
 
     @classmethod
@@ -201,14 +200,12 @@ class TestProjectScrum(TransactionCase):
 
     def _test_assertions(self):
         _logger.debug("Testing assertions")
+        project = self.project_scrum_meeting.project_id.name
+        meeting = self.project_scrum_meeting.user_id_meeting.name
+        date = self.project_scrum_meeting.datetime_meeting
         self.assertEqual(
             self.project_scrum_meeting.name_get()[0][1],
-            "%s - %s - %s"
-            % (
-                self.project_scrum_meeting.project_id.name,
-                self.project_scrum_meeting.user_id_meeting.name,
-                self.project_scrum_meeting.datetime_meeting,
-            ),
+            f"{project} - {meeting} - {date}",
         )
         self.assertEqual(self.project_scrum_sprint.task_count, 1)
         self.assertEqual(self.project_project.sprint_count, 1)
