@@ -1,8 +1,9 @@
 from odoo.exceptions import ValidationError
-from odoo.tests import TransactionCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestProjectTask(TransactionCase):
+class TestProjectTask(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

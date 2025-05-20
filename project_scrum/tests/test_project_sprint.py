@@ -1,9 +1,9 @@
 from freezegun import freeze_time
 
-from odoo.tests import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestProjectSprint(TransactionCase):
+class TestProjectSprint(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

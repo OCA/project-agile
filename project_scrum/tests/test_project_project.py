@@ -1,7 +1,7 @@
-from odoo.tests import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestProjectProject(TransactionCase):
+class TestProjectProject(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -64,7 +64,7 @@ class TestProjectProject(TransactionCase):
             [
                 ("project_id", "=", self.project.id),
                 ("sprint_id", "=", False),
-                ("kanban_state", "!=", "done"),
+                ("state", "!=", "1_done"),
             ],
         )
         self.assertEqual(action["context"], {"default_project_id": self.project.id})

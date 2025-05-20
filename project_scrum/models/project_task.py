@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -9,7 +9,8 @@ class ProjectTask(models.Model):
         comodel_name="project.sprint",
         string="Sprint",
         tracking=True,
-        domain="['|', ('project_id', '=', False), ('project_id', '=', project_id)]",
+        domain="[('state', '!=', 'done'),'|', ('project_id', '=', False), "
+        "('project_id', '=', project_id)]",
     )
 
     sprint_state = fields.Selection(
@@ -22,7 +23,7 @@ class ProjectTask(models.Model):
             if task.user_ids and task.sprint_id:
                 if not task.user_ids <= task.sprint_id.user_ids:
                     raise ValidationError(
-                        _("The assignees must be part of the sprint.")
+                        self.env._("The assignees must be part of the sprint.")
                     )
 
     @api.onchange("sprint_id")

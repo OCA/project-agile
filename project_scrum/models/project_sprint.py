@@ -1,15 +1,18 @@
 from dateutil.relativedelta import relativedelta
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
+from odoo.tools import LazyTranslate
+
+_lt = LazyTranslate(__name__, default_lang="en_US")
 
 DATE_OPTIONS = [
-    ("1_weeks", _("1 Week")),
-    ("2_weeks", _("2 Weeks")),
-    ("1_months", _("1 Month")),
-    ("2_months", _("2 Month")),
-    ("1_years", _("1 Year")),
-    ("2_years", _("2 Years")),
-    ("custom", _("Custom")),
+    ("1_weeks", str(_lt("1 Week"))),
+    ("2_weeks", str(_lt("2 Weeks"))),
+    ("1_months", str(_lt("1 Month"))),
+    ("2_months", str(_lt("2 Month"))),
+    ("1_years", str(_lt("1 Year"))),
+    ("2_years", str(_lt("2 Years"))),
+    ("custom", str(_lt("Custom"))),
 ]
 
 
@@ -21,7 +24,7 @@ class ProjectSprint(models.Model):
         (
             "date_check",
             "CHECK (date_start <= date_end)",
-            _("Error: End date must be greater than start date!"),
+            "Error: End date must be greater than start date!",
         ),
     ]
 
@@ -47,7 +50,7 @@ class ProjectSprint(models.Model):
         domain="[('project_id', '=', project_id)]",
     )
     date_start = fields.Date(
-        string="Start Date", default=fields.Date.today, required=True
+        string="Start Date", default=fields.Date.context_today, required=True
     )
     date_option = fields.Selection(
         selection=DATE_OPTIONS, default=DATE_OPTIONS[0][0], required=True
@@ -66,12 +69,18 @@ class ProjectSprint(models.Model):
             ("done", "Done"),
         ],
         default="draft",
+        tracking=True,
     )
     tasks_count = fields.Integer(compute="_compute_tasks_count")
 
     def _compute_tasks_count(self):
+        tasks_count_by_sprint = dict(
+            self.env["project.task"]._read_group(
+                [("sprint_id", "in", self.ids)], ["sprint_id"], ["__count"]
+            )
+        )
         for sprint in self:
-            sprint.tasks_count = len(sprint.task_ids)
+            sprint.tasks_count = tasks_count_by_sprint.get(sprint, 0)
 
     def action_start(self):
         self.write({"state": "in_progress"})
@@ -83,10 +92,10 @@ class ProjectSprint(models.Model):
     def action_tasks(self):
         self.ensure_one()
         return {
-            "name": _("Tasks"),
+            "name": self.env._("Tasks"),
             "type": "ir.actions.act_window",
             "res_model": "project.task",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "domain": [("sprint_id", "=", self.id)],
             "context": {
                 "default_project_id": self.project_id.id,
@@ -96,7 +105,7 @@ class ProjectSprint(models.Model):
 
     @api.model
     def cron_update_sprint_state(self):
-        date = fields.Date.today()
+        date = fields.Date.context_today(self)
         for sprint in self.search([("state", "=", "draft")]):
             if date >= sprint.date_start:
                 sprint.write({"state": "in_progress"})
@@ -111,7 +120,7 @@ class ProjectSprint(models.Model):
         in_progress_sprints = self.project_id.sprint_ids.filtered(
             lambda sprint: sprint.state == "in_progress"
         )
-        self.task_ids.filtered(lambda task: task.kanban_state != "done").write(
+        self.task_ids.filtered(lambda task: task.state != "1_done").write(
             {
                 "sprint_id": (
                     in_progress_sprints[0].id if in_progress_sprints else False

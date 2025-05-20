@@ -46,7 +46,7 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.view_project_kanban" />
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('o_kanban_manage_view')]" position="inside">
+            <xpath expr="//div[@name='card_menu_view']" position="inside">
                 <div role="menuitem" groups="project.group_project_manager">
                     <a name="action_sprints" type="object">Sprints</a>
                 </div>

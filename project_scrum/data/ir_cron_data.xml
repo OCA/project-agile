@@ -5,7 +5,6 @@
         <field name="model_id" ref="model_project_sprint" />
         <field name="interval_number">5</field>
         <field name="interval_type">minutes</field>
-        <field name="numbercall">-1</field>
         <field name="state">code</field>
         <field name="code">
             model.cron_update_sprint_state()
