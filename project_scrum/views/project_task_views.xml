@@ -52,8 +52,6 @@
                 <attribute name="event_open_popup">False</attribute>
                 <attribute name="dependency_arrows">False</attribute>
             </xpath>
-
         </field>
     </record>
-
 </odoo>
