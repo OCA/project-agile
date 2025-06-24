@@ -20,7 +20,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__1_months
-#, python-format
 msgid "1 Month"
 msgstr "1 Maand"
 
@@ -28,7 +27,6 @@ msgstr "1 Maand"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__1_weeks
-#, python-format
 msgid "1 Week"
 msgstr "1 Week"
 
@@ -36,7 +34,6 @@ msgstr "1 Week"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__1_years
-#, python-format
 msgid "1 Year"
 msgstr "1 Jaar"
 
@@ -44,7 +41,6 @@ msgstr "1 Jaar"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__2_months
-#, python-format
 msgid "2 Month"
 msgstr "2 Maanden"
 
@@ -52,7 +48,6 @@ msgstr "2 Maanden"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__2_weeks
-#, python-format
 msgid "2 Weeks"
 msgstr "2 Weken"
 
@@ -60,7 +55,6 @@ msgstr "2 Weken"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__2_years
-#, python-format
 msgid "2 Years"
 msgstr "2 Jaar"
 
@@ -132,7 +126,6 @@ msgstr "Aantal bijlagen"
 #. odoo-python
 #: code:addons/project_scrum/models/project.py:0
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_project_view_kanban_inherit
-#, python-format
 msgid "Backlog"
 msgstr "Backlog"
 
@@ -155,7 +148,6 @@ msgstr "Aangemaakt op"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__custom
-#, python-format
 msgid "Custom"
 msgstr "Aangepast"
 
@@ -203,10 +195,7 @@ msgid "End Date"
 msgstr "Einddatum"
 
 #. module: project_scrum
-#. odoo-python
-#: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.constraint,message:project_scrum.constraint_project_sprint_date_check
-#, python-format
 msgid "Error: End date must be greater than start date!"
 msgstr "Fout: Einddatum moet later zijn dan startdatum!"
 
@@ -258,7 +247,8 @@ msgstr "Wanneer aangevinkt, hebben nieuwe berichten uw aandacht nodig."
 #. module: project_scrum
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Als deze optie is aangevinkt, hebben sommige berichten een afleverfout."
+msgstr ""
+"Als deze optie is aangevinkt, hebben sommige berichten een afleverfout."
 
 #. module: project_scrum
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_sprint_view_search
@@ -276,11 +266,6 @@ msgid "Is Follower"
 msgstr "Is volger"
 
 #. module: project_scrum
-#: model:ir.model.fields,field_description:project_scrum.field_project_sprint____last_update
-msgid "Last Modified on"
-msgstr "Laatst bijgewerkt op"
-
-#. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__write_uid
 msgid "Last Updated by"
 msgstr "Laatst bijgewerkt door"
@@ -289,11 +274,6 @@ msgstr "Laatst bijgewerkt door"
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__write_date
 msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
-
-#. module: project_scrum
-#: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_main_attachment_id
-msgid "Main Attachment"
-msgstr "Hoofdbijlage"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__user_ids
@@ -368,6 +348,11 @@ msgid "Project Sprint"
 msgstr "Project Sprint"
 
 #. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_sprint__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_user_id
 msgid "Responsible User"
 msgstr "Verantwoordelijke gebruiker"
@@ -396,7 +381,6 @@ msgstr "Sprintstatus"
 #. module: project_scrum
 #. odoo-python
 #: code:addons/project_scrum/models/project.py:0
-#, python-format
 msgid "Sprint Timeline"
 msgstr "Sprint tijdlijn"
 
@@ -408,7 +392,6 @@ msgstr "Sprint tijdlijn"
 #: model:ir.ui.menu,name:project_scrum.project_sprint_menu
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_project_view_kanban_inherit
 #: model_terms:ir.ui.view,arch_db:project_scrum.view_sprint_timeline
-#, python-format
 msgid "Sprints"
 msgstr "Sprints"
 
@@ -455,7 +438,6 @@ msgstr "Taak"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__task_ids
-#, python-format
 msgid "Tasks"
 msgstr "Taken"
 
@@ -467,7 +449,6 @@ msgstr "Aantal taken"
 #. module: project_scrum
 #. odoo-python
 #: code:addons/project_scrum/models/project_task.py:0
-#, python-format
 msgid "The assignees must be part of the sprint."
 msgstr "De toegewezen personen moeten deel uitmaken van de sprint."
 
@@ -478,7 +459,6 @@ msgstr "Type van activiteit uitzondering op record."
 
 #. module: project_scrum
 #: model:ir.actions.server,name:project_scrum.cron_update_sprint_state_ir_actions_server
-#: model:ir.cron,cron_name:project_scrum.cron_update_sprint_state
 msgid "Update sprint state"
 msgstr "Sprintstatussen bijwerken"
 
@@ -491,3 +471,9 @@ msgstr "Websiteberichten"
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__website_message_ids
 msgid "Website communication history"
 msgstr "Website communicatiegeschiedenis"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Laatst bijgewerkt op"
+
+#~ msgid "Main Attachment"
+#~ msgstr "Hoofdbijlage"

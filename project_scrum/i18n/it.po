@@ -20,7 +20,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__1_months
-#, python-format
 msgid "1 Month"
 msgstr "1 mese"
 
@@ -28,7 +27,6 @@ msgstr "1 mese"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__1_weeks
-#, python-format
 msgid "1 Week"
 msgstr "1 settimana"
 
@@ -36,7 +34,6 @@ msgstr "1 settimana"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__1_years
-#, python-format
 msgid "1 Year"
 msgstr "1 anno"
 
@@ -44,7 +41,6 @@ msgstr "1 anno"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__2_months
-#, python-format
 msgid "2 Month"
 msgstr "2 mesi"
 
@@ -52,7 +48,6 @@ msgstr "2 mesi"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__2_weeks
-#, python-format
 msgid "2 Weeks"
 msgstr "2 settimane"
 
@@ -60,7 +55,6 @@ msgstr "2 settimane"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__2_years
-#, python-format
 msgid "2 Years"
 msgstr "2 anni"
 
@@ -131,7 +125,6 @@ msgstr "Conteggio allegati"
 #. odoo-python
 #: code:addons/project_scrum/models/project.py:0
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_project_view_kanban_inherit
-#, python-format
 msgid "Backlog"
 msgstr "Backlog"
 
@@ -154,7 +147,6 @@ msgstr "Creato il"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields.selection,name:project_scrum.selection__project_sprint__date_option__custom
-#, python-format
 msgid "Custom"
 msgstr "Personalizzato"
 
@@ -202,10 +194,7 @@ msgid "End Date"
 msgstr "Data fine"
 
 #. module: project_scrum
-#. odoo-python
-#: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.constraint,message:project_scrum.constraint_project_sprint_date_check
-#, python-format
 msgid "Error: End date must be greater than start date!"
 msgstr "Errore: la data fine deve essere maggiore della data inizio!"
 
@@ -275,11 +264,6 @@ msgid "Is Follower"
 msgstr "Segue"
 
 #. module: project_scrum
-#: model:ir.model.fields,field_description:project_scrum.field_project_sprint____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
-
-#. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__write_uid
 msgid "Last Updated by"
 msgstr "Ultimo aggiornamento di"
@@ -288,11 +272,6 @@ msgstr "Ultimo aggiornamento di"
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__write_date
 msgid "Last Updated on"
 msgstr "Ultimo aggiornamento il"
-
-#. module: project_scrum
-#: model:ir.model.fields,field_description:project_scrum.field_project_sprint__message_main_attachment_id
-msgid "Main Attachment"
-msgstr "Allegato principale"
 
 #. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__user_ids
@@ -367,6 +346,11 @@ msgid "Project Sprint"
 msgstr "Sprint progetto"
 
 #. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_sprint__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: project_scrum
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__activity_user_id
 msgid "Responsible User"
 msgstr "Utente responsabile"
@@ -395,7 +379,6 @@ msgstr "Stato sprint"
 #. module: project_scrum
 #. odoo-python
 #: code:addons/project_scrum/models/project.py:0
-#, python-format
 msgid "Sprint Timeline"
 msgstr "Timeline sprint"
 
@@ -407,7 +390,6 @@ msgstr "Timeline sprint"
 #: model:ir.ui.menu,name:project_scrum.project_sprint_menu
 #: model_terms:ir.ui.view,arch_db:project_scrum.project_project_view_kanban_inherit
 #: model_terms:ir.ui.view,arch_db:project_scrum.view_sprint_timeline
-#, python-format
 msgid "Sprints"
 msgstr "Sprint"
 
@@ -454,7 +436,6 @@ msgstr "Lavoro"
 #. odoo-python
 #: code:addons/project_scrum/models/project_sprint.py:0
 #: model:ir.model.fields,field_description:project_scrum.field_project_sprint__task_ids
-#, python-format
 msgid "Tasks"
 msgstr "Lavori"
 
@@ -466,7 +447,6 @@ msgstr "Conteggio lavori"
 #. module: project_scrum
 #. odoo-python
 #: code:addons/project_scrum/models/project_task.py:0
-#, python-format
 msgid "The assignees must be part of the sprint."
 msgstr "L'assegnatario deve essere parte dello sprint."
 
@@ -477,7 +457,6 @@ msgstr "Tipo di attività eccezione sul record."
 
 #. module: project_scrum
 #: model:ir.actions.server,name:project_scrum.cron_update_sprint_state_ir_actions_server
-#: model:ir.cron,cron_name:project_scrum.cron_update_sprint_state
 msgid "Update sprint state"
 msgstr "Aggiorna stato sprint"
 
@@ -490,3 +469,9 @@ msgstr "Messaggi sito web"
 #: model:ir.model.fields,help:project_scrum.field_project_sprint__website_message_ids
 msgid "Website communication history"
 msgstr "Cronologia comunicazioni sito web"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
+
+#~ msgid "Main Attachment"
+#~ msgstr "Allegato principale"
