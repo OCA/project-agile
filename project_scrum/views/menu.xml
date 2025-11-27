@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <menuitem
+        id="menu_scrum_in_config"
+        name="Scrum"
+        parent="project.menu_project_config"
+        sequence="3"
+    />
+
+    <menuitem
+        id="menu_scrum_all"
+        name="Scrum"
+        parent="project.menu_main_pm"
+        sequence="3"
+    />
+
+    <menuitem
+        id="menu_scrum_project"
+        name="Projects"
+        parent="menu_scrum_all"
+        sequence="18"
+        action="action_show_scrum_projects"
+    />
+
+    <menuitem
+        id="menu_scrum_tasks"
+        name="Tasks"
+        parent="menu_scrum_all"
+        sequence="19"
+        action="action_show_scrum_tasks"
+    />
+
+    <menuitem
+        id="menu_action_ps_us_all"
+        parent="menu_scrum_all"
+        sequence="20"
+        action="action_ps_us_all"
+    />
+
+    <menuitem
+        id="menu_action_ps_sprint_all"
+        parent="menu_scrum_all"
+        sequence="21"
+        action="action_ps_sprint_all"
+    />
+
+    <menuitem
+        id="menu_action_ps_meeting_all"
+        parent="menu_scrum_all"
+        sequence="22"
+        action="action_ps_meeting_all"
+    />
+
+    <menuitem
+        id="menu_action_ps_tc_all"
+        parent="menu_scrum_all"
+        sequence="23"
+        action="action_ps_tc_all"
+    />
+
+</odoo>
