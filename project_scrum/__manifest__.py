@@ -5,7 +5,7 @@
     "name": "Project Scrum",
     "version": "18.0.1.0.0",
     "category": "Project",
-    "website": "https://github.com/OCA/project",
+    "website": "https://github.com/OCA/project-agile",
     "author": "Binhex, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "installable": True,
