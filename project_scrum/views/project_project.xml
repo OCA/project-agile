@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="project_ps_view" model="ir.ui.view">
+        <field name="name">project.project.tree</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="use_scrum" string="Using Scrum" readonly="1" />
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="string">Scrum Master/Project
+                    Manager
+                </attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">Edit Project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="use_scrum" />
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    class="oe_stat_button"
+                    type="action"
+                    icon="fa-tasks"
+                    name="%(action_ps_sprint_current)d"
+                    attrs="{'invisible': [('use_scrum', '=', False)]}"
+                >
+                    <field name="sprint_count" widget="statinfo" string="Sprints" />
+                </button>
+            </xpath>
+            <xpath expr="//notebook" position="before">
+                <group attrs="{'invisible': [('use_scrum', '=', False)]}">
+                    <field name="default_sprintduration" />
+                    <field name="manhours" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

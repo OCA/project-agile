@@ -1,0 +1,499 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* project_scrum
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-09-03 13:35+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_project__sprint_count
+msgid "# Sprints"
+msgstr "# Sprints"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__message_needaction
+msgid "Action Needed"
+msgstr "Azione richiesta"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__activity_ids
+msgid "Activities"
+msgstr "Attività"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decorazione eccezione attività"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__activity_state
+msgid "Activity State"
+msgstr "Stato attività"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icona tipo attività"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__user_id
+msgid "Assigned to"
+msgstr "Assegnato a"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__message_attachment_count
+msgid "Attachment Count"
+msgstr "Numero allegati"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_project__default_sprintduration
+msgid "Calendar"
+msgstr "Calendario"
+
+#. module: project_scrum
+#: model:ir.model.fields.selection,name:project_scrum.selection__project_scrum_sprint__state__cancel
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Cancelled"
+msgstr "Annullato"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__company_id
+msgid "Company"
+msgstr "Azienda"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_task__current_sprint
+msgid "Current Sprint"
+msgstr "Sprint attuale"
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_project__default_sprintduration
+msgid "Default Sprint time for this project, in days"
+msgstr "Tempo predefinito Sprint per questo progetto, in giorni"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__description
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: project_scrum
+#: model:ir.model.fields.selection,name:project_scrum.selection__project_scrum_sprint__state__done
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Done"
+msgstr "Completato"
+
+#. module: project_scrum
+#: model:ir.model.fields.selection,name:project_scrum.selection__project_scrum_sprint__state__draft
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Draft"
+msgstr "Bozza"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__date_stop
+msgid "Ending Date"
+msgstr "Data finale"
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__planned_hours
+msgid ""
+"Estimated time to do the task, usually set by the project manager when the "
+"task is in draft state."
+msgstr ""
+"Tempo stimato per concludere il lavoro, solitamente impostato dal project "
+"manager quando la task è in stato bozza."
+
+#. module: project_scrum
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Filter By..."
+msgstr "Filtra per..."
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__message_follower_ids
+msgid "Followers"
+msgstr "Seguito da"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguito da (partner)"
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icona Font Awesome es. fa-tasks"
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__sequence
+msgid "Gives the sequence order when displaying a list of tasks."
+msgstr "Stabilisce l'ordine con cui visualizzare un elenco di lavori."
+
+#. module: project_scrum
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Group By..."
+msgstr "Raggruppa per..."
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_project__manhours
+msgid "How many hours you expect this project needs before it's finished"
+msgstr ""
+"Quante ore ti aspetti che questo progetto richieda prima di essere completato"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__id
+msgid "ID"
+msgstr "ID"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__activity_exception_icon
+msgid "Icon"
+msgstr "Icona"
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icona per indicare un'attività eccezione."
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Se selezionata, nuovi messaggi richiedono attenzione."
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Se selezionata, alcuni messaggi hanno un errore di consegna."
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__project_id
+msgid ""
+"If you have [?] in the project name, it means there are no analytic account "
+"linked to this project."
+msgstr ""
+"Se vedi [?] nel nome progetto, significa che non c'è alcun conto analitico "
+"relazionato a questo progetto."
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__message_is_follower
+msgid "Is Follower"
+msgstr "Sta seguendo"
+
+#. module: project_scrum
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_form
+msgid "Item"
+msgstr ""
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Allegato principale"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_project__manhours
+msgid "Man Hours"
+msgstr "Ore lavorative"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__message_has_error
+msgid "Message Delivery error"
+msgstr "Errore di consegna messaggio"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__message_ids
+msgid "Messages"
+msgstr "Messaggi"
+
+#. module: project_scrum
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Month"
+msgstr "Mese"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Scadenza mia attività"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Scadenza prossima attività"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__activity_summary
+msgid "Next Activity Summary"
+msgstr "Riepilogo prossima attività"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo prossima attività"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Numero di azioni"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__message_has_error_counter
+msgid "Number of errors"
+msgstr "Numero di errori"
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Numero di messaggi con errore di consegna"
+
+#. module: project_scrum
+#: model:ir.model.fields.selection,name:project_scrum.selection__project_scrum_sprint__state__open
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Open"
+msgstr "Aperto"
+
+#. module: project_scrum
+#: model:ir.model.fields.selection,name:project_scrum.selection__project_scrum_sprint__state__pending
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Pending"
+msgstr "In attesa"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__planned_hours
+msgid "Planned Hours"
+msgstr "Ore pianificate"
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_project_project
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__project_id
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Project"
+msgstr "Progetto"
+
+#. module: project_scrum
+#: model:project.project,name:project_scrum.project_project_1
+msgid "Project Scrum"
+msgstr ""
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_project_scrum_sprint
+msgid "Project Scrum Sprint"
+msgstr "Sprint scrum progetto"
+
+#. module: project_scrum
+#: model:project.project,name:project_scrum.project_project_2
+msgid "Project Testing Scrum"
+msgstr ""
+
+#. module: project_scrum
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_gantt
+msgid "Projects"
+msgstr "Progetti"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__activity_user_id
+msgid "Responsible User"
+msgstr "Utente responsabile"
+
+#. module: project_scrum
+#: model:ir.ui.menu,name:project_scrum.menu_scrum_all
+msgid "Scrum"
+msgstr "Scrum"
+
+#. module: project_scrum
+#: model_terms:ir.ui.view,arch_db:project_scrum.project_ps_view
+msgid ""
+"Scrum Master/Project\n"
+"                    Manager"
+msgstr ""
+"Scrum Master/Project\n"
+"                    Manager"
+
+#. module: project_scrum
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_calendar
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_form
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_graph
+msgid "Scrum Sprint"
+msgstr "Sprint Scrum"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_show_scrum_tasks
+msgid "Scrum Tasks"
+msgstr "Lavori Scrum"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__sequence
+msgid "Sequence"
+msgstr "Sequenza"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_task__sprint_id
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_form
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_task_form2
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_task_tree2
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_task_search
+msgid "Sprint"
+msgstr "Sprint"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_ps_sprint_backlog
+msgid "Sprint Backlog"
+msgstr "Backlog sprint"
+
+#. module: project_scrum
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Sprint Month"
+msgstr "Mese sprint"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__name
+msgid "Sprint Name"
+msgstr "Nome sprint"
+
+#. module: project_scrum
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_form
+msgid "Sprint..."
+msgstr "Sprint..."
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_ps_sprint_all
+#: model:ir.actions.act_window,name:project_scrum.action_ps_sprint_current
+#: model:ir.model.fields,field_description:project_scrum.field_project_project__sprint_ids
+#: model:ir.ui.menu,name:project_scrum.menu_action_ps_sprint_all
+#: model_terms:ir.ui.view,arch_db:project_scrum.edit_project
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_search
+msgid "Sprints"
+msgstr "Sprints"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__date_start
+msgid "Starting Date"
+msgstr "Data inizio"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__state
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_form
+msgid "State"
+msgstr "Stato"
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Stato in base alle attività\n"
+"Scaduto: la data richiesta è trascorsa\n"
+"Oggi: la data attività è oggi\n"
+"Pianificato: attività future."
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_project_task
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__task_ids
+msgid "Task"
+msgstr "Lavoro"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__task_count
+msgid "Task Count"
+msgstr "Numero lavori"
+
+#. module: project_scrum
+#: model:ir.ui.menu,name:project_scrum.menu_scrum_tasks
+#: model:project.project,label_tasks:project_scrum.project_project_1
+#: model:project.project,label_tasks:project_scrum.project_project_2
+#: model_terms:ir.ui.view,arch_db:project_scrum.view_ps_sprint_form
+msgid "Tasks"
+msgstr "Lavori"
+
+#. module: project_scrum
+#: model_terms:ir.actions.act_window,help:project_scrum.action_ps_sprint_all
+#: model_terms:ir.actions.act_window,help:project_scrum.action_ps_sprint_current
+msgid ""
+"The scrum agile methodology is used in\n"
+"            software\n"
+"            development projects.\n"
+"            In this methodology,\n"
+"            a\n"
+"            sprint is a short period\n"
+"            of time (e.g. one month) during\n"
+"            which the\n"
+"            team implements a list of\n"
+"            product backlogs."
+msgstr ""
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo di attività eccezione sul record."
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_project__use_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_task__use_scrum
+#: model_terms:ir.ui.view,arch_db:project_scrum.project_ps_view
+msgid "Use Scrum"
+msgstr "Usa Scrum"
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_task__user_id
+msgid "User"
+msgstr ""
+
+#. module: project_scrum
+#: model:ir.model.fields,field_description:project_scrum.field_project_scrum_sprint__website_message_ids
+msgid "Website Messages"
+msgstr "Messaggi sito web"
+
+#. module: project_scrum
+#: model:ir.model.fields,help:project_scrum.field_project_scrum_sprint__website_message_ids
+msgid "Website communication history"
+msgstr "Cronologia comunicazioni sito web"

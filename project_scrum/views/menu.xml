@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <menuitem
+        id="menu_scrum_all"
+        name="Scrum"
+        parent="project.menu_main_pm"
+        sequence="3"
+    />
+
+    <menuitem
+        id="menu_scrum_tasks"
+        name="Tasks"
+        parent="menu_scrum_all"
+        sequence="19"
+        action="action_show_scrum_tasks"
+    />
+
+    <menuitem
+        id="menu_action_ps_sprint_all"
+        parent="menu_scrum_all"
+        sequence="21"
+        action="action_ps_sprint_all"
+    />
+
+</odoo>
